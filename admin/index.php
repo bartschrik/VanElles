@@ -65,7 +65,7 @@ if( isset($_POST['submitLogin']) ) {
 
         ?>
         <div class="form-group">
-            <input class="form-control form-control-solid placeholder-no-fix" type="text" autocomplete="off" placeholder="Email adres" name="email">
+            <input class="form-control form-control-solid placeholder-no-fix" type="text" autocomplete="off" placeholder="Email adres/ gebruikersnaam" name="email">
         </div>
         <div class="form-group">
             <input class="form-control form-control-solid placeholder-no-fix" type="password" autocomplete="off" placeholder="Wachtwoord" name="wachtwoord">

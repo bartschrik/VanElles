@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="x-ua-compatible" content="IE=edge">
     <meta name="viewport" content="width = device-width, initial-scale = 1">
-    <title>Bootstrapsite</title>
+    <title>Recensie</title>
 
     <link rel="stylesheet" type="text/css" href="css/bootstrap.css">
     <link rel="stylesheet" type="text/css" href="css/StarRating.css">
@@ -51,9 +51,9 @@
     $db = new Connection();
     $db = $db->databaseConnection();
 
-    if (isset($_GET["verstuur"])) {
-        if (empty($_GET["naam"]) || empty($_GET["emailadres"]) || empty($_GET["titel"]) || empty($_GET["omschrijving"])) {
-            print("Alle velden moet ingevuld zijn");
+    if (isset($_POST["verstuur"])) {
+        if (empty($_POST["naam"]) || empty($_POST["emailadres"]) || empty($_POST["titel"]) || empty($_POST["omschrijving"])) {
+            print("Vul a.u.b. alle velden in");
         } else {
             try {
                 $naam = $_POST["naam"];

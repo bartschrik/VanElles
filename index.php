@@ -1,7 +1,10 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: HP
- * Date: 15-11-2017
- * Time: 10:52
- */
+require_once 'includes/header.php';
+?>
+
+<div>
+
+</div>
+
+<?php
+require_once 'includes/footer.php';

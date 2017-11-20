@@ -10,10 +10,11 @@ require_once 'classes/validate.class.php';
 
 
 $val = new Validate([
-    ['username','nick','required|uni:database'],
-    ['password','fdjhjjj','required|min:5|max:6'],
+    ['username','nick','required'],
+    ['password','fdjjj','required|min:5|max:6'],
     ['email','nick@twesq.nl','email'],
     ['url','111','num'],
+    ['email','nick@twesq.com','max:5|uni:user:email'],
 ]);
 
 

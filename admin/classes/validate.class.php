@@ -41,6 +41,11 @@ class Validate {
                             $this->addError($item[0], ucfirst($item[0] . " is niet numeric."));
                         }
                         break;
+                    case 'uni':
+                        if(!$this->unique($item[1], $rule[1], $rule[2])) {
+                            $this->addError($item[0], ucfirst($item[0] . " bestaat al in onze database."));
+                        }
+                        break;
                 }
             }
         }
@@ -71,8 +76,30 @@ class Validate {
         return !(is_numeric($value));
     }
 
+    private function unique($value, $table, $colom) {
+        $db = new Connection();
+        $db = $db->databaseConnection();
+
+        $query = $db->prepare("SELECT * FROM $table WHERE $colom = :val;");
+        $query->bindValue(":val", $value, PDO::PARAM_STR);
+        if($query->execute()) {
+            if($query->rowCount() > 0) {
+                return false;
+            } else {
+                return true;
+            }
+        } else {
+            print_r($query->errorInfo());
+            return false;
+        }
+    }
+
     private function addError($key, $value) {
-        $this->_errors[$key] = $value;
+        if(key_exists($key, $this->_errors)) {
+            array_push($this->_errors[$key], $value);
+        } else {
+            $this->_errors[$key] = [$value];
+        }
     }
 
     public function getErrors() {

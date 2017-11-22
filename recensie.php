@@ -6,11 +6,30 @@
     <meta name="viewport" content="width = device-width, initial-scale = 1">
     <title>Recensie</title>
 
-    <link rel="stylesheet" type="text/css" href="css/bootstrap.css">
+    <link rel="stylesheet" type="text/css" href="css/bootstrap/bootstrap.min.css">
     <link rel="stylesheet" type="text/css" href="css/StarRating.css">
     <link rel="stylesheet" href="http://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
 </head>
 <body>
+    <!--ingevulde gegevens behouden-->
+    <?php
+    $naam = $email = $titel = $omschrijving = "";
+    //ingevulde data behouden in formulier
+    if ($_SERVER["REQUEST_METHOD"] == "POST") {
+        $naam = test_input($_POST["naam"]);
+        $email = test_input($_POST["emailadres"]);
+        $titel = test_input($_POST["titel"]);
+        $omschrijving = test_input($_POST["omschrijving"]);
+    }
+    function test_input($data) {
+        $data = trim($data);
+        $data = stripslashes($data);
+        $data = htmlspecialchars($data);
+        return $data;
+    }
+    ?>
+
+    <!--Invoervelden-->
 <div class="container">
     <div class="header text-center  ">
         <h1>Laat uw mening achter!</h1>
@@ -20,25 +39,26 @@
 
         <div class="form-group">
             <label for="naam">Naam</label>
-            <input class="form-control" type="text" name="naam" placeholder="Jan van Veen">
+            <input class="form-control" type="text" name="naam" placeholder="Jan van Veen" value="<?php print $naam;?>">
         </div>
 
         <div class="form-group">
             <label for="email">Emailadress</label>
-            <input class="form-control" type="email" name="emailadres" placeholder="voorbeeld@gmail.com">
+            <input class="form-control" type="email" name="emailadres" placeholder="iemand@voorbeeld.com" value="<?php print $email;?>">
         </div>
 
         <div class="form-group">
             <label for="titel">Titel</label>
-            <input class="form-control" type="text" name="titel" placeholder="Titel">
+            <input class="form-control" type="text" name="titel" placeholder="Titel" value="<?php print $titel;?>">
         </div>
 
         <div class="form-group">
             <label for="omschrijving">Omschrijving</label>
-            <textarea class="form-control" name="omschrijving" placeholder="Omschrijving"></textarea>
+            <textarea class="form-control" name="omschrijving" placeholder="Omschrijving"><?php print $omschrijving;?></textarea>
         </div>
 
         <x-star-rating value="3" number="5"></x-star-rating>
+
 
 
         <br>
@@ -46,6 +66,7 @@
 
     </form>
 
+    <!--database connection -->
     <?php
     require_once 'admin/classes/connection.class.php';
     $db = new Connection();
@@ -60,10 +81,11 @@
                 $email = $_POST["emailadres"];
                 $titel = $_POST["titel"];
                 $omschrijving = $_POST["omschrijving"];
+                $sterren = $_GET["name"];
 
-                $stmt = $db->prepare("INSERT INTO review (review_name, email, review_title, review_description) VALUES (?, ?, ?, ?)");
+                $stmt = $db->prepare("INSERT INTO review (review_name, email, review_title, review_description, review_rating) VALUES ('$naam', '$email', '$titel', '$omschrijving', '$sterren')");
 
-                if($stmt->execute(array($naam, $email, $titel, $omschrijving))) {
+                if($stmt->execute()) {
                     print("Bedankt voor uw beoordeling");
                 } else {
                     print_r($stmt->errorInfo());
@@ -75,11 +97,13 @@
     }
     ?>
 </div>
+
 <!--Bootstrap-->
 <script src="js/bootstrap.min.js"></script>
 <!--jquery-->
 <script src="js/jquery-3.2.1.js"></script>
 <script src="js/StarRating.js"></script>
+
 </body>
 </html>
 

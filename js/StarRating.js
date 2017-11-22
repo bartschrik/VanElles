@@ -66,4 +66,9 @@
     }
 }
 
+ function myJavascriptFunction() {
+     var javascriptVariable = 3;
+     window.location.href = "recensie.php?name=" + javascriptVariable;
+ }
+
 window.customElements.define('x-star-rating', StarRating);

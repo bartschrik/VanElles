@@ -29,6 +29,13 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 <h1>Inschrijven</h1>
 <p><span class="error">* verplicht veld.</span> </p>
 <form method="post" action="inschrijving.php">
+    cursus: <select name="cursus">
+        <option value=" "> </option>
+        <option value="naaien">naaien</option>
+        <option value="breien">breien</option>
+        <option value="koken">koken</option>
+        <option value="knutselen">knutselen</option>
+    </select><br>
     cursus: <input type="text" name="cursus" value="<?php print $cursus;?>"><br>
     Voornaam: <input type="text" name="voornaam" placeholder="Robin" value="<?php print $voornaam;?>"><br>
     Achternaam: <input type="text" name="achternaam" placeholder="Dekker" value="<?php print $achternaam;?>"><br>

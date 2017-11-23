@@ -17,8 +17,16 @@ mail: <A HREF="mailto:info@vanelles.nl">info@vanelles.nl</A><br>
         src="https://www.google.com/maps/embed/v1/place?q=place_id:ChIJ5V02qP_2x0cRW1sToOEGWTw&key=AIzaSyApMHLgYCLkBT1N0ww0-52xlCQRG-eg7Rw"
         allowfullscreen>
 
-</iframe><br>
+</iframe>
 
+<br>
+<form method="post" action="mail/Mail_contact.php">
+    Voornaam: <input type="text" name="voornaam" placeholder="Voornaam"><br>
+    Achternaam: <input type="text" name="achternaam" placeholder="Achternaam"><br>
+    Telefoonnummer: <input type="tel" name="telefoonnummer" placeholder="06-12345678"><br>
+    Email: <input type="email" name="email" placeholder="naam@voorbeeld.com" ><br>
+    <input type="submit" name="verstuur" value="verstuur">
+</form>
 
 </body>
 </html>

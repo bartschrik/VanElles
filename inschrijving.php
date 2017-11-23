@@ -7,6 +7,7 @@ and open the template in the editor.
 <html>
 <head>
     <meta charset="UTF-8">
+    <link rel="stylesheet" type="text/css" href="css/bootstrap/bootstrap.min.css">
     <title>Inschrijvingen</title>
 </head>
 <body>
@@ -26,8 +27,13 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $email = ($_POST["emailadres"]);
 }
 ?>
-<h1>Inschrijven</h1>
-<p><span class="error">* verplicht veld.</span> </p>
+
+<div class="container">
+    <div class="header text-center">
+        <h1>Inschrijven</h1>
+    </div>
+    <p><span class="error"><font color="red"> * verplicht veld.</font></span> </p>
+
 <form method="post" action="inschrijving.php">
     cursus: <select name="cursus">
         <option value=" "> </option>
@@ -36,17 +42,57 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         <option value="koken">koken</option>
         <option value="knutselen">knutselen</option>
     </select><br>
-    cursus: <input type="text" name="cursus" value="<?php print $cursus;?>"><br>
-    Voornaam: <input type="text" name="voornaam" placeholder="Robin" value="<?php print $voornaam;?>"><br>
-    Achternaam: <input type="text" name="achternaam" placeholder="Dekker" value="<?php print $achternaam;?>"><br>
-    Adres: <input type="text" name="adres" placeholder="Bulderweg" value="<?php print $adres;?>"><br>
-    Huisnummer: <input type="text" name="huisnummer" placeholder="8" value="<?php print $huisnummer; ?>"><br>
-    Woonplaats: <input type="text" name="woonplaats" placeholder="Ermelo" value="<?php print $woonplaats;?>"><br>
-    geboortedatum: <input type="date" name="geboortedatum" value="<?php print $geboortedatum;?>"><br>
-    Telefoonnummer: <input type="tel" name="telefoonnummer" placeholder="06-12345678" value="<?php print $telefoonnr;?>"><br>
-    Email: <input type="email" name="emailadres" placeholder="naam@voorbeeld.com" value="<?php print $email;?>"><br>
-    <input type="submit" name="verstuur" value="verstuur">
+
+    <div class="form-group">
+    cursus: <input type="text" name="cursus" value="<?php print $cursus;?>">
+    </div>
+
+    <div class="form-group">
+        <label for="voornaam">Voornaam</label>
+        <input class="form-control" type="text" name="voornaam" placeholder="Robin" value="<?php print $voornaam;?>">
+    </div>
+
+    <div class="form-group">
+        <label for="achternaam">Achternaam</label>
+        <input class="form-control" type="text" name="achternaam" placeholder="Dekker" value="<?php print $achternaam;?>">
+    </div>
+
+    <div class="form-group">
+        <label for="adres">Adres</label>
+        <input class="form-control" type="text" name="adres" placeholder="Bulderweg" value="<?php print $adres;?>">
+    </div>
+
+    <div class="form-group">
+        <label for="huisnummer">Huisnummer</label>
+        <input class="form-control" type="text" name="huisnummer" placeholder="8" value="<?php print $huisnummer;?>">
+    </div>
+
+    <div class="form-group">
+        <label for="woonplaats">Woonplaats</label>
+        <input class="form-control" type="text" name="woonplaats" placeholder="Ermelo" value="<?php print $woonplaats;?>">
+    </div>
+
+    <div class="form-group">
+        <label for="geboortedatum">Geboortedatum</label>
+        <input class="form-control" type="date" name="geboortedatum" value="<?php print $geboortedatum;?>">
+    </div>
+
+    <div class="form-group">
+        <label for="telefoonnummer">Telefoonnummer</label>
+        <input class="form-control" type="tel" name="telefoonnummer" placeholder="06-12345678" value="<?php print $telefoonnr;?>">
+    </div>
+
+    <div class="form-group">
+        <label for="email">Emailadres</label>
+        <input class="form-control" type="email" name="emailadres" placeholder="naam@voorbeeld.com" value="<?php print $email;?>">
+    </div>
+
+    <br>
+    <input type="submit" name="verstuur" value="Verstuur" class="btn btn-default">
 </form>
+</div>
+<!--Bootstrap-->
+<script src="js/bootstrap.min.js"></script>
 </body>
 </html>
 <?php

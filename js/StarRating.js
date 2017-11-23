@@ -59,16 +59,12 @@
             starIndex = Math.floor((e.pageX - box.left) / box.width * this.stars.length);
 
             this.value = starIndex + 1;
-
+            $('#ster').val(this.value);
             let rateEvent = new Event('rate');
             this.dispatchEvent(rateEvent);
         })
     }
 }
 
- function myJavascriptFunction() {
-     var javascriptVariable = 3;
-     window.location.href = "recensie.php?name=" + javascriptVariable;
- }
 
 window.customElements.define('x-star-rating', StarRating);

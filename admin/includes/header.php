@@ -10,7 +10,7 @@ error_reporting(-1);
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>IntPanel | Portfolio Nick Simons</title>
+    <title>Van Elles | Admin panel</title>
     <meta name="viewport" content="initial-scale=1.0, maximum-scale=1.0, width=device-width, user-scalable=no">
     <link rel="stylesheet" type="text/css" href="css/normalizer.css" />
     <script src="https://code.jquery.com/jquery-2.1.4.js"></script>

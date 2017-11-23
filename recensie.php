@@ -59,6 +59,8 @@
 
         <x-star-rating value="3" number="5"></x-star-rating>
 
+        <input type="hidden" name="sterren" id="ster" value="3">
+
 
 
         <br>
@@ -81,7 +83,8 @@
                 $email = $_POST["emailadres"];
                 $titel = $_POST["titel"];
                 $omschrijving = $_POST["omschrijving"];
-                $sterren = $_GET["name"];
+                $sterren = $_POST["sterren"];
+
 
                 $stmt = $db->prepare("INSERT INTO review (review_name, email, review_title, review_description, review_rating) VALUES ('$naam', '$email', '$titel', '$omschrijving', '$sterren')");
 

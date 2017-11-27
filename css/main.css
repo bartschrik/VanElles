@@ -11,7 +11,6 @@ body {
     color: #5e6263;
     overflow-x: hidden;
     background-color: #fff;
-    height: 20000px;
     padding-top: 126px;
 }
 
@@ -30,17 +29,21 @@ body {
 }
 .ptitle h1 {
     font-size: 1.5em;
-    color: #ff00ff;
+    color: #5e6263;
     text-transform: uppercase;
     margin: 0;
     font-family: Josefin Sans, sans-serif;
 }
 .ptitle h2 {
     font-size: 1.1em;
-    color: #5e6263;
+    color: #ff00ff;
     text-transform: uppercase;
     margin: 0;
     font-family: Josefin Sans, sans-serif;
+    font-weight: bold;
+}
+.ptitle h2.dark {
+    color: #5e6263;
 }
 
 .a-right {
@@ -70,7 +73,7 @@ p {
     display: inline-block;
 }
 .icon-list li a {
-    background-color: #ececec;
+    background-color: #cecece;
     border-radius: 50%;
     width: 25px;
     height: 25px;
@@ -261,7 +264,7 @@ p {
     width: 100%;
     display: block;
     box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);
-    border-radius: 6px;
+    border-radius: 3px;
     overflow: hidden;
 }
 .card:active,
@@ -299,12 +302,79 @@ p {
 /*Quote*/
 #main-quote {
     width: 100%;
-    height: 400px;
     background-size: cover;
     background-position: center;
+    text-align: center;
+    position: relative;
+    margin-bottom: 40px;
+}
+#main-quote .overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(255,0,255,.4);
+}
+#main-quote .quote {
+    font: 400 100px/1.2 'Merienda One', Helvetica, sans-serif;
+    font-size: 2em;
+    color: #fff;
+    display: block;
+    margin-top: 50px;
+    line-height: 35px
+}
+#main-quote hr {
+    width: 50%;
+}
+#main-quote .naam {
+    display: block;
+    font-family: Josefin Sans, sans-serif;
+    margin-top: 20px;
+    color: #fff;
+    font-size: 1.2em;
+    margin-bottom: 50px;
 }
 
 
+/*Poducten*/
+#main-product b {
+    font-size: 1.5em;
+    text-transform: uppercase;
+}
+#product-slide .slide {
+    padding: 0 15px;
+}
+
+
+/*Footer*/
+#main-footer .footer-top {
+    background-color: #cecece;
+    width: 100%;
+    padding: 40px 0 0 0;
+    margin-bottom: 40px;
+    text-align: center;
+}
+#main-footer .ft-item {
+    margin-bottom: 40px;
+}
+
+#main-footer input[type="text"] {
+    width: 100%;
+    padding: 5px 10px;
+    border: 1px solid #cecece;
+    margin-bottom: 10px;
+}
+#main-footer input[type="submit"] {
+    float: right;
+ }
+#main-footer .f-item {
+    border-right: 1px solid #cecece;
+    margin-bottom: 40px;
+}
+#main-footer .f-item:nth-child(3) {
+    border-right: none;
+}
 
 
 /*Media qurery's*/
@@ -315,6 +385,7 @@ p {
     #main-menu > li > ul {
         display: block!important;
     }
+
 }
 @media all and (max-width: 991px) {
     /*Header*/
@@ -386,6 +457,18 @@ p {
         -ms-transform: rotate(90deg);
         -o-transform: rotate(90deg);
         transform: rotate(90deg);
+    }
+
+    /*Footer*/
+    #main-footer .f-item:nth-child(2) {
+        border-right: none;
+    }
+
+}
+@media all and (max-width: 768px){
+    /*Footer*/
+    #main-footer .f-item {
+        border-right: none;
     }
 
 }

@@ -1421,13 +1421,13 @@ textarea {
 }
 
 a {
-    color: #7f7f7f;
+    color: #ff00ff;
     text-decoration: none
 }
 
 a:hover,
 a:focus {
-    color: #7f7f7f;
+    color: #ff00ff;
     text-decoration: underline
 }
 

@@ -43,9 +43,10 @@
                 <div class="ptitle">
                     <h2>Algemene informatie</h2>
                 </div>
-                <ul style="list-style: none; padding: 0; margin: 0;">
+                <ul style="list-style: none; padding: 0; margin: 0 0 10px 0;">
                     <li>Van Elles WoonKado&Zo</li>
-                    <li>Rozengaarde 77 7461 DA Rijssen</li>
+                    <li>Rozengaarde 77 </li>
+                    <li>7461 DA Rijssen</li>
                 </ul>
                 <table style="width: 100%;">
                     <tr><td>Telefoon: </td><td><a href="tel:0613653118">06 13 65 31 18</a></td></tr>

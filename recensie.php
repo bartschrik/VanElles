@@ -85,8 +85,13 @@
                 $omschrijving = $_POST["omschrijving"];
                 $sterren = $_POST["sterren"];
 
+                $sql1 = "INSERT INTO review (review_name, title, discription, rating) VALUES ('$naam', '$titel', '$omschrijving', '$sterren')";
+                $stmt = $db->prepare($sql1);
+                $sql2 = "INSERT INTO user (email) VALUES ('$email')";
 
-                $stmt = $db->prepare("INSERT INTO review (review_name, email, review_title, review_description, review_rating) VALUES ('$naam', '$email', '$titel', '$omschrijving', '$sterren')");
+
+
+                $stmt = $db->prepare($sql2);
 
                 if($stmt->execute()) {
                     print("Bedankt voor uw beoordeling");

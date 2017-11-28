@@ -52,6 +52,11 @@ body {
 .a-center {
     text-align: center;
 }
+
+.martop {
+    padding-top: 40px;
+}
+
 .marbot {
     margin-bottom: 40px;
 }

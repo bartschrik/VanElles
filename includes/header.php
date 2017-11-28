@@ -41,7 +41,7 @@
                 <div class="col-xs-12">
                     <a href="#" id="main-logo"><img src="images/vanelles.jpg" alt=""></a>
                     <ul id="main-menu">
-                        <li class="active"><a href="#">Home</a></li>
+                        <li class="active"><a href="index.php">Home</a></li>
                         <li class="has-sub"><a href="#">Over ons</a>
                             <ul>
                                 <li><a href="#">Over Van Elles</a></li>
@@ -50,7 +50,7 @@
                         </li>
                         <li class=""><a href="#">Producten</a></li>
                         <li class=""><a href="#">Leveranciers</a></li>
-                        <li class=""><a href="#">Contact</a></li>
+                        <li class=""><a href="contact.php">Contact</a></li>
                     </ul>
                     <div class="menuBtn"><div id="menubtn"><div class="bar"></div></div></div>
                 </div>

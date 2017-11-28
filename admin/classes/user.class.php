@@ -24,7 +24,7 @@ class User {
     {
         if($email && $pass) {
             try {
-                $query = $this->_db->prepare('SELECT * FROM user WHERE email=:email;');
+                $query = $this->_db->prepare('SELECT * FROM user u JOIN admin a ON u.user_id = a.user_id WHERE email=:email;');
                 $query->bindValue(":email", $email, PDO::PARAM_STR);
                 $query->execute();
                 if($query->rowCount() > 0) {
@@ -48,7 +48,7 @@ class User {
             }
         } elseif ($gebruikersnaam && $pass) {
             try {
-                $query = $this->_db->prepare('SELECT * FROM user WHERE gebruikersnaam=:gebruikersnaam;');
+                $query = $this->_db->prepare('SELECT * FROM user u JOIN admin a ON u.user_id = a.user_id WHERE gebruikersnaam=:gebruikersnaam;');
                 $query->bindValue(":gebruikersnaam", $gebruikersnaam, PDO::PARAM_STR);
                 $query->execute();
                 if($query->rowCount() > 0) {
@@ -72,7 +72,7 @@ class User {
             }
         } elseif ($hash) {
             try {
-                $query = $this->_db->prepare('SELECT * FROM user WHERE hash = :hash');
+                $query = $this->_db->prepare('SELECT * FROM user u JOIN admin a ON u.user_id = a.user_id WHERE hash = :hash');
                 $query->bindValue(":hash", $hash, PDO::PARAM_STR);
                 $query->execute();
 
@@ -135,6 +135,10 @@ class User {
     public function getUser()
     {
         return $this->_user;
+    }
+
+    public function getUserName() {
+        return $this->_user['first_name'].' '.$this->_user['insertion'].' '.$this->_user['last_name'];
     }
 
     public function isLoggedIn() {

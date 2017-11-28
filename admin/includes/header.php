@@ -32,7 +32,7 @@ error_reporting(-1);
     <div class="container">
         <div class="row">
             <div class="col-xs-6">Leuk-ER bij Van Elles</div>
-            <div class="col-xs-6 text-right"><?php echo 'Welkom ' . $user->getUser()['voornaam'] ?><a href="?uitloggen=true" title="Uitloggen" class="uitloggen"><i class="fa fa-sign-out"></i></a></div>
+            <div class="col-xs-6 text-right"><?php echo 'Welkom ' . $user->getUserName(); ?><a href="?uitloggen=true" title="Uitloggen" class="uitloggen"><i class="fa fa-sign-out"></i></a></div>
         </div>
     </div>
 </header>

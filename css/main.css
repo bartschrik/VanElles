@@ -80,7 +80,7 @@ p {
     display: block;
     color: #fff;
     text-align: center;
-    padding-top: 2px;
+    padding-top: 4px;
     margin: 0 5px;
 }
 .icon-list li:last-child a {
@@ -389,7 +389,9 @@ p {
 }
 @media all and (max-width: 991px) {
     /*Header*/
-
+    #main-slider .slide {
+        height: 350px;
+    }
 
     /*Menu*/
     #main-menu {
@@ -466,6 +468,11 @@ p {
 
 }
 @media all and (max-width: 768px){
+    /*Header*/
+    #main-slider .slide {
+        height: 250px;
+    }
+
     /*Footer*/
     #main-footer .f-item {
         border-right: none;

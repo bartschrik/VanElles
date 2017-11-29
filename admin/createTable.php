@@ -1,24 +1,12 @@
 <?php
 require_once 'classes/connection.class.php';
-//require_once 'classes/user.class.php';
-//
-//$user = new User();
-//$user->regiser("Admin", "KBS", "nick@twesq.com", "Hallo12345", "admin");
-$db = new Connection();
-$table = $db->createTables();
+require_once 'classes/user.class.php';
 
-if(!empty($table['done'])) {
-    echo '<h1>New table(s) inserted</h1><ul>';
-    foreach ($table['done'] as $value) {
-        echo "<li>$value</li>";
-    }
-    echo "</ul>";
-}
+$user = new User();
+$reg = $user->regiser("test@email2.nl", "Ties", "-", "Pol", "0699382393", "Rijssen", "Entoshof 23", "7462 VV", 1, "tiespol", "Hallo123");
 
-if (!empty($table['error'])) {
-    echo '<h1>Allready existing table(s)</h1><ul>';
-    foreach ($table['error'] as $value) {
-        echo "<li>$value</li>";
-    }
-    echo "</ul>";
+if($reg) {
+    echo "Passed";
+} else {
+    echo "Nope";
 }

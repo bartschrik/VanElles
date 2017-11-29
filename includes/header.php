@@ -18,6 +18,7 @@
     <link rel="stylesheet" href="css/fonts/font-awesome-4.6.3/css/font-awesome.min.css">
     <link href="http://nl.allfont.net/allfont.css?fonts=franklin-gothic-medium" rel="stylesheet" type="text/css" />
     <link href="css/main.css" rel="stylesheet" type="text/css"/>
+    <link href="css/overig.css" rel="stylesheet" type="text/css"/>
 </head>
 <body>
 <header id="main-header">

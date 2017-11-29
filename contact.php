@@ -29,12 +29,25 @@
                 </table>
             </div>
             <div class="col-xs-6 marbot">
+                <div class="ptitle">
+                    <h2>Contact formulier</h2>
+                </div>
                 <form method="post" action="mail/Mail_contact.php">
-                    Voornaam: <input type="text" name="voornaam" placeholder="Voornaam"><br>
-                    Achternaam: <input type="text" name="achternaam" placeholder="Achternaam"><br>
-                    Telefoonnummer: <input type="tel" name="telefoonnummer" placeholder="06-12345678"><br>
-                    Email: <input type="email" name="email" placeholder="naam@voorbeeld.com" ><br>
-                    <input type="submit" name="verstuur" value="verstuur">
+                    <div class="form-group">
+                        <input class="form-control" type="text" name="naam" placeholder="Naam">
+                    </div>
+                    <div class="form-group">
+                        <input class="form-control" type="tel" name="telefoonnummer" placeholder="Telefoonnummer">
+                    </div>
+                    <div class="form-group">
+                        <input class="form-control" type="email" name="email" placeholder="naam@voorbeeld.com">
+                    </div>
+                    <div class="form-group">
+                        <textarea class="form-control" placeholder="Bericht" name="Bericht"></textarea>
+                    </div>
+                    <div class="form-group">
+                        <input class="btn btn-default" type="submit" name="verstuur" value="verstuur">
+                    </div>
                 </form>
             </div>
         </div>
@@ -46,6 +59,8 @@
     </iframe>
 
 </div>
+
+<?php require_once 'recensie.php';?>
 
 
 <?php require_once 'includes/footer.php';?>

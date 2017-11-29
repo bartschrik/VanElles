@@ -31,42 +31,42 @@
 
     <!--Invoervelden-->
 <div class="container">
-    <div class="header text-center  ">
-        <h1>Laat uw mening achter!</h1>
+    <div class="marbot martop">
+        <form method="post" action="contact.php.php">
+            <div class="ptitle">
+                <h2>Laat uw mening achter!</h2>
+            </div>
+
+            <div class="form-group">
+                <input class="form-control" type="text" name="naam" placeholder="Naam" value="<?php print $naam;?>">
+            </div>
+
+            <div class="form-group">
+
+                <input class="form-control" type="email" name="emailadres" placeholder="naam@voorbeeld.com" value="<?php print $email;?>">
+            </div>
+
+            <div class="form-group">
+                <input class="form-control" type="text" name="titel" placeholder="Titel" value="<?php print $titel;?>">
+            </div>
+
+            <div class="form-group">
+
+                <textarea class="form-control" name="omschrijving" placeholder="Omschrijving"><?php print $omschrijving;?></textarea>
+            </div>
+
+            <x-star-rating value="3" number="5"></x-star-rating>
+
+            <input type="hidden" name="sterren" id="ster" value="3">
+
+
+
+            <br>
+            <input type="submit" name="verstuur" value="Verstuur" class="btn btn-default">
+
+        </form>
     </div>
 
-    <form method="post" action="recensie.php">
-
-        <div class="form-group">
-            <label for="naam">Naam</label>
-            <input class="form-control" type="text" name="naam" placeholder="Jan van Veen" value="<?php print $naam;?>">
-        </div>
-
-        <div class="form-group">
-            <label for="email">Emailadress</label>
-            <input class="form-control" type="email" name="emailadres" placeholder="iemand@voorbeeld.com" value="<?php print $email;?>">
-        </div>
-
-        <div class="form-group">
-            <label for="titel">Titel</label>
-            <input class="form-control" type="text" name="titel" placeholder="Titel" value="<?php print $titel;?>">
-        </div>
-
-        <div class="form-group">
-            <label for="omschrijving">Omschrijving</label>
-            <textarea class="form-control" name="omschrijving" placeholder="Omschrijving"><?php print $omschrijving;?></textarea>
-        </div>
-
-        <x-star-rating value="3" number="5"></x-star-rating>
-
-        <input type="hidden" name="sterren" id="ster" value="3">
-
-
-
-        <br>
-        <input type="submit" name="verstuur" value="Verstuur" class="btn btn-default">
-
-    </form>
 
     <!--database connection -->
     <?php

@@ -30,7 +30,7 @@
 
     <!--Invoervelden-->
 <div class="container">
-    <div class="marbot martop col-xs-6">
+    <div class="marbot martop col-xs-12 col-md-6">
         <form method="post" action="contact.php">
             <div class="ptitle">
                 <h2>Laat uw mening achter!</h2>
@@ -58,7 +58,7 @@
             <input type="submit" name="verstuur" value="Verstuur" class="btn btn-default">
 
         </form>
-    </div>
+
 
 
     <!--database connection -->
@@ -72,21 +72,25 @@
             print("Vul a.u.b. alle velden in");
         } else {
             try {
-                $naam = $_POST["naam"];
-                $email = $_POST["emailadres"];
-                $omschrijving = $_POST["omschrijving"];
-                $sterren = $_POST["sterren"];
+                $naamin = $_POST["naam"];
+                $emailin = $_POST["emailadres"];
+                $quotein = $_POST["omschrijving"];
+                $ratingin = $_POST["sterren"];
 
-                $sql1 = "INSERT INTO review (quote, rating, naam) VALUES ('$omschrijving', '$sterren', '$naam')";
-                $stmt1 = $db->prepare($sql1);
+                $db->query("INSERT INTO user (email) VALUES ('$emailin')");
 
-                $sql2 = "INSERT INTO user (email) VALUES ('$email')";
-                $stmt2 = $db->prepare($sql2);
+                $last_id = $db->lastInsertId();
 
-                if($stmt->execute()) {
+                $sql = "INSERT INTO review (quote, rating, naam, user_id) VALUES ('$quotein', '$ratingin', '$naamin', '$last_id')";
+                $stmtin = $db->prepare($sql);
+
+
+
+                if($stmtin->execute()) {
                     print("Bedankt voor uw beoordeling");
+                    $naam = $email = $omschrijving = "";
                 } else {
-                    print_r($stmt->errorInfo());
+                    print_r($stmtin->errorInfo());
                 }
             } catch (PDOException $e) {
                 echo $e->getMessage();
@@ -94,32 +98,41 @@
         }
     }
     ?>
+    </div>
 
-    <div class="marbot martop col-xs-6">
+    <div class="marbot martop col-xs-12 col-md-6">
         <div class="ptitle">
             <h2>Recensies van anderen!</h2>
         </div>
         <div>
             <?php
-            // Check connection
-            if ($db->connect_error) {
-                die("Connection failed: " . $db->connect_error);
-            }
 
-            $sql3 = "SELECT quote, rating, naam, datum FROM review";
-            $stmt3 = $db->prepare($sql3);
+            $sql3 = "SELECT * FROM review";
+            $stmtout = $db->prepare($sql3);
 
-            if ($stmt3->num_rows > 0) {
-                echo "<table><tr><th>ID</th><th>Name</th></tr>";
-                // output data of each row
-                while($row = $stmt3->fetch_assoc()) {
-                    echo "<tr><td>".$row["id"]."</td><td>".$row["firstname"]." ".$row["lastname"]."</td></tr>";
+            $stmtout->execute();
+
+            while ($row = $stmtout->fetch())
+            {
+                $naamprint = $row["naam"];
+                $datumprint = $row["datum"];
+                $quoteprint = $row["quote"];
+                $ratingprint = $row["rating"];
+
+                print($naamprint . " 27-10-199" . "<br>" . $quoteprint . "<br>");
+
+                for ($i=1; $i <= $ratingprint; $i++){
+                    print("<hartjevol class='ion-ios-heart' style='color: pink; font-size: 30px;'></hartjevol>");
                 }
-                echo "</table>";
-            } else {
-                echo "0 results";
+
+                for ($j=1; $j <= (5 - $ratingprint); $j++){
+                    print("<hartjeleeg class='ion-ios-heart-outline' style='color: #777; font-size: 30px;'></hartjeleeg>");
+                }
+                print("<br>");
             }
-            $conn->close();
+
+
+
             ?>
         </div>
     </div>

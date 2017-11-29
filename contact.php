@@ -12,7 +12,7 @@
             </div>
         </div>
         <div class="row">
-            <div class="col-xs-6 marbot">
+            <div class="col-md-6 col-xs-12 marbot">
                 <div class="ptitle">
                     <h2>Algemene informatie</h2>
                 </div>
@@ -28,11 +28,11 @@
                     <tr><td>BTW: </td><td>208147895B01</td></tr>
                 </table>
             </div>
-            <div class="col-xs-6 marbot">
+            <div class="col-md-6 col-xs-12 marbot">
                 <div class="ptitle">
                     <h2>Contact formulier</h2>
                 </div>
-                <form method="post" action="mail/Mail_contact.php">
+                <form method="post" action="contact.php">
                     <div class="form-group">
                         <input class="form-control" type="text" name="naam" placeholder="Naam">
                     </div>
@@ -43,7 +43,7 @@
                         <input class="form-control" type="email" name="email" placeholder="naam@voorbeeld.com">
                     </div>
                     <div class="form-group">
-                        <textarea class="form-control" placeholder="Bericht" name="Bericht"></textarea>
+                        <textarea class="form-control" id="textarea" placeholder="Bericht" name="Bericht"></textarea>
                     </div>
                     <div class="form-group">
                         <input class="btn btn-default" type="submit" name="verstuur" value="verstuur">

@@ -13,12 +13,11 @@
 <body>
     <!--ingevulde gegevens behouden-->
     <?php
-    $naam = $email = $titel = $omschrijving = "";
+    $naam = $email = $omschrijving = "";
     //ingevulde data behouden in formulier
     if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $naam = test_input($_POST["naam"]);
         $email = test_input($_POST["emailadres"]);
-        $titel = test_input($_POST["titel"]);
         $omschrijving = test_input($_POST["omschrijving"]);
     }
     function test_input($data) {
@@ -31,8 +30,8 @@
 
     <!--Invoervelden-->
 <div class="container">
-    <div class="marbot martop">
-        <form method="post" action="contact.php.php">
+    <div class="marbot martop col-xs-6">
+        <form method="post" action="contact.php">
             <div class="ptitle">
                 <h2>Laat uw mening achter!</h2>
             </div>
@@ -42,17 +41,11 @@
             </div>
 
             <div class="form-group">
-
                 <input class="form-control" type="email" name="emailadres" placeholder="naam@voorbeeld.com" value="<?php print $email;?>">
             </div>
 
             <div class="form-group">
-                <input class="form-control" type="text" name="titel" placeholder="Titel" value="<?php print $titel;?>">
-            </div>
-
-            <div class="form-group">
-
-                <textarea class="form-control" name="omschrijving" placeholder="Omschrijving"><?php print $omschrijving;?></textarea>
+                <textarea class="form-control" id="textarea" name="omschrijving" placeholder="Omschrijving"><?php print $omschrijving;?></textarea>
             </div>
 
             <x-star-rating value="3" number="5"></x-star-rating>
@@ -75,23 +68,20 @@
     $db = $db->databaseConnection();
 
     if (isset($_POST["verstuur"])) {
-        if (empty($_POST["naam"]) || empty($_POST["emailadres"]) || empty($_POST["titel"]) || empty($_POST["omschrijving"])) {
+        if (empty($_POST["naam"]) || empty($_POST["emailadres"]) || empty($_POST["omschrijving"])) {
             print("Vul a.u.b. alle velden in");
         } else {
             try {
                 $naam = $_POST["naam"];
                 $email = $_POST["emailadres"];
-                $titel = $_POST["titel"];
                 $omschrijving = $_POST["omschrijving"];
                 $sterren = $_POST["sterren"];
 
-                $sql1 = "INSERT INTO review (review_name, title, discription, rating) VALUES ('$naam', '$titel', '$omschrijving', '$sterren')";
-                $stmt = $db->prepare($sql1);
+                $sql1 = "INSERT INTO review (quote, rating, naam) VALUES ('$omschrijving', '$sterren', '$naam')";
+                $stmt1 = $db->prepare($sql1);
+
                 $sql2 = "INSERT INTO user (email) VALUES ('$email')";
-
-
-
-                $stmt = $db->prepare($sql2);
+                $stmt2 = $db->prepare($sql2);
 
                 if($stmt->execute()) {
                     print("Bedankt voor uw beoordeling");
@@ -104,7 +94,38 @@
         }
     }
     ?>
+
+    <div class="marbot martop col-xs-6">
+        <div class="ptitle">
+            <h2>Recensies van anderen!</h2>
+        </div>
+        <div>
+            <?php
+            // Check connection
+            if ($db->connect_error) {
+                die("Connection failed: " . $db->connect_error);
+            }
+
+            $sql3 = "SELECT quote, rating, naam, datum FROM review";
+            $stmt3 = $db->prepare($sql3);
+
+            if ($stmt3->num_rows > 0) {
+                echo "<table><tr><th>ID</th><th>Name</th></tr>";
+                // output data of each row
+                while($row = $stmt3->fetch_assoc()) {
+                    echo "<tr><td>".$row["id"]."</td><td>".$row["firstname"]." ".$row["lastname"]."</td></tr>";
+                }
+                echo "</table>";
+            } else {
+                echo "0 results";
+            }
+            $conn->close();
+            ?>
+        </div>
+    </div>
 </div>
+
+
 
 <!--Bootstrap-->
 <script src="js/bootstrap.min.js"></script>

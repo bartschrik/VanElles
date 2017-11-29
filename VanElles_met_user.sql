@@ -194,7 +194,7 @@ CREATE TABLE `role` (
 INSERT INTO `role` (`role`, `role_name`) VALUES
 (1, 'Admin'),
 (2, 'Gebruiker'),
-(3, 'Leverancier');
+(3, 'Leverancier'); 
 
 -- --------------------------------------------------------
 

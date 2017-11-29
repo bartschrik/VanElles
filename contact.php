@@ -32,7 +32,7 @@
                 <div class="ptitle">
                     <h2>Contact formulier</h2>
                 </div>
-                <form method="post" action="contact.php">
+                <form method="post" action="mail/mail.php">
                     <div class="form-group">
                         <input class="form-control" type="text" name="naam" placeholder="Naam">
                     </div>

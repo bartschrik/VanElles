@@ -103,14 +103,14 @@ function test_input($data) {
                 <div class="form-group">
                     <textarea class="form-control" id="textarea" name="omschrijving" placeholder="Omschrijving"><?php print $omschrijving;?></textarea>
                 </div>
-
+                <br>
                 <x-star-rating value="3" number="5"></x-star-rating>
 
                 <input type="hidden" name="sterren" id="ster" value="3">
 
 
 
-                <br>
+                <br><br>
                 <input type="submit" name="verstuur" value="Verstuur" class="btn btn-default">
 
             </form>
@@ -175,7 +175,8 @@ function test_input($data) {
                     $quoteprint = $row["quote"];
                     $ratingprint = $row["rating"];
 
-                    print($naamprint . " 27-10-199" . "<br>" . $quoteprint . "<br>");
+                    print("<div class='recensiekaart'>");
+                    print($naamprint . ",  27-10-1999" . "<br><br>" . $quoteprint . "<br><br>");
 
                     for ($i=1; $i <= $ratingprint; $i++){
                         print("<hartjevol class='ion-ios-heart' style='color: pink; font-size: 30px;'></hartjevol>");
@@ -184,7 +185,7 @@ function test_input($data) {
                     for ($j=1; $j <= (5 - $ratingprint); $j++){
                         print("<hartjeleeg class='ion-ios-heart-outline' style='color: #777; font-size: 30px;'></hartjeleeg>");
                     }
-                    print("<br>------------------------<br>");
+                    print("</div>");
                 }
                 ?>
                 <br>

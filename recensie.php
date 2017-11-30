@@ -2,7 +2,10 @@
 
 <div class="container">
     <div class="row">
-        <div class="col-xs-12">
+        <div class="marbot martop">
+            <div class="ptitle">
+                <h1>Recensies</h1>
+            </div>
             <?php
             require_once 'admin/classes/connection.class.php';
             $db = new Connection();
@@ -20,7 +23,9 @@
                 $quoteprint = $row["quote"];
                 $ratingprint = $row["rating"];
 
-                print($naamprint . " 27-10-199" . "<br>" . $quoteprint . "<br>");
+                print("<div class='col-xs-12 col-md-6'><div class='card recensiekaart'>");
+
+                print($naamprint . " 27-10-1999" . "<br><br>" . $quoteprint . "<br><br>");
 
                 for ($i=1; $i <= $ratingprint; $i++){
                     print("<hartjevol class='ion-ios-heart' style='color: pink; font-size: 30px;'></hartjevol>");
@@ -29,7 +34,7 @@
                 for ($j=1; $j <= (5 - $ratingprint); $j++){
                     print("<hartjeleeg class='ion-ios-heart-outline' style='color: #777; font-size: 30px;'></hartjeleeg>");
                 }
-                print("<br>------------------------<br>");
+                print("</div></div>");
             }
             ?>
         </div>

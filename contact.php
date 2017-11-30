@@ -156,7 +156,7 @@ function test_input($data) {
             <div>
                 <?php
 
-                $sql3 = "SELECT * FROM review";
+                $sql3 = "SELECT * FROM review ORDER BY RAND() LIMIT 3";
                 $stmtout = $db->prepare($sql3);
 
                 $stmtout->execute();
@@ -179,10 +179,9 @@ function test_input($data) {
                     }
                     print("<br>------------------------<br>");
                 }
-
-
-
                 ?>
+
+                <button href="recensie.php" class="btn">Bekijk hier alle recensies!</button>
             </div>
         </div>
     </div>

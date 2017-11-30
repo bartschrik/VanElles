@@ -1,5 +1,6 @@
 <head>
     <script src='https://www.google.com/recaptcha/api.js'></script>
+
 </head>
 
 <?php require_once 'includes/header.php';?>
@@ -37,23 +38,24 @@
                     <h2>Contact formulier</h2>
                 </div>
                 <form method="post" action="?">
-                    <div class="g-recaptcha" data-sitekey="your_site_key"></div>
                     <div class="form-group">
-                        <input class="form-control" type="text" name="naam" placeholder="Naam">
+                        <input class="form-control" type="text" name="naamcontact" placeholder="Naam">
                     </div>
                     <div class="form-group">
-                        <input class="form-control" type="tel" name="telefoonnummer" placeholder="Telefoonnummer">
+                        <input class="form-control" type="tel" name="telefoonnummercontact" placeholder="Telefoonnummer">
                     </div>
                     <div class="form-group">
-                        <input class="form-control" type="email" name="email" placeholder="naam@voorbeeld.com">
+                        <input class="form-control" type="email" name="emailcontact" placeholder="naam@voorbeeld.com">
                     </div>
                     <div class="form-group">
-                        <textarea class="form-control" id="textarea" placeholder="Bericht" name="Bericht"></textarea>
+                        <textarea class="form-control" id="textarea" placeholder="Bericht" name="Berichtcontact"></textarea>
                     </div>
+
                     <div class="form-group">
-                        <input class="btn btn-default" type="submit" name="verstuur" value="verstuur">
+                        <input class="btn btn-default" type="submit" name="verstuurcontact" value="verstuur">
                     </div>
                 </form>
+                <div class="g-recaptcha" data-sitekey="6LevEzsUAAAAACTTY0PQXdlxvv1lXY4QkFLnU7-1"></div>
             </div>
         </div>
     </div>

@@ -185,8 +185,8 @@ function test_input($data) {
                     print("<br>------------------------<br>");
                 }
                 ?>
-
-                <button href="recensie.php" class="btn">Bekijk hier alle recensies!</button>
+                <br>
+                <a href="recensie.php" class="btn btn-default">Lees meer recensies!</a>
             </div>
         </div>
     </div>

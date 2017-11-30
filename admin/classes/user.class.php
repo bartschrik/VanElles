@@ -91,34 +91,61 @@ class User {
         return 1;
     }
 
-    public function regiser($voornaam, $achternaam, $email, $wachtwoord, $gebruikersnaam) {
+    public function regiser($email, $voornaam, $tussenvoegsel, $achternaam, $telefoon, $city, $address, $zipcode, $role = 2, $gebruikersnaam, $wachtwoord) {
         try {
-            $query = $this->_db->prepare('
-                INSERT INTO `user`(`voornaam`, `achternaam`, `wachtwoord`, `gebruikersnaam`, `email`, `hash`, `salt`) 
-                VALUES (:voornaam,:achternaam,:wachtwoord,:gebruikersnaam,:email,:hash,:salt)
-            ');
+            if($gebruikersnaam == null || $gebruikersnaam == '') {
+                $query = $this->_db->prepare('
+                    INSERT INTO user (`email`, `first_name`, `insertion`, `last_name`, `phonenumber`, `city`, `address`, `zipcode`, `role`)
+                    VALUES (:email, :voornaam, :tussenvoegsel, :achternaam, :telefoon, :city, :address, :zipcode, :role);
+                ');
 
-            $an = "1234567890!@#$%^&*()qwertyuiopasdfghjklzxcvbnmQWERTYUIOPASDFGHJKLZXCVBNM";
-            $su = strlen($an) - 1;
-            $randomdi1 = '';
-            for ($i = 1; $i <= 50; $i++) {
-                $randomdi1 .= substr($an, rand(0, $su), 1);
+                $query->bindValue(":email", $email, PDO::PARAM_STR);
+                $query->bindValue(":voornaam", $voornaam, PDO::PARAM_STR);
+                $query->bindValue(":tussenvoegsel", $tussenvoegsel, PDO::PARAM_STR);
+                $query->bindValue(":achternaam", $achternaam, PDO::PARAM_STR);
+                $query->bindValue(":telefoon", $telefoon, PDO::PARAM_STR);
+                $query->bindValue(":city", $city, PDO::PARAM_STR);
+                $query->bindValue(":address", $address, PDO::PARAM_STR);
+                $query->bindValue(":zipcode", $zipcode, PDO::PARAM_STR);
+                $query->bindValue(":role", $role, PDO::PARAM_STR);
+            } else {
+                $query = $this->_db->prepare('
+                    INSERT INTO user (`email`, `first_name`, `insertion`, `last_name`, `phonenumber`, `city`, `address`, `zipcode`, `role`)
+                    VALUES (:email, :voornaam, :tussenvoegsel, :achternaam, :telefoon, :city, :address, :zipcode, :role);
+                    
+                    INSERT INTO admin (`user_id`, `gebruikersnaam`, `wachtwoord`, `salt`, `hash`)
+                    VALUES (LAST_INSERT_ID(), :gebruikersnaam, :wachtwoord, :salt, :hash);
+                ');
+
+                $query->bindValue(":email", $email, PDO::PARAM_STR);
+                $query->bindValue(":voornaam", $voornaam, PDO::PARAM_STR);
+                $query->bindValue(":tussenvoegsel", $tussenvoegsel, PDO::PARAM_STR);
+                $query->bindValue(":achternaam", $achternaam, PDO::PARAM_STR);
+                $query->bindValue(":telefoon", $telefoon, PDO::PARAM_STR);
+                $query->bindValue(":city", $city, PDO::PARAM_STR);
+                $query->bindValue(":address", $address, PDO::PARAM_STR);
+                $query->bindValue(":zipcode", $zipcode, PDO::PARAM_STR);
+                $query->bindValue(":role", $role, PDO::PARAM_STR);
+
+                $an = "1234567890!@#$%^&*()qwertyuiopasdfghjklzxcvbnmQWERTYUIOPASDFGHJKLZXCVBNM";
+                $su = strlen($an) - 1;
+                $randomdi1 = '';
+                for ($i = 1; $i <= 50; $i++) {
+                    $randomdi1 .= substr($an, rand(0, $su), 1);
+                }
+                $randomdi2 = '';
+                for ($i = 1; $i <= 50; $i++) {
+                    $randomdi2 .= substr($an, rand(0, $su), 1);
+                }
+
+                $hash1 = sha1(time().$randomdi1.$email);
+                $hash2 = sha1(time().$randomdi2.$email);
+
+                $query->bindValue(":gebruikersnaam", $gebruikersnaam, PDO::PARAM_STR);
+                $query->bindValue(":wachtwoord", sha1($hash2.$wachtwoord), PDO::PARAM_STR);
+                $query->bindValue(":hash", $hash1, PDO::PARAM_STR);
+                $query->bindValue(":salt", $hash2, PDO::PARAM_STR);
             }
-            $randomdi2 = '';
-            for ($i = 1; $i <= 50; $i++) {
-                $randomdi2 .= substr($an, rand(0, $su), 1);
-            }
-
-            $hash1 = sha1(time().$randomdi1.$email);
-            $hash2 = sha1(time().$randomdi2.$email);
-
-            $query->bindValue(":voornaam", $voornaam, PDO::PARAM_STR);
-            $query->bindValue(":achternaam", $achternaam, PDO::PARAM_STR);
-            $query->bindValue(":email", $email, PDO::PARAM_STR);
-            $query->bindValue(":wachtwoord", sha1($hash2.$wachtwoord), PDO::PARAM_STR);
-            $query->bindValue(":gebruikersnaam", $gebruikersnaam, PDO::PARAM_STR);
-            $query->bindValue(":hash", $hash1, PDO::PARAM_STR);
-            $query->bindValue(":salt", $hash2, PDO::PARAM_STR);
 
             if($query->execute()) {
                 return true;

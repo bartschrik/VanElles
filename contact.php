@@ -1,3 +1,7 @@
+<head>
+    <script src='https://www.google.com/recaptcha/api.js'></script>
+</head>
+
 <?php require_once 'includes/header.php';?>
 
 
@@ -32,7 +36,8 @@
                 <div class="ptitle">
                     <h2>Contact formulier</h2>
                 </div>
-                <form method="post" action="mail/mail.php">
+                <form method="post" action="?">
+                    <div class="g-recaptcha" data-sitekey="your_site_key"></div>
                     <div class="form-group">
                         <input class="form-control" type="text" name="naam" placeholder="Naam">
                     </div>

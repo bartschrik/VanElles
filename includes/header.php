@@ -19,6 +19,8 @@
     <link href="http://nl.allfont.net/allfont.css?fonts=franklin-gothic-medium" rel="stylesheet" type="text/css" />
     <link href="css/main.css" rel="stylesheet" type="text/css"/>
     <link href="css/overig.css" rel="stylesheet" type="text/css"/>
+    <link href="css/StarRating.css" rel="stylesheet" type="text/css" >
+    <link rel="stylesheet" href="http://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
 </head>
 <body>
 <header id="main-header">

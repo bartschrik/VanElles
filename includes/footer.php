@@ -74,5 +74,6 @@
 <script src="js/lightbox.js" type="text/javascript"></script>
 <script src="js/slick.min.js" type="text/javascript"></script>
 <script src="js/main.js" type="text/javascript"></script>
+<script src="js/StarRating.js" type="text/javascript"></script>
 </body>
 </html>

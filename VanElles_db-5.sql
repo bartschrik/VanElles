@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Gegenereerd op: 01 dec 2017 om 14:01
+-- Gegenereerd op: 01 dec 2017 om 14:19
 -- Serverversie: 10.1.26-MariaDB
 -- PHP-versie: 7.1.8
 
@@ -154,7 +154,7 @@ CREATE TABLE `page` (
   `description` varchar(2000) DEFAULT NULL,
   `kernwoorden` varchar(100) DEFAULT NULL,
   `active` int(1) DEFAULT NULL COMMENT '1 = actief, 0 = inactief',
-  `datum` date DEFAULT NULL,
+  `datum` datetime DEFAULT CURRENT_TIMESTAMP,
   `image` varchar(45) DEFAULT NULL,
   `Module_id` int(11) NOT NULL,
   `user_id` int(11) NOT NULL
@@ -165,9 +165,9 @@ CREATE TABLE `page` (
 --
 
 INSERT INTO `page` (`id`, `title`, `subtitle`, `inhoud`, `description`, `kernwoorden`, `active`, `datum`, `image`, `Module_id`, `user_id`) VALUES
-(1, 'Home', 'Welkom bij Van Elles', 'blabla', 'balabl', 'bla, bla, dofs', 1, '2017-11-29', 'image', 1, 1),
-(2, 'First inserted page', 'een subtitel', '<p>fdsa<strong>fdsaf a&nbsp;<s>&nbsp;fdsaf dsaf</s></strong></p>\r\n\r\n<p>&nbsp;</p>\r\n\r\n<h2 style=\"font-style:italic;\">fdadfsaf</h2>\r\n', 'Dit is een korte beschrijving van de website voor het seo van google', 'kernwoord1, kernwoord2, panelles', 0, '2017-12-01', NULL, 2, 1),
-(3, 'Second inserted page', 'een subtitel', '<p>fdsa<strong>fdsaf a&nbsp;<s>&nbsp;fdsaf dsaf</s></strong></p>\r\n\r\n<h1>test</h1>\r\n\r\n<h2 style=\"font-style:italic\">fdadfsaf</h2>\r\n', 'Dit is een korte beschrijving van de website voor het seo van google', 'kernwoord1, kernwoord2, panelles', 1, '2017-12-01', NULL, 2, 1);
+(1, 'Home', 'Welkom bij Van Elles', 'blabla', 'balabl', 'bla, bla, dofs', 1, '2017-11-29 00:00:00', 'image', 1, 1),
+(2, 'First inserted page', 'een subtitel', '<p>fdsa<strong>fdsaf a&nbsp;<s>&nbsp;fdsaf dsaf</s></strong></p>\r\n\r\n<p>&nbsp;</p>\r\n\r\n<h2 style=\"font-style:italic;\">fdadfsaf</h2>\r\n', 'Dit is een korte beschrijving van de website voor het seo van google', 'kernwoord1, kernwoord2, panelles', 0, '2017-12-01 00:00:00', NULL, 2, 1),
+(3, 'Second inserted page', 'een subtitel', '<p>fdsa<strong>fdsaf a&nbsp;<s>&nbsp;fdsaf dsaf</s></strong></p>\r\n\r\n<h1>test</h1>\r\n\r\n<h2 style=\"font-style:italic\">fdadfsaf</h2>\r\n', 'Dit is een korte beschrijving van de website voor het seo van google', 'kernwoord1, kernwoord2, panelles', 1, '2017-12-01 00:00:00', NULL, 2, 1);
 
 -- --------------------------------------------------------
 
@@ -195,9 +195,8 @@ CREATE TABLE `review` (
   `review_id` int(11) NOT NULL,
   `quote` varchar(200) NOT NULL,
   `rating` int(1) NOT NULL,
-  `naam` varchar(45) NOT NULL,
   `user_id` int(11) NOT NULL,
-  `datum` date NOT NULL
+  `datum` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
@@ -379,7 +378,7 @@ ALTER TABLE `product`
 -- AUTO_INCREMENT voor een tabel `review`
 --
 ALTER TABLE `review`
-  MODIFY `review_id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `review_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 --
 -- AUTO_INCREMENT voor een tabel `user`
 --

@@ -1,4 +1,5 @@
 <head>
+    <!--haalt de recaotch op-->
     <script src='https://www.google.com/recaptcha/api.js'></script>
     <?php
     if(isset($_POST['verstuurcontact'])) {
@@ -11,43 +12,41 @@
 
         if (isset($data->success) AND $data->success == true) {
 
-    require_once 'admin/classes/connection.class.php';
-    $db = new Connection();
-    $db = $db->databaseConnection();
-
-    if (isset($_POST["verstuurcontact"])) {
-        if (empty($_POST["naamcontact"]) || empty($_POST["telefoonnummercontact"]) || empty($_POST["emailcontact"]) || empty($_POST["berichtcontact"])) {
-            print("Vul a.u.b. alle velden in");
-        } else {
-            try {
-                $naamincontact = $_POST["naamcontact"];
-                $emailincontact = $_POST["emailcontact"];
-                $telefooncontact=$_POST["telefoonnummercontact"];
-                $berichtcontact = $_POST["berichtcontact"];
-
-
-                $db->query("INSERT INTO user (email, first_name, phonenumber ) VALUES ('$emailincontact', '$naamincontact' , '$telefooncontact)");
-
-                $last_id = $db->lastInsertId();
-
-                $sql = "INSERT INTO contact (name, inhoud, user_id) VALUES ('$naamincontact', '$berichtcontact', '$last_id')";
-                $stmtin = $db->prepare($sql);
+            require_once 'admin/classes/connection.class.php';
+            $db = new Connection();
+            $db = $db->databaseConnection();
 
 
 
-                if($stmtin->execute()) {
-                    print("Bedankt dat u contact opneemt");
-
+            if (isset($_POST["verstuurcontact"])) {
+                if (empty($_POST["naamcontact"]) || empty($_POST["telefoonnummercontact"]) || empty($_POST["emailcontact"]) || empty($_POST["berichtcontact"])) {
+                    print("Vul a.u.b. alle velden in");
                 } else {
-                    print_r($stmtin->errorInfo());
+                    try {
+                        $naamincontact = $_POST["naamcontact"];
+                        $emailincontact = $_POST["emailcontact"];
+                        $telefooncontact = $_POST["telefoonnummercontact"];
+                        $berichtcontact = $_POST["berichtcontact"];
+
+                        $db->query("INSERT INTO user (email, first_name, phonenumber ) VALUES ('$emailincontact', '$naamincontact' , '$telefooncontact)");
+
+                        $last_id = $db->lastInsertId();
+
+                        $sql = "INSERT INTO contact (name, inhoud, user_id) VALUES ('$naamincontact', '$berichtcontact', '$last_id')";
+                        $stmtin = $db->prepare($sql);
+
+
+                        if ($stmtin->execute()) {
+                            print("Bedankt dat u contact opneemt");
+
+                        } else {
+                            print_r($stmtin->errorInfo());
+                        }
+                    } catch (PDOException $e) {
+                        echo $e->getMessage();
+                    }
                 }
-            } catch (PDOException $e) {
-                echo $e->getMessage();
             }
-        }
-    }
-
-
             return true;
 
 

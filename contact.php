@@ -1,5 +1,24 @@
 <head>
     <script src='https://www.google.com/recaptcha/api.js'></script>
+    <?php
+    if(isset($_POST['verstuurcontact'])){
+
+    $url = 'https://www.google.com/recaptcha/api/siteverify';
+    $privatekey = "6LevEzsUAAAAAGvQJ1EDrE-eL5aNBKHteM83OywN";
+
+    $response = file_get_contents($url."?secret=".$privatekey."&response=".$_POST['g-recaptcha-response']."&remoteip=".$_SERVER['REMOTE_ADDR']);
+    $data = json_decode($response);
+
+        if(isset($data->success) AND $data->success==true){
+            include_once 'mail/mail.php';
+            return true;
+        }else{
+            echo "<script>alert('Vul Recaptcha in.');</script>";
+            echo " <meta http-equiv=\"refresh\" content=\"0; url=Vanelles/contact.php\" />";
+            return false;
+        }
+    }
+    ?>
 
 </head>
 
@@ -51,14 +70,22 @@
                         <textarea class="form-control" id="textarea" placeholder="Bericht" name="Berichtcontact"></textarea>
                     </div>
 
+                    <div class="g-recaptcha" data-sitekey="6LevEzsUAAAAACTTY0PQXdlxvv1lXY4QkFLnU7-1"></div>
+
                     <div class="form-group">
                         <input class="btn btn-default" type="submit" name="verstuurcontact" value="verstuur">
                     </div>
                 </form>
-                <div class="g-recaptcha" data-sitekey="6LevEzsUAAAAACTTY0PQXdlxvv1lXY4QkFLnU7-1"></div>
+
             </div>
         </div>
     </div>
+
+
+
+
+
+
     <iframe width="100%" height="450" frameborder="0" style="border:0"
             src="https://www.google.com/maps/embed/v1/place?q=place_id:ChIJ5V02qP_2x0cRW1sToOEGWTw&key=AIzaSyApMHLgYCLkBT1N0ww0-52xlCQRG-eg7Rw"
             allowfullscreen>

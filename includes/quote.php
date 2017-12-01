@@ -1,3 +1,12 @@
+<!--Database connectie-->
+<?php
+    require_once 'admin/classes/connection.class.php';
+    $db = new Connection();
+    $db = $db->databaseConnection();
+?>
+
+
+
 <div id="main-quote" style="background-image: url('images/stbr2.jpg');">
     <div class="overlay"></div>
     <div class="container">
@@ -5,12 +14,36 @@
             <div class="col-md-8 col-sm-10 col-xs-12 col-md-offset-2 col-sm-offset-1">
                 <div id="quote-slider">
                     <div>
-                        <span class="quote">"Geweldige en vernieuwende winkel, een aanwinst voor het prachtige Rijssen!"</span>
-                        <hr>
-                        <span class="naam">Nick Simons</span>
+                        <?php
+                            $sql3 = "SELECT * FROM review ORDER BY RAND() LIMIT 1";
+                            $stmtout = $db->prepare($sql3);
+
+                            $stmtout->execute();
+
+                            while ($row = $stmtout->fetch())
+                            {
+                                $naamprint = $row["naam"];
+                                $quoteprint = $row["quote"];
+                                $ratingprint = $row["rating"];
+
+
+                                print("<div class='quote'>" . $quoteprint . "<br>");
+                                for ($i=1; $i <= $ratingprint; $i++){
+                                    print("<hartjevol class='ion-ios-heart' style='color: #ff00ff; font-size: 60px;'></hartjevol>");
+                                }
+
+                                for ($j=1; $j <= (5 - $ratingprint); $j++){
+                                    print("<hartjeleeg class='ion-ios-heart-outline' style='color: #777; font-size: 60px;'></hartjeleeg>");
+                                }
+                                print("</div>");
+
+                                print("<div class='naam'>" . $naamprint . "</div>");
+                            }
+                        ?>
                     </div>
                 </div>
             </div>
         </div>
     </div>
 </div>
+

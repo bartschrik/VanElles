@@ -179,7 +179,7 @@ function test_input($data) {
                     print($naamprint . ",  27-10-1999" . "<br><br>" . $quoteprint . "<br><br>");
 
                     for ($i=1; $i <= $ratingprint; $i++){
-                        print("<hartjevol class='ion-ios-heart' style='color: pink; font-size: 30px;'></hartjevol>");
+                        print("<hartjevol class='ion-ios-heart' style='color: #ff00ff; font-size: 30px;'></hartjevol>");
                     }
 
                     for ($j=1; $j <= (5 - $ratingprint); $j++){

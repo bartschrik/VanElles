@@ -13,5 +13,5 @@ x-star-rating > .star::after {
 
 x-star-rating > .star.full::after{
     content: '\f443';
-    color: pink;
+    color: #ff00ff;
 }

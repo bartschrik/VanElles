@@ -4,3 +4,11 @@
     height: 125px;
 }
 
+.recensiekaart {
+    display: block;
+    box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);
+    border-radius: 3px;
+    overflow: hidden;
+    margin-bottom: 20px;
+    padding-left: 10px;
+}

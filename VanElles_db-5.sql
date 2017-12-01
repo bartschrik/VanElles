@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Gegenereerd op: 29 nov 2017 om 15:56
+-- Gegenereerd op: 01 dec 2017 om 14:19
 -- Serverversie: 10.1.26-MariaDB
 -- PHP-versie: 7.1.8
 
@@ -36,6 +36,14 @@ CREATE TABLE `Module` (
   `naam` varchar(45) NOT NULL,
   `path` varchar(45) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Gegevens worden geëxporteerd voor tabel `Module`
+--
+
+INSERT INTO `Module` (`id`, `naam`, `path`) VALUES
+(1, 'Homepage', 'home.php'),
+(2, 'Content', 'content.php');
 
 -- --------------------------------------------------------
 
@@ -70,7 +78,8 @@ CREATE TABLE `admin` (
 --
 
 INSERT INTO `admin` (`user_id`, `gebruikersnaam`, `wachtwoord`, `salt`, `hash`) VALUES
-(1, 'admin', 'daec7747c22df563deac8027abc9d1f3af3ebbb3', '00c52199eb6b3c4d086f71e082205ebbb11a4943', '60fa7364549a0d19f0d6cfc5c05a5d962dc0483a');
+(1, 'admin', 'daec7747c22df563deac8027abc9d1f3af3ebbb3', '00c52199eb6b3c4d086f71e082205ebbb11a4943', '60fa7364549a0d19f0d6cfc5c05a5d962dc0483a'),
+(4, 'tiespol', '787cd83a8a52a8409819aac6aec19bbcb48aa59b', '1301267338046e0f2c886c29535c8a1a82b0049b', '3d4df2e023289df77a8e8a1e29a192f399727415');
 
 -- --------------------------------------------------------
 
@@ -85,7 +94,7 @@ CREATE TABLE `blog` (
   `subtitle` varchar(45) NOT NULL,
   `inhoud` varchar(45) NOT NULL,
   `datum` timestamp(6) NOT NULL DEFAULT CURRENT_TIMESTAMP(6) ON UPDATE CURRENT_TIMESTAMP(6),
-  `beschijving` varchar(2000) NOT NULL,
+  `beschrijving` varchar(2000) NOT NULL,
   `kernwoorden` varchar(45) NOT NULL,
   `img_name` varchar(45) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
@@ -141,14 +150,24 @@ CREATE TABLE `page` (
   `id` int(11) NOT NULL,
   `title` varchar(100) DEFAULT NULL,
   `subtitle` varchar(100) DEFAULT NULL,
-  `inhoud` varchar(2000) DEFAULT NULL,
+  `inhoud` mediumtext,
   `description` varchar(2000) DEFAULT NULL,
   `kernwoorden` varchar(100) DEFAULT NULL,
-  `active` varchar(45) DEFAULT NULL,
-  `datum` date DEFAULT NULL,
+  `active` int(1) DEFAULT NULL COMMENT '1 = actief, 0 = inactief',
+  `datum` datetime DEFAULT CURRENT_TIMESTAMP,
   `image` varchar(45) DEFAULT NULL,
-  `Module_id` int(11) NOT NULL
+  `Module_id` int(11) NOT NULL,
+  `user_id` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Gegevens worden geëxporteerd voor tabel `page`
+--
+
+INSERT INTO `page` (`id`, `title`, `subtitle`, `inhoud`, `description`, `kernwoorden`, `active`, `datum`, `image`, `Module_id`, `user_id`) VALUES
+(1, 'Home', 'Welkom bij Van Elles', 'blabla', 'balabl', 'bla, bla, dofs', 1, '2017-11-29 00:00:00', 'image', 1, 1),
+(2, 'First inserted page', 'een subtitel', '<p>fdsa<strong>fdsaf a&nbsp;<s>&nbsp;fdsaf dsaf</s></strong></p>\r\n\r\n<p>&nbsp;</p>\r\n\r\n<h2 style=\"font-style:italic;\">fdadfsaf</h2>\r\n', 'Dit is een korte beschrijving van de website voor het seo van google', 'kernwoord1, kernwoord2, panelles', 0, '2017-12-01 00:00:00', NULL, 2, 1),
+(3, 'Second inserted page', 'een subtitel', '<p>fdsa<strong>fdsaf a&nbsp;<s>&nbsp;fdsaf dsaf</s></strong></p>\r\n\r\n<h1>test</h1>\r\n\r\n<h2 style=\"font-style:italic\">fdadfsaf</h2>\r\n', 'Dit is een korte beschrijving van de website voor het seo van google', 'kernwoord1, kernwoord2, panelles', 1, '2017-12-01 00:00:00', NULL, 2, 1);
 
 -- --------------------------------------------------------
 
@@ -176,9 +195,8 @@ CREATE TABLE `review` (
   `review_id` int(11) NOT NULL,
   `quote` varchar(200) NOT NULL,
   `rating` int(1) NOT NULL,
-  `naam` varchar(45) NOT NULL,
   `user_id` int(11) NOT NULL,
-  `datum` datetime(6) NOT NULL
+  `datum` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
@@ -225,7 +243,8 @@ CREATE TABLE `user` (
 --
 
 INSERT INTO `user` (`user_id`, `email`, `first_name`, `insertion`, `last_name`, `phonenumber`, `city`, `address`, `zipcode`, `role`) VALUES
-(1, 'nick@twesq.com', 'Nick', '', 'Simons', 655194576, 'Rijssen', 'Entoshof 23', '7562 VV', 1);
+(1, 'nick@twesq.com', 'Nick', '', 'Simons', 655194576, 'Rijssen', 'Entoshof 23', '7562 VV', 1),
+(4, 'test@email2.nl', 'Ties', '', 'Pol', 699382393, 'Rijssen', 'Entoshof 23', '7462 VV', 1);
 
 --
 -- Indexen voor geëxporteerde tabellen
@@ -285,7 +304,8 @@ ALTER TABLE `leveranciers`
 --
 ALTER TABLE `page`
   ADD PRIMARY KEY (`id`),
-  ADD KEY `fk_page_Module1_idx` (`Module_id`);
+  ADD KEY `fk_page_Module1_idx` (`Module_id`),
+  ADD KEY `fk_page_Module2` (`user_id`);
 
 --
 -- Indexen voor tabel `product`
@@ -323,7 +343,7 @@ ALTER TABLE `user`
 -- AUTO_INCREMENT voor een tabel `Module`
 --
 ALTER TABLE `Module`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 --
 -- AUTO_INCREMENT voor een tabel `activiteit`
 --
@@ -348,7 +368,7 @@ ALTER TABLE `leveranciers`
 -- AUTO_INCREMENT voor een tabel `page`
 --
 ALTER TABLE `page`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 --
 -- AUTO_INCREMENT voor een tabel `product`
 --
@@ -358,7 +378,7 @@ ALTER TABLE `product`
 -- AUTO_INCREMENT voor een tabel `review`
 --
 ALTER TABLE `review`
-  MODIFY `review_id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `review_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 --
 -- AUTO_INCREMENT voor een tabel `user`
 --
@@ -403,7 +423,8 @@ ALTER TABLE `inschijvingen`
 -- Beperkingen voor tabel `page`
 --
 ALTER TABLE `page`
-  ADD CONSTRAINT `fk_page_Module1` FOREIGN KEY (`Module_id`) REFERENCES `Module` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
+  ADD CONSTRAINT `fk_page_Module1` FOREIGN KEY (`Module_id`) REFERENCES `Module` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  ADD CONSTRAINT `fk_page_Module2` FOREIGN KEY (`user_id`) REFERENCES `user` (`user_id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
 
 --
 -- Beperkingen voor tabel `product`

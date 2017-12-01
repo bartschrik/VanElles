@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Gegenereerd op: 01 dec 2017 om 13:58
+-- Gegenereerd op: 01 dec 2017 om 14:01
 -- Serverversie: 10.1.26-MariaDB
 -- PHP-versie: 7.1.8
 
@@ -197,7 +197,7 @@ CREATE TABLE `review` (
   `rating` int(1) NOT NULL,
   `naam` varchar(45) NOT NULL,
   `user_id` int(11) NOT NULL,
-  `datum` datetime(6) NOT NULL
+  `datum` date NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------

@@ -1,21 +1,62 @@
 <head>
     <script src='https://www.google.com/recaptcha/api.js'></script>
     <?php
-    if(isset($_POST['verstuurcontact'])){
+    if(isset($_POST['verstuurcontact'])) {
 
-    $url = 'https://www.google.com/recaptcha/api/siteverify';
-    $privatekey = "6LevEzsUAAAAAGvQJ1EDrE-eL5aNBKHteM83OywN";
+        $url = 'https://www.google.com/recaptcha/api/siteverify';
+        $privatekey = "6LevEzsUAAAAAGvQJ1EDrE-eL5aNBKHteM83OywN";
 
-    $response = file_get_contents($url."?secret=".$privatekey."&response=".$_POST['g-recaptcha-response']."&remoteip=".$_SERVER['REMOTE_ADDR']);
-    $data = json_decode($response);
+        $response = file_get_contents($url . "?secret=" . $privatekey . "&response=" . $_POST['g-recaptcha-response'] . "&remoteip=" . $_SERVER['REMOTE_ADDR']);
+        $data = json_decode($response);
 
-        if(isset($data->success) AND $data->success==true){
-            include_once 'mail/mail.php';
+        if (isset($data->success) AND $data->success == true) {
+
+    require_once 'admin/classes/connection.class.php';
+    $db = new Connection();
+    $db = $db->databaseConnection();
+
+    if (isset($_POST["verstuurcontact"])) {
+        if (empty($_POST["naamcontact"]) || empty($_POST["telefoonnummercontact"]) || empty($_POST["emailcontact"]) || empty($_POST["berichtcontact"])) {
+            print("Vul a.u.b. alle velden in");
+        } else {
+            try {
+                $naamincontact = $_POST["naamcontact"];
+                $emailincontact = $_POST["emailcontact"];
+                $telefooncontact=$_POST["telefoonnummercontact"];
+                $berichtcontact = $_POST["berichtcontact"];
+
+
+                $db->query("INSERT INTO user (email, first_name, phonenumber ) VALUES ('$emailincontact', '$naamincontact' , '$telefooncontact)");
+
+                $last_id = $db->lastInsertId();
+
+                $sql = "INSERT INTO contact (name, inhoud, user_id) VALUES ('$naamincontact', '$berichtcontact', '$last_id')";
+                $stmtin = $db->prepare($sql);
+
+
+
+                if($stmtin->execute()) {
+                    print("Bedankt dat u contact opneemt");
+
+                } else {
+                    print_r($stmtin->errorInfo());
+                }
+            } catch (PDOException $e) {
+                echo $e->getMessage();
+            }
+        }
+    }
+
+
             return true;
-        }else{
+
+
+        } else {
+
             echo "<script>alert('Vul Recaptcha in.');</script>";
-            echo " <meta http-equiv=\"refresh\" content=\"0; url=Vanelles/contact.php\" />";
+            echo " <meta http-equiv=\"refresh\" content=\"0; url=contact.php\" />";
             return false;
+
         }
     }
     ?>
@@ -49,22 +90,24 @@
                     <tr><td>BTW: </td><td>208147895B01</td></tr>
                 </table>
             </div>
+
+
             <div class="col-md-6 col-xs-12 marbot">
                 <div class="ptitle">
                     <h2>Contact formulier</h2>
                 </div>
                 <form method="post" action="?">
                     <div class="form-group">
-                        <input class="form-control" type="text" name="naamcontact" placeholder="Naam">
+                        <input class="form-control" type="text" name="naamcontact" placeholder="Naam" >
                     </div>
                     <div class="form-group">
-                        <input class="form-control" type="tel" name="telefoonnummercontact" placeholder="Telefoonnummer">
+                        <input class="form-control" type="tel" name="telefoonnummercontact" placeholder="Telefoonnummer" >
                     </div>
                     <div class="form-group">
-                        <input class="form-control" type="email" name="emailcontact" placeholder="naam@voorbeeld.com">
+                        <input class="form-control" type="email" name="emailcontact" placeholder="naam@voorbeeld.com" >
                     </div>
                     <div class="form-group">
-                        <textarea class="form-control" id="textarea" placeholder="Bericht" name="Berichtcontact"></textarea>
+                        <textarea class="form-control" id="textarea" placeholder="Bericht" name="berichtcontact"></textarea>
                     </div>
 
                     <div class="g-recaptcha" data-sitekey="6LevEzsUAAAAACTTY0PQXdlxvv1lXY4QkFLnU7-1"></div>

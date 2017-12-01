@@ -15,14 +15,14 @@
                 <div id="quote-slider">
                     <div>
                         <?php
-                            $sql3 = "SELECT * FROM review ORDER BY RAND() LIMIT 1";
+                            $sql3 = "SELECT * FROM review JOIN user ON review.user_id=user.user_id ORDER BY RAND() LIMIT 1";
                             $stmtout = $db->prepare($sql3);
 
                             $stmtout->execute();
 
                             while ($row = $stmtout->fetch())
                             {
-                                $naamprint = $row["naam"];
+                                $naamprint = $row["first_name"];
                                 $quoteprint = $row["quote"];
                                 $ratingprint = $row["rating"];
 

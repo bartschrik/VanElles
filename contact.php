@@ -4,9 +4,6 @@
 </head>
 
 <?php require_once 'includes/header.php';?>
-
-
-
 <div class="martop">
     <div class="container">
         <div class="row">
@@ -133,11 +130,11 @@ function test_input($data) {
                         $quotein = $_POST["omschrijving"];
                         $ratingin = $_POST["sterren"];
 
-                        $db->query("INSERT INTO user (email) VALUES ('$emailin')");
+                        $db->query("INSERT INTO user (email, first_name) VALUES ('$emailin', '$naamin')");
 
                         $last_id = $db->lastInsertId();
 
-                        $sql = "INSERT INTO review (quote, rating, naam, user_id) VALUES ('$quotein', '$ratingin', '$naamin', '$last_id')";
+                        $sql = "INSERT INTO review (quote, rating, user_id) VALUES ('$quotein', '$ratingin', '$last_id')";
                         $stmtin = $db->prepare($sql);
 
 
@@ -163,20 +160,21 @@ function test_input($data) {
             <div>
                 <?php
 
-                $sql3 = "SELECT * FROM review ORDER BY RAND() LIMIT 3";
+                $sql3 = "SELECT * FROM review JOIN user ON review.user_id=user.user_id ORDER BY RAND() LIMIT 3";
                 $stmtout = $db->prepare($sql3);
 
                 $stmtout->execute();
 
                 while ($row = $stmtout->fetch())
                 {
-                    $naamprint = $row["naam"];
+                    $naamprint = $row["first_name"];
                     $datumprint = $row["datum"];
                     $quoteprint = $row["quote"];
                     $ratingprint = $row["rating"];
 
+
                     print("<div class='recensiekaart'>");
-                    print($naamprint . ",  27-10-1999" . "<br><br>" . $quoteprint . "<br><br>");
+                    print($naamprint . ", " . $datumprint . "<br><br>" . $quoteprint . "<br><br>");
 
                     for ($i=1; $i <= $ratingprint; $i++){
                         print("<hartjevol class='ion-ios-heart' style='color: #ff00ff; font-size: 30px;'></hartjevol>");

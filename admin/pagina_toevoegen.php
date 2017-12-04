@@ -36,7 +36,7 @@
                         if($val->isPassed()) {
                             $savePage = $page->savePage($_POST, $user->getUser()['user_id']);
                             if (!$savePage)
-                                echo '<div class="feedback error container"><div class="row"><div class="col-xs-12"><p>Er is een probleem met onze serve, probeer het later opnieuw.</p></div></div></div>';
+                                echo '<div class="feedback error container"><div class="row"><div class="col-xs-12"><p>Er is een probleem met onze server, probeer het later opnieuw.</p></div></div></div>';
                             die(header('Location: dashboard.php'));
                         } else {
                             $errors = $val->getErrors();

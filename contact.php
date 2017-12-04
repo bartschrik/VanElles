@@ -30,17 +30,17 @@
 
                         $db->query("INSERT INTO user (email, first_name, phonenumber ) VALUES ('$emailincontact', '$naamincontact' , '$telefooncontact)");
 
-                        $last_id = $db->lastInsertId();
+                        $last_id2 = $db->lastInsertId();
 
-                        $sql = "INSERT INTO contact (name, inhoud, user_id) VALUES ('$naamincontact', '$berichtcontact', '$last_id')";
-                        $stmtin = $db->prepare($sql);
+                        $sql = "INSERT INTO contact (name, inhoud, user_id) VALUES ('$naamincontact', '$berichtcontact', '$last_id2')";
+                        $stm = $db->prepare($sql);
 
 
-                        if ($stmtin->execute()) {
+                        if ($stm->execute()) {
                             print("Bedankt dat u contact opneemt");
 
                         } else {
-                            print_r($stmtin->errorInfo());
+                            print_r($stm->errorInfo());
                         }
                     } catch (PDOException $e) {
                         echo $e->getMessage();

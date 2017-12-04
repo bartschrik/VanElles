@@ -81,7 +81,7 @@ class User {
                     $this->_user = $user;
                     $_SESSION['user'] = $user;
                     $this->_loggedin = true;
-                    return $user['id'];
+                    return $user['user_id'];
                 }
                 return 3;
             } catch (PDOexception $e) {

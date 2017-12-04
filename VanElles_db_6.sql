@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Gegenereerd op: 01 dec 2017 om 14:19
+-- Gegenereerd op: 04 dec 2017 om 14:40
 -- Serverversie: 10.1.26-MariaDB
 -- PHP-versie: 7.1.8
 
@@ -96,7 +96,10 @@ CREATE TABLE `blog` (
   `datum` timestamp(6) NOT NULL DEFAULT CURRENT_TIMESTAMP(6) ON UPDATE CURRENT_TIMESTAMP(6),
   `beschrijving` varchar(2000) NOT NULL,
   `kernwoorden` varchar(45) NOT NULL,
-  `img_name` varchar(45) NOT NULL
+  `img_name` varchar(45) NOT NULL,
+  `activiteit` int(1) NOT NULL DEFAULT '0' COMMENT '0 = Nee, 1 = Ja',
+  `inschrijving` int(1) NOT NULL DEFAULT '0' COMMENT '0 = Nee, 1 = Ja',
+  `inschrijving_aantal` int(3) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
@@ -121,8 +124,9 @@ CREATE TABLE `contact` (
 
 CREATE TABLE `inschijvingen` (
   `inschijving_id` int(11) NOT NULL,
-  `activiteit_id` int(11) NOT NULL,
-  `user_id` int(11) NOT NULL
+  `blog_id` int(11) NOT NULL,
+  `user_id` int(11) NOT NULL,
+  `datum` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
@@ -166,8 +170,7 @@ CREATE TABLE `page` (
 
 INSERT INTO `page` (`id`, `title`, `subtitle`, `inhoud`, `description`, `kernwoorden`, `active`, `datum`, `image`, `Module_id`, `user_id`) VALUES
 (1, 'Home', 'Welkom bij Van Elles', 'blabla', 'balabl', 'bla, bla, dofs', 1, '2017-11-29 00:00:00', 'image', 1, 1),
-(2, 'First inserted page', 'een subtitel', '<p>fdsa<strong>fdsaf a&nbsp;<s>&nbsp;fdsaf dsaf</s></strong></p>\r\n\r\n<p>&nbsp;</p>\r\n\r\n<h2 style=\"font-style:italic;\">fdadfsaf</h2>\r\n', 'Dit is een korte beschrijving van de website voor het seo van google', 'kernwoord1, kernwoord2, panelles', 0, '2017-12-01 00:00:00', NULL, 2, 1),
-(3, 'Second inserted page', 'een subtitel', '<p>fdsa<strong>fdsaf a&nbsp;<s>&nbsp;fdsaf dsaf</s></strong></p>\r\n\r\n<h1>test</h1>\r\n\r\n<h2 style=\"font-style:italic\">fdadfsaf</h2>\r\n', 'Dit is een korte beschrijving van de website voor het seo van google', 'kernwoord1, kernwoord2, panelles', 1, '2017-12-01 00:00:00', NULL, 2, 1);
+(2, 'First inserted page bewerkt', 'een subtitel', '<p>fdsa<strong>fdsaf a&nbsp;<s>&nbsp;fdsaf dsaf</s></strong></p>\r\n\r\n<p>&nbsp;</p>\r\n\r\n<h2 style=\"font-style:italic\">fdadfsaf</h2>\r\n', 'Dit is een korte beschrijving van de website voor het seo van google', 'kernwoord1, kernwoord2, panelles', 0, '2017-12-01 00:00:00', NULL, 2, 1);
 
 -- --------------------------------------------------------
 
@@ -290,7 +293,7 @@ ALTER TABLE `contact`
 --
 ALTER TABLE `inschijvingen`
   ADD PRIMARY KEY (`inschijving_id`),
-  ADD KEY `fk_inschijvingen_activiteit1_idx` (`activiteit_id`),
+  ADD KEY `fk_inschijvingen_activiteit1_idx` (`blog_id`),
   ADD KEY `fk_inschijvingen_user1_idx` (`user_id`);
 
 --
@@ -378,7 +381,7 @@ ALTER TABLE `product`
 -- AUTO_INCREMENT voor een tabel `review`
 --
 ALTER TABLE `review`
-  MODIFY `review_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `review_id` int(11) NOT NULL AUTO_INCREMENT;
 --
 -- AUTO_INCREMENT voor een tabel `user`
 --
@@ -416,7 +419,7 @@ ALTER TABLE `contact`
 -- Beperkingen voor tabel `inschijvingen`
 --
 ALTER TABLE `inschijvingen`
-  ADD CONSTRAINT `fk_inschijvingen_activiteit1` FOREIGN KEY (`activiteit_id`) REFERENCES `activiteit` (`activiteit_id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  ADD CONSTRAINT `fk_inschijvingen_blog1` FOREIGN KEY (`blog_id`) REFERENCES `blog` (`blog_id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   ADD CONSTRAINT `fk_inschijvingen_user1` FOREIGN KEY (`user_id`) REFERENCES `user` (`user_id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
 
 --

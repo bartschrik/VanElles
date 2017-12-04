@@ -13,8 +13,10 @@ class Page {
     public function getAllMin($active = 1) {
         try {
             $query = $this->_db->prepare('
-                    SELECT id, title, active, first_name, insertion, last_name FROM page p
+                    SELECT p.id id, title, active, first_name, insertion, last_name, m.naam module
+                    FROM page p
                     JOIN user u ON p.user_id = u.user_id
+                    JOIN Module m ON p.Module_id = m.id
                     WHERE active = :active;
                 ');
             $query->bindValue(":active", $active);

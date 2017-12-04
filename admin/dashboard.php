@@ -49,8 +49,9 @@
                                     <th>Id</th>
                                     <th>Titel</th>
                                     <th>Aangemaakt door</th>
+                                    <th>Module</th>
                                     <th>Actief</th>
-                                    <th>Optie\'s</th>
+                                    <th style="width: 100px;">Optie\'s</th>
                                 </tr>
                             </thead>
                             <tbody>';
@@ -61,6 +62,7 @@
                                 <td>#'.$value['id'].'</td>
                                 <td>'.$value['title'].'</td>
                                 <td><div>'.$value['first_name']." ". $value['insertion'] . " " . $value['last_name'].'</div></td>
+                                <td>'.$value['module'].'</td>
                                 <td>Ja</td>
                                 <td><a href="pagina_bewerken.php?bewerkid='.$value['id'].'" title="Bewerken" data-id="'.$value['id'].'"><i class="fa fa-pencil"></i></a><a class="confirm" href="dashboard.php?verid='.$value['id'].'" title="Verwijderen" data-id="'.$value['id'].'"><i class="fa fa-trash"></i></a></td>
                             </tr>';
@@ -80,8 +82,9 @@
                                     <th>Id</th>
                                     <th>Titel</th>
                                     <th>Aangemaakt door</th>
+                                    <th>Module</th>
                                     <th>Actief</th>
-                                    <th>Optie\'s</th>
+                                    <th style="width: 100px;">Optie\'s</th>
                                 </tr>
                             </thead>
                             <tbody>';
@@ -92,6 +95,7 @@
                                 <td>#'.$value['id'].'</td>
                                 <td>'.$value['title'].'</td>
                                 <td><div>'.$value['first_name']." ". $value['insertion'] . " " . $value['last_name'].'</div></td>
+                                <td>'.$value['module'].'</td>
                                 <td>Nee</td>
                                 <td><a href="pagina_bewerken.php?bewerkid='.$value['id'].'" title="Bewerken" data-id="'.$value['id'].'"><i class="fa fa-pencil"></i></a><a class="confirm" href="dashboard.php?verid='.$value['id'].'" title="Verwijderen" data-id="'.$value['id'].'"><i class="fa fa-trash"></i></a></td>
                             </tr>';

@@ -11,21 +11,21 @@
             $db = new Connection();
             $db = $db->databaseConnection();
 
-            $sql3 = "SELECT * FROM review";
+            $sql3 = "SELECT * FROM review JOIN user ON review.user_id=user.user_id";
             $stmtout = $db->prepare($sql3);
 
             $stmtout->execute();
 
             while ($row = $stmtout->fetch())
             {
-                $naamprint = $row["naam"];
+                $naamprint = $row["first_name"];
                 $datumprint = $row["datum"];
                 $quoteprint = $row["quote"];
                 $ratingprint = $row["rating"];
 
                 print("<div class='col-xs-12 col-md-6'><div class='card recensiekaart'>");
 
-                print($naamprint . " 27-10-1999" . "<br><br>" . $quoteprint . "<br><br>");
+                print($naamprint . ", " . $datumprint . "<br><br>" . $quoteprint . "<br><br>");
 
                 for ($i=1; $i <= $ratingprint; $i++){
                     print("<hartjevol class='ion-ios-heart' style='color: #ff00ff; font-size: 30px;'></hartjevol>");

@@ -1,12 +1,68 @@
 <head>
+    <!--haalt de recaotch op-->
     <script src='https://www.google.com/recaptcha/api.js'></script>
+    <?php
+    if(isset($_POST['verstuurcontact'])) {
+
+        $url = 'https://www.google.com/recaptcha/api/siteverify';
+        $privatekey = "6LevEzsUAAAAAGvQJ1EDrE-eL5aNBKHteM83OywN";
+
+        $response = file_get_contents($url . "?secret=" . $privatekey . "&response=" . $_POST['g-recaptcha-response'] . "&remoteip=" . $_SERVER['REMOTE_ADDR']);
+        $data = json_decode($response);
+
+        if (isset($data->success) AND $data->success == true) {
+
+            require_once 'admin/classes/connection.class.php';
+            $db = new Connection();
+            $db = $db->databaseConnection();
+
+
+
+            if (isset($_POST["verstuurcontact"])) {
+                if (empty($_POST["naamcontact"]) || empty($_POST["telefoonnummercontact"]) || empty($_POST["emailcontact"]) || empty($_POST["berichtcontact"])) {
+                    print("Vul a.u.b. alle velden in");
+                } else {
+                    try {
+                        $naamincontact = $_POST["naamcontact"];
+                        $emailincontact = $_POST["emailcontact"];
+                        $telefooncontact = $_POST["telefoonnummercontact"];
+                        $berichtcontact = $_POST["berichtcontact"];
+
+                        $db->query("INSERT INTO user (email, first_name, phonenumber ) VALUES ('$emailincontact', '$naamincontact' , '$telefooncontact)");
+
+                        $last_id = $db->lastInsertId();
+
+                        $sql = "INSERT INTO contact (name, inhoud, user_id) VALUES ('$naamincontact', '$berichtcontact', '$last_id')";
+                        $stmtin = $db->prepare($sql);
+
+
+                        if ($stmtin->execute()) {
+                            print("Bedankt dat u contact opneemt");
+
+                        } else {
+                            print_r($stmtin->errorInfo());
+                        }
+                    } catch (PDOException $e) {
+                        echo $e->getMessage();
+                    }
+                }
+            }
+            return true;
+
+
+        } else {
+
+            echo "<script>alert('Vul Recaptcha in.');</script>";
+            echo " <meta http-equiv=\"refresh\" content=\"0; url=contact.php\" />";
+            return false;
+
+        }
+    }
+    ?>
 
 </head>
 
 <?php require_once 'includes/header.php';?>
-
-
-
 <div class="martop">
     <div class="container">
         <div class="row">
@@ -33,32 +89,42 @@
                     <tr><td>BTW: </td><td>208147895B01</td></tr>
                 </table>
             </div>
+
+
             <div class="col-md-6 col-xs-12 marbot">
                 <div class="ptitle">
                     <h2>Contact formulier</h2>
                 </div>
                 <form method="post" action="?">
                     <div class="form-group">
-                        <input class="form-control" type="text" name="naamcontact" placeholder="Naam">
+                        <input class="form-control" type="text" name="naamcontact" placeholder="Naam" >
                     </div>
                     <div class="form-group">
-                        <input class="form-control" type="tel" name="telefoonnummercontact" placeholder="Telefoonnummer">
+                        <input class="form-control" type="tel" name="telefoonnummercontact" placeholder="Telefoonnummer" >
                     </div>
                     <div class="form-group">
-                        <input class="form-control" type="email" name="emailcontact" placeholder="naam@voorbeeld.com">
+                        <input class="form-control" type="email" name="emailcontact" placeholder="naam@voorbeeld.com" >
                     </div>
                     <div class="form-group">
-                        <textarea class="form-control" id="textarea" placeholder="Bericht" name="Berichtcontact"></textarea>
+                        <textarea class="form-control" id="textarea" placeholder="Bericht" name="berichtcontact"></textarea>
                     </div>
+
+                    <div class="g-recaptcha" data-sitekey="6LevEzsUAAAAACTTY0PQXdlxvv1lXY4QkFLnU7-1"></div>
 
                     <div class="form-group">
                         <input class="btn btn-default" type="submit" name="verstuurcontact" value="verstuur">
                     </div>
                 </form>
-                <div class="g-recaptcha" data-sitekey="6LevEzsUAAAAACTTY0PQXdlxvv1lXY4QkFLnU7-1"></div>
+
             </div>
         </div>
     </div>
+
+
+
+
+
+
     <iframe width="100%" height="450" frameborder="0" style="border:0"
             src="https://www.google.com/maps/embed/v1/place?q=place_id:ChIJ5V02qP_2x0cRW1sToOEGWTw&key=AIzaSyApMHLgYCLkBT1N0ww0-52xlCQRG-eg7Rw"
             allowfullscreen>
@@ -133,11 +199,11 @@ function test_input($data) {
                         $quotein = $_POST["omschrijving"];
                         $ratingin = $_POST["sterren"];
 
-                        $db->query("INSERT INTO user (email) VALUES ('$emailin')");
+                        $db->query("INSERT INTO user (email, first_name) VALUES ('$emailin', '$naamin')");
 
                         $last_id = $db->lastInsertId();
 
-                        $sql = "INSERT INTO review (quote, rating, naam, user_id) VALUES ('$quotein', '$ratingin', '$naamin', '$last_id')";
+                        $sql = "INSERT INTO review (quote, rating, user_id) VALUES ('$quotein', '$ratingin', '$last_id')";
                         $stmtin = $db->prepare($sql);
 
 
@@ -163,20 +229,21 @@ function test_input($data) {
             <div>
                 <?php
 
-                $sql3 = "SELECT * FROM review ORDER BY RAND() LIMIT 3";
+                $sql3 = "SELECT * FROM review JOIN user ON review.user_id=user.user_id ORDER BY RAND() LIMIT 3";
                 $stmtout = $db->prepare($sql3);
 
                 $stmtout->execute();
 
                 while ($row = $stmtout->fetch())
                 {
-                    $naamprint = $row["naam"];
+                    $naamprint = $row["first_name"];
                     $datumprint = $row["datum"];
                     $quoteprint = $row["quote"];
                     $ratingprint = $row["rating"];
 
+
                     print("<div class='recensiekaart'>");
-                    print($naamprint . ",  27-10-1999" . "<br><br>" . $quoteprint . "<br><br>");
+                    print($naamprint . ", " . $datumprint . "<br><br>" . $quoteprint . "<br><br>");
 
                     for ($i=1; $i <= $ratingprint; $i++){
                         print("<hartjevol class='ion-ios-heart' style='color: #ff00ff; font-size: 30px;'></hartjevol>");

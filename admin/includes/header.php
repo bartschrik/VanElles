@@ -41,7 +41,7 @@ error_reporting(-1);
         <div class="row">
             <div class="col-xs-12">
                 <ul class="nav navbar-nav">
-                    <li><a href="paginaoverzicht.php">Pagina's</a></li>
+                    <li><a href="dashboard.php">Pagina's</a></li>
                 </ul>
             </div>
         </div>

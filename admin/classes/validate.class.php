@@ -109,7 +109,6 @@ class Validate {
     public function isPassed() {
         if(empty($this->_errors))
             return true;
-
         return false;
     }
 }

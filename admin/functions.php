@@ -41,3 +41,15 @@ function hasContent( $value, $get = false ) {
     }
     return true;
 }
+
+function trueFalseText($value) {
+    if(is_numeric($value)) {
+        if(1)
+            return "Ja";
+        return "Nee";
+    } else {
+        if(true)
+            return "ja";
+        return "Nee";
+    }
+}

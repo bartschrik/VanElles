@@ -18,8 +18,9 @@
             if (!!$_FILES['file']['tmp_name']) {
                 $temp = explode(".", $_FILES["file"]["name"]);
                 $date = new DateTime();
-                $date2 = $date->format('Y-m-d H:i');
-                $newfilename =  $date2 . '.' . end($temp);
+                $date = $date->format('Y-m-d H:i:s');
+                $hash1 = sha1($date);
+                $newfilename = $hash1 . '.' . end($temp);
                 $img_name = $newfilename;
 
                 if (in_array(end($temp), $allow)) {
@@ -30,21 +31,27 @@
                     header("refresh:2;url=blog_up.php");
                     exit;
                 }
-            }
-            $title = $_POST["titel"];
-            $inhoud = $_POST["inhoud"];
-            $subtitel = $_POST["subtitel"];
-            $userid = $user->getUser()['user_id'];
-            $sql1 = "INSERT INTO blog (title, inhoud, img_name, subtitle, user_id) VALUES ('$title', '$inhoud', '$img_name', '$subtitel', '$userid')";
-            $smt1 = $db->prepare($sql1);
+                $title = $_POST["titel"];
+                $inhoud = $_POST["inhoud"];
+                $subtitel = $_POST["subtitel"];
+                $activiteit = $_POST["activiteit"];
+                $inschrijven = $_POST["inschrijven"];
+                $beschrijving = $_POST["beschrijving"];
+                $kernwoorden = $_POST["kernwoorden"];
+                $userid = $user->getUser()['user_id'];
+                $sql1 = "INSERT INTO blog (title, inhoud, subtitle, img_name, user_id, activiteit, inschrijving, beschrijving, kernwoorden) VALUES ('$title', '$inhoud', '$subtitel', '$img_name', '$userid', '$activiteit', '$inschrijven', '$beschrijving', '$kernwoorden')";
+                $smt1 = $db->prepare($sql1);
 
-            if ($title == "" || $inhoud == "") {
-                echo "Maak de post a.u.b compleet!";
-            }
-            if ($smt1->execute()) {
-                echo "succes";
-            } else {
-                print_r($smt1->errorinfo());
+                if ($title == "" || $inhoud == "" || $subtitel = "" || $beschrijving = "" || $kernwoorden = "") {
+                    echo "Maak de post a.u.b compleet!";
+                    header("refresh:2;url=blog_up.php");
+                    exit;
+                }
+                if ($smt1->execute()) {
+                    echo "succes";
+                } else {
+                    print_r($smt1->errorinfo());
+                }
             }
         }
     }
@@ -70,19 +77,25 @@
                             <input type='text' name='titel' placeholder='Titel'/>
                             <input type='text' name='subtitel' placeholder='Sub Titel'/>
                             <textarea name='inhoud' placeholder='Inhoud'></textarea>
+                            <input type='text' name='beschrijving' placeholder='Beschrijving'/>
+                            <input type='text' name='kernwoorden' placeholder='Kernwoorden'/>
                             <script>
                                 CKEDITOR.replace( 'inhoud' );
                             </script>
-                            <span>Module:</span>
-                            <select name='module' id='selectmodule'>
-                                <option value='1'>test1</option>
-                                <option value='1'>test2</option>
-                                <option value='1'>test3</option>
+                            <span>Activiteit:</span>
+                            <select name='activiteit' id='selectmodule'>
+                                <option value='0'>Nee</option>
+                                <option value='1'>Ja</option>
+                            </select>
+                            <span>Inschrijven:</span>
+                            <select name='inschrijven' id='selectmodule'>
+                                <option value='0'>Nee</option>
+                                <option value='1'>Ja</option>
                             </select>
                             <span>Actief:</span>
                             <select name='actief'>
+                                <option value='0'>Nee</option>
                                 <option value='1'>Ja</option>
-                                <option value='2'>Nee</option>
                             </select>
                         </div>
                         <div class='col-md-4'>

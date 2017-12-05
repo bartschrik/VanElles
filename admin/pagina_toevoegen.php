@@ -153,11 +153,6 @@
                             echo '</select>';
                         }
 
-                        $imgholder = '';
-                        if(isset($getPage['headerimg']) && $getPage['headerimg'] != '') {
-                            $imgholder = 'background-image:url(uploadedafb/'.$getPage['headerimg'].')"';
-                        }
-
                         echo '<span>Actief:</span>
                                         <select name="actief">
                                             <option value="1">ja</option>

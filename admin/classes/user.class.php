@@ -41,8 +41,8 @@ class User {
 
                         die(header('Location: dashboard.php'));
                     }
-                    return 3;
                 }
+                return 3;
             } catch (PDOException $e) {
                 return 2;
             }
@@ -65,8 +65,8 @@ class User {
 
                         die(header('Location: dashboard.php'));
                     }
-                    return 3;
                 }
+                return 3;
             } catch (PDOException $e) {
                 return 2;
             }

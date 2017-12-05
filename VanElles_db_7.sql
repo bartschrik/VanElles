@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Gegenereerd op: 04 dec 2017 om 14:40
+-- Gegenereerd op: 05 dec 2017 om 14:24
 -- Serverversie: 10.1.26-MariaDB
 -- PHP-versie: 7.1.8
 
@@ -92,7 +92,7 @@ CREATE TABLE `blog` (
   `user_id` int(11) NOT NULL,
   `title` varchar(45) NOT NULL,
   `subtitle` varchar(45) NOT NULL,
-  `inhoud` varchar(45) NOT NULL,
+  `inhoud` mediumtext NOT NULL,
   `datum` timestamp(6) NOT NULL DEFAULT CURRENT_TIMESTAMP(6) ON UPDATE CURRENT_TIMESTAMP(6),
   `beschrijving` varchar(2000) NOT NULL,
   `kernwoorden` varchar(45) NOT NULL,
@@ -111,7 +111,7 @@ CREATE TABLE `blog` (
 CREATE TABLE `contact` (
   `contact_id` int(11) NOT NULL,
   `name` varchar(45) DEFAULT NULL,
-  `date` timestamp(6) NOT NULL DEFAULT CURRENT_TIMESTAMP(6) ON UPDATE CURRENT_TIMESTAMP(6),
+  `date` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   `inhoud` varchar(2000) NOT NULL,
   `user_id` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
@@ -158,7 +158,7 @@ CREATE TABLE `page` (
   `description` varchar(2000) DEFAULT NULL,
   `kernwoorden` varchar(100) DEFAULT NULL,
   `active` int(1) DEFAULT NULL COMMENT '1 = actief, 0 = inactief',
-  `datum` datetime DEFAULT CURRENT_TIMESTAMP,
+  `datum` datetime DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   `image` varchar(45) DEFAULT NULL,
   `Module_id` int(11) NOT NULL,
   `user_id` int(11) NOT NULL
@@ -170,7 +170,8 @@ CREATE TABLE `page` (
 
 INSERT INTO `page` (`id`, `title`, `subtitle`, `inhoud`, `description`, `kernwoorden`, `active`, `datum`, `image`, `Module_id`, `user_id`) VALUES
 (1, 'Home', 'Welkom bij Van Elles', 'blabla', 'balabl', 'bla, bla, dofs', 1, '2017-11-29 00:00:00', 'image', 1, 1),
-(2, 'First inserted page bewerkt', 'een subtitel', '<p>fdsa<strong>fdsaf a&nbsp;<s>&nbsp;fdsaf dsaf</s></strong></p>\r\n\r\n<p>&nbsp;</p>\r\n\r\n<h2 style=\"font-style:italic\">fdadfsaf</h2>\r\n', 'Dit is een korte beschrijving van de website voor het seo van google', 'kernwoord1, kernwoord2, panelles', 0, '2017-12-01 00:00:00', NULL, 2, 1);
+(2, 'First inserted page bewerkt', 'een subtitel', '<p>fdsa<strong>fdsaf a&nbsp;<s>&nbsp;fdsaf dsaf</s></strong></p>\r\n\r\n<p>&nbsp;</p>\r\n\r\n<h2 style=\"font-style:italic\">fdadfsaf</h2>\r\n', 'Dit is een korte beschrijving van de website voor het seo van google', 'kernwoord1, kernwoord2, panelles', 0, '2017-12-01 00:00:00', NULL, 2, 1),
+(3, 'Test', 'dfsaf', '<p>fsdafdsa</p>\r\n', 'das', 'fdosaffdsa', 0, '2017-12-05 14:21:56', NULL, 2, 1);
 
 -- --------------------------------------------------------
 
@@ -357,6 +358,11 @@ ALTER TABLE `activiteit`
 --
 ALTER TABLE `blog`
   MODIFY `blog_id` int(11) NOT NULL AUTO_INCREMENT;
+--
+-- AUTO_INCREMENT voor een tabel `contact`
+--
+ALTER TABLE `contact`
+  MODIFY `contact_id` int(11) NOT NULL AUTO_INCREMENT;
 --
 -- AUTO_INCREMENT voor een tabel `inschijvingen`
 --

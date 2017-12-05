@@ -8,6 +8,7 @@ require_once 'functions.php';
 require_once 'classes/user.class.php';
 require_once 'classes/page.class.php';
 require_once 'classes/validate.class.php';
+require_once 'classes/leverancier.class.php';
 
 //General classes
 $user = new User();

@@ -51,7 +51,7 @@
 
                         echo '<form action="#" method="post" class="classicform">
                                     <div class="col-md-8">
-                                        <input type="text" name="naam" placeholder="Leverancier" value="' . InputValue('titel') . '" /> 
+                                        <input type="text" name="naam" placeholder="bbbb" value="' . InputValue('naam') . '" /> 
                                         <textarea name="inhoud" placeholder="Inhoud">' . InputValue('inhoud') . '</textarea>
                                         <script>
                                             CKEDITOR.replace( "inhoud" );
@@ -61,7 +61,7 @@
                                     <div class="col-md-4">
                                         <h4>SEO-Informatie</h4>
                                         <input type="text" name="seokernwoorden" class="' . InputErrorClass('seokernwoorden', $errors) . '" placeholder="Kernwoorden, bijv: vanelles, woonwinkel ect." value="' . InputValue('seokernwoorden') . '" />
-                                        <textarea name="seoinhoud" class="' . InputErrorClass('seoinhoud', $errors) . '" placeholder="Website beschrijving" style="max-width: 100%; height: 200px;">' . InputValue('seoinhoud') . '</textarea>
+                                        <textarea name="seoinhoud" class="' . InputErrorClass('seoinhoud', $errors) . '" placeholder="Leverancier beschrijving" style="max-width: 100%; height: 200px;">' . InputValue('seoinhoud') . '</textarea>
                                     </div>
                                     <div class="row">
                                         <div class="col-xs-12" id="precol">
@@ -86,7 +86,7 @@
                     } else {
                         echo '<form action="#" method="post" class="classicform">
                                     <div class="col-md-8">
-                                        <input type="text" name="naam" placeholder="Leverancier" value="' . InputValue('titel') . '" /> 
+                                        <input type="text" name="naam" placeholder="Leveranciers naam" value="' . InputValue('naam') . '" /> 
                                         <textarea name="inhoud" placeholder="Inhoud">' . InputValue('inhoud') . '</textarea>
                                         <script>
                                             CKEDITOR.replace( "inhoud" );
@@ -96,7 +96,7 @@
                                     <div class="col-md-4">
                                         <h4>SEO-Informatie</h4>
                                         <input type="text" name="seokernwoorden" placeholder="Kernwoorden, bijv: vanelles, woonwinkel ect." value="' . InputValue('seokernwoorden') . '" />
-                                        <textarea name="seoinhoud"  placeholder="Website beschrijving" style="max-width: 100%; height: 200px;">' . InputValue('seoinhoud') . '</textarea>
+                                        <textarea name="seoinhoud"  placeholder="Leverancier beschrijving" style="max-width: 100%; height: 200px;">' . InputValue('seoinhoud') . '</textarea>
                                     </div>
                                     <div class="row">
                                         <div class="col-xs-12" id="precol">
@@ -117,6 +117,12 @@
                                     </div>
                                 </form>';
                             }
+
+                    require_once 'classes/connection.class.php';
+                    $db = new Connection();
+                    $db = $db->databaseConnection();
+
+
                         ?>
 
                 </div>

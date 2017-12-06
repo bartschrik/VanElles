@@ -231,9 +231,26 @@ function test_input($data) {
                         $quotein = $_POST["omschrijving"];
                         $ratingin = $_POST["sterren"];
 
-                        $db->query("INSERT INTO user (email, first_name) VALUES ('$emailin', '$naamin')");
+                        //query: check of email in user bestaat en selecteer id
+                        $query = $db->prepare("SELECT user_id FROM user WHERE email = :email");
+                        $query->bindValue(":email", $emailin);
+                        $query->execute();
+                        $last_id = $query->fetch()['user_id'];
 
-                        $last_id = $db->lastInsertId();
+                        if($last_id) {
+                           //Zoja: update user info van bestaade user
+                            $query = $db->prepare("UPDATE user SET first_name = :voornaam WHERE user_id = :userid");
+                            $query->bindValue(":voornaam", $naamin);
+                            $query->bindValue(":userid", $last_id);
+                            $query->execute();
+                        } else {
+                            //insert nieuw user en inser revies
+                            $query = $db->prepare("INSERT INTO user (first_name, email) VALUES (:voornaam, :email)");
+                            $query->bindValue(":voornaam", $naamin);
+                            $query->bindValue(":email", $emailin);
+                            $query->execute();
+                            $last_id = $db->lastInsertId();
+                        }
 
                         $sql = "INSERT INTO review (quote, rating, user_id) VALUES ('$quotein', '$ratingin', '$last_id')";
                         $stmtin = $db->prepare($sql);
@@ -261,7 +278,7 @@ function test_input($data) {
             <div>
                 <?php
 
-                $sql3 = "SELECT * FROM review JOIN user ON review.user_id=user.user_id ORDER BY RAND() LIMIT 3";
+                $sql3 = "SELECT * FROM review JOIN user ON review.user_id=user.user_id WHERE active= 1 ORDER BY RAND() LIMIT 3";
                 $stmtout = $db->prepare($sql3);
 
                 $stmtout->execute();
@@ -275,7 +292,7 @@ function test_input($data) {
 
 
                     print("<div class='recensiekaart'>");
-                    print($naamprint . ", " . $datumprint . "<br><br>" . $quoteprint . "<br><br>");
+                    print($naamprint . ", " . date("d/m/Y", strtotime($datumprint)) . "<br><br>" . $quoteprint . "<br><br>");
 
                     for ($i=1; $i <= $ratingprint; $i++){
                         print("<hartjevol class='ion-ios-heart' style='color: #ff00ff; font-size: 30px;'></hartjevol>");
@@ -288,7 +305,7 @@ function test_input($data) {
                 }
                 ?>
                 <br>
-                <a href="../recensie.php" class="btn btn-default">Lees meer recensies!</a>
+                <a href="./recensie.php" class="btn btn-default">Lees meer recensies!</a>
             </div>
         </div>
     </div>

@@ -46,11 +46,12 @@
                     echo "Maak de post a.u.b compleet!";
                     header("refresh:2;url=blog_up.php");
                     exit;
-                }
-                if ($smt1->execute()) {
-                    echo "succes";
                 } else {
-                    print_r($smt1->errorinfo());
+                    if ($smt1->execute()) {
+                        echo "succes";
+                    } else {
+                        print_r($smt1->errorinfo());
+                    }
                 }
             }
         }

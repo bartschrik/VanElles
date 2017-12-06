@@ -47,7 +47,6 @@
                                 <tr>
                                     <th>Id</th>
                                     <th>Leverancier</th>
-                                    <th>Aangemaakt door</th>
                                     <th style="width: 100px;">Optie\'s</th>
                                 </tr>
                             </thead>
@@ -58,8 +57,7 @@
                             <tr>
                                 <td>#'.$value['lev_id'].'</td>
                                 <td>'.$value['naam'].'</td>
-                                <td><div>'.$value['first_name']." ". $value['insertion'] . " " . $value['last_name'].'</div></td>
-                                <td><a href="leverancier_bewerken.php?bewerkid='.$value['id'].'" title="Bewerken" data-id="'.$value['id'].'"><i class="fa fa-pencil"></i></a><a class="confirm" href="dashboard.php?verid='.$value['id'].'" title="Verwijderen" data-id="'.$value['id'].'"><i class="fa fa-trash"></i></a></td>
+                                <td><a href="leverancier_bewerken.php?bewerkid='.$value['lev_id'].'" title="Bewerken" data-id="'.$value['lev_id'].'"><i class="fa fa-pencil"></i></a><a class="confirm" href="leverancier_overzicht.php.php?verid='.$value['lev_id'].'" title="Verwijderen" data-id="'.$value['lev_id'].'"><i class="fa fa-trash"></i></a></td>
                             </tr>';
 
                     }

@@ -1,56 +1,51 @@
 <!--Database connectie-->
 <?php
     require_once 'admin/classes/connection.class.php';
-    $db = new Connection();
-    $db = $db->databaseConnection();
-?>
+    require_once 'admin/classes/content.class.php';
+
+    $content = new Content();
+    $random = $content->getOneRandomReview();
+    ?>
+<?php if ($random){?>
+        <div id="main-quote" style="background-image: url('images/stbr2.jpg');">
+            <div class="overlay"></div>
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-8 col-sm-10 col-xs-12 col-md-offset-2 col-sm-offset-1">
+                        <div id="quote-slider">
+
+                            <div>
+                               <?php
+                                    $naamprint = $random["first_name"];
+                                    $quoteprint = $random["quote"];
+                                    $ratingprint = $random["rating"];
 
 
+                                    print("<div class='quote'>" . $quoteprint . "<br>");
+                                    for ($i = 1; $i <= $ratingprint; $i++) {
+                                        print("<hartjevol class='ion-ios-heart' style='color: #ff00ff; font-size: 40px;'></hartjevol>");
+                                    }
 
-<div id="main-quote" style="background-image: url('images/stbr2.jpg');">
-    <div class="overlay"></div>
-    <div class="container">
-        <div class="row">
-            <div class="col-md-8 col-sm-10 col-xs-12 col-md-offset-2 col-sm-offset-1">
-                <div id="quote-slider">
-                    <div>
-                        <?php
-                        $nix = "SELECT COUNT(*) from review";
-                        $statement = $db->query($nix);
-                        $result = $statement->fetch();
+//                                    for ($j = 1; $j <= (5 - $ratingprint); $j++) {
+//                                        print("<hartjeleeg class='ion-ios-heart-outline' style='color: #777; font-size: 40px;'></hartjeleeg>");
+//                                    }
+                                    print("</div>");
 
-                        if($result == 0){
-                            print("<div class='quote' style='height: 150px;'></div>");
-                        } else {
-                            $sql3 = "SELECT * FROM review JOIN user ON review.user_id=user.user_id ORDER BY RAND() LIMIT 1";
-                            $stmtout = $db->prepare($sql3);
+                                    print("<div class='naam'>" . $naamprint . "</div>");
+                                 ?>
+                            </div>
 
-                            $stmtout->execute();
-
-                            while ($row = $stmtout->fetch()) {
-                                $naamprint = $row["first_name"];
-                                $quoteprint = $row["quote"];
-                                $ratingprint = $row["rating"];
-
-
-                                print("<div class='quote'>" . $quoteprint . "<br>");
-                                for ($i = 1; $i <= $ratingprint; $i++) {
-                                    print("<hartjevol class='ion-ios-heart' style='color: #ff00ff; font-size: 60px;'></hartjevol>");
-                                }
-
-                                for ($j = 1; $j <= (5 - $ratingprint); $j++) {
-                                    print("<hartjeleeg class='ion-ios-heart-outline' style='color: #777; font-size: 60px;'></hartjeleeg>");
-                                }
-                                print("</div>");
-
-                                print("<div class='naam'>" . $naamprint . "</div>");
-                            }
-                        }
-                        ?>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
-    </div>
-</div>
+<?php } else {
+    print("<div class='quote'>hoi</div>");
+} ?>
+
+
+
+
+
 

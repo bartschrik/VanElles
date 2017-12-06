@@ -14,40 +14,40 @@ class leverancier {
         try {
             $query = $this->_db->prepare('
                     SELECT lev_id, naam
-                    FROM leverancier
+                    FROM leveranciers
                 ');
 
             if($query->execute()) {
                 return $content = $query->fetchAll();
             } else {
-                //echo $query->errorInfo();
+                // var_dump($query->errorInfo());
                 return false;
             }
         } catch (PDOexception $e) {
-            //echo $e->getMessage();
+           // echo $e->getMessage();
             return false;
         }
     }
 
 
-    public function savePage($data, $user_id) {
+    public function saveLev($data) {
         try {
             $query = $this->_db->prepare('
-                INSERT INTO `page` (`title`, `subtitle`, `inhoud`, `description`, `kernwoorden`, `active`, `datum`, `image`, `Module_id`, `user_id`) 
-                VALUES (:titel, :subtitel, :inhoud, :seoinhoud, :seokernwoorden, :actief, :datum, null, :module, :user_id);
+                INSERT INTO `leveranciers` (`naam`, `inhoud`, `logo`, `description`, `kernwoorden`) 
+                VALUES (:naam, :inhoud, :logo, :seoinhoud, :seokernwoorden);
             ');
-            $query->bindValue(":titel", $data['titel']);
-            $query->bindValue(":subtitel", $data['subtitel']);
+            $query->bindValue(":naam", $data['naam']);
             $query->bindValue(":inhoud", $data['inhoud']);
-            $query->bindValue(":module", $data['module']);
-            $query->bindValue(":actief", $data['actief']);
+            $query->bindValue(":logo", $data['logo']);
             $query->bindValue(":seokernwoorden", $data['seokernwoorden']);
             $query->bindValue(":seoinhoud", $data['seoinhoud']);
-            $query->bindValue(":datum", date('Y-m-d H:i:s'));
-            $query->bindValue(":user_id", $user_id);
-            if($query->execute())
+
+            if($query->execute()) {
                 return true;
-            return false;
+            } else {
+                var_dump($query->errorInfo());
+                return false;
+            }
         } catch (PDOException $e) {
             //echo $e->getMessage();
             return false;

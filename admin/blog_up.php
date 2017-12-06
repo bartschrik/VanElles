@@ -72,7 +72,7 @@
                     <i class='fa fa-cog'></i><span>Blog Posten</span>
                 </div>
                 <div class='row'>
-                    <form action='blog_up.php' method='post' enctype='multipart/form-data'>
+                    <form action='blog_up.php' method='post' class="classicform" enctype='multipart/form-data'>
                         <div class='col-md-8'>
                             <input type='text' name='titel' placeholder='Titel'/>
                             <input type='text' name='subtitel' placeholder='Sub Titel'/>
@@ -115,9 +115,9 @@
                         </div>
                         <div class='row'>
                             <div class='col-xs-12'>
+                                <button type="submit" name="post" class="save">Opslaan</button>
                                 <a href='paginaoverzicht.php' title='Annuleren' class='annuleer'>Anuleren</a>
                             </div>
-                            <input name='post' type='submit' value='Opslaan'>
                         </div>
                     </form>
                 </div>

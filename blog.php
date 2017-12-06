@@ -13,26 +13,23 @@
     $db = new Connection();
     $db = $db->databaseConnection();
 
-    $posts = "";
-
     $dir = 'images/blog/';
-
-    $files = glob("plates/*.{png,jpg,jpeg}", GLOB_BRACE);
 
     $query1 = $db->prepare('SELECT * FROM blog ORDER BY blog_id DESC');
 
     $query1->execute();
 
     while ($row = $query1->fetch(PDO::FETCH_ASSOC)) {
-        $row['blog_id'];
+        $id = $row['blog_id'];
         $img_name = $row['img_name'];
         $title = $row['title'];
-        $inhoud = $row['inhoud'];
+        $subtitel = $row["subtitle"];
 
-        echo "<form>
+        echo "<form id='blog'>
         <p>$title</p>
+        <p>$subtitel</p>
         <p><img height='250' width='250' src='$dir/$img_name'></p>
-        <p>$inhoud</p>
+        <a href='blog_det.php?pid=$id' title='Details'>Details</a>
         </form>";
     }
     require_once 'includes/footer.php';

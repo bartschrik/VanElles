@@ -15,30 +15,37 @@
                 <div id="quote-slider">
                     <div>
                         <?php
+                        $nix = "SELECT COUNT(*) from review";
+                        $statement = $db->query($nix);
+                        $result = $statement->fetch();
+
+                        if($result == 0){
+                            print("<div class='quote' style='height: 150px;'></div>");
+                        } else {
                             $sql3 = "SELECT * FROM review JOIN user ON review.user_id=user.user_id ORDER BY RAND() LIMIT 1";
                             $stmtout = $db->prepare($sql3);
 
                             $stmtout->execute();
 
-                            while ($row = $stmtout->fetch())
-                            {
+                            while ($row = $stmtout->fetch()) {
                                 $naamprint = $row["first_name"];
                                 $quoteprint = $row["quote"];
                                 $ratingprint = $row["rating"];
 
 
                                 print("<div class='quote'>" . $quoteprint . "<br>");
-                                for ($i=1; $i <= $ratingprint; $i++){
+                                for ($i = 1; $i <= $ratingprint; $i++) {
                                     print("<hartjevol class='ion-ios-heart' style='color: #ff00ff; font-size: 60px;'></hartjevol>");
                                 }
 
-                                for ($j=1; $j <= (5 - $ratingprint); $j++){
+                                for ($j = 1; $j <= (5 - $ratingprint); $j++) {
                                     print("<hartjeleeg class='ion-ios-heart-outline' style='color: #777; font-size: 60px;'></hartjeleeg>");
                                 }
                                 print("</div>");
 
                                 print("<div class='naam'>" . $naamprint . "</div>");
                             }
+                        }
                         ?>
                     </div>
                 </div>

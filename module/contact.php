@@ -181,7 +181,7 @@ function test_input($data) {
     <!--Invoervelden-->
     <div class="container">
         <div class="marbot martop col-xs-12 col-md-6">
-            <form method="post" action="contact.php">
+            <form method="post" action="">
                 <div class="ptitle">
                     <h2>Laat uw mening achter!</h2>
                 </div>

@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Gegenereerd op: 06 dec 2017 om 08:45
+-- Gegenereerd op: 06 dec 2017 om 09:40
 -- Serverversie: 10.1.26-MariaDB
 -- PHP-versie: 7.1.8
 
@@ -43,7 +43,8 @@ CREATE TABLE `Module` (
 
 INSERT INTO `Module` (`id`, `naam`, `path`) VALUES
 (1, 'Homepage', 'homepage.php'),
-(2, 'Content', 'content.php');
+(2, 'Content', 'content.php'),
+(3, 'Contact', 'contact.php');
 
 -- --------------------------------------------------------
 
@@ -172,7 +173,7 @@ CREATE TABLE `page` (
 
 INSERT INTO `page` (`id`, `pagetitle`, `title`, `subtitle`, `inhoud`, `description`, `kernwoorden`, `active`, `datum`, `image`, `Module_id`, `user_id`, `url`) VALUES
 (1, 'Home', 'Over de winkel', 'En leuk-ER conceptstore', '<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Accusantium aperiam asperiores corporis exercitationem expedita ipsam modi molestias, non numquam perferendis porro quia quos voluptatum? Consectetur, dicta doloremque dolores eaque excepturi exercitationem ipsa ipsum iste laborum libero magni maxime minus natus nesciunt nisi officiis, optio, quam quia recusandae sapiente velit vero?</p>\r\n\r\n<p><strong>Leuk-Er bij van Elles</strong></p>\r\n\r\n<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ab accusantium architecto delectus dolorem enim fuga, fugit harum, id illo laborum magnam molestiae nam non nulla reiciendis rem repellat. Eum, iusto test?</p>\r\n', 'balabl', 'bla, bla, dofs', 1, '2017-12-05 22:26:51', 'image', 1, 1, 'home'),
-(2, 'Second', 'First inserted page bewerkt', 'een subtitel', '<p>fdsa<strong>fdsaf a&nbsp;<s>&nbsp;fdsaf dsaf</s></strong></p>\r\n\r\n<p>&nbsp;</p>\r\n\r\n<h2 style=\"font-style:italic\">fdadfsaf</h2>\r\n', 'Dit is een korte beschrijving van de website voor het seo van google', 'kernwoord1, kernwoord2, panelles', 1, '2017-12-05 22:16:10', NULL, 1, 1, 'second'),
+(2, 'Second', 'First inserted page bewerkt', 'een subtitel', '<p>fdsa<strong>fdsaf a&nbsp;<s>&nbsp;fdsaf dsaf</s></strong></p>\r\n\r\n<p>&nbsp;</p>\r\n\r\n<h2 style=\"font-style:italic\">fdadfsaf</h2>\r\n', 'Dit is een korte beschrijving van de website voor het seo van google', 'kernwoord1, kernwoord2, panelles', 1, '2017-12-06 09:13:13', NULL, 3, 1, 'second'),
 (3, 'Testpage', 'Test', 'dfsaf', '<p>fsdafdsa</p>\r\n', 'das', 'fdosaffdsa', 0, '2017-12-05 22:09:27', NULL, 2, 1, 'testpage');
 
 -- --------------------------------------------------------
@@ -202,8 +203,16 @@ CREATE TABLE `review` (
   `quote` varchar(200) NOT NULL,
   `rating` int(1) NOT NULL,
   `user_id` int(11) NOT NULL,
-  `datum` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP
+  `datum` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `active` int(1) NOT NULL DEFAULT '0' COMMENT '0 = Niet geaccepteerd, 1 = geaccepteerd'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Gegevens worden geëxporteerd voor tabel `review`
+--
+
+INSERT INTO `review` (`review_id`, `quote`, `rating`, `user_id`, `datum`, `active`) VALUES
+(1, 'hdajslkfa', 5, 5, '2017-12-06 09:16:54', 0);
 
 -- --------------------------------------------------------
 
@@ -237,6 +246,7 @@ CREATE TABLE `user` (
   `first_name` varchar(45) DEFAULT NULL,
   `insertion` varchar(45) DEFAULT NULL,
   `last_name` varchar(45) DEFAULT NULL,
+  `birthday` datetime DEFAULT NULL,
   `phonenumber` int(12) DEFAULT NULL,
   `city` varchar(45) DEFAULT NULL,
   `address` varchar(45) DEFAULT NULL,
@@ -248,9 +258,10 @@ CREATE TABLE `user` (
 -- Gegevens worden geëxporteerd voor tabel `user`
 --
 
-INSERT INTO `user` (`user_id`, `email`, `first_name`, `insertion`, `last_name`, `phonenumber`, `city`, `address`, `zipcode`, `role`) VALUES
-(1, 'nick@twesq.com', 'Nick', '', 'Simons', 655194576, 'Rijssen', 'Entoshof 23', '7562 VV', 1),
-(4, 'test@email2.nl', 'Ties', '', 'Pol', 699382393, 'Rijssen', 'Entoshof 23', '7462 VV', 1);
+INSERT INTO `user` (`user_id`, `email`, `first_name`, `insertion`, `last_name`, `birthday`, `phonenumber`, `city`, `address`, `zipcode`, `role`) VALUES
+(1, 'nick@twesq.com', 'Nick', '', 'Simons', NULL, 655194576, 'Rijssen', 'Entoshof 23', '7562 VV', 1),
+(4, 'test@email2.nl', 'Ties', '', 'Pol', NULL, 699382393, 'Rijssen', 'Entoshof 23', '7462 VV', 1),
+(5, 'nick.simons@live.nl', 'Nick', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 2);
 
 --
 -- Indexen voor geëxporteerde tabellen
@@ -349,7 +360,7 @@ ALTER TABLE `user`
 -- AUTO_INCREMENT voor een tabel `Module`
 --
 ALTER TABLE `Module`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 --
 -- AUTO_INCREMENT voor een tabel `activiteit`
 --
@@ -389,12 +400,12 @@ ALTER TABLE `product`
 -- AUTO_INCREMENT voor een tabel `review`
 --
 ALTER TABLE `review`
-  MODIFY `review_id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `review_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 --
 -- AUTO_INCREMENT voor een tabel `user`
 --
 ALTER TABLE `user`
-  MODIFY `user_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `user_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 --
 -- Beperkingen voor geëxporteerde tabellen
 --

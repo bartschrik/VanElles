@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Gegenereerd op: 06 dec 2017 om 09:40
+-- Gegenereerd op: 06 dec 2017 om 10:01
 -- Serverversie: 10.1.26-MariaDB
 -- PHP-versie: 7.1.8
 
@@ -44,7 +44,8 @@ CREATE TABLE `Module` (
 INSERT INTO `Module` (`id`, `naam`, `path`) VALUES
 (1, 'Homepage', 'homepage.php'),
 (2, 'Content', 'content.php'),
-(3, 'Contact', 'contact.php');
+(3, 'Contact', 'contact.php'),
+(4, 'Blog', 'blog_overzicht.php');
 
 -- --------------------------------------------------------
 
@@ -173,8 +174,8 @@ CREATE TABLE `page` (
 
 INSERT INTO `page` (`id`, `pagetitle`, `title`, `subtitle`, `inhoud`, `description`, `kernwoorden`, `active`, `datum`, `image`, `Module_id`, `user_id`, `url`) VALUES
 (1, 'Home', 'Over de winkel', 'En leuk-ER conceptstore', '<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Accusantium aperiam asperiores corporis exercitationem expedita ipsam modi molestias, non numquam perferendis porro quia quos voluptatum? Consectetur, dicta doloremque dolores eaque excepturi exercitationem ipsa ipsum iste laborum libero magni maxime minus natus nesciunt nisi officiis, optio, quam quia recusandae sapiente velit vero?</p>\r\n\r\n<p><strong>Leuk-Er bij van Elles</strong></p>\r\n\r\n<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ab accusantium architecto delectus dolorem enim fuga, fugit harum, id illo laborum magnam molestiae nam non nulla reiciendis rem repellat. Eum, iusto test?</p>\r\n', 'balabl', 'bla, bla, dofs', 1, '2017-12-05 22:26:51', 'image', 1, 1, 'home'),
-(2, 'Second', 'First inserted page bewerkt', 'een subtitel', '<p>fdsa<strong>fdsaf a&nbsp;<s>&nbsp;fdsaf dsaf</s></strong></p>\r\n\r\n<p>&nbsp;</p>\r\n\r\n<h2 style=\"font-style:italic\">fdadfsaf</h2>\r\n', 'Dit is een korte beschrijving van de website voor het seo van google', 'kernwoord1, kernwoord2, panelles', 1, '2017-12-06 09:13:13', NULL, 3, 1, 'second'),
-(3, 'Testpage', 'Test', 'dfsaf', '<p>fsdafdsa</p>\r\n', 'das', 'fdosaffdsa', 0, '2017-12-05 22:09:27', NULL, 2, 1, 'testpage');
+(2, 'Blog', 'First inserted page bewerkt', 'een subtitel', '<p>fdsa<strong>fdsaf a&nbsp;<s>&nbsp;fdsaf dsaf</s></strong></p>\r\n\r\n<p>&nbsp;</p>\r\n\r\n<h2 style=\"font-style:italic\">fdadfsaf</h2>\r\n', 'Dit is een korte beschrijving van de website voor het seo van google', 'kernwoord1, kernwoord2, panelles', 1, '2017-12-06 09:57:48', NULL, 4, 1, 'blog'),
+(4, 'Contact', 'Contact', '', '<p>dfsafasfdas</p>\r\n', 'fdsafdasfdsa', 'dfasfsaf', 1, '2017-12-06 09:57:53', NULL, 3, 1, 'contact');
 
 -- --------------------------------------------------------
 
@@ -261,7 +262,8 @@ CREATE TABLE `user` (
 INSERT INTO `user` (`user_id`, `email`, `first_name`, `insertion`, `last_name`, `birthday`, `phonenumber`, `city`, `address`, `zipcode`, `role`) VALUES
 (1, 'nick@twesq.com', 'Nick', '', 'Simons', NULL, 655194576, 'Rijssen', 'Entoshof 23', '7562 VV', 1),
 (4, 'test@email2.nl', 'Ties', '', 'Pol', NULL, 699382393, 'Rijssen', 'Entoshof 23', '7462 VV', 1),
-(5, 'nick.simons@live.nl', 'Nick', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 2);
+(5, 'nick.simons@live.nl', 'Nick', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 2),
+(6, '', '', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 2);
 
 --
 -- Indexen voor geëxporteerde tabellen
@@ -360,7 +362,7 @@ ALTER TABLE `user`
 -- AUTO_INCREMENT voor een tabel `Module`
 --
 ALTER TABLE `Module`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 --
 -- AUTO_INCREMENT voor een tabel `activiteit`
 --
@@ -390,7 +392,7 @@ ALTER TABLE `leveranciers`
 -- AUTO_INCREMENT voor een tabel `page`
 --
 ALTER TABLE `page`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 --
 -- AUTO_INCREMENT voor een tabel `product`
 --
@@ -405,7 +407,7 @@ ALTER TABLE `review`
 -- AUTO_INCREMENT voor een tabel `user`
 --
 ALTER TABLE `user`
-  MODIFY `user_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `user_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 --
 -- Beperkingen voor geëxporteerde tabellen
 --

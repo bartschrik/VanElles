@@ -2,10 +2,5 @@ RewriteEngine On
 
 
 RewriteRule ^admin/$ admin/index.php
-
-
-
-RewriteRule ^blog/([0-9]+)$ blog_det.php?pid=$1
-
-RewriteRule ^([a-zA-Z0-9]+)/$ index.php?page=$1
 RewriteRule ^([a-zA-Z0-9]+)$ index.php?page=$1
+RewriteRule ^([a-zA-Z0-9]+)/$ index.php?page=$1

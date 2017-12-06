@@ -43,6 +43,8 @@ error_reporting(-1);
                 <ul class="nav navbar-nav">
                     <li><a href="dashboard.php">Pagina's</a></li>
                     <li><a href="leverancier_overzicht.php">Leveranciers</a></li>
+                    <li><a href="recensie_goedkeuren.php">Recensies</a></li>
+                    <li><a href="blog_overzicht.php">Blog</a></li>
                 </ul>
             </div>
         </div>

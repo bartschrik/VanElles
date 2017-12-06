@@ -21,38 +21,38 @@
                 </div>
                 <div class="row">
                     <?php
+                        if (isset($_POST['savelev'])) {
 
-                    if(isset($_POST['savelev'])) {
+                            $errors = [];
 
-                        $errors = [];
+                            $val = new Validate([
+                                ['naam', $_POST['naam'], 'required'],
+                                ['seokernwoorden', $_POST['seokernwoorden'], 'required'],
+                                ['seoinhoud', $_POST['seoinhoud'], 'required|min:2']
+                            ]);
 
-                        $val = new Validate([
-                            ['naam', $_POST['naam'],'required'],
-                            ['seokernwoorden',$_POST['seokernwoorden'],'required'],
-                            ['seoinhoud',$_POST['seoinhoud'],'required|min:2']
-                        ]);
 
-                        if($val->isPassed()) {
-                            $savelev = $leverancier->savelev($_POST);
-                            if (!$savelev) {
-                                echo '<div class="feedback error container"><div class="row"><div class="col-xs-12"><p>Er is een probleem met onze server, probeer het later opnieuw.</p></div></div></div>';
-                            } else {
-                                die(header('Location: leverancier_overzicht.php'));
-                            }
-                        } else {
-                            $errors = $val->getErrors();
-                            $errorList = '';
-                            foreach ($errors as $errorcat) {
-                                foreach ($errorcat as $error) {
-                                    $errorList .= "<li>$error</li>";
+                            if ($val->isPassed()) {
+                                $savelev = $leverancier->savelev($_POST, $_FILES['logo']);
+                                if (!$savelev) {
+                                    echo '<div class="feedback error container"><div class="row"><div class="col-xs-12"><p>Er is een probleem met onze server, probeer het later opnieuw.</p></div></div></div>';
+                                } else {
+                                    //die(header('Location: leverancier_overzicht.php'));
                                 }
+                            } else {
+                                $errors = $val->getErrors();
+                                $errorList = '';
+                                foreach ($errors as $errorcat) {
+                                    foreach ($errorcat as $error) {
+                                        $errorList .= "<li>$error</li>";
+                                    }
+                                }
+                                echo '<div class="feedback error container"><div class="col-xs-12"><ul style="padding: 0;">' . $errorList . '</ul></div></div>';
                             }
-                            echo '<div class="feedback error container"><div class="col-xs-12"><ul style="padding: 0;">'.$errorList.'</ul></div></div>';
-                        }
 
-                        echo '<form action="#" method="post" class="classicform">
+                            echo '<form action="#" method="post" class="classicform" enctype="multipart/form-data">
                                     <div class="col-md-8">
-                                        <input type="text" name="naam" placeholder="Leveranciers naam" value="' . InputValue('naam') . '" /> 
+                                        <input type="text" name="naam" placeholder="Leverancier naam" value="' . InputValue('naam') . '" /> 
                                         <textarea name="inhoud" placeholder="Inhoud">' . InputValue('inhoud') . '</textarea>
                                         <input type="file" name="logo" placeholder="Logo" value="' . InputValue('naam') . '" />
                                         <script>
@@ -84,9 +84,9 @@
                                     </div>
                                 </form>';
 
-                    /*ELSE*/
-                    } else {
-                        echo '<form action="#" method="post" class="classicform">
+                            /*ELSE*/
+                        } else {
+                            echo '<form action="#" method="post" class="classicform" enctype="multipart/form-data">
                                     <div class="col-md-8">
                                         <input type="text" name="naam" placeholder="Leveranciers naam" value="' . InputValue('naam') . '" /> 
                                         <textarea name="inhoud" placeholder="Inhoud">' . InputValue('inhoud') . '</textarea>
@@ -119,7 +119,7 @@
                                         </div>
                                     </div>
                                 </form>';
-                            }
+                        }
 
 
 

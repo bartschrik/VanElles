@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Gegenereerd op: 05 dec 2017 om 14:24
+-- Gegenereerd op: 06 dec 2017 om 08:45
 -- Serverversie: 10.1.26-MariaDB
 -- PHP-versie: 7.1.8
 
@@ -42,7 +42,7 @@ CREATE TABLE `Module` (
 --
 
 INSERT INTO `Module` (`id`, `naam`, `path`) VALUES
-(1, 'Homepage', 'home.php'),
+(1, 'Homepage', 'homepage.php'),
 (2, 'Content', 'content.php');
 
 -- --------------------------------------------------------
@@ -152,6 +152,7 @@ CREATE TABLE `leveranciers` (
 
 CREATE TABLE `page` (
   `id` int(11) NOT NULL,
+  `pagetitle` varchar(100) NOT NULL,
   `title` varchar(100) DEFAULT NULL,
   `subtitle` varchar(100) DEFAULT NULL,
   `inhoud` mediumtext,
@@ -161,17 +162,18 @@ CREATE TABLE `page` (
   `datum` datetime DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   `image` varchar(45) DEFAULT NULL,
   `Module_id` int(11) NOT NULL,
-  `user_id` int(11) NOT NULL
+  `user_id` int(11) NOT NULL,
+  `url` varchar(50) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
 -- Gegevens worden geëxporteerd voor tabel `page`
 --
 
-INSERT INTO `page` (`id`, `title`, `subtitle`, `inhoud`, `description`, `kernwoorden`, `active`, `datum`, `image`, `Module_id`, `user_id`) VALUES
-(1, 'Home', 'Welkom bij Van Elles', 'blabla', 'balabl', 'bla, bla, dofs', 1, '2017-11-29 00:00:00', 'image', 1, 1),
-(2, 'First inserted page bewerkt', 'een subtitel', '<p>fdsa<strong>fdsaf a&nbsp;<s>&nbsp;fdsaf dsaf</s></strong></p>\r\n\r\n<p>&nbsp;</p>\r\n\r\n<h2 style=\"font-style:italic\">fdadfsaf</h2>\r\n', 'Dit is een korte beschrijving van de website voor het seo van google', 'kernwoord1, kernwoord2, panelles', 0, '2017-12-01 00:00:00', NULL, 2, 1),
-(3, 'Test', 'dfsaf', '<p>fsdafdsa</p>\r\n', 'das', 'fdosaffdsa', 0, '2017-12-05 14:21:56', NULL, 2, 1);
+INSERT INTO `page` (`id`, `pagetitle`, `title`, `subtitle`, `inhoud`, `description`, `kernwoorden`, `active`, `datum`, `image`, `Module_id`, `user_id`, `url`) VALUES
+(1, 'Home', 'Over de winkel', 'En leuk-ER conceptstore', '<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Accusantium aperiam asperiores corporis exercitationem expedita ipsam modi molestias, non numquam perferendis porro quia quos voluptatum? Consectetur, dicta doloremque dolores eaque excepturi exercitationem ipsa ipsum iste laborum libero magni maxime minus natus nesciunt nisi officiis, optio, quam quia recusandae sapiente velit vero?</p>\r\n\r\n<p><strong>Leuk-Er bij van Elles</strong></p>\r\n\r\n<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ab accusantium architecto delectus dolorem enim fuga, fugit harum, id illo laborum magnam molestiae nam non nulla reiciendis rem repellat. Eum, iusto test?</p>\r\n', 'balabl', 'bla, bla, dofs', 1, '2017-12-05 22:26:51', 'image', 1, 1, 'home'),
+(2, 'Second', 'First inserted page bewerkt', 'een subtitel', '<p>fdsa<strong>fdsaf a&nbsp;<s>&nbsp;fdsaf dsaf</s></strong></p>\r\n\r\n<p>&nbsp;</p>\r\n\r\n<h2 style=\"font-style:italic\">fdadfsaf</h2>\r\n', 'Dit is een korte beschrijving van de website voor het seo van google', 'kernwoord1, kernwoord2, panelles', 1, '2017-12-05 22:16:10', NULL, 1, 1, 'second'),
+(3, 'Testpage', 'Test', 'dfsaf', '<p>fsdafdsa</p>\r\n', 'das', 'fdosaffdsa', 0, '2017-12-05 22:09:27', NULL, 2, 1, 'testpage');
 
 -- --------------------------------------------------------
 

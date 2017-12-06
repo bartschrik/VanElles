@@ -2,15 +2,14 @@
     <?php
     include_once('includes/header.php');
 
-    $page = new Page();
-    $moduleContent = $page->getModule();
+    $leverancier = new leverancier();
 
     $msg = '';
     ?>
     <div class="pagetitel marbot">
         <div class="container">
             <div class="row">
-                <div class="col-xs-12">Pagina <span></span></div>
+                <div class="col-xs-12">Leveranciers toevoegen <span></span></div>
             </div>
         </div>
     </div>
@@ -23,7 +22,7 @@
                 <div class="row">
                     <?php
 
-                    if(isset($_POST['savePage'])) {
+                    if(isset($_POST['savelev'])) {
 
                         $errors = [];
 
@@ -34,10 +33,12 @@
                         ]);
 
                         if($val->isPassed()) {
-                            $savePage = $page->savePage($_POST, $user->getUser()['user_id']);
-                            if (!$savePage)
+                            $savelev = $leverancier->savelev($_POST);
+                            if (!$savelev) {
                                 echo '<div class="feedback error container"><div class="row"><div class="col-xs-12"><p>Er is een probleem met onze server, probeer het later opnieuw.</p></div></div></div>';
-                            die(header('Location: dashboard.php'));
+                            } else {
+                                die(header('Location: leverancier_overzicht.php'));
+                            }
                         } else {
                             $errors = $val->getErrors();
                             $errorList = '';
@@ -51,8 +52,9 @@
 
                         echo '<form action="#" method="post" class="classicform">
                                     <div class="col-md-8">
-                                        <input type="text" name="naam" placeholder="bbbb" value="' . InputValue('naam') . '" /> 
+                                        <input type="text" name="naam" placeholder="Leveranciers naam" value="' . InputValue('naam') . '" /> 
                                         <textarea name="inhoud" placeholder="Inhoud">' . InputValue('inhoud') . '</textarea>
+                                        <input type="file" name="logo" placeholder="Logo" value="' . InputValue('naam') . '" />
                                         <script>
                                             CKEDITOR.replace( "inhoud" );
                                         </script>    
@@ -76,8 +78,8 @@
                                     </div>
                                     <div class="row">
                                         <div class="col-xs-12">
-                                            <button type="submit" name="savePage" class="save">Opslaan</button>
-                                            <a href="dashboard.php" title="Anuleren" class="annuleer">Anuleren</a>
+                                            <button type="submit" name="savelev" class="save">Opslaan</button>
+                                            <a href="leverancier_overzicht.php" title="Anuleren" class="annuleer">Anuleren</a>
                                         </div>
                                     </div>
                                 </form>';
@@ -88,6 +90,7 @@
                                     <div class="col-md-8">
                                         <input type="text" name="naam" placeholder="Leveranciers naam" value="' . InputValue('naam') . '" /> 
                                         <textarea name="inhoud" placeholder="Inhoud">' . InputValue('inhoud') . '</textarea>
+                                        <input type="file" name="logo" placeholder="Logo" value="' . InputValue('naam') . '" />
                                         <script>
                                             CKEDITOR.replace( "inhoud" );
                                         </script>    
@@ -111,16 +114,13 @@
                                     </div>
                                     <div class="row">
                                         <div class="col-xs-12">
-                                            <button type="submit" name="savePage" class="save">Opslaan</button>
-                                            <a href="dashboard.php" title="Anuleren" class="annuleer">Anuleren</a>
+                                            <button type="submit" name="savelev" class="save">Opslaan</button>
+                                            <a href="leverancier_overzicht.php" title="Anuleren" class="annuleer">Anuleren</a>
                                         </div>
                                     </div>
                                 </form>';
                             }
 
-                    require_once 'classes/connection.class.php';
-                    $db = new Connection();
-                    $db = $db->databaseConnection();
 
 
                         ?>

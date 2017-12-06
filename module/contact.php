@@ -35,30 +35,32 @@
 
                         if($stmt->rowCount() > 0)
                         {
-                            $sql = "UPDATE USER SET phonenumber=?,   WHERE _email=$emailincontact";
+                            $sql = "UPDATE USER SET phonenumber=? WHERE _email=$emailincontact";
                             $stmt = $db->prepare($sql);
-
-                            echo ("test");
-
-                            $stmt->bind_param('d',$telefooncontact );
+                            $stmt->bindparam("ds" ,$telefooncontact);
                             $stmt->execute();
 
+                            echo"test";
 
-                            $sql="INSERT INTO contact (name, inhoud, user_id)VALUES (?, ?, ? )";
-                            $stmt->bind_param("ssd", $naamincontact, $berichtcontact, $user);
+                            $sql= $db->prepare("INSERT INTO contact (name, inhoud, user_id)VALUES (?, ?, ? )");
+
+                            $stmt->bindparam("ssd",$naamincontact, $berichtcontact, $user);
                             $stmt->execute();
 
                         }else{
 
+                            $sql =$db->prepare("INSERT INTO user email=?, phonenumber=?");
+                            $stmt->bindparam("sd",$emailincontact, $telefooncontact);
+                            $stmt->execute();
 
-                            $db->query("INSERT INTO user (email, first_name) VALUES ('$emailin', '$naamin')");
-
-                        $last_id = $db->lastInsertId();
-
-                        $sql = "INSERT INTO review (quote, rating, user_id) VALUES ('$quotein', '$ratingin', '$last_id')";
-                        $stmtin = $db->prepare($sql);
+                            $last_id = $db->lastInsertId();
+                            $int = intval($last_id);
+                            var_dump($int);
 
 
+                            $sql=$db->prepare("INSERT INTO contact (name, inhoud, user_id)VALUES (?, ?, ? )");
+                            $stmt->bindparam ("ssd",$naamincontact, $berichtcontact, $int);
+                            $stmt->execute();
 
                         }
 
@@ -82,6 +84,8 @@
 
             echo "<script>alert('Vul Recaptcha in.');</script>";
             echo " <meta http-equiv=\"refresh\" content=\"0; url=second\" />";
+
+
             return false;
 
         }
@@ -123,7 +127,7 @@
                 <div class="ptitle">
                     <h2>Contact formulier</h2>
                 </div>
-                <form method="post" action="?">
+                <form method="post" action="">
                     <div class="form-group">
                         <input class="form-control" type="text" name="naamcontact" placeholder="Naam" >
                     </div>
@@ -187,7 +191,7 @@ function test_input($data) {
                 </div>
 
                 <div class="form-group">
-                    <input class="form-control" type="text" name="naam" placeholder="Naam" value="<?php print $naam;?>">
+                    <input class="form-control" type="text" name="naam" placeholder="Voornaam" value="<?php print $naam;?>">
                 </div>
 
                 <div class="form-group">
@@ -227,9 +231,26 @@ function test_input($data) {
                         $quotein = $_POST["omschrijving"];
                         $ratingin = $_POST["sterren"];
 
-                        $db->query("INSERT INTO user (email, first_name) VALUES ('$emailin', '$naamin')");
+                        //query: check of email in user bestaat en selecteer id
+                        $query = $db->prepare("SELECT user_id FROM user WHERE email = :email");
+                        $query->bindValue(":email", $emailin);
+                        $query->execute();
+                        $last_id = $query->fetch()['user_id'];
 
-                        $last_id = $db->lastInsertId();
+                        if($last_id) {
+                           //Zoja: update user info van bestaade user
+                            $query = $db->prepare("UPDATE user SET first_name = :voornaam WHERE user_id = :userid");
+                            $query->bindValue(":voornaam", $naamin);
+                            $query->bindValue(":userid", $last_id);
+                            $query->execute();
+                        } else {
+                            //insert nieuw user en inser revies
+                            $query = $db->prepare("INSERT INTO user (first_name, email) VALUES (:voornaam, :email)");
+                            $query->bindValue(":voornaam", $naamin);
+                            $query->bindValue(":email", $emailin);
+                            $query->execute();
+                            $last_id = $db->lastInsertId();
+                        }
 
                         $sql = "INSERT INTO review (quote, rating, user_id) VALUES ('$quotein', '$ratingin', '$last_id')";
                         $stmtin = $db->prepare($sql);
@@ -257,7 +278,7 @@ function test_input($data) {
             <div>
                 <?php
 
-                $sql3 = "SELECT * FROM review JOIN user ON review.user_id=user.user_id ORDER BY RAND() LIMIT 3";
+                $sql3 = "SELECT * FROM review JOIN user ON review.user_id=user.user_id WHERE active= 1 ORDER BY RAND() LIMIT 3";
                 $stmtout = $db->prepare($sql3);
 
                 $stmtout->execute();
@@ -271,7 +292,7 @@ function test_input($data) {
 
 
                     print("<div class='recensiekaart'>");
-                    print($naamprint . ", " . $datumprint . "<br><br>" . $quoteprint . "<br><br>");
+                    print($naamprint . ", " . date("j F Y", strtotime($datumprint)) . "<br><br>" . $quoteprint . "<br><br>");
 
                     for ($i=1; $i <= $ratingprint; $i++){
                         print("<hartjevol class='ion-ios-heart' style='color: #ff00ff; font-size: 30px;'></hartjevol>");
@@ -284,7 +305,7 @@ function test_input($data) {
                 }
                 ?>
                 <br>
-                <a href="../recensie.php" class="btn btn-default">Lees meer recensies!</a>
+                <a href="./recensie.php" class="btn btn-default">Lees meer recensies!</a>
             </div>
         </div>
     </div>

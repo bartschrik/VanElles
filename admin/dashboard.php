@@ -60,7 +60,7 @@
                         echo '
                             <tr>
                                 <td>#'.$value['id'].'</td>
-                                <td>'.$value['title'].'</td>
+                                <td>'.$value['pagetitle'].'</td>
                                 <td><div>'.$value['first_name']." ". $value['insertion'] . " " . $value['last_name'].'</div></td>
                                 <td>'.$value['module'].'</td>
                                 <td>Ja</td>
@@ -93,7 +93,7 @@
                         echo '
                             <tr>
                                 <td>#'.$value['id'].'</td>
-                                <td>'.$value['title'].'</td>
+                                <td>'.$value['pagetitle'].'</td>
                                 <td><div>'.$value['first_name']." ". $value['insertion'] . " " . $value['last_name'].'</div></td>
                                 <td>'.$value['module'].'</td>
                                 <td>Nee</td>

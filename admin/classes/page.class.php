@@ -13,7 +13,7 @@ class Page {
     public function getAllMin($active = 1) {
         try {
             $query = $this->_db->prepare('
-                    SELECT p.id id, title, active, first_name, insertion, last_name, m.naam module
+                    SELECT p.id id, pagetitle, active, first_name, insertion, last_name, m.naam module
                     FROM page p
                     JOIN user u ON p.user_id = u.user_id
                     JOIN Module m ON p.Module_id = m.id
@@ -51,9 +51,10 @@ class Page {
     public function savePage($data, $user_id) {
         try {
             $query = $this->_db->prepare('
-                INSERT INTO `page` (`title`, `subtitle`, `inhoud`, `description`, `kernwoorden`, `active`, `datum`, `image`, `Module_id`, `user_id`) 
-                VALUES (:titel, :subtitel, :inhoud, :seoinhoud, :seokernwoorden, :actief, :datum, null, :module, :user_id);
+                INSERT INTO `page` (`pagetitle`, `title`, `subtitle`, `inhoud`, `description`, `kernwoorden`, `active`, `datum`, `image`, `Module_id`, `user_id`) 
+                VALUES (:paginatitel, :titel, :subtitel, :inhoud, :seoinhoud, :seokernwoorden, :actief, :datum, null, :module, :user_id);
             ');
+            $query->bindValue(":paginatitel", $data['paginatitel']);
             $query->bindValue(":titel", $data['titel']);
             $query->bindValue(":subtitel", $data['subtitel']);
             $query->bindValue(":inhoud", $data['inhoud']);
@@ -132,6 +133,51 @@ class Page {
                 return false;
             }
         } catch (PDOexception $e) {
+            //echo $e->getMessage();
+            return false;
+        }
+    }
+
+    public function getPageByUrl($url) {
+        try {
+            $query = $this->_db->prepare('
+                    SELECT pagetitle, title, subtitle, inhoud, description, kernwoorden, path
+                    FROM page p
+                    JOIN Module m ON p.Module_id = m.id
+                    WHERE active = 1 AND url = :url;
+                ');
+            $query->bindValue(":url", $url);
+
+            if($query->execute()) {
+                if($query->rowCount() > 0) {
+                    return $content = $query->fetchAll()[0];
+                } else {
+                    return false;
+                }
+            } else {
+                //echo $query->errorInfo();
+                return false;
+            }
+        } catch (PDOexception $e) {
+            //echo $e->getMessage();
+            return false;
+        }
+    }
+
+    public function getMenuItems() {
+        try {
+            $query = $this->_db->prepare('
+                    SELECT pagetitle, url FROM page
+                    WHERE active = 1;
+                ');
+
+            if($query->execute()) {
+                return $content = $query->fetchAll();
+            } else {
+                //echo $query->errorInfo();
+                return false;
+            }
+        } catch (PDOException $e) {
             //echo $e->getMessage();
             return false;
         }

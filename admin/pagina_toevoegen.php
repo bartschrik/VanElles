@@ -28,6 +28,7 @@
                         $errors = [];
 
                         $val = new Validate([
+                            ['paginatitel', $_POST['paginatitel'],'required|min:3|max:20'],
                             ['titel', $_POST['titel'],'required'],
                             ['seokernwoorden',$_POST['seokernwoorden'],'required'],
                             ['seoinhoud',$_POST['seoinhoud'],'required|min:2']
@@ -51,6 +52,7 @@
 
                         echo '<form action="#" method="post" class="classicform">
                                     <div class="col-md-8">
+                                        <input type="text" name="paginatitel" placeholder="Pagina titel" value="' . InputValue('paginatitel') . '" class="' . InputErrorClass('paginatitel', $errors) . '" />
                                         <input type="text" name="titel" placeholder="Titel" value="' . InputValue('titel') . '" class="' . InputErrorClass('titel', $errors) . '" />
                                         <input type="text" name="subtitel" placeholder="Sub Titel" value="' . InputValue('subtitel') . '" />
                                         <textarea name="inhoud" placeholder="Inhoud">' . InputValue('inhoud') . '</textarea>
@@ -127,6 +129,7 @@
 
                         echo '<form action="#" method="post" class="classicform">
                                     <div class="col-md-8">
+                                    <input type="text" name="paginatitel" placeholder="Pagina titel" />
                                         <input type="text" name="titel" placeholder="Titel" />
                                         <input type="text" name="subtitel" placeholder="Sub Titel" />
                                         <textarea name="inhoud" placeholder="Inhoud"></textarea>

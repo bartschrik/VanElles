@@ -6,7 +6,10 @@
     <meta name="viewport"
           content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>VanElles</title>
+    <meta name="description" content="<?php echo $pageContent['description']; ?>">
+    <meta name="keywords" content="<?php echo $pageContent['kernwoorden']; ?>">
+    <meta name="author" content="Van Elles">
+    <title>VanElles | <?php echo $pageContent['pagetitle']; ?></title>
 
     <!--Google font includes-->
     <link href='http://fonts.googleapis.com/css?family=Merienda+One' rel='stylesheet' type='text/css'>
@@ -43,19 +46,7 @@
             <div class="row">
                 <div class="col-xs-12">
                     <a href="#" id="main-logo"><img src="images/vanelles.jpg" alt=""></a>
-                    <ul id="main-menu">
-                        <li class="active"><a href="index.php">Home</a></li>
-                        <li class="has-sub"><a href="#">Over ons</a>
-                            <ul>
-                                <li><a href="#">Over Van Elles</a></li>
-                                <li><a href="#">Over Leuk-ER</a></li>
-                            </ul>
-                        </li>
-                        <li class=""><a href="#">Producten</a></li>
-                        <li class=""><a href="#">Leveranciers</a></li>
-                        <li class=""><a href="contact.php">Contact</a></li>
-                    </ul>
-                    <div class="menuBtn"><div id="menubtn"><div class="bar"></div></div></div>
+                    <?php require_once 'menu.php'; ?>
                 </div>
             </div>
         </div>

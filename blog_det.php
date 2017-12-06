@@ -20,7 +20,7 @@ include_once('includes/header.php');
 $db = new Connection();
 $db = $db->databaseConnection();
 
-    $dir = 'images/blog/';
+    $dir = constant("local_url"). 'images/blog/';
 
     $query1 = $db->prepare('SELECT * FROM blog ORDER BY blog_id DESC');
 
@@ -42,10 +42,12 @@ echo "<form>
             <p>$inhoud</p>
             <p>$beschrijving</p>
             <p>$kernwoorden</p>
-            <a href='blog_det.php' title='Details'>Details</a>
             </form>";
 ?>
 <?php
+    $db = new Connection();
+    $db = $db->databaseConnection();
+
     // lege variabelen aanmaken
     $cursus = $voornaam = $achternaam = $geboortedatum = $telefoonnr = $email = "";
     //ingevulde data behouden in formulier
@@ -65,7 +67,7 @@ echo "<form>
                 <h1>Inschrijven</h1>
             </div class='header text-center'>
         
-        <form method='post' action='blog_det.php'>
+        <form method='post' action='../blog/$id'>
         
             <div class='form-group'>
                 <label for='cursus'>Cursus</label>
@@ -103,14 +105,38 @@ echo "<form>
         </div>";
         }
 
+    $query1 = $db->prepare('SELECT * FROM blog ORDER BY blog_id DESC');
+
+    $query1->execute();
+
+    $row = $query1->fetch(PDO::FETCH_ASSOC);
+    $id = $row['blog_id'];
+
     if (isset($_POST["verstuur"])) {
         if (empty($_POST["cursus"]) || empty($_POST["voornaam"]) || empty($_POST["achternaam"]) || empty($_POST["geboortedatum"]) || empty($_POST["telefoonnummer"]) || empty($_POST["emailadres"])) {
             print("Alle velden moeten ingevuld zijn");
         } else {
-            $sql1 = "INSERT INTO user (first_name, last_name, phonenumber, email) VALUES ('$voornaam', '$achternaam', '$geboortedatum', '$telefoonnr', '$email')";
+            $sql1 = "INSERT INTO user (first_name, last_name, birthday, phonenumber, email) VALUES ('$voornaam', '$achternaam', '$geboortedatum', '$telefoonnr', '$email')";
             $smt1 = $db->prepare($sql1);
-            $smt1->execute();
-            header("location: blog_det.php");
+
+            if($smt1->execute()){
+                echo "succes";
+            } else {
+                print_r($smt1->errorinfo());
+            }
+
+            $last_id = $db->lastInsertId();
+
+            $sql2 = "INSERT INTO inschrijvingen (blog_id, user_id) VALUES ('$id', '$last_id')";
+            $smt2 = $db->prepare($sql2);
+
+            if($smt2->execute()){
+                echo "succes";
+            } else {
+                print_r($smt2->errorinfo());
+            }
+
+            header("location: ../blog/$id");
             ob_end_flush();
             die();
         }

@@ -185,7 +185,7 @@ function test_input($data) {
                 </div>
 
                 <div class="form-group">
-                    <input class="form-control" type="text" name="naam" placeholder="Naam" value="<?php print $naam;?>">
+                    <input class="form-control" type="text" name="naam" placeholder="Voornaam" value="<?php print $naam;?>">
                 </div>
 
                 <div class="form-group">
@@ -286,7 +286,7 @@ function test_input($data) {
 
 
                     print("<div class='recensiekaart'>");
-                    print($naamprint . ", " . date("d/m/Y", strtotime($datumprint)) . "<br><br>" . $quoteprint . "<br><br>");
+                    print($naamprint . ", " . date("j F Y", strtotime($datumprint)) . "<br><br>" . $quoteprint . "<br><br>");
 
                     for ($i=1; $i <= $ratingprint; $i++){
                         print("<hartjevol class='ion-ios-heart' style='color: #ff00ff; font-size: 30px;'></hartjevol>");

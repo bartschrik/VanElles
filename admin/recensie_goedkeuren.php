@@ -53,8 +53,8 @@
                             <thead>
                                 <tr>
                                     <th>Id</th>
-                                    <th>Naam</th>
                                     <th>Quote</th>
+                                    <th>Naam</th>
                                     <th>Aantal sterren</th>
                                     <th>Goedgekeurd</th>
                                     <th style="width: 100px;">Optie\'s</th>
@@ -66,8 +66,8 @@
                         echo '
                             <tr>
                                 <td>#'.$value['review_id'].'</td>
-                                <td><div>'.$value['first_name'].'</div></td>
                                 <td>'.$value['quote'].'</td>
+                                <td>'.$value['first_name'].'</td>             
                                 <td>'.$value['rating'].'</td>
                                 <td>Nee</td>
                                 <td><a href="recensie_goedkeuren.php?accepid='.$value['review_id'].'" title="Goedkeuren" data-id="'.$value['review_id'].'"><i class="fa fa-check"></i></a><a class="confirm" href="recensie_goedkeuren.php?verid='.$value['review_id'].'" title="Verwijderen" data-id="'.$value['review_id'].'"><i class="fa fa-trash"></i></a></td>
@@ -88,8 +88,8 @@
                             <thead>
                                 <tr>
                                     <th>Id</th>
-                                    <th>Naam</th>
                                     <th>Quote</th>
+                                    <th>Naam</th>
                                     <th>Aantal sterren</th>
                                     <th>Goedgekeurd</th>
                                     <th style="width: 100px;">Optie\'s</th>
@@ -100,9 +100,9 @@
 
                         echo '
                             <tr>
-                                <td>#'.$value['review_id'].'</td>
-                                <td><div>'.$value['first_name'].'</div></td>
+                                <td>#'.$value['review_id'].'</td> 
                                 <td>'.$value['quote'].'</td>
+                                <td>'.$value['first_name'].'</td>
                                 <td>'.$value['rating'].'</td>
                                 <td>Ja</td>
                                 <td><a class="confirm" href="recensie_goedkeuren.php?verid='.$value['review_id'].'" title="Verwijderen" data-id="'.$value['review_id'].'"><i class="fa fa-trash"></i></a></td>

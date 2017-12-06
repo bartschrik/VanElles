@@ -37,30 +37,29 @@
                         {
                             $sql = "UPDATE USER SET phonenumber=? WHERE _email=$emailincontact";
                             $stmt = $db->prepare($sql);
-                            $stmt->bindparam("d",$telefooncontact );
+                            $stmt->bindparam("ds" ,$telefooncontact);
                             $stmt->execute();
+
                             echo"test";
 
-                            $sql="INSERT INTO contact (name, inhoud, user_id)VALUES (?, ?, ? )";
-                            $stmt = $db->prepare($sql);
+                            $sql= $db->prepare("INSERT INTO contact (name, inhoud, user_id)VALUES (?, ?, ? )");
+
                             $stmt->bindparam("ssd",$naamincontact, $berichtcontact, $user);
                             $stmt->execute();
 
                         }else{
 
-                            $sql2 = "INSERT INTO user email=?, phonenumber=?";
-                            $stmt2 = $db->prepare($sql2);
-                            $stmt2->bindparam("sd",$emailincontact, $telefooncontact);
-                            $stmt2->execute();
-
+                            $sql =$db->prepare("INSERT INTO user email=?, phonenumber=?");
+                            $stmt->bindparam("sd",$emailincontact, $telefooncontact);
+                            $stmt->execute();
 
                             $last_id = $db->lastInsertId();
-                            echo "moi";
+                            $int = intval($last_id);
+                            var_dump($int);
 
 
-                            $sql="INSERT INTO contact (name, inhoud, user_id)VALUES (?, ?, ? )";
-                            $stmt = $db->prepare($sql);
-                            $stmt->bindparam ("ssd",$naamincontact, $berichtcontact, $last_id);
+                            $sql=$db->prepare("INSERT INTO contact (name, inhoud, user_id)VALUES (?, ?, ? )");
+                            $stmt->bindparam ("ssd",$naamincontact, $berichtcontact, $int);
                             $stmt->execute();
 
                         }

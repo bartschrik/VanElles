@@ -1,4 +1,5 @@
 <head>
+
     <!--haalt de recaotch op-->
     <script src='https://www.google.com/recaptcha/api.js'></script>
 
@@ -29,48 +30,41 @@
                         $telefooncontact = $_POST["telefoonnummercontact"];
                         $berichtcontact = $_POST["berichtcontact"];
 
-                        $stmt = $user = $db->prepare("SELECT user_id from USER where email = ':email'");
-                        $stmt->bindParam(":email", $emailincontact);
-                        $stmt->execute();
+                        //query: check of email in user bestaat en selecteer id
+                        $query = $db->prepare("SELECT user_id FROM user WHERE email = :email");
+                        $query->bindValue(":email", $emailincontact);
+                        $query->execute();
+                        $last_id = $query->fetch()['user_id'];
 
-                        if($stmt->rowCount() > 0)
-                        {
-                            $sql = "UPDATE USER SET phonenumber=? WHERE _email=$emailincontact";
-                            $stmt = $db->prepare($sql);
-                            $stmt->bindparam("ds" ,$telefooncontact);
-                            $stmt->execute();
-
-                            echo"test";
-
-                            $sql= $db->prepare("INSERT INTO contact (name, inhoud, user_id)VALUES (?, ?, ? )");
-
-                            $stmt->bindparam("ssd",$naamincontact, $berichtcontact, $user);
-                            $stmt->execute();
-
-                        }else{
-
-                            $sql =$db->prepare("INSERT INTO user email=?, phonenumber=?");
-                            $stmt->bindparam("sd",$emailincontact, $telefooncontact);
-                            $stmt->execute();
-
+                        if($last_id) {
+                            //Zoja: update user info van bestaade user
+                            $query = $db->prepare("UPDATE user SET phonenumber = :phonenumber WHERE user_id = :userid");
+                            $query->bindValue(":phonenumber", $telefooncontact);
+                            $query->bindValue(":userid", $last_id);
+                            $query->execute();
+                        } else {
+                            //insert nieuw user en insert contact
+                            $query = $db->prepare("INSERT INTO user (email, phonenumber) VALUES (:email, :phonenumber)");
+                            $query->bindValue(":email", $emailincontact);
+                            $query->bindValue(":phonenumber", $telefooncontact);
+                            $query->execute();
                             $last_id = $db->lastInsertId();
-                            $int = intval($last_id);
-                            var_dump($int);
-
-
-                            $sql=$db->prepare("INSERT INTO contact (name, inhoud, user_id)VALUES (?, ?, ? )");
-                            $stmt->bindparam ("ssd",$naamincontact, $berichtcontact, $int);
-                            $stmt->execute();
-
                         }
+
+                        $sql = "INSERT INTO contact (name, inhoud, user_id) VALUES ('$naamincontact', '$berichtcontact', '$last_id')";
+                        $stmt = $db->prepare($sql);
 
 
                         if ($stmt->execute()) {
-                            print("Bedankt dat u contact opneemt");
+                            echo "<script>alert('Bedankt dat u contact met ons opneemt.');</script>";
+                            include_once 'includes/mailfunctions.php';
+                            contactmail($emailincontact, $naamincontact, $berichtcontact, $telefooncontact);
+
+
 
 
                         } else {
-                            print_r($stm->errorInfo());
+                            echo "<script>alert('Sorry er is iets fout gegaan, probeer het later nog een keer.');</script>";
                         }
                     } catch (PDOException $e) {
                         echo $e->getMessage();
@@ -83,7 +77,7 @@
         } else {
 
             echo "<script>alert('Vul Recaptcha in.');</script>";
-            echo " <meta http-equiv=\"refresh\" content=\"0; url=second\" />";
+            echo " <meta http-equiv=\"refresh\" content=\"0;\" />";
 
 
             return false;

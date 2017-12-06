@@ -35,30 +35,33 @@
 
                         if($stmt->rowCount() > 0)
                         {
-                            $sql = "UPDATE USER SET phonenumber=?,   WHERE _email=$emailincontact";
+                            $sql = "UPDATE USER SET phonenumber=? WHERE _email=$emailincontact";
                             $stmt = $db->prepare($sql);
-
-                            echo ("test");
-
-                            $stmt->bind_param('d',$telefooncontact );
+                            $stmt->bindparam("d",$telefooncontact );
                             $stmt->execute();
-
+                            echo"test";
 
                             $sql="INSERT INTO contact (name, inhoud, user_id)VALUES (?, ?, ? )";
-                            $stmt->bind_param("ssd", $naamincontact, $berichtcontact, $user);
+                            $stmt = $db->prepare($sql);
+                            $stmt->bindparam("ssd",$naamincontact, $berichtcontact, $user);
                             $stmt->execute();
 
                         }else{
 
-
-                            $db->query("INSERT INTO user (email, first_name) VALUES ('$emailin', '$naamin')");
-
-                        $last_id = $db->lastInsertId();
-
-                        $sql = "INSERT INTO review (quote, rating, user_id) VALUES ('$quotein', '$ratingin', '$last_id')";
-                        $stmtin = $db->prepare($sql);
+                            $sql2 = "INSERT INTO user email=?, phonenumber=?";
+                            $stmt2 = $db->prepare($sql2);
+                            $stmt2->bindparam("sd",$emailincontact, $telefooncontact);
+                            $stmt2->execute();
 
 
+                            $last_id = $db->lastInsertId();
+                            echo "moi";
+
+
+                            $sql="INSERT INTO contact (name, inhoud, user_id)VALUES (?, ?, ? )";
+                            $stmt = $db->prepare($sql);
+                            $stmt->bindparam ("ssd",$naamincontact, $berichtcontact, $last_id);
+                            $stmt->execute();
 
                         }
 
@@ -82,6 +85,8 @@
 
             echo "<script>alert('Vul Recaptcha in.');</script>";
             echo " <meta http-equiv=\"refresh\" content=\"0; url=second\" />";
+
+
             return false;
 
         }
@@ -123,7 +128,7 @@
                 <div class="ptitle">
                     <h2>Contact formulier</h2>
                 </div>
-                <form method="post" action="?">
+                <form method="post" action="">
                     <div class="form-group">
                         <input class="form-control" type="text" name="naamcontact" placeholder="Naam" >
                     </div>

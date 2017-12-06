@@ -1,6 +1,7 @@
 <head>
     <!--haalt de recaotch op-->
     <script src='https://www.google.com/recaptcha/api.js'></script>
+
     <?php
     if(isset($_POST['verstuurcontact'])) {
 
@@ -37,6 +38,8 @@
                             $sql = "UPDATE USER SET phonenumber=?,   WHERE _email=$emailincontact";
                             $stmt = $db->prepare($sql);
 
+                            echo ("test");
+
                             $stmt->bind_param('d',$telefooncontact );
                             $stmt->execute();
 
@@ -48,7 +51,7 @@
                         }else{
 
 
-                            db->query("INSERT INTO user (email, first_name) VALUES ('$emailin', '$naamin')");
+                            $db->query("INSERT INTO user (email, first_name) VALUES ('$emailin', '$naamin')");
 
                         $last_id = $db->lastInsertId();
 
@@ -78,7 +81,7 @@
         } else {
 
             echo "<script>alert('Vul Recaptcha in.');</script>";
-            echo " <meta http-equiv=\"refresh\" content=\"0; url=contact.php\" />";
+            echo " <meta http-equiv=\"refresh\" content=\"0; url=second\" />";
             return false;
 
         }
@@ -281,7 +284,7 @@ function test_input($data) {
                 }
                 ?>
                 <br>
-                <a href="recensie.php" class="btn btn-default">Lees meer recensies!</a>
+                <a href="../recensie.php" class="btn btn-default">Lees meer recensies!</a>
             </div>
         </div>
     </div>

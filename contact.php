@@ -28,16 +28,41 @@
                         $telefooncontact = $_POST["telefoonnummercontact"];
                         $berichtcontact = $_POST["berichtcontact"];
 
-                        $db->query("INSERT INTO user (email, first_name, phonenumber ) VALUES ('$emailincontact', '$naamincontact' , '$telefooncontact)");
+                        $stmt = $user = $db->prepare("SELECT user_id from USER where email = ':email'");
+                        $stmt->bindParam(":email", $emailincontact);
+                        $stmt->execute();
 
-                        $last_id2 = $db->lastInsertId();
+                        if($stmt->rowCount() > 0)
+                        {
+                            $sql = "UPDATE USER SET phonenumber=?,   WHERE _email=$emailincontact";
+                            $stmt = $db->prepare($sql);
 
-                        $sql = "INSERT INTO contact (name, inhoud, user_id) VALUES ('$naamincontact', '$berichtcontact', '$last_id2')";
-                        $stm = $db->prepare($sql);
+                            $stmt->bind_param('d',$telefooncontact );
+                            $stmt->execute();
 
 
-                        if ($stm->execute()) {
+                            $sql="INSERT INTO contact (name, inhoud, user_id)VALUES (?, ?, ? )";
+                            $stmt->bind_param("ssd", $naamincontact, $berichtcontact, $user);
+                            $stmt->execute();
+
+                        }else{
+
+
+                            db->query("INSERT INTO user (email, first_name) VALUES ('$emailin', '$naamin')");
+
+                        $last_id = $db->lastInsertId();
+
+                        $sql = "INSERT INTO review (quote, rating, user_id) VALUES ('$quotein', '$ratingin', '$last_id')";
+                        $stmtin = $db->prepare($sql);
+
+
+
+                        }
+
+
+                        if ($stmt->execute()) {
                             print("Bedankt dat u contact opneemt");
+
 
                         } else {
                             print_r($stm->errorInfo());

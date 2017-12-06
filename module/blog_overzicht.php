@@ -1,15 +1,5 @@
+Blog
 <?php
-    session_start();
-    include_once('includes/header.php');
-?>
-<!DOCTYPE html>
-<html>
-<head>
-    <title>Blog</title>
-</head>
-<body>
-<?php
-    require_once 'admin/classes/connection.class.php';
     $db = new Connection();
     $db = $db->databaseConnection();
 
@@ -32,7 +22,3 @@
         <a href='blog_det.php?pid=$id' title='Details'>Details</a>
         </form>";
     }
-    require_once 'includes/footer.php';
-?>
-</body>
-</html>

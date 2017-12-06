@@ -1,21 +1,25 @@
 <?php
-session_start();
+//Include de connection en de page class
+include_once('admin/classes/connection.class.php');
+include_once('admin/classes/page.class.php');
+
+$page = new Page();
+
+$pageContent = [
+    "pagetitle"     => "",
+    "title"         => "",
+    "subtitle"      => "",
+    "inhoud"        => "",
+    "description"   => "",
+    "kernwoorden"   => "",
+    "path"          => ""
+];
+
 include_once('includes/header.php');
-require_once 'admin/classes/connection.class.php';
+
 $db = new Connection();
 $db = $db->databaseConnection();
-?>
-<!DOCTYPE html>
-<html>
-<head>
-    <meta charset="UTF-8">
-    <link rel="stylesheet" type="text/css" href="css/bootstrap/bootstrap.min.css">
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-    <title>Blog_Details</title>
-</head>
-<body>
-<?php
+
     $dir = 'images/blog/';
 
     $query1 = $db->prepare('SELECT * FROM blog ORDER BY blog_id DESC');

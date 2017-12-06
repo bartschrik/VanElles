@@ -15,14 +15,14 @@
     <link href='http://fonts.googleapis.com/css?family=Merienda+One' rel='stylesheet' type='text/css'>
 
     <!--CSS Includes-->
-    <link href="css/lightbox.css" rel="stylesheet" type="text/css"/>
-    <link href="css/slick/slick.min.css" rel="stylesheet" type="text/css"/>
-    <link href="css/bootstrap/bootstrap.min.css" rel="stylesheet" type="text/css"/>
-    <link rel="stylesheet" href="css/fonts/font-awesome-4.6.3/css/font-awesome.min.css">
+    <link href="<?php echo constant("local_url"); ?>css/lightbox.css" rel="stylesheet" type="text/css"/>
+    <link href="<?php echo constant("local_url"); ?>css/slick/slick.min.css" rel="stylesheet" type="text/css"/>
+    <link href="<?php echo constant("local_url"); ?>css/bootstrap/bootstrap.min.css" rel="stylesheet" type="text/css"/>
+    <link rel="stylesheet" href="<?php echo constant("local_url"); ?>css/fonts/font-awesome-4.6.3/css/font-awesome.min.css">
     <link href="http://nl.allfont.net/allfont.css?fonts=franklin-gothic-medium" rel="stylesheet" type="text/css" />
-    <link href="css/main.css" rel="stylesheet" type="text/css"/>
-    <link href="css/overig.css" rel="stylesheet" type="text/css"/>
-    <link href="css/StarRating.css" rel="stylesheet" type="text/css"/>
+    <link href="<?php echo constant("local_url"); ?>css/main.css" rel="stylesheet" type="text/css"/>
+    <link href="<?php echo constant("local_url"); ?>css/overig.css" rel="stylesheet" type="text/css"/>
+    <link href="<?php echo constant("local_url"); ?>css/StarRating.css" rel="stylesheet" type="text/css"/>
     <link rel="stylesheet" href="http://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css"/>
 </head>
 <body>
@@ -45,7 +45,7 @@
         <div class="container">
             <div class="row">
                 <div class="col-xs-12">
-                    <a href="#" id="main-logo"><img src="images/vanelles.jpg" alt=""></a>
+                    <a href="#" id="main-logo"><img src="<?php echo constant("local_url"); ?>images/vanelles.jpg" alt=""></a>
                     <?php require_once 'menu.php'; ?>
                 </div>
             </div>

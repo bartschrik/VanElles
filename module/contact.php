@@ -220,7 +220,7 @@ function test_input($data) {
             require_once 'admin/classes/connection.class.php';
             $db = new Connection();
             $db = $db->databaseConnection();
-
+            /*Recensie insert */
             if (isset($_POST["verstuur"])) {
                 if (empty($_POST["naam"]) || empty($_POST["emailadres"]) || empty($_POST["omschrijving"])) {
                     print("Vul a.u.b. alle velden in");

@@ -10,6 +10,11 @@ function encrypt($saltcontent, $content) {
     return sha1($salt1.$saltcontent.htmlentities($content));
 }
 
+function create_slug($string){
+    $slug=preg_replace('/[^A-Za-z0-9-]+/', '-', $string);
+    return $slug;
+}
+
 function InputErrorClass($name, $Array){
     if (array_key_exists($name, $Array)){
         return 'errorinput';

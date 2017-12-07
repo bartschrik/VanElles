@@ -10,9 +10,9 @@ if(isset($_GET['page'])) {
     if(!$pageContent) {
         //404 error page
         $pageContent = [
-            "pagetitle"     => "Oepss 404 |",
-            "title"         => "Oepss 404",
-            "subtitle"      => "",
+            "pagetitle"     => "Oepss 404",
+            "title"         => "Oepss, 404",
+            "subtitle"      => "Deze pagina bestaat helaas niet.",
             "inhoud"        => "",
             "description"   => "",
             "kernwoorden"   => "",
@@ -21,15 +21,7 @@ if(isset($_GET['page'])) {
     }
 } else {
     //Search for first page in db
-    $pageContent = [
-        "pagetitle"     => "",
-        "title"         => "",
-        "subtitle"      => "",
-        "inhoud"        => "",
-        "description"   => "",
-        "kernwoorden"   => "",
-        "path"          => ""
-    ];
+    $pageContent = $page->getFirstPageBy();
 }
 
 //Include header

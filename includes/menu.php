@@ -5,7 +5,7 @@
 
     foreach ($menuitems as $item) {
         $title = $item['pagetitle'];
-        $url = $item['url'];
+        $url = constant("local_url").$item['url'];
         echo "<li><a href='$url'>$title</a></li>";
     }
 

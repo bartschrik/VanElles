@@ -51,8 +51,8 @@ class Page {
     public function savePage($data, $user_id) {
         try {
             $query = $this->_db->prepare('
-                INSERT INTO `page` (`pagetitle`, `title`, `subtitle`, `inhoud`, `description`, `kernwoorden`, `active`, `datum`, `image`, `Module_id`, `user_id`) 
-                VALUES (:paginatitel, :titel, :subtitel, :inhoud, :seoinhoud, :seokernwoorden, :actief, :datum, null, :module, :user_id);
+                INSERT INTO `page` (`pagetitle`, `title`, `subtitle`, `inhoud`, `description`, `kernwoorden`, `active`, `datum`, `image`, `Module_id`, `user_id`, `url`) 
+                VALUES (:paginatitel, :titel, :subtitel, :inhoud, :seoinhoud, :seokernwoorden, :actief, :datum, null, :module, :user_id, :url);
             ');
             $query->bindValue(":paginatitel", $data['paginatitel']);
             $query->bindValue(":titel", $data['titel']);
@@ -64,6 +64,7 @@ class Page {
             $query->bindValue(":seoinhoud", $data['seoinhoud']);
             $query->bindValue(":datum", date('Y-m-d H:i:s'));
             $query->bindValue(":user_id", $user_id);
+            $query->bindValue(":url", create_slug($data['paginatitel']));
             if($query->execute())
                 return true;
             return false;
@@ -77,9 +78,10 @@ class Page {
         try {
             $query = $this->_db->prepare('
                 UPDATE `page` 
-                SET `title` = :title, `subtitle` = :subtitle, `inhoud` = :inhoud, `description` = :description, `kernwoorden` = :kernwoorden, `active` = :active, `Module_id` = :module 
+                SET `pagetitle` = :paginatitel, `title` = :title, `subtitle` = :subtitle, `inhoud` = :inhoud, `description` = :description, `kernwoorden` = :kernwoorden, `active` = :active, `Module_id` = :module, `url` = :url  
                 WHERE `id` = :pageid;
             ');
+            $query->bindValue(":paginatitel", $data['paginatitel']);
             $query->bindValue(":title", $data['titel']);
             $query->bindValue(":subtitle", $data['subtitel']);
             $query->bindValue(":inhoud", $data['inhoud']);
@@ -88,6 +90,7 @@ class Page {
             $query->bindValue(":kernwoorden", $data['seokernwoorden']);
             $query->bindValue(":description", $data['seoinhoud']);
             $query->bindValue(":pageid", $page_id);
+            $query->bindValue(":url", create_slug($data['paginatitel']));
             if($query->execute()) {
                 return true;
             } else {
@@ -144,9 +147,34 @@ class Page {
                     SELECT pagetitle, title, subtitle, inhoud, description, kernwoorden, path
                     FROM page p
                     JOIN Module m ON p.Module_id = m.id
-                    WHERE active = 1 AND url = :url;
+                    WHERE url = :url;
                 ');
             $query->bindValue(":url", $url);
+
+            if($query->execute()) {
+                if($query->rowCount() > 0) {
+                    return $content = $query->fetchAll()[0];
+                } else {
+                    return false;
+                }
+            } else {
+                //echo $query->errorInfo();
+                return false;
+            }
+        } catch (PDOexception $e) {
+            //echo $e->getMessage();
+            return false;
+        }
+    }
+    
+    public function getFirstPageBy() {
+        try {
+            $query = $this->_db->prepare('
+                    SELECT pagetitle, title, subtitle, inhoud, description, kernwoorden, path
+                    FROM page p
+                    JOIN Module m ON p.Module_id = m.id
+                    LIMIT 1;
+                ');
 
             if($query->execute()) {
                 if($query->rowCount() > 0) {

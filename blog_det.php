@@ -20,9 +20,15 @@ include_once('includes/header.php');
 $db = new Connection();
 $db = $db->databaseConnection();
 
+if(!isset($_GET['pid'])){
+    header("Location: blog");
+}
+
+$pid = $_GET['pid'];
+
     $dir = constant("local_url"). 'images/blog/';
 
-    $query1 = $db->prepare('SELECT * FROM blog ORDER BY blog_id DESC');
+    $query1 = $db->prepare("SELECT * FROM blog WHERE blog_id = '$pid' ORDER BY blog_id DESC");
 
     $query1->execute();
 
@@ -49,11 +55,12 @@ echo "<form>
     $db = $db->databaseConnection();
 
     // lege variabelen aanmaken
-    $cursus = $voornaam = $achternaam = $geboortedatum = $telefoonnr = $email = "";
+    $cursus = $voornaam = $tussenvoegsel = $achternaam = $geboortedatum = $telefoonnr = $email = "";
     //ingevulde data behouden in formulier
     if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $cursus = ($_POST["cursus"]);
         $voornaam = ($_POST["voornaam"]);
+        $tussenvoegsel = ($_POST["tussenvoegsel"]);
         $achternaam = ($_POST["achternaam"]);
         $geboortedatum = ($_POST["geboortedatum"]);
         $telefoonnr = ($_POST["telefoonnummer"]);
@@ -67,7 +74,7 @@ echo "<form>
                 <h1>Inschrijven</h1>
             </div class='header text-center'>
         
-        <form method='post' action='../blog/$id'>
+        <form method='post' action='$id'>
         
             <div class='form-group'>
                 <label for='cursus'>Cursus</label>
@@ -77,6 +84,11 @@ echo "<form>
             <div class='form-group'>
                 <label for='voornaam'>Voornaam</label>
                 <input class='form-control' type='text' name='voornaam' placeholder='Robin' required value='$voornaam'/>
+            </div>
+        
+            <div class='form-group'>
+                <label for='tussenvoegsel'>Tussenvoegsel</label>
+                <input class='form-control' type='text' name='tussenvoegsel' placeholder='Van' required value='$tussenvoegsel'/>
             </div>
         
             <div class='form-group'>
@@ -105,40 +117,27 @@ echo "<form>
         </div>";
         }
 
-    $query1 = $db->prepare('SELECT * FROM blog ORDER BY blog_id DESC');
-
-    $query1->execute();
-
-    $row = $query1->fetch(PDO::FETCH_ASSOC);
-    $id = $row['blog_id'];
+    $id = $_GET['pid'];
 
     if (isset($_POST["verstuur"])) {
         if (empty($_POST["cursus"]) || empty($_POST["voornaam"]) || empty($_POST["achternaam"]) || empty($_POST["geboortedatum"]) || empty($_POST["telefoonnummer"]) || empty($_POST["emailadres"])) {
             print("Alle velden moeten ingevuld zijn");
         } else {
-            $sql1 = "INSERT INTO user (first_name, last_name, birthday, phonenumber, email) VALUES ('$voornaam', '$achternaam', '$geboortedatum', '$telefoonnr', '$email')";
-            $smt1 = $db->prepare($sql1);
-
-            if($smt1->execute()){
-                echo "succes";
-            } else {
-                print_r($smt1->errorinfo());
+            $sql = "INSERT INTO user (first_name, insertion, last_name, email, birthday, phonenumber) VALUES ('$voornaam', '$tussenvoegsel', '$achternaam', '$email', '$geboortedatum', '$telefoonnr')";
+            $stmt = $db->prepare($sql);
+            if($stmt->execute()){
+                echo"Succesvol ingeschreven!";
             }
 
             $last_id = $db->lastInsertId();
 
-            $sql2 = "INSERT INTO inschrijvingen (blog_id, user_id) VALUES ('$id', '$last_id')";
+            $sql2 = "INSERT INTO inschijvingen (blog_id, user_id) VALUES ('$id', '$last_id')";
             $smt2 = $db->prepare($sql2);
-
             if($smt2->execute()){
-                echo "succes";
+                echo "goed";
             } else {
-                print_r($smt2->errorinfo());
+                echo "oeps";
             }
-
-            header("location: ../blog/$id");
-            ob_end_flush();
-            die();
         }
     }
 require_once 'includes/footer.php';

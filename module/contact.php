@@ -96,7 +96,8 @@
         <div class="row">
             <div class="col-xs-12">
                 <div class="ptitle">
-                    <h1>Contact</h1>
+                    <h1><?php echo $pageContent['title']; ?></h1>
+                    <h2><?php echo $pageContent['subtitle']; ?></h2>
                 </div>
             </div>
         </div>
@@ -110,12 +111,14 @@
                     <li>Rozengaarde 77 </li>
                     <li>7461 DA Rijssen</li>
                 </ul>
-                <table style="width: 100%;">
+                <table style="width: 100%;" class="marbot">
                     <tr><td>Telefoon: </td><td><a href="tel:0613653118">06 13 65 31 18</a></td></tr>
                     <tr><td>E-mail: </td><td><a href="mailto:info@vanelles.nl">info@vanelles.nl</a></td></tr>
                     <tr><td>Kvk: </td><td>0613653118</td></tr>
                     <tr><td>BTW: </td><td>208147895B01</td></tr>
                 </table>
+
+                <?php echo $pageContent['inhoud']; ?>
             </div>
 
 

@@ -45,7 +45,7 @@
         <div class="container">
             <div class="row">
                 <div class="col-xs-12">
-                    <a href="#" id="main-logo"><img src="<?php echo constant("local_url"); ?>images/vanelles.jpg" alt=""></a>
+                    <a href="<?php echo constant("local_url"); ?>" id="main-logo"><img src="<?php echo constant("local_url"); ?>images/vanelles.jpg" alt=""></a>
                     <?php require_once 'menu.php'; ?>
                 </div>
             </div>

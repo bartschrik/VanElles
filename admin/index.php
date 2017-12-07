@@ -73,7 +73,7 @@ if( isset($_POST['submitLogin']) ) {
         <div class="form-actions">
             <button name="submitLogin" type="submit" class="btn green uppercase">Login</button>
             <label class="rememberme check">
-                <div class="checker"><span><input type="checkbox" name="remember" value="1"></span></div>Remember
+                <div class="checker"><span><input type="checkbox" name="remember" value="1"></span></div> Blijf ingelogd
             </label>
         </div>
     </form>

@@ -6,7 +6,7 @@
     $leverancier = new leverancier();
 
     if(isset($_GET['verid'])) {
-        $verleverancier = $page->deleteleverancier($_GET['verid']);
+        $verleverancier = $leverancier->deleteLev($_GET['verid']);
         if ($verleverancier) {
             $msg = '<div class="feedback success"><p>Leverancier succesvol verwijderd</p></div>';
         } else {
@@ -57,7 +57,7 @@
                             <tr>
                                 <td>#'.$value['lev_id'].'</td>
                                 <td>'.$value['naam'].'</td>
-                                <td><a href="leverancier_bewerken.php?bewerkid='.$value['lev_id'].'" title="Bewerken" data-id="'.$value['lev_id'].'"><i class="fa fa-pencil"></i></a><a class="confirm" href="leverancier_overzicht.php.php?verid='.$value['lev_id'].'" title="Verwijderen" data-id="'.$value['lev_id'].'"><i class="fa fa-trash"></i></a></td>
+                                <td><a href="leverancier_bewerken.php?bewerkid='.$value['lev_id'].'" title="Bewerken" data-id="'.$value['lev_id'].'"><i class="fa fa-pencil"></i></a><a class="confirm" href="leverancier_overzicht.php?verid='.$value['lev_id'].'" title="Verwijderen" data-id="'.$value['lev_id'].'"><i class="fa fa-trash"></i></a></td>
                             </tr>';
 
                     }
@@ -74,7 +74,7 @@
 </body>
 <script>
     $(".confirm").click(function(e){
-        var r = confirm("Weet je zeker dat je deze pagina wilt verwijderen?");
+        var r = confirm("Weet je zeker dat je deze leverancier wilt verwijderen?");
         console.log('pong2');
         if (r == true) {
             console.log('ping');

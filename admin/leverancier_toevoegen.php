@@ -37,7 +37,8 @@
                                 if (!$savelev) {
                                     echo '<div class="feedback error container"><div class="row"><div class="col-xs-12"><p>Er is een probleem met onze server, probeer het later opnieuw.</p></div></div></div>';
                                 } else {
-                                    //die(header('Location: leverancier_overzicht.php'));
+                                    die(header('Location: leverancier_overzicht.php'));
+
                                 }
                             } else {
                                 $errors = $val->getErrors();

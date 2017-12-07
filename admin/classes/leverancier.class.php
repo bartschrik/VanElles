@@ -86,7 +86,7 @@ class leverancier {
 
     public function updateLev($data, $img, $lev_id) {
         try {
-            if (!empty($img)) {
+            if ($img['error'] == 0) {
                 $allow = array("jpg", "jpeg", "gif", "png", "PNG");
 
                 $todir = 'images/leverancier/';
@@ -100,7 +100,6 @@ class leverancier {
                     $date = $date->format('Y-m-d H:i:s');
                     $hash1 = sha1($date);
                     $newfilename = $hash1 . '.' . end($temp);
-
 
                     if (in_array(end($temp), $allow)) {
                         if (move_uploaded_file($img['tmp_name'], $todir . $newfilename)) {
@@ -131,12 +130,27 @@ class leverancier {
                     var_dump($query->errorInfo());
                     return false;
                 }
+            } else {
+                $query = $this->_db->prepare('
+                UPDATE `leveranciers` 
+                SET `naam` = :naam, `inhoud` = :inhoud, `description` = :description, `kernwoorden` = :kernwoorden 
+                WHERE `lev_id` = :lev_id;
+            ');
+                $query->bindValue(":naam", $data['naam']);
+                $query->bindValue(":inhoud", $data['inhoud']);
+                $query->bindValue(":kernwoorden", $data['seokernwoorden']);
+                $query->bindValue(":description", $data['seoinhoud']);
+                $query->bindValue(":lev_id", $lev_id);
+                if ($query->execute()) {
+                    return true;
+                } else {
+                    var_dump($query->errorInfo());
+                    return false;
+                }
+            }
             } catch (PDOException $e) {
                 echo $e->getMessage();
                 return false;
-            }
-            } else {
-            print("hoi");
         }
     }
 

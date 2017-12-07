@@ -25,12 +25,10 @@ function nieuwsbrief($email){
                         $query = $db->prepare("UPDATE user SET newsletter = :newsletter WHERE user_id = :userid");
                         $query->bindValue(":newsletter", 1);
                         $query->bindValue(":userid", $last_id);
-                        $query->execute();
                     } else {
                         //insert nieuw user en insert contact
                         $query = $db->prepare("INSERT INTO user (email) VALUES (:email)");
                         $query->bindValue(":email", $email);
-                        $query->execute();
                         $last_id = $db->lastInsertId();
                     }
 
@@ -39,10 +37,11 @@ function nieuwsbrief($email){
                         echo "<script>alert('Dank u voor het inschijven voor de nieuwsbrief.');</script>";
 
                     } else {
+                        //var_dump($query->errorInfo());
                         echo "<script>alert('Sorry er is iets fout gegaan, probeer het later nog een keer.');</script>";
                     }
                 } catch (PDOException $e) {
-                    echo $e->getMessage();
+                    //echo $e->getMessage();
                 }
             }
         }

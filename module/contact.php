@@ -57,8 +57,8 @@
 
                         if ($stmt->execute()) {
                             echo "<script>alert('Bedankt dat u contact met ons opneemt.');</script>";
-                            include_once 'includes/mailfunctions.php';
-                            contactmail($emailincontact, $naamincontact, $berichtcontact, $telefooncontact);
+                            // include_once 'includes/mailfunctions.php';
+                            // contactmail($emailincontact, $naamincontact, $berichtcontact, $telefooncontact);
 
 
 
@@ -71,7 +71,9 @@
                     }
                 }
             }
+            echo " <meta http-equiv=\"refresh\" content=\"0;\" />";
             return true;
+
 
 
         } else {

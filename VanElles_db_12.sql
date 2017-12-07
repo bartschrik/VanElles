@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Gegenereerd op: 06 dec 2017 om 15:25
+-- Gegenereerd op: 07 dec 2017 om 10:00
 -- Serverversie: 10.1.26-MariaDB
 -- PHP-versie: 7.1.8
 
@@ -118,13 +118,20 @@ CREATE TABLE `contact` (
   `user_id` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
+--
+-- Gegevens worden geëxporteerd voor tabel `contact`
+--
+
+INSERT INTO `contact` (`contact_id`, `name`, `date`, `inhoud`, `user_id`) VALUES
+(1, 'Nick', '2017-12-07 08:49:43', 'Hallo1234', 7);
+
 -- --------------------------------------------------------
 
 --
--- Tabelstructuur voor tabel `inschijvingen`
+-- Tabelstructuur voor tabel `inschrijvingen`
 --
 
-CREATE TABLE `inschijvingen` (
+CREATE TABLE `inschrijvingen` (
   `inschijving_id` int(11) NOT NULL,
   `blog_id` int(11) NOT NULL,
   `user_id` int(11) NOT NULL,
@@ -174,11 +181,12 @@ CREATE TABLE `page` (
 --
 
 INSERT INTO `page` (`id`, `pagetitle`, `title`, `subtitle`, `inhoud`, `description`, `kernwoorden`, `active`, `datum`, `image`, `Module_id`, `user_id`, `url`, `page_order`) VALUES
-(1, 'Home', 'Over de winkel', 'En leuk-ER conceptstore', '<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Accusantium aperiam asperiores corporis exercitationem expedita ipsam modi molestias, non numquam perferendis porro quia quos voluptatum? Consectetur, dicta doloremque dolores eaque excepturi exercitationem ipsa ipsum iste laborum libero magni maxime minus natus nesciunt nisi officiis, optio, quam quia recusandae sapiente velit vero?</p>\r\n\r\n<p><strong>Leuk-Er bij van Elles</strong></p>\r\n\r\n<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ab accusantium architecto delectus dolorem enim fuga, fugit harum, id illo laborum magnam molestiae nam non nulla reiciendis rem repellat. Eum, iusto test?</p>\r\n', 'balabl', 'bla, bla, dofs', 1, '2017-12-06 14:03:31', 'image', 1, 1, 'home', 1),
-(2, 'Blog', 'First inserted page bewerkt', 'een subtitel', '<p>fdsa<strong>fdsaf a&nbsp;<s>&nbsp;fdsaf dsaf</s></strong></p>\r\n\r\n<p>&nbsp;</p>\r\n\r\n<h2 style=\"font-style:italic\">fdadfsaf</h2>\r\n', 'Dit is een korte beschrijving van de website voor het seo van google', 'kernwoord1, kernwoord2, panelles', 1, '2017-12-06 14:03:33', NULL, 4, 1, 'blog', 2),
-(4, 'Contact', 'Contact', '', '<p>dfsafasfdas</p>\r\n', 'fdsafdasfdsa', 'dfasfsaf', 1, '2017-12-06 14:03:35', NULL, 3, 1, 'contact', 3),
+(1, 'Home', 'Over de winkel', 'En leuk-ER conceptstore', '<p>Vind jij het ook leuk om naast je webshop een fysiek verkooppunt te hebben, maar is een pand huren voor jou te duur? Ontwerp, maak en cre&euml;er jij de allerleukste dingen, maar heb je net niet dat stukje ondernemerschap in je om het aan de man te brengen?</p>\r\n\r\n<p>Word jij ook vrolijk van dat wat je maakt en wil je eigenlijk wel graag dat het in de winkel ligt?<br />\r\nOf ben jij die leverancier die nog een gaaf verkooppunt zoekt in het Oosten van het land?<br />\r\nDan zijn wij op zoek naar jou! Voor informatie kun je ons een berichtje sturen op hallo@leuk-ER.nl, verzeker je van een plekje in de winkel op een mooie locatie in het centrum van Rijssen en binnenkort zijn jouw spullen te zien en te koop bij&nbsp;Leuk-ER bij Van Elles.</p>\r\n\r\n<p>Tot snel!</p>\r\n\r\n<p>Hartelijke groet,<br />\r\nElles Ligtenberg en Rianne Wessels-Crans</p>\r\n', 'balabl', 'bla, bla, dofs', 1, '2017-12-07 09:52:14', 'image', 1, 1, 'Home', 1),
+(2, 'Blog', 'First inserted page bewerkt', 'een subtitel', '<p>fdsa<strong>fdsaf a&nbsp;<s>&nbsp;fdsaf dsaf</s></strong></p>\r\n\r\n<p>&nbsp;</p>\r\n\r\n<h2 style=\"font-style:italic\">fdadfsaf</h2>\r\n', 'Dit is een korte beschrijving van de website voor het seo van google', 'kernwoord1, kernwoord2, panelles', 1, '2017-12-06 21:17:54', NULL, 4, 1, 'Blog', 2),
+(4, 'Contact', 'Contact', 'Stel al uw vragen', '<h1>&nbsp;</h1>\r\n\r\n<p>&nbsp;</p>\r\n', 'fdsafdasfdsa', 'dfasfsaf', 1, '2017-12-07 09:48:17', NULL, 3, 1, 'Contact', 3),
 (10, 'test', 'test', NULL, NULL, NULL, NULL, NULL, '2017-12-06 14:13:40', NULL, 1, 4, 'test', 4),
-(11, 'test1', 'test', NULL, NULL, NULL, NULL, NULL, '2017-12-06 14:58:39', NULL, 1, 4, 'test', 0);
+(11, 'test1', 'test', NULL, NULL, NULL, NULL, NULL, '2017-12-06 14:58:39', NULL, 1, 4, 'test', 0),
+(12, 'LEUK-ER', 'LEUK-ER', 'Conceptstore', '<p>Al voordat Van Elles in september 2015 haar winkel opende was er een enorme drang om een podium geven aan starters. Mensen die hun eigen mooie producten ontwerpen, maken en online verkopen. Hoe mooi zou het zijn om ook deze groep mensen de mogelijkheid te geven hun producten in een fysieke winkel te verkopen? En Elles weet als geen ander dat de kosten hoog zijn en de risico&rsquo;s groot. Hoe mooi zou het zijn om voor deze mensen wat te betekenen?</p>\r\n\r\n<p>Omdat het runnen van een eigen winkel al de nodige uren met zich meebrengt zocht Elles een samenwerking op en die vond ze.</p>\r\n\r\n<p>Samen met Rianne Wessels-Crans start ze daarom vanaf juni Leuk-ER bij Van Elles.</p>\r\n\r\n<p>Bij Van Elles en bij Leuk-ER valt er altijd wat te beleven. Een nieuwe winkel, een nieuwe ervaring. Het gaat in eerste instantie vooral om beleven, een plek waar mooie spullen en mooie mensen samen komen en er net zo van genieten als wij. Een plek waar je alle tijd hebt om je keuzes te maken, voor jezelf of voor een ander. Laat je verrassen en inspireren. En vooral GENIET!</p>\r\n\r\n<p>Wil jij je&nbsp;<a href=\"#\" target=\"_blank\">aanmelden</a>?</p>\r\n\r\n<p>Nieuwsgierig naar de deelnemers?</p>\r\n', 'LEUK-ER is een conceptstore', 'LEUK-ER, Conceptstore, vanelles, van, Elles', 1, '2017-12-07 09:58:41', NULL, 1, 1, 'LEUK-ER', 0);
 
 -- --------------------------------------------------------
 
@@ -216,7 +224,8 @@ CREATE TABLE `review` (
 --
 
 INSERT INTO `review` (`review_id`, `quote`, `rating`, `user_id`, `datum`, `active`) VALUES
-(1, 'hdajslkfa', 5, 5, '2017-12-06 09:16:54', 0);
+(1, 'hdajslkfa', 5, 5, '2017-12-06 09:16:54', 0),
+(2, 'Top website!', 5, 7, '2017-12-06 15:32:55', 1);
 
 -- --------------------------------------------------------
 
@@ -267,7 +276,7 @@ INSERT INTO `user` (`user_id`, `email`, `first_name`, `insertion`, `last_name`, 
 (1, 'nick@twesq.com', 'Nick', '', 'Simons', NULL, 655194576, 'Rijssen', 'Entoshof 23', '7562 VV', 1, 0),
 (4, 'test@email2.nl', 'Ties', '', 'Pol', NULL, 699382393, 'Rijssen', 'Entoshof 23', '7462 VV', 1, 0),
 (5, 'nick.simons@live.nl', 'Nick', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 2, 0),
-(6, '', '', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 2, 0);
+(7, 'nick@live.nl', 'Nick', NULL, NULL, NULL, 8473209, NULL, NULL, NULL, 2, 0);
 
 --
 -- Indexen voor geëxporteerde tabellen
@@ -309,9 +318,9 @@ ALTER TABLE `contact`
   ADD KEY `fk_contact_user1_idx` (`user_id`);
 
 --
--- Indexen voor tabel `inschijvingen`
+-- Indexen voor tabel `inschrijvingen`
 --
-ALTER TABLE `inschijvingen`
+ALTER TABLE `inschrijvingen`
   ADD PRIMARY KEY (`inschijving_id`),
   ADD KEY `fk_inschijvingen_activiteit1_idx` (`blog_id`),
   ADD KEY `fk_inschijvingen_user1_idx` (`user_id`);
@@ -381,11 +390,11 @@ ALTER TABLE `blog`
 -- AUTO_INCREMENT voor een tabel `contact`
 --
 ALTER TABLE `contact`
-  MODIFY `contact_id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `contact_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 --
--- AUTO_INCREMENT voor een tabel `inschijvingen`
+-- AUTO_INCREMENT voor een tabel `inschrijvingen`
 --
-ALTER TABLE `inschijvingen`
+ALTER TABLE `inschrijvingen`
   MODIFY `inschijving_id` int(11) NOT NULL AUTO_INCREMENT;
 --
 -- AUTO_INCREMENT voor een tabel `leveranciers`
@@ -396,7 +405,7 @@ ALTER TABLE `leveranciers`
 -- AUTO_INCREMENT voor een tabel `page`
 --
 ALTER TABLE `page`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
 --
 -- AUTO_INCREMENT voor een tabel `product`
 --
@@ -406,12 +415,12 @@ ALTER TABLE `product`
 -- AUTO_INCREMENT voor een tabel `review`
 --
 ALTER TABLE `review`
-  MODIFY `review_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `review_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 --
 -- AUTO_INCREMENT voor een tabel `user`
 --
 ALTER TABLE `user`
-  MODIFY `user_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `user_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 --
 -- Beperkingen voor geëxporteerde tabellen
 --
@@ -441,9 +450,9 @@ ALTER TABLE `contact`
   ADD CONSTRAINT `fk_contact_user1` FOREIGN KEY (`user_id`) REFERENCES `user` (`user_id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
 
 --
--- Beperkingen voor tabel `inschijvingen`
+-- Beperkingen voor tabel `inschrijvingen`
 --
-ALTER TABLE `inschijvingen`
+ALTER TABLE `inschrijvingen`
   ADD CONSTRAINT `fk_inschijvingen_blog1` FOREIGN KEY (`blog_id`) REFERENCES `blog` (`blog_id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   ADD CONSTRAINT `fk_inschijvingen_user1` FOREIGN KEY (`user_id`) REFERENCES `user` (`user_id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
 

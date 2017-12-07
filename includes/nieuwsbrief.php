@@ -1,7 +1,9 @@
 <?php
 
 function nieuwsbrief($email){
-        require_once '../admin/classes/connection.class.php';
+    ?>
+    <link href="<?php echo constant("local_url"); ?>admin/classes/connection.class.php" />
+<?php
         $db = new Connection();
         $db = $db->databaseConnection();
 

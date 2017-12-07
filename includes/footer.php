@@ -59,12 +59,19 @@
                 <div class="ptitle">
                     <h2>Nieuwsbrief</h2>
                 </div>
-                <?php include_once 'nieuwsbrief.php' ?>
                 <p>Schrijf je nu in voor de nieuwsbrief en blijf op de hoogte van aanbiedingen en nieuws.</p>
                 <form action='#nbform' id="nbform" method="post">
                     <input type="text" name="email" placeholder="E-mailadres">
                     <input type="submit" name="nb" value="Aanmelden" class="btn btn-primary">
                 </form>
+
+               <?php include_once "includes/nieuwsbrief.php";
+               if(isset($_POST['nb'])) {
+                   nieuwsbrief($_POST['email']);
+}
+               ?>
+
+
             </div>
         </div>
     </div>

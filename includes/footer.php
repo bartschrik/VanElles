@@ -61,7 +61,7 @@
                 </div>
                 <?php include_once 'nieuwsbrief.php' ?>
                 <p>Schrijf je nu in voor de nieuwsbrief en blijf op de hoogte van aanbiedingen en nieuws.</p>
-                <form action='' >
+                <form action='#nbform' id="nbform" method="post">
                     <input type="text" name="email" placeholder="E-mailadres">
                     <input type="submit" name="nb" value="Aanmelden" class="btn btn-primary">
                 </form>

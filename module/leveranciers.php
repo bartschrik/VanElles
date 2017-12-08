@@ -23,7 +23,7 @@
                     $logo = $row["logo"];
 
                     print("<div class='col-xs-12 col-md-4 col-sm-6 marbot'><div class='card'>");
-                    
+
                     echo "<a href='#' style='background-image: url(".constant("local_url")."/admin/images/leverancier/".$logo.");' class='card-img'></a>";
 
                     //print("<img class='card-img' src='./admin/images/leverancier/" . "$logo" . "'>");

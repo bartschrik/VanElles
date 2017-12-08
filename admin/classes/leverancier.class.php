@@ -33,7 +33,7 @@ class leverancier {
     public function saveLev($data, $img) {
         try {
 
-            $allow = array("jpg", "jpeg", "gif", "png", "PNG");
+            $allow = array("jpg", "jpeg", "gif", "png", "JPG", "JPEG", "GIF", "PNG");
 
             $todir = 'images/leverancier/';
             //var_dump($logonaam);
@@ -87,7 +87,7 @@ class leverancier {
     public function updateLev($data, $img, $lev_id) {
         try {
             if ($img['error'] == 0) {
-                $allow = array("jpg", "jpeg", "gif", "png", "PNG");
+                $allow = array("jpg", "jpeg", "gif", "png", "JPG", "JPEG", "GIF", "PNG");
 
                 $todir = 'images/leverancier/';
                 //var_dump($logonaam);

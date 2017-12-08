@@ -6,19 +6,19 @@
                     <div class="ptitle">
                         <h2 class="dark">Leuk-ER conceptstore</h2>
                     </div>
-                    <p>Leuk-ER is een conceptstore binnen Van Elles, voor meer informatie <a href="#">klik hier.</a></p>
+                    <p>Leuk-ER is een conceptstore binnen Van Elles, voor meer informatie <a href="<?php echo constant("local_url"); ?>leuk-er">klik hier.</a></p>
                 </div>
                 <div class="col-md-4 col-sm-6 col-xs-12 ft-item">
                     <div class="ptitle">
                         <h2 class="dark">Van Elles Webshop</h2>
                     </div>
-                    <p>Geen tijd om gezellig in Rijssen te shoppen? Een aantal van onze producten kan u nu online bestellen, <a href="#">klik hier.</a></p>
+                    <p>Geen tijd om gezellig in Rijssen te shoppen? Een aantal van onze producten kan u nu online bestellen, <a href="https://www.vanelles-webshop.nl" target="_blank">klik hier.</a></p>
                 </div>
                 <div class="col-md-4 col-sm-12 col-xs-12 ft-item">
                     <div class="ptitle">
                         <h2 class="dark">Winkel Locatie</h2>
                     </div>
-                    <p>Van Elles ligt aan de Rozengaarde 77 in Rijssen, bekijk de locatie <a href="#">hier.</a></p>
+                    <p>Van Elles ligt aan de Rozengaarde 77 in Rijssen, bekijk de locatie <a href="https://goo.gl/maps/huEPr9usiuj" target="_blank">hier.</a></p>
                 </div>
             </div>
         </div>

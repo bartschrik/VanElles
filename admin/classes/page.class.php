@@ -18,7 +18,7 @@ class Page {
                     JOIN user u ON p.user_id = u.user_id
                     JOIN Module m ON p.Module_id = m.id
                     WHERE active = :active
-                    ORDER BY p.page_order;
+                    ORDER BY p.page_order, p.id;
                 ');
             $query->bindValue(":active", $active);
 
@@ -198,7 +198,7 @@ class Page {
             $query = $this->_db->prepare('
                     SELECT pagetitle, url FROM page
                     WHERE active = 1
-                    ORDER BY page_order;
+                    ORDER BY page_order, id;
                 ');
 
             if($query->execute()) {

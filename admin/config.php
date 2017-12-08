@@ -2,6 +2,8 @@
 //session starten
 session_start();
 
+define("local_url",             "http://localhost/vanelles/");
+
 //Alles include bestantden
 require_once 'classes/connection.class.php';
 require_once 'functions.php';

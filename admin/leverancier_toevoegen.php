@@ -80,7 +80,7 @@
                                     <div class="row">
                                         <div class="col-xs-12">
                                             <button type="submit" name="savelev" class="save">Opslaan</button>
-                                            <a href="leverancier_overzicht.php" title="Anuleren" class="annuleer">Anuleren</a>
+                                            <a href="leverancier_overzicht.php" title="Anuleren" class="annuleer">Annuleren</a>
                                         </div>
                                     </div>
                                 </form>';
@@ -116,7 +116,7 @@
                                     <div class="row">
                                         <div class="col-xs-12">
                                             <button type="submit" name="savelev" class="save">Opslaan</button>
-                                            <a href="leverancier_overzicht.php" title="Anuleren" class="annuleer">Anuleren</a>
+                                            <a href="leverancier_overzicht.php" title="Anuleren" class="annuleer">Annuleren</a>
                                         </div>
                                     </div>
                                 </form>';

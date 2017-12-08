@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Gegenereerd op: 07 dec 2017 om 10:54
+-- Gegenereerd op: 08 dec 2017 om 12:06
 -- Serverversie: 10.1.26-MariaDB
 -- PHP-versie: 7.1.8
 
@@ -45,7 +45,9 @@ INSERT INTO `Module` (`id`, `naam`, `path`) VALUES
 (1, 'Homepage', 'homepage.php'),
 (2, 'Content', 'content.php'),
 (3, 'Contact', 'contact.php'),
-(4, 'Blog', 'blog_overzicht.php');
+(4, 'Blog', 'blog.php'),
+(5, 'Leverancies', 'leveranciers.php'),
+(6, 'Producten', 'producten.php');
 
 -- --------------------------------------------------------
 
@@ -123,7 +125,9 @@ CREATE TABLE `contact` (
 --
 
 INSERT INTO `contact` (`contact_id`, `name`, `date`, `inhoud`, `user_id`) VALUES
-(1, 'Nick', '2017-12-07 08:49:43', 'Hallo1234', 7);
+(1, 'Nick', '2017-12-07 08:49:43', 'Hallo1234', 7),
+(2, 'sfafdsa', '2017-12-07 12:25:09', 'jkslfjalkdfjas', 17),
+(3, 'bart ', '2017-12-07 14:27:38', 'test', 20);
 
 -- --------------------------------------------------------
 
@@ -153,6 +157,14 @@ CREATE TABLE `leveranciers` (
   `kernwoorden` varchar(45) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
+--
+-- Gegevens worden geëxporteerd voor tabel `leveranciers`
+--
+
+INSERT INTO `leveranciers` (`lev_id`, `naam`, `inhoud`, `logo`, `description`, `kernwoorden`) VALUES
+(3, 'HKLIVING', '<p>is een Nederlands merk, opgericht in 2009.', 'd9867d3843917868b616329228a2aab015e8eafb.jpg', 'HKLIVING', 'HKLIVING'),
+(4, 'HOUSE DOCTOR', '<p>In 1999 begonnen de zusters Rikke Juhl Jen', '6f258f4a10d16d3e07c53a0e5ac30f5fa51b5101.jpg', 'In 1999 begonnen de zusters Rikke Juhl Jensen', 'House, Doctor, House doctor');
+
 -- --------------------------------------------------------
 
 --
@@ -173,7 +185,7 @@ CREATE TABLE `page` (
   `Module_id` int(11) NOT NULL,
   `user_id` int(11) NOT NULL,
   `url` varchar(50) NOT NULL,
-  `page_order` int(11) NOT NULL
+  `page_order` int(11) NOT NULL DEFAULT '99'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
@@ -224,8 +236,7 @@ CREATE TABLE `review` (
 INSERT INTO `review` (`review_id`, `quote`, `rating`, `user_id`, `datum`, `active`) VALUES
 (3, 'Super leuke en vernieuwende winkel in Rijssen, met goede klantenservice!', 5, 8, '2017-12-07 10:34:56', 1),
 (4, 'Superhippe woonwinkel, je komt ogen te kort!\r\nElke x weer iets origineels!\r\nAanrader voor leuke cadeautjes.', 4, 9, '2017-12-07 10:35:35', 1),
-(5, 'Superhippe woonwinkel, je komt ogen te kort!\r\nElke x weer iets origineels!\r\nAanrader voor leuke cadeautjes.', 3, 10, '2017-12-07 10:37:03', 1),
-(8, 'shit', 1, 11, '2017-12-07 10:38:52', 0);
+(5, 'Superhippe woonwinkel, je komt ogen te kort!\r\nElke x weer iets origineels!\r\nAanrader voor leuke cadeautjes.', 3, 10, '2017-12-07 10:37:03', 1);
 
 -- --------------------------------------------------------
 
@@ -273,14 +284,22 @@ CREATE TABLE `user` (
 --
 
 INSERT INTO `user` (`user_id`, `email`, `first_name`, `insertion`, `last_name`, `birthday`, `phonenumber`, `city`, `address`, `zipcode`, `role`, `newsletter`) VALUES
-(1, 'nick@twesq.com', 'Nick', '', 'Simons', NULL, 655194576, 'Rijssen', 'Entoshof 23', '7562 VV', 1, 0),
+(1, 'nick@twesq.com', 'Admin', '', NULL, NULL, 655194576, 'Rijssen', 'Entoshof 23', '7562 VV', 1, 0),
 (4, 'test@email2.nl', 'Ties', '', 'Pol', NULL, 699382393, 'Rijssen', 'Entoshof 23', '7462 VV', 1, 0),
 (5, 'nick.simons@live.nl', 'Nick', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 2, 0),
 (7, 'nick@live.nl', 'Nick', NULL, NULL, NULL, 8473209, NULL, NULL, NULL, 2, 0),
 (8, 'bart@live.nl', 'Bart', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 2, 0),
 (9, 'erhan@live.nl', 'Erhan', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 2, 0),
 (10, 'michael@gmail.nl', 'Michael', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 2, 0),
-(11, 'Anja@live.nl', 'Anja', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 2, 0);
+(11, 'Anja@live.nl', 'Anja', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 2, 0),
+(12, 'hoi@hoi.nl', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 2, 1),
+(14, 'sofa', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 2, 0),
+(16, 'jklsadfa', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 2, 0),
+(17, 'nfdsjk@kldjf.nl', NULL, NULL, NULL, NULL, 23412324, NULL, NULL, NULL, 2, 0),
+(18, 'jkdfsla@jkflds.nljk', 'Ties', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 2, 0),
+(19, 'jklfdsjlk@LKjflkdjslkfjkl.dfsjkl', 'jkdslaf', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 2, 0),
+(20, 'bart.schrik@hhhh.nl', NULL, NULL, NULL, NULL, 876435, NULL, NULL, NULL, 2, 0),
+(21, 'Baer.scgruk@gh.nl', 'test', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 2, 0);
 
 --
 -- Indexen voor geëxporteerde tabellen
@@ -379,7 +398,7 @@ ALTER TABLE `user`
 -- AUTO_INCREMENT voor een tabel `Module`
 --
 ALTER TABLE `Module`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 --
 -- AUTO_INCREMENT voor een tabel `activiteit`
 --
@@ -394,7 +413,7 @@ ALTER TABLE `blog`
 -- AUTO_INCREMENT voor een tabel `contact`
 --
 ALTER TABLE `contact`
-  MODIFY `contact_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `contact_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 --
 -- AUTO_INCREMENT voor een tabel `inschrijvingen`
 --
@@ -404,7 +423,7 @@ ALTER TABLE `inschrijvingen`
 -- AUTO_INCREMENT voor een tabel `leveranciers`
 --
 ALTER TABLE `leveranciers`
-  MODIFY `lev_id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `lev_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 --
 -- AUTO_INCREMENT voor een tabel `page`
 --
@@ -419,12 +438,12 @@ ALTER TABLE `product`
 -- AUTO_INCREMENT voor een tabel `review`
 --
 ALTER TABLE `review`
-  MODIFY `review_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+  MODIFY `review_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 --
 -- AUTO_INCREMENT voor een tabel `user`
 --
 ALTER TABLE `user`
-  MODIFY `user_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
+  MODIFY `user_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=22;
 --
 -- Beperkingen voor geëxporteerde tabellen
 --

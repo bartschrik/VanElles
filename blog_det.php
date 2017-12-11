@@ -1,3 +1,9 @@
+<div class="container">
+    <div class="row">
+        <div class="martop marbot">
+            <div class="ptitle">
+                <h1>Blog</h1>
+            </div>
 <?php
 //Include de connection en de page class
 include_once('admin/classes/connection.class.php');
@@ -26,7 +32,7 @@ if(!isset($_GET['pid'])){
 
 $pid = $_GET['pid'];
 
-    $dir = constant("local_url"). 'admin/images/blog/';
+    $dir = 'admin/images/blog/';
 
     $query1 = $db->prepare("SELECT * FROM blog WHERE blog_id = '$pid' ORDER BY blog_id DESC");
 
@@ -40,22 +46,28 @@ $pid = $_GET['pid'];
         $inhoud = $row["inhoud"];
         $beschrijving = $row["beschrijving"];
         $kernwoorden = $row["kernwoorden"];
+        $inschrijven = $row["inschrijving"];
 
-echo "<form>
-            <p>$title</p>
-            <p>$subtitel</p>
-            <p><img height='250' width='250' src='$dir/$img_name'></p>
-            <p>$inhoud</p>
-            <p>$beschrijving</p>
-            <p>$kernwoorden</p>
-            </form>";
+    print("<div class='col-xs-12 marbot'><div class='card'>");
+
+    echo "<a href='#' style='background-image: url(" . constant("local_url") . "$dir/$img_name" . ");' class='card-img'></a>";
+
+    print("<div class='card-body'>");
+
+    print("<a href=\"#\"><h4 class=\"card-title\">" . $title . "</h4></a>");
+
+    print("<p class=\"card-text\">" . $subtitel . "</p>");
+
+    print("<p class=\"card-text\">" . $inhoud . "</p>");
+
+    print("</div></div></div>");
 ?>
+        </div>
+    </div>
+</div>
 <?php
-    $db = new Connection();
-    $db = $db->databaseConnection();
-
     // lege variabelen aanmaken
-    $cursus = $voornaam = $tussenvoegsel = $achternaam = $geboortedatum = $telefoonnr = $email = "";
+    $voornaam = $tussenvoegsel = $achternaam = $geboortedatum = $telefoonnr = $email = "";
     //ingevulde data behouden in formulier
     if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $voornaam = ($_POST["voornaam"]);
@@ -67,7 +79,7 @@ echo "<form>
     }
     ob_start();
 
-    if($inschrijven = 1) {
+    if($inschrijven == 1) {
         echo "<div class='container'>
             <div class='header text-center'>
                 <h1>Inschrijven</h1>
@@ -109,7 +121,7 @@ echo "<form>
             <p><input type='submit' name='verstuur' value='Verstuur' class='btn btn-default'/></p>
         </form>
         </div>";
-        }
+    }
 
     $id = $_GET['pid'];
 
@@ -128,9 +140,9 @@ echo "<form>
             $sql2 = "INSERT INTO inschrijvingen (blog_id, user_id) VALUES ('$id', '$last_id')";
             $smt2 = $db->prepare($sql2);
             if($smt2->execute()){
-                echo "goed";
+
             } else {
-                echo "oeps";
+                echo"Het e-mail adres is al in gebruik.";
             }
         }
     }

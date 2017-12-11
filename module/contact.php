@@ -263,11 +263,10 @@ function test_input($data) {
                 <br><br>
 
 
-                <img src=".../captcha.php">
-                Voer deze cijfers in: <br>
-                <input type="text" name="captcha"><br>
-                <img src="captcha.php"><br>
 
+                Voer deze cijfers in: <br>
+                <input class='form-control' style="width: 28%"  type="text" name="captcha"><br>
+                <img src="captcha.php"><br>
 
                 <input type="submit" name="verstuur" value="Verstuur" class="btn btn-default">
 

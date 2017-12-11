@@ -106,7 +106,7 @@
                                     <div class="row">
                                         <div class="col-xs-12">
                                             <button type="submit" name="saveblog" class="save">Opslaan</button>
-                                            <a href="../module/blog_overzicht.php" title="Annuleren" class="annuleer">Annuleren</a>
+                                            <a href="../module/blog.php" title="Annuleren" class="annuleer">Annuleren</a>
                                         </div>
                                     </div>
                                 </form>';

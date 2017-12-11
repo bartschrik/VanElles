@@ -27,6 +27,7 @@
 
                             $val = new Validate([
                                 ['naam', $_POST['naam'], 'required'],
+                                ['logo', $_FILES['logo'], 'imgrequired|validphoto'],
                                 ['seokernwoorden', $_POST['seokernwoorden'], 'required'],
                                 ['seoinhoud', $_POST['seoinhoud'], 'required|min:2']
                             ]);

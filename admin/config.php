@@ -13,6 +13,7 @@ require_once 'classes/validate.class.php';
 require_once 'classes/leverancier.class.php';
 require_once 'classes/recensie.class.php';
 require_once 'classes/product.class.php';
+require_once 'classes/blog.class.php';
 
 //General classes
 $user = new User();

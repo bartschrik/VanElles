@@ -1,4 +1,5 @@
 <?php
+    require_once '../admin/classes/connection.class.php';
     $db = new Connection();
     $db = $db->databaseConnection();
 

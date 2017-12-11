@@ -14,7 +14,6 @@
         }
     }
 
-
     $bloglist = $blog->getAllblog();
     if(!$bloglist && is_bool($bloglist)) {
         $msg = '<div class="feedback error container"><div class="row"><div class="col-xs-12"><p>Er is iets mis gegaan met onze database, probeer het later opnieuw.</p></div></div></div>';

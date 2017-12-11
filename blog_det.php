@@ -26,7 +26,7 @@ if(!isset($_GET['pid'])){
 
 $pid = $_GET['pid'];
 
-    $dir = constant("local_url"). 'images/blog/';
+    $dir = constant("local_url"). 'admin/images/blog/';
 
     $query1 = $db->prepare("SELECT * FROM blog WHERE blog_id = '$pid' ORDER BY blog_id DESC");
 
@@ -58,7 +58,6 @@ echo "<form>
     $cursus = $voornaam = $tussenvoegsel = $achternaam = $geboortedatum = $telefoonnr = $email = "";
     //ingevulde data behouden in formulier
     if ($_SERVER["REQUEST_METHOD"] == "POST") {
-        $cursus = ($_POST["cursus"]);
         $voornaam = ($_POST["voornaam"]);
         $tussenvoegsel = ($_POST["tussenvoegsel"]);
         $achternaam = ($_POST["achternaam"]);
@@ -75,11 +74,6 @@ echo "<form>
             </div class='header text-center'>
         
         <form method='post' action='$id'>
-        
-            <div class='form-group'>
-                <label for='cursus'>Cursus</label>
-                <input class='form-control' type='text' name='cursus' placeholder='Cursus' required value='$cursus'/>
-            </div>
         
             <div class='form-group'>
                 <label for='voornaam'>Voornaam</label>
@@ -120,7 +114,7 @@ echo "<form>
     $id = $_GET['pid'];
 
     if (isset($_POST["verstuur"])) {
-        if (empty($_POST["cursus"]) || empty($_POST["voornaam"]) || empty($_POST["achternaam"]) || empty($_POST["geboortedatum"]) || empty($_POST["telefoonnummer"]) || empty($_POST["emailadres"])) {
+        if (empty($_POST["voornaam"]) || empty($_POST["achternaam"]) || empty($_POST["geboortedatum"]) || empty($_POST["telefoonnummer"]) || empty($_POST["emailadres"])) {
             print("Alle velden moeten ingevuld zijn");
         } else {
             $sql = "INSERT INTO user (first_name, insertion, last_name, email, birthday, phonenumber) VALUES ('$voornaam', '$tussenvoegsel', '$achternaam', '$email', '$geboortedatum', '$telefoonnr')";

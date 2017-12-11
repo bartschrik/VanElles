@@ -63,14 +63,15 @@ class product {
 
 
             $query = $this->_db->prepare('
-                INSERT INTO `product` (`naam`, `inhoud`, `images`, `description`, `kernwoorden`) 
-                VALUES (:naam, :inhoud, :foto, :seoinhoud, :seokernwoorden);
+                INSERT INTO `product` (`naam`, `inhoud`, `images`, `description`, `kernwoorden`, `lev_id`) 
+                VALUES (:naam, :inhoud, :foto, :seoinhoud, :seokernwoorden, :lev_id);
             ');
             $query->bindValue(":naam", $data['naam']);
             $query->bindValue(":inhoud", $data['inhoud']);
             $query->bindValue(":foto", $newfilename);
             $query->bindValue(":seokernwoorden", $data['seokernwoorden']);
             $query->bindValue(":seoinhoud", $data['seoinhoud']);
+            $query->bindValue(":lev_id", $data['Leverancier']);
 
             if($query->execute()) {
                 return true;
@@ -86,13 +87,13 @@ class product {
 
     }
 
-    public function updateLev($data, $img, $lev_id) {
+    public function updateProduct($data, $img, $product_id) {
         try {
             if ($img['error'] == 0) {
                 $allow = array("jpg", "jpeg", "gif", "png", "JPG", "JPEG", "GIF", "PNG");
 
-                $todir = 'images/leverancier/';
-                //var_dump($logonaam);
+                $todir = 'images/product/';
+               // var_dump($newfilename);
 
 
                 if (!!$img['tmp_name']) {
@@ -109,40 +110,43 @@ class product {
                         }
                     } else {
                         echo "De extentie is niet toegestaan, toegestaan is: (.jpg/.jpeg/.png/.gif.)<br />";
-                        header("refresh:2;url=leverancier_toevoegen.php");
+                        header("refresh:2;url=product_toevoegen.php");
                         exit;
                     }
                 }
 
 
                 $query = $this->_db->prepare('
-                UPDATE `leveranciers` 
-                SET `naam` = :naam, `inhoud` = :inhoud, `logo` = :logo, `description` = :description, `kernwoorden` = :kernwoorden 
-                WHERE `lev_id` = :lev_id;
+                UPDATE `product` 
+                SET `naam` = :naam, `inhoud` = :inhoud, `images` = :images, `description` = :description, `kernwoorden` = :kernwoorden, `lev_id` = :lev_id  
+                WHERE `product_id` = :product_id;
             ');
                 $query->bindValue(":naam", $data['naam']);
                 $query->bindValue(":inhoud", $data['inhoud']);
-                $query->bindValue(":logo", $newfilename);
+                $query->bindValue(":images", $newfilename);
                 $query->bindValue(":kernwoorden", $data['seokernwoorden']);
                 $query->bindValue(":description", $data['seoinhoud']);
-                $query->bindValue(":lev_id", $lev_id);
+                $query->bindValue(":lev_id", $data['leverancier']);
+                $query->bindValue(":product_id", $product_id);
                 if ($query->execute()) {
                     return true;
                 } else {
                     var_dump($query->errorInfo());
+                    var_dump($data["leverancier"]);
                     return false;
                 }
             } else {
                 $query = $this->_db->prepare('
-                UPDATE `leveranciers` 
-                SET `naam` = :naam, `inhoud` = :inhoud, `description` = :description, `kernwoorden` = :kernwoorden 
-                WHERE `lev_id` = :lev_id;
+                UPDATE `product` 
+                SET `naam` = :naam, `inhoud` = :inhoud, `description` = :description, `kernwoorden` = :kernwoorden, `lev_id` = :lev_id  
+                WHERE `product_id` = :product_id;
             ');
                 $query->bindValue(":naam", $data['naam']);
                 $query->bindValue(":inhoud", $data['inhoud']);
                 $query->bindValue(":kernwoorden", $data['seokernwoorden']);
                 $query->bindValue(":description", $data['seoinhoud']);
-                $query->bindValue(":lev_id", $lev_id);
+                $query->bindValue(":lev_id", $data['leverancier']);
+                $query->bindValue(":product_id", $product_id);
                 if ($query->execute()) {
                     return true;
                 } else {
@@ -189,10 +193,30 @@ class product {
         }
     }
 
-    public function getLeverancierById($lev_id) {
+    public function getProductById($product_id) {
         try {
             $query = $this->_db->prepare('
-                    SELECT * FROM leveranciers
+                    SELECT * FROM product
+                    WHERE product_id = :id;
+                ');
+            $query->bindValue(":id", $product_id);
+
+            if($query->execute()) {
+                return $content = $query->fetchAll()[0];
+            } else {
+                //echo $query->errorInfo();
+                return false;
+            }
+        } catch (PDOexception $e) {
+            //echo $e->getMessage();
+            return false;
+        }
+    }
+
+    public function getProductlevById($lev_id) {
+        try {
+            $query = $this->_db->prepare('
+                    SELECT naam FROM leverancier
                     WHERE lev_id = :id;
                 ');
             $query->bindValue(":id", $lev_id);

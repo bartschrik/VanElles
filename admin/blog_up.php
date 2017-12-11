@@ -109,14 +109,14 @@
                                             CKEDITOR.replace( "inhoud" );
                                         </script>
                                         <span>Activiteit:</span>
-                                        <select name=\'activiteit\' id=\'selectmodule\'>
-                                            <option value=\'0\'>Nee</option>
-                                            <option value=\'1\'>Ja</option>
+                                        <select name="activiteit" id="selectmodule">
+                                            <option value="0">Nee</option>
+                                            <option value="1">Ja</option>
                                         </select>
                                         <span>Inschrijven:</span>
-                                        <select name=\'inschrijven\' id=\'selectmodule\'>
-                                            <option value=\'0\'>Nee</option>
-                                            <option value=\'1\'>Ja</option>
+                                        <select name="inschrijven" id="selectmodule">
+                                            <option value="0">Nee</option>
+                                            <option value="1">Ja</option>
                                         </select>    
                                     </div>
                                     

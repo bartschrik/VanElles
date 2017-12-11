@@ -3,7 +3,7 @@
     $db = new Connection();
     $db = $db->databaseConnection();
 
-    $dir = 'images/blog/';
+    $dir = '../admin/images/blog/';
 
     $query1 = $db->prepare('SELECT * FROM blog ORDER BY blog_id DESC');
 

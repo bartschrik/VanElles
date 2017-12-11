@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Gegenereerd op: 08 dec 2017 om 12:40
+-- Gegenereerd op: 11 dec 2017 om 09:06
 -- Serverversie: 10.1.26-MariaDB
 -- PHP-versie: 7.1.8
 
@@ -213,7 +213,8 @@ CREATE TABLE `product` (
   `images` varchar(45) NOT NULL,
   `description` varchar(45) NOT NULL,
   `kernwoorden` varchar(45) NOT NULL,
-  `lev_id` int(11) NOT NULL
+  `lev_id` int(11) NOT NULL,
+  `uitgelicht` int(1) NOT NULL DEFAULT '0' COMMENT '0=nee, 1=ja'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------

@@ -78,14 +78,11 @@ class blog
                 }
             }
 
-            $last_id = $this->_db->lastInsertId();
-
             $query = $this->_db->prepare('
                 INSERT INTO `blog` (`user_id` ,`title`, `subtitle`, `inhoud`, `beschrijving`, `kernwoorden`, `img_name`, `activiteit`, `inschrijving`) 
                 VALUES (:user_id, :title, :subtitle, :inhoud, :beschrijving, :kernwoorden, :img_name, :activiteit, :inschrijving);
             ');
 
-            $query->bindValue(":user_id", $last_id);
             $query->bindValue(":title", $data['titel']);
             $query->bindValue(":subtitle", $data['subtitel']);
             $query->bindValue(":inhoud", $data['inhoud']);

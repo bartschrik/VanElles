@@ -107,4 +107,100 @@ class blog
         }
 
     }
+
+    public function updateBlog($data, $img, $blog_id) {
+        try {
+            if ($img['error'] == 0) {
+                $allow = array("jpg", "jpeg", "gif", "png", "JPG", "JPEG", "GIF", "PNG");
+
+                $todir = 'images/blog/';
+                //var_dump($logonaam);
+
+
+                if (!!$img['tmp_name']) {
+                    //var_dump($logonaam);
+                    $temp = explode(".", $img["name"]);
+                    $date = new DateTime();
+                    $date = $date->format('Y-m-d H:i:s');
+                    $hash1 = sha1($date);
+                    $newfilename = $hash1 . '.' . end($temp);
+
+                    if (in_array(end($temp), $allow)) {
+                        if (move_uploaded_file($img['tmp_name'], $todir . $newfilename)) {
+
+                        }
+                    } else {
+                        echo "De extentie is niet toegestaan, toegestaan is: (.jpg/.jpeg/.png/.gif.)<br />";
+                        header("refresh:2;url=blog_up.php");
+                        exit;
+                    }
+                }
+
+
+                $query = $this->_db->prepare('
+                UPDATE `blog` 
+                SET `title` = :title, `subtitle` = :subtitle, `inhoud` = :inhoud, `beschrijving` = :beschrijving, `kernwoorden` = :kernwoorden, `img_name` = :img_name, `activiteit` = :activiteit, `inschrijving` = :inschrijving
+                WHERE `blog_id` = :blog_id;
+            ');
+                $query->bindValue(":blog_id", $blog_id);
+                $query->bindValue(":title", $data['titel']);
+                $query->bindValue(":subtitle", $data['subtitel']);
+                $query->bindValue(":inhoud", $data['inhoud']);
+                $query->bindValue(":kernwoorden", $data['seokernwoorden']);
+                $query->bindValue(":beschrijving", $data['seobeschrijving']);
+                $query->bindValue(":img_name", $newfilename);
+                $query->bindValue(":activiteit", $data['activiteit']);
+                $query->bindValue(":inschrijving", $data['inschrijven']);
+                if ($query->execute()) {
+                    return true;
+                } else {
+                    var_dump($query->errorInfo());
+                    return false;
+                }
+            } else {
+                $query = $this->_db->prepare('
+                UPDATE `blog` 
+                SET `title` = :title, `subtitle` = :subtitle, `inhoud` = :inhoud, `beschrijving` = :beschrijving, `kernwoorden` = :kernwoorden, `activiteit` = :activiteit, `inschrijving` = :inschrijving
+                WHERE `blog_id` = :blog_id;
+            ');
+                $query->bindValue(":blog_id", $blog_id);
+                $query->bindValue(":title", $data['titel']);
+                $query->bindValue(":subtitle", $data['subtitel']);
+                $query->bindValue(":inhoud", $data['inhoud']);
+                $query->bindValue(":kernwoorden", $data['seokernwoorden']);
+                $query->bindValue(":beschrijving", $data['seobeschrijving']);
+                $query->bindValue(":activiteit", $data['activiteit']);
+                $query->bindValue(":inschrijving", $data['inschrijven']);
+                if ($query->execute()) {
+                    return true;
+                } else {
+                    var_dump($query->errorInfo());
+                    return false;
+                }
+            }
+        } catch (PDOException $e) {
+            echo $e->getMessage();
+            return false;
+        }
+    }
+
+    public function getBlogById($blog_id) {
+        try {
+            $query = $this->_db->prepare('
+                    SELECT * FROM blog
+                    WHERE blog_id = :id;
+                ');
+            $query->bindValue(":id", $blog_id);
+
+            if($query->execute()) {
+                return $content = $query->fetchAll()[0];
+            } else {
+                //echo $query->errorInfo();
+                return false;
+            }
+        } catch (PDOexception $e) {
+            //echo $e->getMessage();
+            return false;
+        }
+    }
 }

@@ -19,7 +19,7 @@
         <p>$title</p>
         <p>$subtitel</p>
         <p><img height='250' width='250' src='$dir/$img_name'></p>
-        <a href='blog/$id' title='Details'>Details</a>
+        <a href='../blog_det?pid=$id' title='Details'>Details</a>
         </form>
         <br>";
     }

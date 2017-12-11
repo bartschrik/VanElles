@@ -26,7 +26,7 @@ if(!isset($_GET['pid'])){
 
 $pid = $_GET['pid'];
 
-    $dir = constant("local_url"). 'images/blog/';
+    $dir = constant("local_url"). 'admin/images/blog/';
 
     $query1 = $db->prepare("SELECT * FROM blog WHERE blog_id = '$pid' ORDER BY blog_id DESC");
 

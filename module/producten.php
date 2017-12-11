@@ -22,7 +22,7 @@
                     $inhoud = $row["inhoud"];
                     $foto = $row["images"];
 
-                    print("<div class='col-xs-12 col-md-4 col-sm-6 marbot'><div class='card'>");
+                    print("<div class='col-xs-12 col-md-3 col-sm-6 marbot'><div class='card'>");
 
                     echo "<a href='#' style='background-image: url(".constant("local_url")."/admin/images/product/".$foto.");' class='card-img'></a>";
 
@@ -30,7 +30,7 @@
 
                     print("<div class=\"card-body\">");
 
-                    print(" <a href=\"#\"><h4 class=\"card-title\">" . $leveranciernaam . "</h4></a>");
+                    print(" <a href=\"#\"><h4 class=\"card-title\">" . $productnaam . "</h4></a>");
 
                     print(" <p class=\"card-text\">" . $inhoud . "</p>");
 

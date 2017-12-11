@@ -171,4 +171,43 @@ class User {
     public function isLoggedIn() {
         return $this->_loggedin;
     }
+
+    public function getAllUsersMin($page = 1, $rowspPage = 10) {
+        try {
+            $offset = ($page - 1) * $rowspPage;
+
+            $query = $this->_db->prepare('
+                    SELECT u.user_id, u.first_name, u.insertion, u.last_name, u.email, a.gebruikersnaam, r.role_name
+                    FROM user u
+                    LEFT JOIN admin a ON u.user_id = a.user_id
+                    JOIN role r ON u.role = r.role
+                    ORDER BY u.role ASC, u.user_id ASC
+                    LIMIT :lim
+                    OFFSET :off;
+                    SELECT COUNT(*) aantal FROM user;
+                ');
+            $query->bindValue(":lim", (int) $rowspPage, PDO::PARAM_INT);
+            $query->bindValue(":off", (int) $offset, PDO::PARAM_INT);
+            $query2 = $this->_db->prepare('
+                SELECT COUNT(*) FROM user;
+            ');
+
+            if($query->execute()) {
+                $query = $query->fetchAll();
+                if($query2->execute()) {
+                    $query2 = $query2->fetch()[0];
+                    return ["values" => $query, "aantal" => $query2];
+                } else {
+                    var_dump($query2->errorInfo());
+                    return ["values" => $query->fetchAll(), "aantal" => false];
+                }
+            } else {
+                var_dump($query->errorInfo());
+                return false;
+            }
+        } catch (PDOexception $e) {
+            echo $e->getMessage();
+            return false;
+        }
+    }
 }

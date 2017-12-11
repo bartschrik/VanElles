@@ -36,7 +36,7 @@ error_reporting(-1);
         </div>
     </div>
 </header>
-<nav>
+<nav id="main">
     <div class="container">
         <div class="row">
             <div class="col-xs-12">
@@ -45,6 +45,7 @@ error_reporting(-1);
                     <li><a href="leverancier_overzicht.php">Leveranciers</a></li>
                     <li><a href="recensie_goedkeuren.php">Recensies</a></li>
                     <li><a href="product_overzicht.php">Producten</a></li>
+                    <li><a href="gebruikers_overzicht.php">Gebruikers</a></li>
                 </ul>
             </div>
         </div>

@@ -1,5 +1,4 @@
 <head>
-
     <!--haalt de recaotch op-->
     <script src='https://www.google.com/recaptcha/api.js'></script>
 
@@ -90,7 +89,7 @@
 
 </head>
 
-<?php require_once 'includes/header.php';?>
+
 <div class="martop">
     <div class="container">
         <div class="row">
@@ -181,6 +180,9 @@ function test_input($data) {
 }
 ?>
 
+
+
+
     <!--Invoervelden-->
     <div class="container">
         <div class="marbot martop col-xs-12 col-md-6">
@@ -262,13 +264,10 @@ function test_input($data) {
 
                 <br><br>
 
-
-                <img src=".../captcha.php">
+                <img src="captcha.php">
                 Voer deze cijfers in: <br>
-                <input type="text" name="captcha"><br>
-                <img src="captcha.php"><br>
-
-
+                <input type="text" name="captcha">
+                <img src="captcha.php">
                 <input type="submit" name="verstuur" value="Verstuur" class="btn btn-default">
 
             </form>

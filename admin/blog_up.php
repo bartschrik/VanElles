@@ -33,12 +33,17 @@
                             ['seobeschrijving', $_POST['seobeschrijving'], 'required|min:2']
                         ]);
 
+
                         if ($val->isPassed()) {
-                            $saveblog = $blog->saveblog($_POST, $_FILES['plaatje']);
+                            $saveblog = $blog->saveblog($_POST, $_FILES['plaatje'], $user->getUser()['user_id']);
                             if (!$saveblog) {
                                 echo '<div class="feedback error container"><div class="row"><div class="col-xs-12"><p>Er is een probleem met onze server, probeer het later opnieuw.</p></div></div></div>';
                             } else {
+<<<<<<< HEAD
                                 die(header('Location: ../module/blog_overzicht.php'));
+=======
+                                die(header('Location: blog_admin.php'));
+>>>>>>> 2db57c0d69a5973d58a143b5b4603b3c6dc14a5d
 
                             }
                         } else {

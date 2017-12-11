@@ -50,7 +50,7 @@ class blog
         }
     }
 
-    public function saveBlog($data, $img) {
+    public function saveBlog($data, $img, $userid) {
         try {
 
             $allow = array("jpg", "jpeg", "gif", "png", "JPG", "JPEG", "GIF", "PNG");
@@ -83,6 +83,10 @@ class blog
                 VALUES (:user_id, :title, :subtitle, :inhoud, :beschrijving, :kernwoorden, :img_name, :activiteit, :inschrijving);
             ');
 
+<<<<<<< HEAD
+=======
+            $query->bindValue(":user_id", $userid);
+>>>>>>> 2db57c0d69a5973d58a143b5b4603b3c6dc14a5d
             $query->bindValue(":title", $data['titel']);
             $query->bindValue(":subtitle", $data['subtitel']);
             $query->bindValue(":inhoud", $data['inhoud']);
@@ -97,6 +101,7 @@ class blog
                 die(header('Location: blog_admin.php'));
             } else {
                 var_dump($query->errorInfo());
+                var_dump($data);
                 return false;
             }
         } catch (PDOException $e) {

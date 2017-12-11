@@ -14,7 +14,7 @@ and open the template in the editor.
 </head>
 <body>
 <?php
-require_once 'admin/classes/connection.class.php';
+require_once ('admin/classes/connection.class.php');
 $db = new connection();
 $db = $db->databaseConnection();
 require_once 'includes/header.php';

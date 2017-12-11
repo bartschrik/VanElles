@@ -10,23 +10,71 @@ class product {
         $this->_db = $this->_db->databaseConnection();
     }
 
-    public function getAllproduct() {
+
+    public function getAllproduct($uitgelicht = 0)
+    {
         try {
             $query = $this->_db->prepare('
                     SELECT product.product_id, product.naam, product.inhoud, leveranciers.naam
                     FROM leveranciers AS leveranciers
                     JOIN product AS product
                     ON leveranciers.lev_id=product.lev_id
+                    WHERE uitgelicht = :uitgelicht
                 ');
+            $query->bindValue(":uitgelicht", $uitgelicht);
 
-            if($query->execute()) {
+            if ($query->execute()) {
                 return $content = $query->fetchAll();
             } else {
-                //var_dump($query->errorInfo());
+                //echo $query->errorInfo();
                 return false;
             }
         } catch (PDOexception $e) {
-            // echo $e->getMessage();
+            //echo $e->getMessage();
+            return false;
+        }
+    }
+
+    public function productuitlicht($data)
+    {
+        try {
+            $query = $this->_db->prepare('
+                UPDATE `product` 
+                SET `uitgelicht` = 1
+                WHERE `product_id` = :product_id;
+            ');
+            $query->bindValue(":product_id", $data);
+
+            if ($query->execute()) {
+                return true;
+            } else {
+                var_dump($query->errorInfo());
+                return false;
+            }
+        } catch (PDOException $e) {
+            echo $e->getMessage();
+            return false;
+        }
+    }
+
+    public function productinuitlicht($data)
+    {
+        try {
+            $query = $this->_db->prepare('
+                UPDATE `product` 
+                SET `uitgelicht` = 0
+                WHERE `product_id` = :product_id;
+            ');
+            $query->bindValue(":product_id", $data);
+
+            if ($query->execute()) {
+                return true;
+            } else {
+                var_dump($query->errorInfo());
+                return false;
+            }
+        } catch (PDOException $e) {
+            echo $e->getMessage();
             return false;
         }
     }
@@ -110,7 +158,7 @@ class product {
                         }
                     } else {
                         echo "De extentie is niet toegestaan, toegestaan is: (.jpg/.jpeg/.png/.gif.)<br />";
-                        header("refresh:2;url=product_toevoegen.php");
+                        header("refresh:2;url=product_bewerken.php");
                         exit;
                     }
                 }
@@ -132,7 +180,6 @@ class product {
                     return true;
                 } else {
                     var_dump($query->errorInfo());
-                    var_dump($data["leverancier"]);
                     return false;
                 }
             } else {

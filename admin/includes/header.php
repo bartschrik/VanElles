@@ -45,7 +45,11 @@ error_reporting(-1);
                     <li><a href="leverancier_overzicht.php">Leveranciers</a></li>
                     <li><a href="recensie_goedkeuren.php">Recensies</a></li>
                     <li><a href="product_overzicht.php">Producten</a></li>
+<<<<<<< HEAD
                     <li><a href="gebruikers_overzicht.php">Gebruikers</a></li>
+=======
+                    <li><a href="blog_admin.php">Blogs</a></li>
+>>>>>>> 9cdbef8eeda6a6725e215551fbdb11df7627abb3
                 </ul>
             </div>
         </div>

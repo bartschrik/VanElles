@@ -5,17 +5,16 @@
     $producten = new product();
     $leverancierContent = $producten->getLev();
 
-    if(!isset($_POST['savelev'])) {
+    if(!isset($_POST['saveproduct'])) {
         $dblev = $producten->getProductById($_GET['bewerkid']);
-        $_POST['leverancier'] = $producten->getProductlevById($dblev['lev_id']);
 
         $_POST['naam'] = $dblev['naam'];
         $_POST['inhoud'] = $dblev['inhoud'];
         $_FILES['logo'] = $dblev['images'];
+        $_POST['leverancier'] = $dblev['lev_id'];
         $_POST['seoinhoud'] = $dblev['description'];
         $_POST['seokernwoorden'] = $dblev['kernwoorden'];
     }
-    echo $_POST['leverancier'];
     $msg = '';
     ?>
     <div class="pagetitel marbot">
@@ -48,9 +47,7 @@
                             $saveproduct = $producten->updateProduct($_POST, $_FILES['foto'], $_GET['bewerkid']);
                             if (!$saveproduct) {
                                 echo '<div class="feedback error container"><div class="row"><div class="col-xs-12"><p>Er is een probleem met onze server, probeer het later opnieuw.</p></div></div></div>';
-                                var_dump($_GET['bewerkid']);
-                                var_dump($_POST);
-                                var_dump($_FILES['foto']);
+
                             } else {
                                 die(header('Location: product_overzicht.php'));
 
@@ -87,7 +84,6 @@
                                 if($value['lev_id'] == InputValue('leverancier')) {
                                     $id = $value['lev_id'];
                                     $naam = $value['naam'];
-echo 1;
                                     echo '<option selected value="'.$id.'">'.$naam.'</option>';
                                 } else {
                                     $id = $value['lev_id'];
@@ -98,7 +94,7 @@ echo 1;
 
                             }
                             echo '</select>';
-                        }
+                        }var_dump($value);
                         echo '</div>
                                     
                                     <div class="col-md-4">

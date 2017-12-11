@@ -131,7 +131,7 @@ echo "<form>
 
             $last_id = $db->lastInsertId();
 
-            $sql2 = "INSERT INTO inschijvingen (blog_id, user_id) VALUES ('$id', '$last_id')";
+            $sql2 = "INSERT INTO inschrijvingen (blog_id, user_id) VALUES ('$id', '$last_id')";
             $smt2 = $db->prepare($sql2);
             if($smt2->execute()){
                 echo "goed";

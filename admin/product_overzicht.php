@@ -14,9 +14,28 @@
         }
     }
 
+    if(isset($_GET['uitlichtid'])) {
+        $uitlichtproducht = $producten->productuitlicht($_GET['uitlichtid']);
+        if ($uitlichtproducht) {
+            $msg = '<div class="feedback success"><p>Product succesvol uitgelicht</p></div>';
+        } else {
+            $msg = '<div class="feedback error"><p>Er is iets mis gegaan, probeer het later opnieuw.</p></div>';
+        }
+    }
 
-    $productlist = $producten->getAllproduct();
-    if(!$productlist && is_bool($productlist)) {
+    if(isset($_GET['inuitlichtid'])) {
+        $inuitlichtproducht = $producten->productinuitlicht($_GET['inuitlichtid']);
+        if ($inuitlichtproducht) {
+            $msg = '<div class="feedback success"><p>Product succesvol niet meer uitgelicht</p></div>';
+        } else {
+            $msg = '<div class="feedback error"><p>Er is iets mis gegaan, probeer het later opnieuw.</p></div>';
+        }
+    }
+
+
+    $productListActive = $producten->getAllproduct(1);
+    $productListInActive = $producten->getAllproduct(0);
+    if(!$productListActive && is_bool($productListActive) || !$productListInActive && is_bool($productListInActive) ) {
         $msg = '<div class="feedback error container"><div class="row"><div class="col-xs-12"><p>Er is iets mis gegaan met onze database, probeer het later opnieuw.</p></div></div></div>';
     }
 
@@ -42,7 +61,7 @@
                 </div>
                 <?php
                 echo $msg;
-                if($productlist != false) {
+                if($productListActive != false) {
                     echo '
                         <table class="maintable" style="margin-bottom: 20px;">
                             <thead>
@@ -51,11 +70,12 @@
                                     <th>Product</th>
                                     <th>Inhoud</th>
                                     <th>Leverancier</th>
+                                    <th>Uitgelicht</th>
                                     <th style="width: 100px;">Optie\'s</th>
                                 </tr>
                             </thead>
                             <tbody>';
-                    foreach($productlist as $value) {
+                    foreach($productListActive as $value) {
 
                         echo '
                             <tr>
@@ -63,7 +83,40 @@
                                 <td>'.$value[1].'</td>
                                 <td>'.$value['inhoud'].'</td>
                                 <td>'.$value[3].'</td>
-                                <td><a href="product_bewerken.php?bewerkid='.$value['product_id'].'" title="Bewerken" data-id="'.$value['product_id'].'"><i class="fa fa-pencil"></i></a><a class="confirm" href="product_overzicht.php?verid='.$value['product_id'].'" title="Verwijderen" data-id="'.$value['product_id'].'"><i class="fa fa-trash"></i></a></td>
+                                <td>Ja</td>
+                                <td><a href="product_overzicht.php?inuitlichtid='.$value['product_id'].'" title="Niet meer uitlichten" data-id="'.$value['product_id'].'"><i class="fa fa-minus"></i></a><a href="product_bewerken.php?bewerkid='.$value['product_id'].'" title="Bewerken" data-id="'.$value['product_id'].'"><i class="fa fa-pencil"></i></a><a class="confirm" href="product_overzicht.php?verid='.$value['product_id'].'" title="Verwijderen" data-id="'.$value['product_id'].'"><i class="fa fa-trash"></i></a></td>
+                            </tr>';
+
+                    }
+                    echo '
+                            </tbody>
+                        </table>';
+                }
+
+                if($productListInActive != false) {
+                    echo '
+                        <table class="maintable" style="margin-bottom: 20px;">
+                            <thead>
+                                <tr>
+                                    <th>Id</th>
+                                    <th>Product</th>
+                                    <th>Inhoud</th>
+                                    <th>Leverancier</th>
+                                    <th>Uitgelicht</th>
+                                    <th style="width: 100px;">Optie\'s</th>
+                                </tr>
+                            </thead>
+                            <tbody>';
+                    foreach($productListInActive as $value) {
+
+                        echo '
+                            <tr>
+                                <td>#'.$value['product_id'].'</td>
+                                <td>'.$value[1].'</td>
+                                <td>'.$value['inhoud'].'</td>
+                                <td>'.$value[3].'</td>
+                                <td>Nee</td>
+                                <td><a href="product_overzicht.php?uitlichtid='.$value['product_id'].'" title="Uitlichten" data-id="'.$value['product_id'].'"><i class="fa fa-plus"></i></a><a href="product_bewerken.php?bewerkid='.$value['product_id'].'" title="Bewerken" data-id="'.$value['product_id'].'"><i class="fa fa-pencil"></i></a><a class="confirm" href="product_overzicht.php?verid='.$value['product_id'].'" title="Verwijderen" data-id="'.$value['product_id'].'"><i class="fa fa-trash"></i></a></td>
                             </tr>';
 
                     }

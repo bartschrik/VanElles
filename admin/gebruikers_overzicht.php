@@ -73,7 +73,7 @@
                 <nav aria-label="Page navigation example" style="text-align: center;">
                     <ul class="pagination justify-content-center">
                         <?php
-                        if($_GET['page'] == 1) {
+                        if($page == 1) {
                             echo '
                                 <li class="page-item disabled">
                                     <a class="page-link" href="#">Vorige</a>
@@ -82,12 +82,12 @@
                         } else {
                             echo '
                                 <li class="page-item">
-                                    <a class="page-link" href="gebruikers_overzicht.php?page='. ($_GET['page'] - 1) .'">Vorige</a>
+                                    <a class="page-link" href="gebruikers_overzicht.php?page='. ($page - 1) .'">Vorige</a>
                                 </li>
                             ';
                         }
                         for ($i = 1; $i <= $aantalP; $i++) {
-                            if($_GET['page'] == $i) {
+                            if($page == $i) {
                                 echo '
                                     <li class="page-item active">
                                         <a class="page-link" href="gebruikers_overzicht.php?page='.$i.'">'.$i.'</a>
@@ -101,7 +101,7 @@
                                 ';
                             }
                         }
-                        if($_GET['page'] == $aantalP) {
+                        if($page == $aantalP) {
                             echo '
                                 <li class="page-item disabled">
                                     <a class="page-link" href="#">Volgende</a>
@@ -110,7 +110,7 @@
                         } else {
                             echo '
                                 <li class="page-item">
-                                    <a class="page-link" href="gebruikers_overzicht.php?page='. ($_GET['page'] + 1) .'">Volgende</a>
+                                    <a class="page-link" href="gebruikers_overzicht.php?page='. ($page + 1) .'">Volgende</a>
                                 </li>
                             ';
                         }

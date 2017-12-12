@@ -293,6 +293,12 @@ p {
     text-transform: uppercase;
     margin: 0 0 15px 0;
 }
+.card .card-subtitle {
+    color: #333;
+    font-size: 1.0em;
+    text-transform: lowercase;
+    margin: 0 0 15px 0;
+}
 .card .card-text {
     display: -webkit-box;
     -webkit-line-clamp: 4;

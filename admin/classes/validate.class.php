@@ -46,6 +46,16 @@ class Validate {
                             $this->addError($item[0], ucfirst($item[0] . " bestaat al in onze database."));
                         }
                         break;
+                    case 'imgrequired':
+                        if(!$this->imgrequired($item[1])) {
+                            $this->addError($item[0], ucfirst($item[0] . " is een verplicht veld."));
+                        }
+                        break;
+                    case 'validphoto':
+                        if(!$this->validPhoto($item[1])) {
+                            $this->addError($item[0], ucfirst($item[0] . " is geen geldige invoer."));
+                        }
+                        break;
                 }
             }
         }
@@ -100,6 +110,44 @@ class Validate {
         } else {
             $this->_errors[$key] = [$value];
         }
+    }
+
+    public function imgrequired($data) {
+        return ($data['error'] === UPLOAD_ERR_OK);
+    }
+
+    public function validPhoto($data) {
+        if($data['error'] !== UPLOAD_ERR_NO_FILE) {
+            $filename = strtolower($data['name']);
+            $filetype = strtolower($data['type']);
+
+            //check if contain php and kill it
+            $pos = strpos($filename,'php');
+            if(!($pos === false)) {
+                return false;
+            }
+
+            //get the file ext
+            $file_ext = strrchr($filename, '.');
+
+            //check if its allowed or not
+            $whitelist = array(".jpg",".jpeg",".gif",".png");
+            if (!(in_array($file_ext, $whitelist))) {
+                return false;
+            }
+
+
+            //check upload type
+            $pos = strpos($filetype,'image');
+            if($pos === false) {
+                return false;
+            }
+            $imageinfo = getimagesize($data['tmp_name']);
+            if($imageinfo['mime'] != 'image/gif' && $imageinfo['mime'] != 'image/jpeg'&& $imageinfo['mime']      != 'image/jpg'&& $imageinfo['mime'] != 'image/png') {
+                return false;
+            }
+        }
+        return true;
     }
 
     public function getErrors() {

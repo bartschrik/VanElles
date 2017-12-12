@@ -15,7 +15,7 @@ class blog
     {
         try {
             $query = $this->_db->prepare('
-                    SELECT blog_id, title
+                    SELECT *
                     FROM blog
                 ');
 
@@ -31,14 +31,14 @@ class blog
         }
     }
 
-    public function deleteBlog($lev_id)
+    public function deleteBlog($blog_id)
     {
         try {
             $query = $this->_db->prepare('
                 DELETE FROM blog
                 WHERE blog_id = :id
             ');
-            $query->bindValue(":id", $lev_id);
+            $query->bindValue(":id", $blog_id);
             if ($query->execute()) {
                 return true;
             } else {
@@ -203,4 +203,25 @@ class blog
             return false;
         }
     }
+
+    public function Countdeeln($blog_id){
+        try{
+            $query = $this->_db->prepare('
+                    SELECT COUNT(blog_id) FROM inschrijvingen
+                    GROUP BY blog_id;
+                ');
+            $query->bindValue(":id", $blog_id);
+
+            if($query->execute()) {
+                return $content = $query->fetchAll()[0];
+            } else {
+                //echo $query->errorInfo();
+                return false;
+            }
+        } catch (PDOexception $e) {
+            //echo $e->getMessage();
+            return false;
+        }
+    }
+
 }

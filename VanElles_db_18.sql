@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Gegenereerd op: 11 dec 2017 om 09:06
+-- Gegenereerd op: 12 dec 2017 om 10:03
 -- Serverversie: 10.1.26-MariaDB
 -- PHP-versie: 7.1.8
 
@@ -83,7 +83,10 @@ CREATE TABLE `admin` (
 
 INSERT INTO `admin` (`user_id`, `gebruikersnaam`, `wachtwoord`, `salt`, `hash`) VALUES
 (1, 'admin', 'daec7747c22df563deac8027abc9d1f3af3ebbb3', '00c52199eb6b3c4d086f71e082205ebbb11a4943', '60fa7364549a0d19f0d6cfc5c05a5d962dc0483a'),
-(4, 'tiespol', '787cd83a8a52a8409819aac6aec19bbcb48aa59b', '1301267338046e0f2c886c29535c8a1a82b0049b', '3d4df2e023289df77a8e8a1e29a192f399727415');
+(4, 'tiespol', '787cd83a8a52a8409819aac6aec19bbcb48aa59b', '1301267338046e0f2c886c29535c8a1a82b0049b', '3d4df2e023289df77a8e8a1e29a192f399727415'),
+(22, 'nsimons', '963b48e0afed23d5144e251a09d3d3bb532f1c87', '6cb0ee06fa08b4c664c08f1cafa118d47299fdaf', '52c4d9699edcf1882b5681570a31adde491a28e9'),
+(23, 'nsimons2', '4d345d2cbacc6849970734ae6210262b053aa1fa', '2b08a5ad6ec21c12df3e1ed5eb18ef3eb6920061', '39309ccc66ad7f2b19118e8f6b35b1e7667d8773'),
+(24, 'nsimons3', '89d382fdae38a1138c0250f366e8d9456a02885c', '625e93f72e2bc73c1db6efdfe0a42c88ce0a44ae', '445d87f45b1f2bc28dcdee5b3579e6ea5dea3e54');
 
 -- --------------------------------------------------------
 
@@ -99,7 +102,7 @@ CREATE TABLE `blog` (
   `inhoud` mediumtext NOT NULL,
   `datum` timestamp(6) NOT NULL DEFAULT CURRENT_TIMESTAMP(6) ON UPDATE CURRENT_TIMESTAMP(6),
   `beschrijving` varchar(2000) NOT NULL,
-  `kernwoorden` varchar(45) NOT NULL,
+  `kernwoorden` varchar(150) NOT NULL,
   `img_name` varchar(45) NOT NULL,
   `activiteit` int(1) NOT NULL DEFAULT '0' COMMENT '0 = Nee, 1 = Ja',
   `inschrijving` int(1) NOT NULL DEFAULT '0' COMMENT '0 = Nee, 1 = Ja',
@@ -153,8 +156,8 @@ CREATE TABLE `leveranciers` (
   `naam` varchar(45) DEFAULT NULL,
   `inhoud` varchar(45) DEFAULT NULL,
   `logo` varchar(45) DEFAULT NULL,
-  `description` varchar(45) DEFAULT NULL,
-  `kernwoorden` varchar(45) DEFAULT NULL
+  `description` varchar(2000) DEFAULT NULL,
+  `kernwoorden` varchar(150) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
@@ -178,7 +181,7 @@ CREATE TABLE `page` (
   `subtitle` varchar(100) DEFAULT NULL,
   `inhoud` mediumtext,
   `description` varchar(2000) DEFAULT NULL,
-  `kernwoorden` varchar(100) DEFAULT NULL,
+  `kernwoorden` varchar(150) DEFAULT NULL,
   `active` int(1) DEFAULT '1' COMMENT '1 = actief, 0 = inactief',
   `datum` datetime DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   `image` varchar(45) DEFAULT NULL,
@@ -209,13 +212,21 @@ INSERT INTO `page` (`id`, `pagetitle`, `title`, `subtitle`, `inhoud`, `descripti
 CREATE TABLE `product` (
   `product_id` int(11) NOT NULL,
   `naam` varchar(45) NOT NULL,
-  `inhoud` varchar(45) NOT NULL,
-  `images` varchar(45) NOT NULL,
-  `description` varchar(45) NOT NULL,
-  `kernwoorden` varchar(45) NOT NULL,
+  `inhoud` mediumtext NOT NULL,
+  `korte_inhoud` text NOT NULL,
+  `images` varchar(2000) NOT NULL,
+  `description` varchar(150) NOT NULL,
+  `kernwoorden` varchar(150) NOT NULL,
   `lev_id` int(11) NOT NULL,
   `uitgelicht` int(1) NOT NULL DEFAULT '0' COMMENT '0=nee, 1=ja'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Gegevens worden geëxporteerd voor tabel `product`
+--
+
+INSERT INTO `product` (`product_id`, `naam`, `inhoud`, `korte_inhoud`, `images`, `description`, `kernwoorden`, `lev_id`, `uitgelicht`) VALUES
+(1, 'Testproduct', '<h1>Lorem ipsum dolor sit ahmetdsjkfj kafdsjkf</h1>\r\n', '', '9feef5a71ea0fc58a862a2ba9d051cf80ed6dad2.jpg', 'dfsadsa', 'test', 4, 1);
 
 -- --------------------------------------------------------
 
@@ -279,30 +290,34 @@ CREATE TABLE `user` (
   `address` varchar(45) DEFAULT NULL,
   `zipcode` varchar(45) DEFAULT NULL,
   `role` int(11) NOT NULL DEFAULT '2',
-  `newsletter` int(1) NOT NULL DEFAULT '0' COMMENT '0=nee, 1=ja'
+  `newsletter` int(1) NOT NULL DEFAULT '0' COMMENT '0=nee, 1=ja',
+  `verwijderd` int(1) NOT NULL DEFAULT '0' COMMENT '0=nee, 1=ja'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
 -- Gegevens worden geëxporteerd voor tabel `user`
 --
 
-INSERT INTO `user` (`user_id`, `email`, `first_name`, `insertion`, `last_name`, `birthday`, `phonenumber`, `city`, `address`, `zipcode`, `role`, `newsletter`) VALUES
-(1, 'nick@twesq.com', 'Admin', '', NULL, NULL, 655194576, 'Rijssen', 'Entoshof 23', '7562 VV', 1, 0),
-(4, 'test@email2.nl', 'Ties', '', 'Pol', NULL, 699382393, 'Rijssen', 'Entoshof 23', '7462 VV', 1, 0),
-(5, 'nick.simons@live.nl', 'Nick', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 2, 0),
-(7, 'nick@live.nl', 'Nick', NULL, NULL, NULL, 8473209, NULL, NULL, NULL, 2, 0),
-(8, 'bart@live.nl', 'Bart', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 2, 0),
-(9, 'erhan@live.nl', 'Erhan', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 2, 0),
-(10, 'michael@gmail.nl', 'Michael', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 2, 0),
-(11, 'Anja@live.nl', 'Anja', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 2, 0),
-(12, 'hoi@hoi.nl', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 2, 1),
-(14, 'sofa', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 2, 0),
-(16, 'jklsadfa', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 2, 0),
-(17, 'nfdsjk@kldjf.nl', NULL, NULL, NULL, NULL, 23412324, NULL, NULL, NULL, 2, 0),
-(18, 'jkdfsla@jkflds.nljk', 'Ties', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 2, 0),
-(19, 'jklfdsjlk@LKjflkdjslkfjkl.dfsjkl', 'jkdslaf', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 2, 0),
-(20, 'bart.schrik@hhhh.nl', NULL, NULL, NULL, NULL, 876435, NULL, NULL, NULL, 2, 0),
-(21, 'Baer.scgruk@gh.nl', 'test', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 2, 0);
+INSERT INTO `user` (`user_id`, `email`, `first_name`, `insertion`, `last_name`, `birthday`, `phonenumber`, `city`, `address`, `zipcode`, `role`, `newsletter`, `verwijderd`) VALUES
+(1, 'nick@twesq.com', 'Admin', '', NULL, NULL, 655194576, 'Rijssen', 'Entoshof 23', '7562 VV', 1, 0, 0),
+(4, 'test@email2.nl', 'Ties', '', 'Pol', NULL, 699382393, 'Rijssen', 'Entoshof 23', '7462 VV', 1, 0, 0),
+(5, 'nick.simons@live.nl', 'Nick', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 2, 0, 1),
+(7, 'nick@live.nl', 'Nick', NULL, NULL, NULL, 8473209, NULL, NULL, NULL, 2, 0, 0),
+(8, 'bart@live.nl', 'Bart', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 2, 0, 0),
+(9, 'erhan@live.nl', 'Erhan', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 2, 0, 0),
+(10, 'michael@gmail.nl', 'Michael', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 2, 0, 0),
+(11, 'Anja@live.nl', 'Anja', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 2, 0, 1),
+(12, 'hoi@hoi.nl', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 2, 1, 1),
+(14, 'sofa', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 2, 0, 1),
+(16, 'jklsadfa', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 2, 0, 1),
+(17, 'nfdsjk@kldjf.nl', NULL, NULL, NULL, NULL, 23412324, NULL, NULL, NULL, 2, 0, 1),
+(18, 'jkdfsla@jkflds.nljk', 'Ties', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 2, 0, 0),
+(19, 'jklfdsjlk@LKjflkdjslkfjkl.dfsjkl', 'jkdslaf', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 2, 0, 1),
+(20, 'bart.schrik@hhhh.nl', NULL, NULL, NULL, NULL, 876435, NULL, NULL, NULL, 2, 0, 1),
+(21, 'Baer.scgruk@gh.nl', 'test', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 2, 0, 1),
+(22, 'nick.simons@live.nls', 'Nick', NULL, 'Simons', NULL, 655194576, 'Rijssen', 'Entoshof 23', '7462 VV', 3, 0, 0),
+(23, 'nickjflJ@jklfds.nl', 'Nick', '', 'Simons', '1997-03-23 00:00:00', 2147483647, 'Rijssen', 'Entoshof 23', '7462 VV', 3, 0, 1),
+(24, 'nickjflJ@jklfds.nls', 'Nick', '', 'Simons', '1997-03-23 00:00:00', 2147483647, 'Rijssen', 'Entoshof 23', '7462 VV', 3, 0, 1);
 
 --
 -- Indexen voor geëxporteerde tabellen
@@ -436,7 +451,7 @@ ALTER TABLE `page`
 -- AUTO_INCREMENT voor een tabel `product`
 --
 ALTER TABLE `product`
-  MODIFY `product_id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `product_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 --
 -- AUTO_INCREMENT voor een tabel `review`
 --
@@ -446,7 +461,7 @@ ALTER TABLE `review`
 -- AUTO_INCREMENT voor een tabel `user`
 --
 ALTER TABLE `user`
-  MODIFY `user_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=22;
+  MODIFY `user_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=25;
 --
 -- Beperkingen voor geëxporteerde tabellen
 --

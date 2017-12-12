@@ -191,68 +191,98 @@ function test_input($data) {
     $data = htmlspecialchars($data);
     return $data;
 }
-?>
+?> <!--database connection -->
+<?php
+require_once 'admin/classes/connection.class.php';
+$db = new Connection();
+$db = $db->databaseConnection();
+/*Recensie insert */
+
+
+if(isset($_POST['verstuur'])) {
+
+    $privatekey = "6LevEzsUAAAAAGvQJ1EDrE-eL5aNBKHteM83OywN";
+    $url = 'https://www.google.com/recaptcha/api/siteverify';
+
+
+    $response = file_get_contents($url . "?secret=" . $privatekey . "&response=" . $_POST['g-recaptcha-response'] . "&remoteip=" . $_SERVER['REMOTE_ADDR']);
+    $data = json_decode($response);
+
+    if (isset($data->success) AND $data->success == true) {
+
+        require_once 'admin/classes/connection.class.php';
+        $db = new Connection();
+        $db = $db->databaseConnection();
+        if (isset($_POST["verstuur"])) {
+            if (empty($_POST["naam"]) || empty($_POST["emailadres"]) || empty($_POST["omschrijving"])) {
+                print("Vul a.u.b. alle velden in");
+            } else {
+                try {
+                    $naamin = $_POST["naam"];
+                    $emailin = $_POST["emailadres"];
+                    $quotein = $_POST["omschrijving"];
+                    $ratingin = $_POST["sterren"];
+
+                    //query: check of email in user bestaat en selecteer id
+                    $query = $db->prepare("SELECT user_id FROM user WHERE email = :email");
+                    $query->bindValue(":email", $emailin);
+                    $query->execute();
+                    $last_id = $query->fetch()['user_id'];
+
+                    if ($last_id) {
+                        //Zoja: update user info van bestaade user
+                        $query = $db->prepare("UPDATE user SET first_name = :voornaam WHERE user_id = :userid");
+                        $query->bindValue(":voornaam", $naamin);
+                        $query->bindValue(":userid", $last_id);
+                        $query->execute();
+                    } else {
+                        //insert nieuw user en inser revies
+                        $query = $db->prepare("INSERT INTO user (first_name, email) VALUES (:voornaam, :email)");
+                        $query->bindValue(":voornaam", $naamin);
+                        $query->bindValue(":email", $emailin);
+                        $query->execute();
+                        $last_id = $db->lastInsertId();
+                    }
+
+                    $sql = "INSERT INTO review (quote, rating, user_id) VALUES ('$quotein', '$ratingin', '$last_id')";
+                    $stmtin = $db->prepare($sql);
+
+
+                    if ($stmtin->execute()) {
+                        echo "<script>alert('Bedankt voor uw beoordeling.');</script>";
+                        $naam = $email = $omschrijving = "";
+                    } else {
+                        echo "<script>alert('Sorry er is iets fout gegaan, probeer het later nog een keer.');</script>";
+                    }
+                } catch (PDOException $e) {
+                    echo $e->getMessage();
+                }
+            }
+        }
+        echo " <meta http-equiv=\"refresh\" content=\"0;\" />";
+        return true;
+
+
+
+    } else {
+
+        echo "<script>alert('Vul Recaptcha in.');</script>";
+        echo " <meta http-equiv=\"refresh\" content=\"0;\" />";
+
+
+        return false;
+
+    }
+}
+        ?>
 
     <!--Invoervelden-->
     <div class="container">
         <div class="marbot martop col-xs-12 col-md-6">
-            <form method="post" action="#resform" id="resform">
+            <form method="post" action="" id="resform">
                 <div class="ptitle">
                     <h2>Laat uw mening achter!</h2>
                 </div>
-                <!--database connection -->
-                <?php
-                require_once 'admin/classes/connection.class.php';
-                $db = new Connection();
-                $db = $db->databaseConnection();
-                /*Recensie insert */
-                    if (isset($_POST["verstuur"])) {
-                        if (empty($_POST["naam"]) || empty($_POST["emailadres"]) || empty($_POST["omschrijving"])) {
-                            print("Vul a.u.b. alle velden in");
-                        } else {
-                            try {
-                                $naamin = $_POST["naam"];
-                                $emailin = $_POST["emailadres"];
-                                $quotein = $_POST["omschrijving"];
-                                $ratingin = $_POST["sterren"];
-
-                                //query: check of email in user bestaat en selecteer id
-                                $query = $db->prepare("SELECT user_id FROM user WHERE email = :email");
-                                $query->bindValue(":email", $emailin);
-                                $query->execute();
-                                $last_id = $query->fetch()['user_id'];
-
-                                if ($last_id) {
-                                    //Zoja: update user info van bestaade user
-                                    $query = $db->prepare("UPDATE user SET first_name = :voornaam WHERE user_id = :userid");
-                                    $query->bindValue(":voornaam", $naamin);
-                                    $query->bindValue(":userid", $last_id);
-                                    $query->execute();
-                                } else {
-                                    //insert nieuw user en inser revies
-                                    $query = $db->prepare("INSERT INTO user (first_name, email) VALUES (:voornaam, :email)");
-                                    $query->bindValue(":voornaam", $naamin);
-                                    $query->bindValue(":email", $emailin);
-                                    $query->execute();
-                                    $last_id = $db->lastInsertId();
-                                }
-
-                                $sql = "INSERT INTO review (quote, rating, user_id) VALUES ('$quotein', '$ratingin', '$last_id')";
-                                $stmtin = $db->prepare($sql);
-
-
-                                if ($stmtin->execute()) {
-                                    print("Bedankt voor uw beoordeling");
-                                    $naam = $email = $omschrijving = "";
-                                } else {
-                                    print_r($stmtin->errorInfo());
-                                }
-                            } catch (PDOException $e) {
-                                echo $e->getMessage();
-                            }
-                        }
-                    }
-                ?>
                 <div class="form-group">
                     <input class="form-control" type="text" name="naam" placeholder="Voornaam">
                 </div>

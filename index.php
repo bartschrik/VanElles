@@ -2,6 +2,7 @@
 //Include de connection en de page class
 include_once('admin/classes/connection.class.php');
 include_once('admin/classes/page.class.php');
+include_once('admin/classes/validate.class.php');
 
 $page = new Page();
 

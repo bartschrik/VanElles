@@ -47,6 +47,7 @@
                                 <tr>
                                     <th>Id</th>
                                     <th>Leverancier</th>
+                                    <th style="width: 55%">Korte inhoud</th>
                                     <th style="width: 100px;">Optie\'s</th>
                                 </tr>
                             </thead>
@@ -57,6 +58,7 @@
                             <tr>
                                 <td>#'.$value['lev_id'].'</td>
                                 <td>'.$value['naam'].'</td>
+                                <td>'.$value['korte_inhoud'].'</td>
                                 <td><a href="leverancier_bewerken.php?bewerkid='.$value['lev_id'].'" title="Bewerken" data-id="'.$value['lev_id'].'"><i class="fa fa-pencil"></i></a><a class="confirm" href="leverancier_overzicht.php?verid='.$value['lev_id'].'" title="Verwijderen" data-id="'.$value['lev_id'].'"><i class="fa fa-trash"></i></a></td>
                             </tr>';
 

@@ -10,6 +10,7 @@
 
         $_POST['naam'] = $dblev['naam'];
         $_POST['inhoud'] = $dblev['inhoud'];
+        $_POST['korteinhoud'] = $dblev['korte_inhoud'];
         $_FILES['logo'] = $dblev['images'];
         $_POST['leverancier'] = $dblev['lev_id'];
         $_POST['seoinhoud'] = $dblev['description'];
@@ -67,6 +68,7 @@
                                     <div class="col-md-8">
                                         <input type="text" name="naam" placeholder="Product naam" value="' . InputValue('naam') . '" /> 
                                         <textarea name="inhoud" placeholder="Inhoud">' . InputValue('inhoud') . '</textarea>
+                                        <textarea name="korteinhoud" style="height: 75px;"  placeholder="Korte inhoud" >' . InputValue('korteinhoud') . '</textarea>
                                         <input type="file" name="foto" placeholder="foto" value="' . InputValue('foto') . '" />
                                         <script>
                                             CKEDITOR.replace( "inhoud" );
@@ -127,6 +129,7 @@
                                     <div class="col-md-8">
                                         <input type="text" name="naam" placeholder="Product naam" value="' . InputValue('naam') . '" /> 
                                         <textarea name="inhoud" placeholder="Inhoud">' . InputValue('inhoud') . '</textarea>
+                                        <textarea name="korteinhoud" style="height: 75px;"  placeholder="Korte inhoud" >' . InputValue('korteinhoud') . '</textarea>
                                         <input type="file" name="foto" placeholder="foto" value="' . InputValue('foto') . '" />
                                         <script>
                                             CKEDITOR.replace( "inhoud" );

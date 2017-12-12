@@ -27,6 +27,8 @@
 
                             $val = new Validate([
                                 ['naam', $_POST['naam'], 'required'],
+                                ['inhoud', $_POST['inhoud'], 'required'],
+                                ['korteinhoud', $_POST['korteinhoud'], 'required'],
                                 ['logo', $_FILES['logo'], 'imgrequired|validphoto'],
                                 ['seokernwoorden', $_POST['seokernwoorden'], 'required'],
                                 ['seoinhoud', $_POST['seoinhoud'], 'required|min:2']
@@ -54,9 +56,10 @@
 
                             echo '<form action="#" method="post" class="classicform" enctype="multipart/form-data">
                                     <div class="col-md-8">
-                                        <input type="text" name="naam" placeholder="Leverancier naam" value="' . InputValue('naam') . '" /> 
-                                        <textarea name="inhoud" placeholder="Inhoud">' . InputValue('inhoud') . '</textarea>
-                                        <input type="file" name="logo" placeholder="Logo" value="' . InputValue('naam') . '" />
+                                        <input type="text" name="naam" class="' . InputErrorClass('naam', $errors) . '" placeholder="Leverancier naam" value="' . InputValue('naam') . '" /> 
+                                        <textarea name="inhoud" class="' . InputErrorClass('inhoud', $errors) . '" placeholder="Inhoud">' . InputValue('inhoud') . '</textarea>
+                                        <textarea name="korteinhoud" maxlength="250" style="height: 75px;" class="' . InputErrorClass('korteinhoud', $errors) . '" placeholder="Korte inhoud">' . InputValue('korteinhoud') . '</textarea>
+                                        <input type="file" name="logo" class="' . InputErrorClass('logo', $errors) . '" placeholder="Logo" value="' . InputValue('naam') . '" />
                                         <script>
                                             CKEDITOR.replace( "inhoud" );
                                         </script>    
@@ -92,6 +95,7 @@
                                     <div class="col-md-8">
                                         <input type="text" name="naam" placeholder="Leveranciers naam" value="' . InputValue('naam') . '" /> 
                                         <textarea name="inhoud" placeholder="Inhoud">' . InputValue('inhoud') . '</textarea>
+                                        <textarea name="korteinhoud" maxlength="250" style="height: 75px;" placeholder="Korte inhoud">' . InputValue('korteinhoud') . '</textarea>
                                         <input type="file" name="logo" placeholder="Logo" value="' . InputValue('naam') . '" />
                                         <script>
                                             CKEDITOR.replace( "inhoud" );

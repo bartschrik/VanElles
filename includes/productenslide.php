@@ -35,7 +35,7 @@
 
                      print ("<a href=\"#\"><h4 class=\"card-subtitle\">" . "van ". $leverancier ."</h4></a>");
 
-                     print ("<p class=\"card-text\">" . $inhoud. "</p>");
+                     print ("<p class=\"card-text\">$inhoud</p>");
 
                      print("  <div class=\"a-right\"><a href=\"#\" class=\"btn btn-primary\">Lees meer</a></div>");
 

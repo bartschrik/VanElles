@@ -32,7 +32,8 @@
 
             if (isset($_POST["verstuurcontact"])) {
                 if (empty($_POST["naamcontact"]) || empty($_POST["telefoonnummercontact"]) || empty($_POST["emailcontact"]) || empty($_POST["berichtcontact"])) {
-                    print("Vul a.u.b. alle velden in");
+                    echo "<script>alert('vul a.u.b alle velden in.');</script>";
+
                 } else {
                     try {
                         $naamincontact = $_POST["naamcontact"];
@@ -215,7 +216,7 @@ if(isset($_POST['verstuur'])) {
         $db = $db->databaseConnection();
         if (isset($_POST["verstuur"])) {
             if (empty($_POST["naam"]) || empty($_POST["emailadres"]) || empty($_POST["omschrijving"])) {
-                print("Vul a.u.b. alle velden in");
+                echo "<script>alert('vul a.u.b alle velden in.');</script>";
             } else {
                 try {
                     $naamin = $_POST["naam"];

@@ -54,6 +54,8 @@
                             <tbody>';
 
                 foreach($bloglist as $value) {
+                    $blog_id = $value['blog_id'];
+                    $deeln = $blog->getDeelnemers($blog_id);
                     echo '
                             <tr>
                                 <td>#'.$value['blog_id'].'</td>
@@ -65,7 +67,7 @@
                                     }
                     echo'</td>
                                 <td>'; if($value["activiteit"] == 1){
-                                    echo $value['inschrijvingen'];
+                                    echo $deeln;
                                     } else {
                                     echo"Geen";
                                     }

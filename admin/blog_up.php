@@ -33,7 +33,6 @@
                             ['seobeschrijving', $_POST['seobeschrijving'], 'required|min:2']
                         ]);
 
-
                         if ($val->isPassed()) {
                             $saveblog = $blog->saveblog($_POST, $_FILES['plaatje'], $user->getUser()['user_id']);
                             if (!$saveblog) {

@@ -15,10 +15,8 @@ class blog
     {
         try {
             $query = $this->_db->prepare('
-                    SELECT *, COUNT(i.blog_id) inschrijvingen
-                    FROM blog b
-                    LEFT JOIN inschrijvingen i ON b.blog_id = i.blog_id
-                    GROUP BY i.blog_id
+                   SELECT *
+                   FROM blog
                 ');
 
             if ($query->execute()) {
@@ -37,8 +35,8 @@ class blog
     {
         try {
             $query = $this->_db->prepare('
-                DELETE blog_id FROM blog INNER JOIN inschrijving
-                WHERE blog_id = :id;
+                UPDATE blog SET verwijdert = "1"
+                WHERE blog_id = :id
             ');
             $query->bindValue(":id", $blog_id);
             if ($query->execute()) {
@@ -52,7 +50,8 @@ class blog
         }
     }
 
-    public function saveBlog($data, $img, $userid) {
+    public function saveBlog($data, $img, $userid)
+    {
         try {
 
             $allow = array("jpg", "jpeg", "gif", "png", "JPG", "JPEG", "GIF", "PNG");
@@ -92,7 +91,7 @@ class blog
             $query->bindValue(":activiteit", $data['seokernwoorden']);
             $query->bindValue(":inschrijving", $data['inschrijven']);
 
-            if($query->execute()) {
+            if ($query->execute()) {
                 return true;
                 die(header('Location: blog_admin.php'));
             } else {
@@ -107,7 +106,8 @@ class blog
 
     }
 
-    public function updateBlog($data, $img, $blog_id) {
+    public function updateBlog($data, $img, $blog_id)
+    {
         try {
             if ($img['error'] == 0) {
                 $allow = array("jpg", "jpeg", "gif", "png", "JPG", "JPEG", "GIF", "PNG");
@@ -180,7 +180,8 @@ class blog
         }
     }
 
-    public function getBlogById($blog_id) {
+    public function getBlogById($blog_id)
+    {
         try {
             $query = $this->_db->prepare('
                     SELECT * FROM blog
@@ -188,8 +189,30 @@ class blog
                 ');
             $query->bindValue(":id", $blog_id);
 
-            if($query->execute()) {
+            if ($query->execute()) {
                 return $content = $query->fetchAll()[0];
+            } else {
+                //echo $query->errorInfo();
+                return false;
+            }
+        } catch (PDOexception $e) {
+            //echo $e->getMessage();
+            return false;
+        }
+    }
+
+    public function getDeelnemers($blog_id)
+    {
+        try {
+            $query = $this->_db->prepare('
+                    SELECT COUNT(blog_id)
+                    FROM inschrijvingen
+                    WHERE blog_id = :id
+                ');
+            $query->bindValue(":id", $blog_id);
+
+            if ($query->execute()) {
+                return $content = $query->fetch()[0];
             } else {
                 //echo $query->errorInfo();
                 return false;

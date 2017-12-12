@@ -1,13 +1,24 @@
 <head>
 
-    <!--haalt de recaotch op-->
-    <script src='https://www.google.com/recaptcha/api.js'></script>
 
-    <?php
+    <!--haalt de recaotch op-->
+    <script src="https://www.google.com/recaptcha/api.js?onload=CaptchaCallback&render=explicit" async defer></script>
+    <script type="text/javascript">
+        var CaptchaCallback = function() {
+            grecaptcha.render('RecaptchaField1', {'sitekey' : '6LevEzsUAAAAACTTY0PQXdlxvv1lXY4QkFLnU7-1'});
+            grecaptcha.render('RecaptchaField2', {'sitekey' : '6LevEzsUAAAAACTTY0PQXdlxvv1lXY4QkFLnU7-1'});
+        };
+    </script>
+
+
+
+<?php
+
     if(isset($_POST['verstuurcontact'])) {
 
-        $url = 'https://www.google.com/recaptcha/api/siteverify';
         $privatekey = "6LevEzsUAAAAAGvQJ1EDrE-eL5aNBKHteM83OywN";
+        $url = 'https://www.google.com/recaptcha/api/siteverify';
+
 
         $response = file_get_contents($url . "?secret=" . $privatekey . "&response=" . $_POST['g-recaptcha-response'] . "&remoteip=" . $_SERVER['REMOTE_ADDR']);
         $data = json_decode($response);
@@ -17,7 +28,6 @@
             require_once 'admin/classes/connection.class.php';
             $db = new Connection();
             $db = $db->databaseConnection();
-
 
 
             if (isset($_POST["verstuurcontact"])) {
@@ -86,7 +96,9 @@
 
         }
     }
+
     ?>
+
 
 </head>
 
@@ -140,7 +152,7 @@
                         <textarea class="form-control" id="textarea" placeholder="Bericht" name="berichtcontact"></textarea>
                     </div>
 
-                    <div class="g-recaptcha" data-sitekey="6LevEzsUAAAAACTTY0PQXdlxvv1lXY4QkFLnU7-1"></div>
+                    <div id="RecaptchaField1"></div>
 
                     <div class="form-group">
                         <input class="btn btn-default" type="submit" name="verstuurcontact" value="verstuur">
@@ -194,53 +206,52 @@ function test_input($data) {
                 $db = new Connection();
                 $db = $db->databaseConnection();
                 /*Recensie insert */
-                if (isset($_POST["verstuur"])) {
-                    if (empty($_POST["naam"]) || empty($_POST["emailadres"]) || empty($_POST["omschrijving"])) {
-                        print("Vul a.u.b. alle velden in");
-                    } else {
-                        try {
-                            $naamin = $_POST["naam"];
-                            $emailin = $_POST["emailadres"];
-                            $quotein = $_POST["omschrijving"];
-                            $ratingin = $_POST["sterren"];
+                    if (isset($_POST["verstuur"])) {
+                        if (empty($_POST["naam"]) || empty($_POST["emailadres"]) || empty($_POST["omschrijving"])) {
+                            print("Vul a.u.b. alle velden in");
+                        } else {
+                            try {
+                                $naamin = $_POST["naam"];
+                                $emailin = $_POST["emailadres"];
+                                $quotein = $_POST["omschrijving"];
+                                $ratingin = $_POST["sterren"];
 
-                            //query: check of email in user bestaat en selecteer id
-                            $query = $db->prepare("SELECT user_id FROM user WHERE email = :email");
-                            $query->bindValue(":email", $emailin);
-                            $query->execute();
-                            $last_id = $query->fetch()['user_id'];
-
-                            if($last_id) {
-                                //Zoja: update user info van bestaade user
-                                $query = $db->prepare("UPDATE user SET first_name = :voornaam WHERE user_id = :userid");
-                                $query->bindValue(":voornaam", $naamin);
-                                $query->bindValue(":userid", $last_id);
-                                $query->execute();
-                            } else {
-                                //insert nieuw user en inser revies
-                                $query = $db->prepare("INSERT INTO user (first_name, email) VALUES (:voornaam, :email)");
-                                $query->bindValue(":voornaam", $naamin);
+                                //query: check of email in user bestaat en selecteer id
+                                $query = $db->prepare("SELECT user_id FROM user WHERE email = :email");
                                 $query->bindValue(":email", $emailin);
                                 $query->execute();
-                                $last_id = $db->lastInsertId();
+                                $last_id = $query->fetch()['user_id'];
+
+                                if ($last_id) {
+                                    //Zoja: update user info van bestaade user
+                                    $query = $db->prepare("UPDATE user SET first_name = :voornaam WHERE user_id = :userid");
+                                    $query->bindValue(":voornaam", $naamin);
+                                    $query->bindValue(":userid", $last_id);
+                                    $query->execute();
+                                } else {
+                                    //insert nieuw user en inser revies
+                                    $query = $db->prepare("INSERT INTO user (first_name, email) VALUES (:voornaam, :email)");
+                                    $query->bindValue(":voornaam", $naamin);
+                                    $query->bindValue(":email", $emailin);
+                                    $query->execute();
+                                    $last_id = $db->lastInsertId();
+                                }
+
+                                $sql = "INSERT INTO review (quote, rating, user_id) VALUES ('$quotein', '$ratingin', '$last_id')";
+                                $stmtin = $db->prepare($sql);
+
+
+                                if ($stmtin->execute()) {
+                                    print("Bedankt voor uw beoordeling");
+                                    $naam = $email = $omschrijving = "";
+                                } else {
+                                    print_r($stmtin->errorInfo());
+                                }
+                            } catch (PDOException $e) {
+                                echo $e->getMessage();
                             }
-
-                            $sql = "INSERT INTO review (quote, rating, user_id) VALUES ('$quotein', '$ratingin', '$last_id')";
-                            $stmtin = $db->prepare($sql);
-
-
-
-                            if($stmtin->execute()) {
-                                print("Bedankt voor uw beoordeling");
-                                $naam = $email = $omschrijving = "";
-                            } else {
-                                print_r($stmtin->errorInfo());
-                            }
-                        } catch (PDOException $e) {
-                            echo $e->getMessage();
                         }
                     }
-                }
                 ?>
                 <div class="form-group">
                     <input class="form-control" type="text" name="naam" placeholder="Voornaam">
@@ -264,14 +275,12 @@ function test_input($data) {
 
 
 
-                Voer deze cijfers in: <br>
-                <input class='form-control' style="width: 28%"  type="text" name="captcha"><br>
-                <img src="captcha.php"><br>
+                <div id="RecaptchaField2"></div><br>
+
 
                 <input type="submit" name="verstuur" value="Verstuur" class="btn btn-default">
 
             </form>
-
 
 
 

@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Gegenereerd op: 12 dec 2017 om 10:03
+-- Gegenereerd op: 12 dec 2017 om 13:53
 -- Serverversie: 10.1.26-MariaDB
 -- PHP-versie: 7.1.8
 
@@ -83,7 +83,7 @@ CREATE TABLE `admin` (
 
 INSERT INTO `admin` (`user_id`, `gebruikersnaam`, `wachtwoord`, `salt`, `hash`) VALUES
 (1, 'admin', 'daec7747c22df563deac8027abc9d1f3af3ebbb3', '00c52199eb6b3c4d086f71e082205ebbb11a4943', '60fa7364549a0d19f0d6cfc5c05a5d962dc0483a'),
-(4, 'tiespol', '787cd83a8a52a8409819aac6aec19bbcb48aa59b', '1301267338046e0f2c886c29535c8a1a82b0049b', '3d4df2e023289df77a8e8a1e29a192f399727415'),
+(4, 'admin2', 'da3894bd12c2bc1a796019bcb9a752ea20f66423', '7863da954e3c0938a5054f89034f335f5aa2aa3d', 'a4cc7f3996ef27f2eee50e5af4637b46544fe4b8'),
 (22, 'nsimons', '963b48e0afed23d5144e251a09d3d3bb532f1c87', '6cb0ee06fa08b4c664c08f1cafa118d47299fdaf', '52c4d9699edcf1882b5681570a31adde491a28e9'),
 (23, 'nsimons2', '4d345d2cbacc6849970734ae6210262b053aa1fa', '2b08a5ad6ec21c12df3e1ed5eb18ef3eb6920061', '39309ccc66ad7f2b19118e8f6b35b1e7667d8773'),
 (24, 'nsimons3', '89d382fdae38a1138c0250f366e8d9456a02885c', '625e93f72e2bc73c1db6efdfe0a42c88ce0a44ae', '445d87f45b1f2bc28dcdee5b3579e6ea5dea3e54');
@@ -155,6 +155,7 @@ CREATE TABLE `leveranciers` (
   `lev_id` int(11) NOT NULL,
   `naam` varchar(45) DEFAULT NULL,
   `inhoud` varchar(45) DEFAULT NULL,
+  `korte_inhoud` varchar(250) NOT NULL,
   `logo` varchar(45) DEFAULT NULL,
   `description` varchar(2000) DEFAULT NULL,
   `kernwoorden` varchar(150) DEFAULT NULL
@@ -164,9 +165,9 @@ CREATE TABLE `leveranciers` (
 -- Gegevens worden geëxporteerd voor tabel `leveranciers`
 --
 
-INSERT INTO `leveranciers` (`lev_id`, `naam`, `inhoud`, `logo`, `description`, `kernwoorden`) VALUES
-(3, 'HKLIVING', '<p>is een Nederlands merk, opgericht in 2009.', 'd9867d3843917868b616329228a2aab015e8eafb.jpg', 'HKLIVING', 'HKLIVING'),
-(4, 'HOUSE DOCTOR', '<p>In 1999 begonnen de zusters Rikke Juhl Jen', '6f258f4a10d16d3e07c53a0e5ac30f5fa51b5101.jpg', 'In 1999 begonnen de zusters Rikke Juhl Jensen', 'House, Doctor, House doctor');
+INSERT INTO `leveranciers` (`lev_id`, `naam`, `inhoud`, `korte_inhoud`, `logo`, `description`, `kernwoorden`) VALUES
+(3, 'HKLIVING', '<p>is een Nederlands merk, opgericht in 2009.', '', 'd9867d3843917868b616329228a2aab015e8eafb.jpg', 'HKLIVING', 'HKLIVING'),
+(4, 'HOUSE DOCTOR', '<p>In 1999 begonnen de zusters Rikke Juhl Jen', '', '6f258f4a10d16d3e07c53a0e5ac30f5fa51b5101.jpg', 'In 1999 begonnen de zusters Rikke Juhl Jensen', 'House, Doctor, House doctor');
 
 -- --------------------------------------------------------
 
@@ -213,7 +214,7 @@ CREATE TABLE `product` (
   `product_id` int(11) NOT NULL,
   `naam` varchar(45) NOT NULL,
   `inhoud` mediumtext NOT NULL,
-  `korte_inhoud` text NOT NULL,
+  `korte_inhoud` varchar(250) NOT NULL,
   `images` varchar(2000) NOT NULL,
   `description` varchar(150) NOT NULL,
   `kernwoorden` varchar(150) NOT NULL,
@@ -300,7 +301,7 @@ CREATE TABLE `user` (
 
 INSERT INTO `user` (`user_id`, `email`, `first_name`, `insertion`, `last_name`, `birthday`, `phonenumber`, `city`, `address`, `zipcode`, `role`, `newsletter`, `verwijderd`) VALUES
 (1, 'nick@twesq.com', 'Admin', '', NULL, NULL, 655194576, 'Rijssen', 'Entoshof 23', '7562 VV', 1, 0, 0),
-(4, 'test@email2.nl', 'Ties', '', 'Pol', NULL, 699382393, 'Rijssen', 'Entoshof 23', '7462 VV', 1, 0, 0),
+(4, 'test@email2.nl', 'Tiess', '', '2Poll', '0000-00-00 00:00:00', 699382393, 'Rijssen', 'Entoshof 23', '7462 VV', 1, 0, 0),
 (5, 'nick.simons@live.nl', 'Nick', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 2, 0, 1),
 (7, 'nick@live.nl', 'Nick', NULL, NULL, NULL, 8473209, NULL, NULL, NULL, 2, 0, 0),
 (8, 'bart@live.nl', 'Bart', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 2, 0, 0),

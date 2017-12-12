@@ -34,6 +34,28 @@ class Content
         }
     }
 
+    public function getProductuitgelicht()
+    {
+        try {
+            $query = $this->_db->prepare('
+                    SELECT * FROM product p JOIN leveranciers l ON p.lev_id=l.lev_id WHERE uitgelicht = 1;
+                ');
+
+            if ($query->execute()) {
+                if ($query->rowCount() > 0) {
+                    return $content = $query->fetchAll()[0];
+                } else {
+                    return false;
+                }
+            } else {
+                echo $query->errorInfo();
+                return false;
+            }
+        } catch (PDOexception $e) {
+            echo $e->getMessage();
+            return false;
+        }
+    }
 
 }
 ?>

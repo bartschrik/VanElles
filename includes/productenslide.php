@@ -1,27 +1,28 @@
-<div class="container">
+<?php
+require_once 'admin/classes/connection.class.php';
+require_once 'admin/classes/content.class.php';
+
+
+$content = new Content();
+$uitgelicht = $content->getProductuitgelicht();
+if ($uitgelicht){
+    echo '<div class="container">
         <div class="row">
-            <div class="col-xs-12" id="main-product">
-                <div class="a-center">
+            <div class="col-xs-12" id="main-product">';
+
+                echo '<div class="a-center">
                     <div class="ptitle">
                         <h2>Uitgelichte producten</h2>
                     </div>
-                </div>
-                <div id="product-slide">
-                    <?php
-                    require_once 'admin/classes/connection.class.php';
-                    $db = new Connection();
-                    $db = $db->databaseConnection();
+                </div>';
 
-                    $sql = "SELECT * FROM product p JOIN leveranciers l ON p.lev_id=l.lev_id WHERE uitgelicht = 1";
-                    $stmt = $db->prepare($sql);
+                echo '<div id="product-slide">';
 
-                    $stmt->execute();
-
-                    while ($row = $stmt->fetch()) {
-                        $naam = $row[1];
-                        $leverancier = $row["naam"];
-                        $inhoud = $row[2];
-                        $image = $row["images"];
+                    for ($i= 1; $i < 9; $i++) {
+                        $naam = $uitgelicht[1];
+                        $leverancier = $uitgelicht["naam"];
+                        $inhoud = $uitgelicht[2];
+                        $image = $uitgelicht["images"];
 
                      print ("<div class=\"slide\">");
 
@@ -47,3 +48,4 @@
             </div>
         </div>
     </div>
+<?php }?>

@@ -15,8 +15,10 @@ class blog
     {
         try {
             $query = $this->_db->prepare('
-                    SELECT *
-                    FROM blog
+                    SELECT *, COUNT(i.blog_id) inschrijvingen
+                    FROM blog b
+                    LEFT JOIN inschrijvingen i ON b.blog_id = i.blog_id
+                    GROUP BY i.blog_id
                 ');
 
             if ($query->execute()) {
@@ -35,8 +37,8 @@ class blog
     {
         try {
             $query = $this->_db->prepare('
-                DELETE FROM blog
-                WHERE blog_id = :id
+                DELETE blog_id FROM blog INNER JOIN inschrijving
+                WHERE blog_id = :id;
             ');
             $query->bindValue(":id", $blog_id);
             if ($query->execute()) {
@@ -56,11 +58,8 @@ class blog
             $allow = array("jpg", "jpeg", "gif", "png", "JPG", "JPEG", "GIF", "PNG");
 
             $todir = 'images/blog/';
-            //var_dump($logonaam);
-
 
             if (!!$img['tmp_name']) {
-                //var_dump($logonaam);
                 $temp = explode(".", $img["name"]);
                 $date = new DateTime();
                 $date = $date->format('Y-m-d H:i:s');
@@ -114,11 +113,8 @@ class blog
                 $allow = array("jpg", "jpeg", "gif", "png", "JPG", "JPEG", "GIF", "PNG");
 
                 $todir = 'images/blog/';
-                //var_dump($logonaam);
-
 
                 if (!!$img['tmp_name']) {
-                    //var_dump($logonaam);
                     $temp = explode(".", $img["name"]);
                     $date = new DateTime();
                     $date = $date->format('Y-m-d H:i:s');
@@ -203,25 +199,4 @@ class blog
             return false;
         }
     }
-
-    public function Countdeeln($blog_id){
-        try{
-            $query = $this->_db->prepare('
-                    SELECT COUNT(blog_id) FROM inschrijvingen
-                    GROUP BY blog_id;
-                ');
-            $query->bindValue(":id", $blog_id);
-
-            if($query->execute()) {
-                return $content = $query->fetchAll()[0];
-            } else {
-                //echo $query->errorInfo();
-                return false;
-            }
-        } catch (PDOexception $e) {
-            //echo $e->getMessage();
-            return false;
-        }
-    }
-
 }

@@ -10,17 +10,28 @@
                     <h1>Blogs</h1>
                 </div>
                 <div><form action="#" method="post" class="classicform">
-                    Activiteiten: <select name="sorteer" id="selectmodule">
-                                  <option value="0">Nee</option>
-                                  <option value="1">Ja</option>
-                                  </select>
-                    <button type="submit" name="savesort" class="save">Opslaan</button>
+                    Sorteren: <select name="sorteer" onchange="this.form.submit();">
+                                <option value="0" <?php if(isset($_POST["sorteer"])) {
+                                    $sort = ($_POST["sorteer"]);
+                                    if ($sort == '0') {
+                                        echo "selected";
+                                    }
+                                }?>>Alles</option>
+
+                            <option value="1" <?php if(isset($_POST["sorteer"])) {
+                                $sort = ($_POST["sorteer"]);
+                                if ($sort == '1') {
+                                    echo "selected";
+                                }
+                            }?>>Activiteiten</option>
+                              </select>
                 </form></div><br>
 <?php
+
     $dir = 'admin/images/blog/';
 
     if (!isset($_POST['sorteer']) || ($_POST['sorteer'] == "0")) {
-            $query1 = $db->prepare('SELECT * FROM blog WHERE activiteit = "0" ORDER BY blog_id DESC');
+            $query1 = $db->prepare('SELECT * FROM blog ORDER BY blog_id DESC');
             $query1->execute();
 
             while ($row = $query1->fetch(PDO::FETCH_ASSOC)) {

@@ -18,6 +18,7 @@
     if(!$bloglist && is_bool($bloglist)) {
         $msg = '<div class="feedback error container"><div class="row"><div class="col-xs-12"><p>Er is iets mis gegaan met onze database, probeer het later opnieuw.</p></div></div></div>';
     }
+
     ?>
 <div class="pagetitel marbot">
     <div class="container">
@@ -53,19 +54,22 @@
                             <tbody>';
 
                 foreach($bloglist as $value) {
-                    $id = $value["blog_id"];
-                    $aantaldeeln = $blog->Countdeeln($id);
                     echo '
                             <tr>
                                 <td>#'.$value['blog_id'].'</td>
                                 <td>'.$value['title'].'</td>
-                    <td>'; if($value["activiteit"] == 0){
-                                        echo"Nee";
-                                    }else{
+                    <td>'; if($value["activiteit"] == 1){
                                         echo"Ja";
+                                    }else{
+                                        echo"Nee";
                                     }
                     echo'</td>
-                                <td>'.$aantaldeeln.'</td>
+                                <td>'; if($value["activiteit"] == 1){
+                                    echo $value['inschrijvingen'];
+                                    } else {
+                                    echo"Geen";
+                                    }
+                    echo '</td>
                                 <td><a href="blog_bewerk.php?bewerkid='.$value['blog_id'].'" title="Bewerken" data-id="'.$value['blog_id'].'"><i class="fa fa-pencil"></i></a><a class="confirm" href="blog_admin.php?verid='.$value['blog_id'].'" title="Verwijderen" data-id="'.$value['blog_id'].'"><i class="fa fa-trash"></i></a></td>
                             </tr>';
                 }

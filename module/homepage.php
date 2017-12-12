@@ -26,19 +26,11 @@
                     <h1>Volgende activiteit</h1>
                     <h2>Workshop</h2>
                 </div>
-                <div class="card">
-                    <a href="#" style="background-image: url('images/stbr.jpg');" class="card-img"></a>
-                    <div class="card-body">
-                        <a href="#"><h4 class="card-title">Nieuw: STBR</h4></a>
-                        <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Asperiores beatae commodi consectetur doloribus ducimus earum et eum hic inventore iusto magnam nam, nobis quas quasi recusandae repellendus saepe, soluta tempora.</p>
-                        <div class="a-right"><a href="#" class="btn btn-primary">Lees meer</a></div>
-                    </div>
-                </div>
+                <?php require_once 'includes/activiteit.php'; ?>
             </aside>
         </div>
     </div>
     <?php require_once 'includes/quote.php'; ?>
     <?php require_once 'includes/productenslide.php'; ?>
-
 </div>
 <?php require_once 'includes/footer.php'; ?>

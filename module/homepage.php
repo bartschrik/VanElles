@@ -2,12 +2,12 @@
 <div id="content">
     <div id="main-slider">
         <div>
-            <div class="slide" style="background-image: url('images/hk-living-banner_2048x2048.jpg')">
+            <div class="slide" style="background-image: url('<?php echo constant("local_url"); ?>images/hk-living-banner_2048x2048.jpg')">
 
             </div>
         </div>
         <div>
-            <div class="slide" style="background-image: url('images/stbr.jpg')">
+            <div class="slide" style="background-image: url('<?php echo constant("local_url"); ?>images/stbr.jpg')">
 
             </div>
         </div>

@@ -15,7 +15,7 @@ class product {
     {
         try {
             $query = $this->_db->prepare('
-                    SELECT product.product_id, product.naam, product.korte_inhoud, leveranciers.naam
+                    SELECT product.product_id, product.naam, product.korte_inhoud, leveranciers.naam, product.webshop_url
                     FROM leveranciers AS leveranciers
                     JOIN product AS product
                     ON leveranciers.lev_id=product.lev_id
@@ -111,13 +111,14 @@ class product {
 
 
             $query = $this->_db->prepare('
-                INSERT INTO `product` (`naam`, `inhoud`, `korte_inhoud`, `images`, `description`, `kernwoorden`, `lev_id`) 
-                VALUES (:naam, :inhoud, :korteinhoud, :foto, :seoinhoud, :seokernwoorden, :lev_id);
+                INSERT INTO `product` (`naam`, `inhoud`, `korte_inhoud`, `images`, `webshop_url`, `description`, `kernwoorden`, `lev_id`) 
+                VALUES (:naam, :inhoud, :korteinhoud, :foto, :url,  :seoinhoud, :seokernwoorden, :lev_id);
             ');
             $query->bindValue(":naam", $data['naam']);
             $query->bindValue(":inhoud", $data['inhoud']);
             $query->bindValue(":korteinhoud", $data['korteinhoud']);
             $query->bindValue(":foto", $newfilename);
+            $query->bindValue(":url", $data['url']);
             $query->bindValue(":seokernwoorden", $data['seokernwoorden']);
             $query->bindValue(":seoinhoud", $data['seoinhoud']);
             $query->bindValue(":lev_id", $data['Leverancier']);
@@ -167,13 +168,14 @@ class product {
 
                 $query = $this->_db->prepare('
                 UPDATE `product` 
-                SET `naam` = :naam, `inhoud` = :inhoud, `korte_inhoud` = :korteinhoud, `images` = :images, `description` = :description, `kernwoorden` = :kernwoorden, `lev_id` = :lev_id  
+                SET `naam` = :naam, `inhoud` = :inhoud, `korte_inhoud` = :korteinhoud, `images` = :images, `webshop_url` = :url, `description` = :description, `kernwoorden` = :kernwoorden, `lev_id` = :lev_id  
                 WHERE `product_id` = :product_id;
             ');
                 $query->bindValue(":naam", $data['naam']);
                 $query->bindValue(":inhoud", $data['inhoud']);
                 $query->bindValue(":korteinhoud", $data['korteinhoud']);
                 $query->bindValue(":images", $newfilename);
+                $query->bindValue(":url", $data['url']);
                 $query->bindValue(":kernwoorden", $data['seokernwoorden']);
                 $query->bindValue(":description", $data['seoinhoud']);
                 $query->bindValue(":lev_id", $data['leverancier']);
@@ -187,12 +189,13 @@ class product {
             } else {
                 $query = $this->_db->prepare('
                 UPDATE `product` 
-                SET `naam` = :naam, `inhoud` = :inhoud, `korte_inhoud` = :korteinhoud, `description` = :description, `kernwoorden` = :kernwoorden, `lev_id` = :lev_id  
+                SET `naam` = :naam, `inhoud` = :inhoud, `korte_inhoud` = :korteinhoud, `webshop_url` = :url, `description` = :description, `kernwoorden` = :kernwoorden, `lev_id` = :lev_id  
                 WHERE `product_id` = :product_id;
             ');
                 $query->bindValue(":naam", $data['naam']);
                 $query->bindValue(":inhoud", $data['inhoud']);
                 $query->bindValue(":korteinhoud", $data['korteinhoud']);
+                $query->bindValue(":url", $data['url']);
                 $query->bindValue(":kernwoorden", $data['seokernwoorden']);
                 $query->bindValue(":description", $data['seoinhoud']);
                 $query->bindValue(":lev_id", $data['leverancier']);

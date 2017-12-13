@@ -19,7 +19,7 @@
             while ($row = $stmt->fetch())
             {
                 $leveranciernaam = $row["naam"];
-                $inhoud = $row["inhoud"];
+                $inhoud = $row["korte_inhoud"];
                 $logo = $row["logo"];
 
                 print("<div class='col-xs-12 col-md-4 col-sm-6 marbot'><div class='card'>");
@@ -33,6 +33,8 @@
                 print(" <a href=\"#\"><h4 class=\"card-title\">" . $leveranciernaam . "</h4></a>");
 
                 print(" <p class=\"card-text\">" . $inhoud . "</p>");
+
+                print("  <div class=\"a-right\"><a href=\"#\"class=\"btn btn-primary\">Lees meer</a></div>");
 
                 print("</div></div></div>");
 

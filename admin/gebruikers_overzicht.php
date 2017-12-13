@@ -4,6 +4,11 @@
 
     $msg = "";
 
+    if(isset($_GET['verid'])) {
+        $veruser = $user->deleteUser($_GET['verid']);
+        $msg = $veruser;
+    }
+
     if(isset($_GET['page'])) {
         $page = $_GET['page'];
     } else {
@@ -76,7 +81,7 @@
                         if($page == 1) {
                             echo '
                                 <li class="page-item disabled">
-                                    <a class="page-link" href="#">Vorige</a>
+                                    <a class="page-link">Vorige</a>
                                 </li>
                             ';
                         } else {
@@ -104,7 +109,7 @@
                         if($page == $aantalP) {
                             echo '
                                 <li class="page-item disabled">
-                                    <a class="page-link" href="#">Volgende</a>
+                                    <a class="page-link">Volgende</a>
                                 </li>
                             ';
                         } else {

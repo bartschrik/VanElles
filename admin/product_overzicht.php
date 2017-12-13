@@ -71,7 +71,7 @@
                                     <th style="width: 35%">Korte inhoud</th>
                                     <th>Leverancier</th>
                                     <th>Uitgelicht</th>
-                                    <th style="width: 15%;">Optie\'s</th>
+                                    <th style="width: 17%;">Optie\'s</th>
                                 </tr>
                             </thead>
                             <tbody>';
@@ -84,7 +84,11 @@
                                 <td>'.$value['korte_inhoud'].'</td>
                                 <td>'.$value[3].'</td>
                                 <td>Ja</td>
-                                <td><a href="product_overzicht.php?inuitlichtid='.$value['product_id'].'" title="Niet meer uitlichten" data-id="'.$value['product_id'].'"><i class="fa fa-minus"></i></a><a href="product_bewerken.php?bewerkid='.$value['product_id'].'" title="Bewerken" data-id="'.$value['product_id'].'"><i class="fa fa-pencil"></i></a><a class="confirm" href="product_overzicht.php?verid='.$value['product_id'].'" title="Verwijderen" data-id="'.$value['product_id'].'"><i class="fa fa-trash"></i></a></td>
+                                <td><a href="product_overzicht.php?inuitlichtid='.$value['product_id'].'" title="Niet meer uitlichten" data-id="'.$value['product_id'].'"><i class="fa fa-minus"></i></a>
+                                <a href="product_bewerken.php?bewerkid='.$value['product_id'].'" title="Bewerken" data-id="'.$value['product_id'].'"><i class="fa fa-pencil"></i></a>
+                                <a class="confirm" href="product_overzicht.php?verid='.$value['product_id'].'" title="Verwijderen" data-id="'.$value['product_id'].'"><i class="fa fa-trash"></i></a>
+                                <a target="_blank" href="'.$value['webshop_url'].'?bewerkid='.$value['product_id'].'" title="Link" data-id="'.$value['product_id'].'"><i class="fa fa-link"></i></a>
+                                </td>
                             </tr>';
 
                     }
@@ -100,10 +104,10 @@
                                 <tr>
                                     <th>Id</th>
                                     <th>Product</th>
-                                    <th>Korte inhoud</th>
+                                    <th style="width: 35%">Korte inhoud</th>
                                     <th>Leverancier</th>
                                     <th>Uitgelicht</th>
-                                    <th style="width: 100px;">Optie\'s</th>
+                                    <th style="width: 17%;">Optie\'s</th>
                                 </tr>
                             </thead>
                             <tbody>';
@@ -116,7 +120,11 @@
                                 <td>'.$value['korte_inhoud'].'</td>
                                 <td>'.$value[3].'</td>
                                 <td>Nee</td>
-                                <td><a href="product_overzicht.php?uitlichtid='.$value['product_id'].'" title="Uitlichten" data-id="'.$value['product_id'].'"><i class="fa fa-plus"></i></a><a href="product_bewerken.php?bewerkid='.$value['product_id'].'" title="Bewerken" data-id="'.$value['product_id'].'"><i class="fa fa-pencil"></i></a><a class="confirm" href="product_overzicht.php?verid='.$value['product_id'].'" title="Verwijderen" data-id="'.$value['product_id'].'"><i class="fa fa-trash"></i></a></td>
+                                <td><a href="product_overzicht.php?uitlichtid='.$value['product_id'].'" title="Uitlichten" data-id="'.$value['product_id'].'"><i class="fa fa-plus"></i></a>
+                                <a href="product_bewerken.php?bewerkid='.$value['product_id'].'" title="Bewerken" data-id="'.$value['product_id'].'"><i class="fa fa-pencil"></i></a>
+                                <a class="confirm" href="product_overzicht.php?verid='.$value['product_id'].'" title="Verwijderen" data-id="'.$value['product_id'].'"><i class="fa fa-trash"></i></a>
+                                <a target="_blank" href="'.$value['webshop_url'].'?bewerkid='.$value['product_id'].'" title="Link" data-id="'.$value['product_id'].'"><i class="fa fa-link"></i></a>
+                                </td>
                             </tr>';
 
                     }

@@ -19,8 +19,9 @@
                 while ($row = $stmt->fetch())
                 {
                     $productnaam = $row["naam"];
-                    $inhoud = $row["inhoud"];
+                    $inhoud = $row["korte_inhoud"];
                     $foto = $row["images"];
+                    $url = $row["webshop_url"];
 
                     print("<div class='col-xs-12 col-md-3 col-sm-6 marbot'><div class='card'>");
 
@@ -33,6 +34,8 @@
                     print(" <a href=\"#\"><h4 class=\"card-title\">" . $productnaam . "</h4></a>");
 
                     print(" <p class=\"card-text\">" . $inhoud . "</p>");
+
+                    print("  <div class=\"a-right\"><a href=\"$url\" target='_blank' class=\"btn btn-primary\">Lees meer</a></div>");
 
                     print("</div></div></div>");
 

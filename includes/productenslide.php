@@ -25,6 +25,7 @@ if ($uitgelicht){
                         $leverancier = $value["naam"];
                         $inhoud = $value[3];
                         $image = $value["images"];
+                        $url = $value["webshop_url"];
 
                      print ("<div class=\"slide\">");
 
@@ -40,7 +41,7 @@ if ($uitgelicht){
 
                      print ("<p class=\"card-text\">$inhoud</p>");
 
-                     print("  <div class=\"a-right\"><a href=\"#\" class=\"btn btn-primary\">Lees meer</a></div>");
+                     print("  <div class=\"a-right\"><a href=\"$url\" target='_blank' class=\"btn btn-primary\">Lees meer</a></div>");
 
                     print (" </div></div></div>");
                     }

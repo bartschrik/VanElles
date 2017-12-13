@@ -64,36 +64,41 @@
                                         <input type="file" name="foto" class="' . InputErrorClass('foto', $errors) . '" placeholder="foto" value="' . InputValue('foto') . '" />
                                         <script>
                                             CKEDITOR.replace( "inhoud" );
-                                        </script>    
-                                        <span>Leverancier:</span>';
+                                        </script>';
 
-                        if( $leverancierContent == 1 ) {
-                            echo '<div class="feedback error container"><div class="row"><div class="col-xs-12"><p>Er zijn nog geen leveranciers aangemaakt</p></div></div></div>';
-                        } elseif($leverancierContent == 2) {
-                            echo '<div class="feedback error container"><div class="row"><div class="col-xs-12"><p>Er is een probleem met het ophalen van de gegevens</p></div></div></div>';
-                        } else {
-                            echo '<select name="Leverancier" id="selectleverancier">';
-                            echo '<option selected="true" disabled="disabled">Kies leverancier</option> ';
-                            foreach($leverancierContent as $value) {
-
-                                if($value['lev_id'] == InputValue('leverancier')) {
-                                    $id = $value['lev_id'];
-                                    $naam = $value['naam'];
-
-                                    echo '<option selected value="'.$id.'">'.$naam.'</option>';
-                                } else {
-                                    $id = $value['lev_id'];
-                                    $naam = $value['naam'];
-
-                                    echo '<option value="'.$id.'">'.$naam.'</option>';
-                                }
-
-                            }
-                            echo '</select>';
-                        }
                                     echo '</div>
                                     
                                     <div class="col-md-4">
+                                        <h4>Product verbinden</h4>';
+
+                                    if( $leverancierContent == 1 ) {
+                                        echo '<div class="feedback error container"><div class="row"><div class="col-xs-12"><p>Er zijn nog geen leveranciers aangemaakt</p></div></div></div>';
+                                    } elseif($leverancierContent == 2) {
+                                        echo '<div class="feedback error container"><div class="row"><div class="col-xs-12"><p>Er is een probleem met het ophalen van de gegevens</p></div></div></div>';
+                                    } else {
+                                        echo '<select name="Leverancier" id="selectleverancier">';
+                                        echo '<option selected="true" disabled="disabled">Kies leverancier</option> ';
+                                        foreach($leverancierContent as $value) {
+
+                                            if($value['lev_id'] == InputValue('leverancier')) {
+                                                $id = $value['lev_id'];
+                                                $naam = $value['naam'];
+
+                                                echo '<option selected value="'.$id.'">'.$naam.'</option>';
+                                            } else {
+                                                $id = $value['lev_id'];
+                                                $naam = $value['naam'];
+
+                                                echo '<option value="'.$id.'">'.$naam.'</option>';
+                                            }
+
+                                        }
+                                        echo '</select>';
+                                    }
+
+
+                                      echo ' <input type="text" name="url" class="' . InputErrorClass('url', $errors) . '" placeholder="Link naar product" value="' . InputValue('url') . '" /> 
+                                            
                                         <h4>SEO-Informatie</h4>
                                         <input type="text" name="seokernwoorden" class="' . InputErrorClass('seokernwoorden', $errors) . '" placeholder="Kernwoorden, bijv: vanelles, woonwinkel ect." value="' . InputValue('seokernwoorden') . '" />
                                         <textarea name="seoinhoud" class="' . InputErrorClass('seoinhoud', $errors) . '" placeholder="Product beschrijving" style="max-width: 100%; height: 200px;">' . InputValue('seoinhoud') . '</textarea>
@@ -124,39 +129,44 @@
                                         <input type="text" name="naam"  placeholder="Product naam" value="' . InputValue('naam') . '" /> 
                                         <textarea name="inhoud" placeholder="Inhoud">' . InputValue('inhoud') . '</textarea>
                                         <textarea name="korteinhoud" maxlength="250" style="height: 75px;"  placeholder="Korte inhoud" >' . InputValue('korteinhoud') . '</textarea>
-                                        <input type="file" name="foto" placeholder="foto" value="' . InputValue('foto') . '" />
+                                        <input type="file" id="files" name="foto" placeholder="foto" value="' . InputValue('foto') . '" />
                                         <script>
                                             CKEDITOR.replace( "inhoud" );
-                                        </script>
-                                        <span>Leverancier:</span>';
+                                        </script>';
 
-                        if( $leverancierContent == 1 ) {
-                            echo '<div class="feedback error container"><div class="row"><div class="col-xs-12"><p>Er zijn nog geen leveranciers aangemaakt</p></div></div></div>';
-                        } elseif($leverancierContent == 2) {
-                            echo '<div class="feedback error container"><div class="row"><div class="col-xs-12"><p>Er is een probleem met het ophalen van de gegevens</p></div></div></div>';
-                        } else {
-                            echo '<select name="Leverancier" id="selectleverancier">';
-                            echo '<option selected="true" disabled="disabled">Kies leverancier</option> ';
-                            foreach($leverancierContent as $value) {
 
-                                if($value['lev_id'] == InputValue('leverancier')) {
-                                    $id = $value['lev_id'];
-                                    $naam = $value['naam'];
 
-                                    echo '<option selected value="'.$id.'">'.$naam.'</option>';
-                                } else {
-                                    $id = $value['lev_id'];
-                                    $naam = $value['naam'];
-
-                                    echo '<option value="'.$id.'">'.$naam.'</option>';
-                                }
-
-                            }
-                            echo '</select>';
-                        }
                             echo '</div>
-                                    
                                     <div class="col-md-4">
+                                    <h4>Product verbinden</h4>';
+
+                                    if( $leverancierContent == 1 ) {
+                                        echo '<div class="feedback error container"><div class="row"><div class="col-xs-12"><p>Er zijn nog geen leveranciers aangemaakt</p></div></div></div>';
+                                    } elseif($leverancierContent == 2) {
+                                        echo '<div class="feedback error container"><div class="row"><div class="col-xs-12"><p>Er is een probleem met het ophalen van de gegevens</p></div></div></div>';
+                                    } else {
+                                        echo '<select name="Leverancier" id="selectleverancier">';
+                                        echo '<option selected="true" disabled="disabled">Kies leverancier</option> ';
+                                        foreach($leverancierContent as $value) {
+
+                                            if($value['lev_id'] == InputValue('leverancier')) {
+                                                $id = $value['lev_id'];
+                                                $naam = $value['naam'];
+
+                                                echo '<option selected value="'.$id.'">'.$naam.'</option>';
+                                            } else {
+                                                $id = $value['lev_id'];
+                                                $naam = $value['naam'];
+
+                                                echo '<option value="'.$id.'">'.$naam.'</option>';
+                                            }
+
+                                        }
+                                        echo '</select>';
+                                    }
+
+                                      echo ' <input type="text" name="url" placeholder="Link naar product" value="' . InputValue('url') . '" /> 
+
                                         <h4>SEO-Informatie</h4>
                                         <input type="text" name="seokernwoorden" placeholder="Kernwoorden, bijv: vanelles, woonwinkel ect." value="' . InputValue('seokernwoorden') . '" />
                                         <textarea name="seoinhoud"  placeholder="Product beschrijving" style="max-width: 100%; height: 200px;">' . InputValue('seoinhoud') . '</textarea>

@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Gegenereerd op: 12 dec 2017 om 13:56
+-- Gegenereerd op: 13 dec 2017 om 09:52
 -- Serverversie: 10.1.26-MariaDB
 -- PHP-versie: 7.1.8
 
@@ -82,11 +82,8 @@ CREATE TABLE `admin` (
 --
 
 INSERT INTO `admin` (`user_id`, `gebruikersnaam`, `wachtwoord`, `salt`, `hash`) VALUES
-(1, 'admin', 'daec7747c22df563deac8027abc9d1f3af3ebbb3', '00c52199eb6b3c4d086f71e082205ebbb11a4943', '60fa7364549a0d19f0d6cfc5c05a5d962dc0483a'),
-(4, 'admin2', 'da3894bd12c2bc1a796019bcb9a752ea20f66423', '7863da954e3c0938a5054f89034f335f5aa2aa3d', 'a4cc7f3996ef27f2eee50e5af4637b46544fe4b8'),
-(22, 'nsimons', '963b48e0afed23d5144e251a09d3d3bb532f1c87', '6cb0ee06fa08b4c664c08f1cafa118d47299fdaf', '52c4d9699edcf1882b5681570a31adde491a28e9'),
-(23, 'nsimons2', '4d345d2cbacc6849970734ae6210262b053aa1fa', '2b08a5ad6ec21c12df3e1ed5eb18ef3eb6920061', '39309ccc66ad7f2b19118e8f6b35b1e7667d8773'),
-(24, 'nsimons3', '89d382fdae38a1138c0250f366e8d9456a02885c', '625e93f72e2bc73c1db6efdfe0a42c88ce0a44ae', '445d87f45b1f2bc28dcdee5b3579e6ea5dea3e54');
+(1, 'admin', 'e47c2d19323f9fcd5497283c4122385b038deea4', '2d4d2641ab872aed5ffd612d68443462d400703a', '5ef7529e527c391935d2810992e8b54fd7e074da'),
+(4, 'admin2', '061b372a731c418b1d77aac63ea089860a02a0cb', 'dd3d95218baf9b083ebb07ec2c7bf9b19df55f54', '2c05bad453d0bd665d56bb00e28717a8d5e69b66');
 
 -- --------------------------------------------------------
 
@@ -217,18 +214,12 @@ CREATE TABLE `product` (
   `inhoud` mediumtext NOT NULL,
   `korte_inhoud` varchar(250) NOT NULL,
   `images` varchar(2000) NOT NULL,
+  `webshop_url` varchar(1000) DEFAULT NULL,
   `description` varchar(150) NOT NULL,
   `kernwoorden` varchar(150) NOT NULL,
   `lev_id` int(11) NOT NULL,
   `uitgelicht` int(1) NOT NULL DEFAULT '0' COMMENT '0=nee, 1=ja'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
---
--- Gegevens worden geëxporteerd voor tabel `product`
---
-
-INSERT INTO `product` (`product_id`, `naam`, `inhoud`, `korte_inhoud`, `images`, `description`, `kernwoorden`, `lev_id`, `uitgelicht`) VALUES
-(1, 'Testproduct', '<h1>Lorem ipsum dolor sit ahmetdsjkfj kafdsjkf</h1>\r\n', '', '9feef5a71ea0fc58a862a2ba9d051cf80ed6dad2.jpg', 'dfsadsa', 'test', 4, 1);
 
 -- --------------------------------------------------------
 
@@ -286,7 +277,7 @@ CREATE TABLE `user` (
   `first_name` varchar(45) DEFAULT NULL,
   `insertion` varchar(45) DEFAULT NULL,
   `last_name` varchar(45) DEFAULT NULL,
-  `birthday` datetime DEFAULT NULL,
+  `birthday` date DEFAULT NULL,
   `phonenumber` int(12) DEFAULT NULL,
   `city` varchar(45) DEFAULT NULL,
   `address` varchar(45) DEFAULT NULL,
@@ -301,8 +292,8 @@ CREATE TABLE `user` (
 --
 
 INSERT INTO `user` (`user_id`, `email`, `first_name`, `insertion`, `last_name`, `birthday`, `phonenumber`, `city`, `address`, `zipcode`, `role`, `newsletter`, `verwijderd`) VALUES
-(1, 'nick@twesq.com', 'Admin', '', NULL, NULL, 655194576, 'Rijssen', 'Entoshof 23', '7562 VV', 1, 0, 0),
-(4, 'test@email2.nl', 'Tiess', '', '2Poll', '0000-00-00 00:00:00', 699382393, 'Rijssen', 'Entoshof 23', '7462 VV', 1, 0, 0),
+(1, 'nick@twesq.com', 'Admin', '', '', '0000-00-00', 655194576, 'Rijssen', 'Entoshof 23', '7562 VV', 1, 0, 0),
+(4, 'test@email.nl', 'Ties', 'van', 'Poll', '1997-03-23', 699382393, 'Rijssen', 'Entoshof 23', '7462 VV', 1, 0, 0),
 (5, 'nick.simons@live.nl', 'Nick', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 2, 0, 1),
 (7, 'nick@live.nl', 'Nick', NULL, NULL, NULL, 8473209, NULL, NULL, NULL, 2, 0, 0),
 (8, 'bart@live.nl', 'Bart', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 2, 0, 0),
@@ -317,9 +308,9 @@ INSERT INTO `user` (`user_id`, `email`, `first_name`, `insertion`, `last_name`, 
 (19, 'jklfdsjlk@LKjflkdjslkfjkl.dfsjkl', 'jkdslaf', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 2, 0, 1),
 (20, 'bart.schrik@hhhh.nl', NULL, NULL, NULL, NULL, 876435, NULL, NULL, NULL, 2, 0, 1),
 (21, 'Baer.scgruk@gh.nl', 'test', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 2, 0, 1),
-(22, 'nick.simons@live.nls', 'Nick', NULL, 'Simons', NULL, 655194576, 'Rijssen', 'Entoshof 23', '7462 VV', 3, 0, 0),
-(23, 'nickjflJ@jklfds.nl', 'Nick', '', 'Simons', '1997-03-23 00:00:00', 2147483647, 'Rijssen', 'Entoshof 23', '7462 VV', 3, 0, 1),
-(24, 'nickjflJ@jklfds.nls', 'Nick', '', 'Simons', '1997-03-23 00:00:00', 2147483647, 'Rijssen', 'Entoshof 23', '7462 VV', 3, 0, 1);
+(22, 'nick.simons@live.nls', 'Nick', '', 'Simons', '0000-00-00', 655194576, 'Rijssen', 'Entoshof 23', '7462 VV', 2, 0, 0),
+(23, 'nickjflJ@jklfds.nl', 'Nick', '', 'Simons', '1997-03-23', 2147483647, 'Rijssen', 'Entoshof 23', '7462 VV', 2, 0, 0),
+(24, 'nickjflJ@jklfds.nls', 'Nick', '', 'Simons', '1997-03-23', 2147483647, 'Rijssen', 'Entoshof 23', '7462 VV', 2, 0, 0);
 
 --
 -- Indexen voor geëxporteerde tabellen

@@ -5,6 +5,7 @@ include_once('admin/classes/page.class.php');
 include_once('admin/classes/validate.class.php');
 
 $page = new Page();
+$pageId = "";
 
 if(isset($_GET['page'])) {
     $pageContent = $page->getPageByUrl(htmlentities($_GET['page']));
@@ -23,6 +24,9 @@ if(isset($_GET['page'])) {
 } else {
     //Search for first page in db
     $pageContent = $page->getFirstPageBy();
+}
+if(isset($_GET['pid'])) {
+    $pageId = $_GET['pid'];
 }
 
 //Include header

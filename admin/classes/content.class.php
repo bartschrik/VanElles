@@ -43,7 +43,7 @@ class Content
 
             if ($query->execute()) {
                 if ($query->rowCount() > 0) {
-                    return $content = $query->fetchAll()[0];
+                    return $content = $query->fetchAll();
                 } else {
                     return false;
                 }

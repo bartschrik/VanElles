@@ -12,9 +12,8 @@ if ($nieuw){
     $subtitel = $nieuw["subtitle"];
     $inhoud = $nieuw["inhoud"];
 
-    echo '<div class="container">
-        <div class="row">
-            <div class="col-xs-6" id="main-product">';
+    echo '
+            <div class="" id="main-product">';
 
             echo '<div class="a-center">
                     <div class="ptitle">
@@ -34,7 +33,6 @@ if ($nieuw){
 
                     print"<a href='blog/$id' title='Details'>Details</a>";
 
-                    print("</div></div></div>");
+                    print("</div>");
                 ?>
-            </div>
 <?php }?>

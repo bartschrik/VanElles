@@ -35,7 +35,7 @@ class blog
     {
         try {
             $query = $this->_db->prepare('
-                UPDATE blog SET verwijdert = "1"
+                DELETE FROM blog
                 WHERE blog_id = :id
             ');
             $query->bindValue(":id", $blog_id);
@@ -88,7 +88,7 @@ class blog
             $query->bindValue(":beschrijving", $data['seobeschrijving']);
             $query->bindValue(":kernwoorden", $data['seokernwoorden']);
             $query->bindValue(":img_name", $newfilename);
-            $query->bindValue(":activiteit", $data['seokernwoorden']);
+            $query->bindValue(":activiteit", $data['activiteit']);
             $query->bindValue(":inschrijving", $data['inschrijven']);
 
             if ($query->execute()) {

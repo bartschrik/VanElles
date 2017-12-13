@@ -17,12 +17,14 @@ if ($uitgelicht){
                 </div>';
 
                 echo '<div id="product-slide">';
+                    //var_dump($uitgelicht);
 
-                    for ($i= 1; $i < 9; $i++) {
-                        $naam = $uitgelicht[1];
-                        $leverancier = $uitgelicht["naam"];
-                        $inhoud = $uitgelicht[2];
-                        $image = $uitgelicht["images"];
+                    foreach ($uitgelicht as $value) {
+
+                        $naam = $value[1];
+                        $leverancier = $value["naam"];
+                        $inhoud = $value[3];
+                        $image = $value["images"];
 
                      print ("<div class=\"slide\">");
 

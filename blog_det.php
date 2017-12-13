@@ -7,6 +7,7 @@
 <?php
 //Include de connection en de page class
 include_once('admin/classes/connection.class.php');
+include_once('admin/classes/blog.class.php');
 include_once('admin/classes/page.class.php');
 
 $page = new Page();
@@ -30,6 +31,9 @@ if(!isset($_GET['pid'])){
     header("Location: blog");
 }
 
+$msg = "";
+$blog = new blog();
+
 $pid = $_GET['pid'];
 
     $dir = 'admin/images/blog/';
@@ -47,6 +51,8 @@ $pid = $_GET['pid'];
         $beschrijving = $row["beschrijving"];
         $kernwoorden = $row["kernwoorden"];
         $inschrijven = $row["inschrijving"];
+        $maxinschrijf = $row["inschrijving_aantal"];
+        $deeln = $blog->getDeelnemers($id);
 
     print("<div class='col-xs-12 marbot'><div class='card'>");
 
@@ -122,30 +128,34 @@ $pid = $_GET['pid'];
         </form>
         </div>";
     }
-
     $id = $_GET['pid'];
 
-    if (isset($_POST["verstuur"])) {
-        if (empty($_POST["voornaam"]) || empty($_POST["achternaam"]) || empty($_POST["geboortedatum"]) || empty($_POST["telefoonnummer"]) || empty($_POST["emailadres"])) {
-            print("Alle velden moeten ingevuld zijn");
-        } else {
-            $sql = "INSERT INTO user (first_name, insertion, last_name, email, birthday, phonenumber) VALUES ('$voornaam', '$tussenvoegsel', '$achternaam', '$email', '$geboortedatum', '$telefoonnr')";
-            $stmt = $db->prepare($sql);
-            if($stmt->execute()){
-                echo"Succesvol ingeschreven!";
-            }
-
-            $last_id = $db->lastInsertId();
-
-            $sql2 = "INSERT INTO inschrijvingen (blog_id, user_id) VALUES ('$id', '$last_id')";
-            $smt2 = $db->prepare($sql2);
-            if($smt2->execute()){
-
+        if (isset($_POST["verstuur"])) {
+            if (empty($_POST["voornaam"]) || empty($_POST["achternaam"]) || empty($_POST["geboortedatum"]) || empty($_POST["telefoonnummer"]) || empty($_POST["emailadres"])) {
+                print("Alle velden moeten ingevuld zijn");
             } else {
-                echo"Het e-mail adres is al in gebruik.";
+                if ($deeln >= $maxinschrijf) {
+                    echo "<script>alert('Deze activiteit is al volbezet.');</script>";
+                    echo " <meta http-equiv=\"refresh\" content=\"0;\" />";
+                } else {
+                    $sql = "INSERT INTO user (first_name, insertion, last_name, email, birthday, phonenumber) VALUES ('$voornaam', '$tussenvoegsel', '$achternaam', '$email', '$geboortedatum', '$telefoonnr')";
+                    $stmt = $db->prepare($sql);
+                    if ($stmt->execute()) {
+                        echo "Succesvol ingeschreven!";
+                    }
+
+                    $last_id = $db->lastInsertId();
+
+                    $sql2 = "INSERT INTO inschrijvingen (blog_id, user_id) VALUES ('$id', '$last_id')";
+                    $smt2 = $db->prepare($sql2);
+                    if ($smt2->execute()) {
+
+                    } else {
+                        echo "Het e-mail adres is al in gebruik.";
+                    }
+                }
             }
         }
-    }
 require_once 'includes/footer.php';
 ?>
 </body>

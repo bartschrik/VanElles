@@ -13,7 +13,7 @@ class leverancier {
     public function getAlllev() {
         try {
             $query = $this->_db->prepare('
-                    SELECT lev_id, naam
+                    SELECT lev_id, naam, korte_inhoud
                     FROM leveranciers
                 ');
 
@@ -61,11 +61,12 @@ class leverancier {
 
 
             $query = $this->_db->prepare('
-                INSERT INTO `leveranciers` (`naam`, `inhoud`, `logo`, `description`, `kernwoorden`) 
-                VALUES (:naam, :inhoud, :logo, :seoinhoud, :seokernwoorden);
+                INSERT INTO `leveranciers` (`naam`, `inhoud`, `korte_inhoud`, `logo`, `description`, `kernwoorden`) 
+                VALUES (:naam, :inhoud, :korteinhoud, :logo, :seoinhoud, :seokernwoorden);
             ');
             $query->bindValue(":naam", $data['naam']);
             $query->bindValue(":inhoud", $data['inhoud']);
+            $query->bindValue(":korteinhoud", $data['korteinhoud']);
             $query->bindValue(":logo", $newfilename);
             $query->bindValue(":seokernwoorden", $data['seokernwoorden']);
             $query->bindValue(":seoinhoud", $data['seoinhoud']);
@@ -115,11 +116,12 @@ class leverancier {
 
                 $query = $this->_db->prepare('
                 UPDATE `leveranciers` 
-                SET `naam` = :naam, `inhoud` = :inhoud, `logo` = :logo, `description` = :description, `kernwoorden` = :kernwoorden 
+                SET `naam` = :naam, `inhoud` = :inhoud, `korte_inhoud` = :korteinhoud, `logo` = :logo, `description` = :description, `kernwoorden` = :kernwoorden 
                 WHERE `lev_id` = :lev_id;
             ');
                 $query->bindValue(":naam", $data['naam']);
                 $query->bindValue(":inhoud", $data['inhoud']);
+                $query->bindValue(":korteinhoud", $data['korteinhoud']);
                 $query->bindValue(":logo", $newfilename);
                 $query->bindValue(":kernwoorden", $data['seokernwoorden']);
                 $query->bindValue(":description", $data['seoinhoud']);
@@ -133,11 +135,12 @@ class leverancier {
             } else {
                 $query = $this->_db->prepare('
                 UPDATE `leveranciers` 
-                SET `naam` = :naam, `inhoud` = :inhoud, `description` = :description, `kernwoorden` = :kernwoorden 
+                SET `naam` = :naam, `inhoud` = :inhoud, `korte_inhoud` = :korteinhoud, `description` = :description, `kernwoorden` = :kernwoorden 
                 WHERE `lev_id` = :lev_id;
             ');
                 $query->bindValue(":naam", $data['naam']);
                 $query->bindValue(":inhoud", $data['inhoud']);
+                $query->bindValue(":korteinhoud", $data['korteinhoud']);
                 $query->bindValue(":kernwoorden", $data['seokernwoorden']);
                 $query->bindValue(":description", $data['seoinhoud']);
                 $query->bindValue(":lev_id", $lev_id);

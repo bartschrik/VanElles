@@ -28,9 +28,12 @@
 
                         $val = new Validate([
                             ['naam', $_POST['naam'], 'required'],
+                            ['inhoud', $_POST['inhoud'], 'required'],
+                            ['korteinhoud', $_POST['korteinhoud'], 'required'],
                             ['foto', $_FILES['foto'], 'imgrequired|validphoto'],
+                           // ['leverancier', $_POST['Leverancier'], 'required'],
                             ['seokernwoorden', $_POST['seokernwoorden'], 'required'],
-                            ['seoinhoud', $_POST['seoinhoud'], 'required|min:2']
+                            ['seoinhoud', $_POST['seoinhoud'], 'required|min:2'],
                         ]);
 
 
@@ -55,20 +58,22 @@
 
                         echo '<form action="#" method="post" class="classicform" enctype="multipart/form-data">
                                     <div class="col-md-8">
-                                        <input type="text" name="naam" placeholder="Product naam" value="' . InputValue('naam') . '" /> 
-                                        <textarea name="inhoud" placeholder="Inhoud">' . InputValue('inhoud') . '</textarea>
-                                        <input type="file" name="foto" placeholder="foto" value="' . InputValue('foto') . '" />
+                                        <input type="text" name="naam" class="' . InputErrorClass('naam', $errors) . '" placeholder="Product naam" value="' . InputValue('naam') . '" /> 
+                                        <textarea name="inhoud" class="' . InputErrorClass('inhoud', $errors) . '" placeholder="Inhoud">' . InputValue('inhoud') . '</textarea>
+                                        <textarea name="korteinhoud" maxlength="250" style="height: 75px;" class="' . InputErrorClass('korteinhoud', $errors) . '" placeholder="Korte inhoud" >' . InputValue('korteinhoud') . '</textarea>
+                                        <input type="file" name="foto" class="' . InputErrorClass('foto', $errors) . '" placeholder="foto" value="' . InputValue('foto') . '" />
                                         <script>
                                             CKEDITOR.replace( "inhoud" );
                                         </script>    
                                         <span>Leverancier:</span>';
 
                         if( $leverancierContent == 1 ) {
-                            echo '<div class="feedback error container"><div class="row"><div class="col-xs-12"><p>Er zijn nog geen modules aangemaakt</p></div></div></div>';
+                            echo '<div class="feedback error container"><div class="row"><div class="col-xs-12"><p>Er zijn nog geen leveranciers aangemaakt</p></div></div></div>';
                         } elseif($leverancierContent == 2) {
                             echo '<div class="feedback error container"><div class="row"><div class="col-xs-12"><p>Er is een probleem met het ophalen van de gegevens</p></div></div></div>';
                         } else {
                             echo '<select name="Leverancier" id="selectleverancier">';
+                            echo '<option selected="true" disabled="disabled">Kies leverancier</option> ';
                             foreach($leverancierContent as $value) {
 
                                 if($value['lev_id'] == InputValue('leverancier')) {
@@ -116,8 +121,9 @@
                     } else {
                         echo '<form action="#" method="post" class="classicform" enctype="multipart/form-data">
                                     <div class="col-md-8">
-                                        <input type="text" name="naam" placeholder="Product naam" value="' . InputValue('naam') . '" /> 
+                                        <input type="text" name="naam"  placeholder="Product naam" value="' . InputValue('naam') . '" /> 
                                         <textarea name="inhoud" placeholder="Inhoud">' . InputValue('inhoud') . '</textarea>
+                                        <textarea name="korteinhoud" maxlength="250" style="height: 75px;"  placeholder="Korte inhoud" >' . InputValue('korteinhoud') . '</textarea>
                                         <input type="file" name="foto" placeholder="foto" value="' . InputValue('foto') . '" />
                                         <script>
                                             CKEDITOR.replace( "inhoud" );
@@ -125,11 +131,12 @@
                                         <span>Leverancier:</span>';
 
                         if( $leverancierContent == 1 ) {
-                            echo '<div class="feedback error container"><div class="row"><div class="col-xs-12"><p>Er zijn nog geen modules aangemaakt</p></div></div></div>';
+                            echo '<div class="feedback error container"><div class="row"><div class="col-xs-12"><p>Er zijn nog geen leveranciers aangemaakt</p></div></div></div>';
                         } elseif($leverancierContent == 2) {
                             echo '<div class="feedback error container"><div class="row"><div class="col-xs-12"><p>Er is een probleem met het ophalen van de gegevens</p></div></div></div>';
                         } else {
                             echo '<select name="Leverancier" id="selectleverancier">';
+                            echo '<option selected="true" disabled="disabled">Kies leverancier</option> ';
                             foreach($leverancierContent as $value) {
 
                                 if($value['lev_id'] == InputValue('leverancier')) {

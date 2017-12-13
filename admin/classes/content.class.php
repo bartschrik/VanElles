@@ -57,11 +57,34 @@ class Content
         }
     }
 
-    public function getNieuwactiv()
+    public function getNieuwActiv()
     {
         try {
             $query = $this->_db->prepare('
-                   SELECT * FROM blog WHERE activiteit = 1 ORDER BY datum DESC
+                   SELECT * FROM blog WHERE activiteit = 1 ORDER BY blog_id DESC
+                ');
+
+            if ($query->execute()) {
+                if ($query->rowCount() > 0) {
+                    return $content = $query->fetchAll()[0];
+                } else {
+                    return false;
+                }
+            } else {
+                echo $query->errorInfo();
+                return false;
+            }
+        } catch (PDOexception $e) {
+            echo $e->getMessage();
+            return false;
+        }
+    }
+
+    public function getNieuwBlog()
+    {
+        try {
+            $query = $this->_db->prepare('
+                   SELECT * FROM blog WHERE activiteit = 0 ORDER BY blog_id DESC
                 ');
 
             if ($query->execute()) {

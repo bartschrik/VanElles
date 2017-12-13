@@ -268,6 +268,12 @@ input[type = "checkbox"] {width: auto;}
     .barss {display: none;}
     .navbar-nav {display: block!important;}
 }
+/*Edited by Michael*/
+#blogfoutm {
+    text-align: center;
+}
 
-
-
+#nrsel {
+    width: 60px;
+}
+/*Edited by Michael*/

@@ -22,10 +22,6 @@
                 <?php echo $pageContent['inhoud']; ?>
             </section>
             <aside class="col-md-4 col-sm-5 col-xs-12 marbot">
-                <div class="ptitle">
-                    <h1>Volgende activiteit</h1>
-                    <h2>Workshop</h2>
-                </div>
                 <?php require_once 'includes/activiteit.php'; ?>
             </aside>
         </div>

@@ -9,9 +9,7 @@
             grecaptcha.render('RecaptchaField2', {'sitekey' : '6LevEzsUAAAAACTTY0PQXdlxvv1lXY4QkFLnU7-1'});
         };
     </script>
-
-
-
+    
 <?php
 
     if(isset($_POST['verstuurcontact'])) {
@@ -31,12 +29,14 @@
 
 
             if (isset($_POST["verstuurcontact"])) {
-                if (empty($_POST["naamcontact"]) || empty($_POST["telefoonnummercontact"]) || empty($_POST["emailcontact"]) || empty($_POST["berichtcontact"])) {
+                if (empty($_POST["naamcontact"]) || empty($_POST["achtercontact"]) || empty($_POST["telefoonnummercontact"]) || empty($_POST["emailcontact"]) || empty($_POST["berichtcontact"])) {
                     echo "<script>alert('vul a.u.b alle velden in.');</script>";
 
                 } else {
                     try {
                         $naamincontact = $_POST["naamcontact"];
+                        $tussencontact = $_POST["tussencontact"];
+                        $achtercontact = $_POST["achtercontact"];
                         $emailincontact = $_POST["emailcontact"];
                         $telefooncontact = $_POST["telefoonnummercontact"];
                         $berichtcontact = $_POST["berichtcontact"];
@@ -49,13 +49,19 @@
 
                         if($last_id) {
                             //Zoja: update user info van bestaade user
-                            $query = $db->prepare("UPDATE user SET phonenumber = :phonenumber WHERE user_id = :userid");
+                            $query = $db->prepare("UPDATE user SET first_name = :first_name , insertion = :insertion , last_name = :last_name phonenumber = :phonenumber WHERE user_id = :userid");
+                            $query->bindValue(":first_name", $naamincontact);
+                            $query->bindValue(":insertion", $tussencontact);
+                            $query->bindValue(":last_name", $achtercontact);
                             $query->bindValue(":phonenumber", $telefooncontact);
                             $query->bindValue(":userid", $last_id);
                             $query->execute();
                         } else {
                             //insert nieuw user en insert contact
-                            $query = $db->prepare("INSERT INTO user (email, phonenumber) VALUES (:email, :phonenumber)");
+                            $query = $db->prepare("INSERT INTO user (first_name , insertion , last_name , email , phonenumber) VALUES (:first_name , :insertion , :last_name , :email , :phonenumber)");
+                            $query->bindValue(":first_name", $naamincontact);
+                            $query->bindValue(":insertion", $tussencontact);
+                            $query->bindValue(":last_name", $achtercontact);
                             $query->bindValue(":email", $emailincontact);
                             $query->bindValue(":phonenumber", $telefooncontact);
                             $query->execute();
@@ -141,7 +147,13 @@
                 </div>
                 <form method="post" action="">
                     <div class="form-group">
-                        <input class="form-control" type="text" name="naamcontact" placeholder="Naam" >
+                        <input class="form-control" type="text" name="naamcontact" placeholder="Voornaam" >
+                    </div>
+                    <div class="form-group">
+                        <input class="form-control" type="text" name="tussencontact" placeholder="tussenvoegsel" >
+                    </div>
+                    <div class="form-group">
+                        <input class="form-control" type="text" name="achtercontact" placeholder="Achternaam" >
                     </div>
                     <div class="form-group">
                         <input class="form-control" type="tel" name="telefoonnummercontact" placeholder="Telefoonnummer" >
@@ -165,14 +177,9 @@
     </div>
 
 
-
-
-
-
     <iframe width="100%" height="450" frameborder="0" style="border:0"
             src="https://www.google.com/maps/embed/v1/place?q=place_id:ChIJ5V02qP_2x0cRW1sToOEGWTw&key=AIzaSyApMHLgYCLkBT1N0ww0-52xlCQRG-eg7Rw"
             allowfullscreen>
-
     </iframe>
 
 </div>

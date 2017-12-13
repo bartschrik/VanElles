@@ -77,7 +77,7 @@
                                         echo '<div class="feedback error container"><div class="row"><div class="col-xs-12"><p>Er is een probleem met het ophalen van de gegevens</p></div></div></div>';
                                     } else {
                                         echo '<select name="Leverancier" id="selectleverancier">';
-                                        echo '<option selected="true" disabled="disabled">Kies leverancier</option> ';
+                                        echo '<option value="0" selected="true" disabled="disabled">Kies leverancier</option> ';
                                         foreach($leverancierContent as $value) {
 
                                             if($value['lev_id'] == InputValue('leverancier')) {
@@ -146,7 +146,7 @@
                                         echo '<div class="feedback error container"><div class="row"><div class="col-xs-12"><p>Er is een probleem met het ophalen van de gegevens</p></div></div></div>';
                                     } else {
                                         echo '<select name="Leverancier" id="selectleverancier">';
-                                        echo '<option selected="true" disabled="disabled">Kies leverancier</option> ';
+                                        echo '<option value="0" selected="true" disabled="disabled">Kies leverancier</option> ';
                                         foreach($leverancierContent as $value) {
 
                                             if($value['lev_id'] == InputValue('leverancier')) {

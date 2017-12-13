@@ -73,7 +73,10 @@ class Validate {
 
     public function email($value)
     {
-        return !filter_var($value, FILTER_VALIDATE_EMAIL);
+        if($value) {
+            return !filter_var($value, FILTER_VALIDATE_EMAIL);
+        }
+        return false;
     }
 
     public function required($value)

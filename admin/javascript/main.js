@@ -5,13 +5,18 @@ $(document).ready(function() {
     });
 
     var test = function () {
-        if ($('#selectmodule').val() == 7) {
-            $('#studentlink').slideDown();
+        if ($('#selectrole').val() != 2) {
+            $('#accountInfo').slideDown();
+            console.log($('#oldww').val());
+            if($('#oldww').val() == "ja") {
+                $('#gbn').prop('readonly', true);
+            }
         } else {
-            $('#studentlink').slideUp();
+            $('#accountInfo').slideUp();
+            $('#gbnww').val('');
         }
     };
 
     test();
-    $('#selectmodule').change(test);
+    $('#selectrole').change(test);
 });

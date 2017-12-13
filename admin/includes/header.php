@@ -25,7 +25,7 @@ error_reporting(-1);
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
     <link rel="stylesheet" type="text/css" href="css/main.css" />
     <script src="//cdn.ckeditor.com/4.5.6/standard/ckeditor.js"></script>
-    <script src="js/main.js"></script>
+    <script src="javascript/main.js"></script>
 </head>
 <body>
 <header>

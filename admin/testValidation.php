@@ -26,6 +26,6 @@ if(isset($_POST['submit'])) {
 ?>
 
 <form action="#" method="post" enctype="multipart/form-data">
-    <input type="file" name="foto">
+    <input type="file" name="foto" value="<?php echo $_POST['foto']; ?>">
     <input type="submit" name="submit">
 </form>

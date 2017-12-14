@@ -1,4 +1,8 @@
 <?php include_once 'includes/header.php' ?>
+
+<?php if($pageId) { ?>
+    detail
+<?php } else { ?>
     <div class="container">
         <div class="row">
             <div class="martop marbot">
@@ -45,5 +49,10 @@
             </div>
         </div>
     </div>
+
+<?php } ?>
+
+
+
 
 <?php include_once 'includes/footer.php' ?>

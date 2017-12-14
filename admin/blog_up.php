@@ -71,7 +71,10 @@
                                             <option value="0">Nee</option>
                                             <option value="1">Ja</option>
                                         </select>
-                                        Max. deelnemers: <input id="nrsel" type="number" min="0" name="maxdeeln" value="0" value="' . InputValue('maxdeeln') . '" /> 
+                                        Max. deelnemers: <input id="nrsel" type="number" min="0" name="maxdeeln" value="0" value="' . InputValue('maxdeeln') . '" />
+                                        <div class="form-group">
+                                         <label for="actdatum">Activiteit Datum</label>
+                                        </div>
                                     </div>
                                     <div class="col-md-4">
                                         <h4>SEO-Informatie</h4>
@@ -96,7 +99,6 @@
                                         </div>
                                     </div>
                                 </form>';
-
                         /*ELSE*/
                     } else {
                         echo '<form action="#" method="post" class="classicform" enctype="multipart/form-data">
@@ -119,6 +121,10 @@
                                             <option value="1">Ja</option>
                                         </select>    
                                         Max. deelnemers: <input id="nrsel" type="number" min="0" name="maxdeeln" value="0" value="' . InputValue('maxdeeln') . '" /> 
+                                    <div class="form-group">
+                                         <label for="actdatum">Activiteit Datum</label>
+                                         <input id="datetime">
+                                        </div>
                                     </div>    
                                     <div class="col-md-4">
                                         <h4>SEO-Informatie</h4>

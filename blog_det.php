@@ -54,19 +54,16 @@ $pid = $_GET['pid'];
         $maxinschrijf = $row["inschrijving_aantal"];
         $deeln = $blog->getDeelnemers($id);
 
-    echo'<div class="col-xs-12 marbot"><div class="card">
-
-    <a href="#" style="background-image: url(' . constant("local_url") . "$dir/$img_name" . ');" class="card-img"></a>
-
-    <div class="card-body">
-
-    <a href="#"><h4 class="card-title">' . $title . '</h4></a>
-
-    <p class="card-text">' . $subtitel . '</p>
-
-    <p class="card-text">' . $inhoud . '</p>
-
-    </div></div></div>';
+    echo'<div class="col-md-8 col-sm-6 col-xs-12">
+                    <div class="ptitle">
+                        <h2 id="webtitle">'. $title .'</h2>
+                        <h5 id="webtitle">'. $subtitel .'</h5>
+                        </div>
+                        <p>'. $inhoud .'</p>
+                    </div>
+                    <div class="col-md-4 col-sm-6 col-xs-12 marbot">
+                        <img src="'.constant("local_url").'admin/images/blog/'.$img_name.'" class="img-responsive">
+                    </div>';
 ?>
         </div>
     </div>

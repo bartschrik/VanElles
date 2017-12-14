@@ -39,6 +39,7 @@
                 $img_name = $row['img_name'];
                 $title = $row['title'];
                 $subtitel = $row["subtitle"];
+                $datum = $row["datum"];
 
                 print("<div class='col-xs-12 col-sm-6 marbot'><div class='card'>");
 
@@ -50,7 +51,9 @@
 
                 print("<p class=\"card-text\">" . $subtitel . "</p>");
 
-                print"<a href='blog/$id' title='Details'>Details</a>";
+                print("<p class=\"card-text\">" . $datum . "</p>");
+
+                print"<a href='blog_det.php?pid=$id' title='Details'>Lees meer</a>";
 
                 print("</div></div></div>");
             }
@@ -76,7 +79,9 @@
 
                 print("<p class=\"card-text\">" . $subtitel . "</p>");
 
-                print"<a href='blog/$id' title='Details'>Lees meer</a>";
+                print("<p class=\"card-text\">" . $datum . "</p>");
+
+                print"<a href='blog_det.php?pid=$id' title='Details'>Lees meer</a>";
 
                 print("</div></div></div>");
             }

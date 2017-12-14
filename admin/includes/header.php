@@ -26,8 +26,8 @@ error_reporting(-1);
     <link rel="stylesheet" type="text/css" href="css/main.css" />
     <script src="//cdn.ckeditor.com/4.5.6/standard/ckeditor.js"></script>
     <script src="javascript/main.js"></script>
-
-    <link rel="stylesheet" type="text/css" href="../datetimepicker/build/jquery.datetimepicker.min.css" />
+    <!--Datetime picker-->
+    <link rel="stylesheet" type="text/css" href="../css/jquery.datetimepicker.min.css" />
 </head>
 <body>
 <header>

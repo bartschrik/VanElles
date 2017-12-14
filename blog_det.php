@@ -44,6 +44,7 @@ $pid = $_GET['pid'];
 
         $row = $query1->fetch(PDO::FETCH_ASSOC);
         $id = $row['blog_id'];
+        $datum = $row['datum'];
         $img_name = $row['img_name'];
         $title = $row['title'];
         $subtitel = $row["subtitle"];
@@ -57,6 +58,7 @@ $pid = $_GET['pid'];
     echo'<div class="col-md-8 col-sm-6 col-xs-12">
                     <div class="ptitle">
                         <h2 id="webtitle">'. $title .'</h2>
+                        <p>'. $datum .'</p>
                         <h5 id="webtitle">'. $subtitel .'</h5>
                         </div>
                         <p>'. $inhoud .'</p>

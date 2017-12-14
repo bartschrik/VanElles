@@ -86,13 +86,14 @@ class blog
 
                 if (in_array(end($temp), $allow)) {
                     if (move_uploaded_file($img['tmp_name'], $todir . $newfilename)) {
-
                     }
                 } else {
                     echo "De extentie is niet toegestaan, toegestaan is: (.jpg/.jpeg/.png/.gif.)<br />";
                     header("refresh:2;url=blog_up.php");
                     exit;
                 }
+            } else {
+                echo"Selecteer een afbeelding a.u.b";
             }
 
             $query = $this->_db->prepare('

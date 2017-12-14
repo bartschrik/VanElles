@@ -56,6 +56,10 @@
                                         <input type="text" name="titel" placeholder="Blog titel" value="' . InputValue('titel') . '" />
                                         <input type="text" name="subtitel" placeholder="Blog sub titel" value="' . InputValue('subtitel') . '" />  
                                         <textarea name="inhoud" placeholder="Inhoud">' . InputValue('inhoud') . '</textarea>
+                                        <div class="form-group">
+                                         <label for="actdatum">Activiteit Datum</label>
+                                         <input id="datetime">
+                                        </div>
                                         <input type="file" name="plaatje" placeholder="Plaatje" value="' . InputValue('plaatje') . '" />
                                         <script>
                                             CKEDITOR.replace( "inhoud" );
@@ -71,10 +75,8 @@
                                             <option value="0">Nee</option>
                                             <option value="1">Ja</option>
                                         </select>
-                                        Max. deelnemers: <input id="nrsel" type="number" min="0" name="maxdeeln" value="0" value="' . InputValue('maxdeeln') . '" />
-                                        <div class="form-group">
-                                         <label for="actdatum">Activiteit Datum</label>
-                                        </div>
+                                        <span>Max. deelnemers</span> 
+                                        <input id="nrsel" type="number" min="0" name="maxdeeln" value="0" value="' . InputValue('maxdeeln') . '" />
                                     </div>
                                     <div class="col-md-4">
                                         <h4>SEO-Informatie</h4>
@@ -106,6 +108,10 @@
                                         <input type="text" name="titel" placeholder="Blog titel" value="' . InputValue('titel') . '" />
                                         <input type="text" name="subtitel" placeholder="Blog sub titel" value="' . InputValue('subtitel') . '" />  
                                         <textarea name="inhoud" placeholder="Inhoud">' . InputValue('inhoud') . '</textarea>
+                                        <div class="form-group">
+                                         <label for="actdatum">Activiteit Datum</label>
+                                         <input id="datetime">
+                                        </div>
                                         <input type="file" name="plaatje" placeholder="Plaatje" value="' . InputValue('plaatje') . '" />
                                         <script>
                                             CKEDITOR.replace( "inhoud" );
@@ -121,10 +127,6 @@
                                             <option value="1">Ja</option>
                                         </select>    
                                         Max. deelnemers: <input id="nrsel" type="number" min="0" name="maxdeeln" value="0" value="' . InputValue('maxdeeln') . '" /> 
-                                    <div class="form-group">
-                                         <label for="actdatum">Activiteit Datum</label>
-                                         <input id="datetime">
-                                        </div>
                                     </div>    
                                     <div class="col-md-4">
                                         <h4>SEO-Informatie</h4>
@@ -157,4 +159,11 @@
     </div>
 </div>
 </body>
+<script src="../js/jquery-3.2.1.js" type="text/javascript"></script>
+<script src="../js/jquery.datetimepicker.full.js" type="text/javascript"></script>
+<script>
+    $("#datetime").datetimepicker({
+        step: 30
+    });
+</script>
 </html>

@@ -29,6 +29,7 @@
                             ['titel', $_POST['titel'], 'required'],
                             ['subtitel', $_POST['subtitel'], 'required'],
                             ['inhoud', $_POST['inhoud'], 'required'],
+                            ['maxdeeln', $_POST['maxdeeln'], 'required|min:1'],
                             ['seokernwoorden', $_POST['seokernwoorden'], 'required'],
                             ['seobeschrijving', $_POST['seobeschrijving'], 'required|min:2']
                         ]);
@@ -64,13 +65,14 @@
                                             <option value="0">Nee</option>
                                             <option value="1">Ja</option>
                                         </select>
+                                        
                                         <span>Inschrijven:</span>
                                         <select name="inschrijven" id="selectmodule">
                                             <option value="0">Nee</option>
                                             <option value="1">Ja</option>
-                                        </select>   
+                                        </select>
+                                        Max. deelnemers: <input id="nrsel" type="number" min="0" name="maxdeeln" value="0" value="' . InputValue('maxdeeln') . '" /> 
                                     </div>
-                                    
                                     <div class="col-md-4">
                                         <h4>SEO-Informatie</h4>
                                         <input type="text" name="seokernwoorden" class="' . InputErrorClass('seokernwoorden', $errors) . '" placeholder="Kernwoorden, bijv: vanelles, woonwinkel ect." value="' . InputValue('seokernwoorden') . '" />
@@ -90,7 +92,7 @@
                                     <div class="row">
                                         <div class="col-xs-12">
                                             <button type="submit" name="saveblog" class="save">Opslaan</button>
-                                            <a href="../module/blog.php" title="Annuleren" class="annuleer">Annuleren</a>
+                                            <a href="../blog" title="Annuleren" class="annuleer">Annuleren</a>
                                         </div>
                                     </div>
                                 </form>';
@@ -116,8 +118,8 @@
                                             <option value="0">Nee</option>
                                             <option value="1">Ja</option>
                                         </select>    
-                                    </div>
-                                    
+                                        Max. deelnemers: <input id="nrsel" type="number" min="0" name="maxdeeln" value="0" value="' . InputValue('maxdeeln') . '" /> 
+                                    </div>    
                                     <div class="col-md-4">
                                         <h4>SEO-Informatie</h4>
                                         <input type="text" name="seokernwoorden" placeholder="Kernwoorden, bijv: vanelles, woonwinkel ect." value="' . InputValue('seokernwoorden') . '" />
@@ -137,7 +139,7 @@
                                     <div class="row">
                                         <div class="col-xs-12">
                                             <button type="submit" name="saveblog" class="save">Opslaan</button>
-                                            <a href="../module/blog.php" title="Annuleren" class="annuleer">Annuleren</a>
+                                            <a href="../blog" title="Annuleren" class="annuleer">Annuleren</a>
                                         </div>
                                     </div>
                                 </form>';

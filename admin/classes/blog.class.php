@@ -36,7 +36,26 @@ class blog
         try {
             $query = $this->_db->prepare('
                 DELETE FROM blog
-                WHERE blog_id = :id
+                WHERE blog_id = :id;
+            ');
+            $query->bindValue(":id", $blog_id);
+            if ($query->execute()) {
+                return true;
+            } else {
+                return false;
+            }
+        } catch (PDOException $e) {
+            //echo $e->getMessage();
+            return false;
+        }
+    }
+
+    public function deleteIns($blog_id)
+    {
+        try {
+            $query = $this->_db->prepare('
+                DELETE FROM inschrijvingen
+                WHERE blog_id = :id;
             ');
             $query->bindValue(":id", $blog_id);
             if ($query->execute()) {
@@ -77,8 +96,8 @@ class blog
             }
 
             $query = $this->_db->prepare('
-                INSERT INTO `blog` (`user_id` ,`title`, `subtitle`, `inhoud`, `beschrijving`, `kernwoorden`, `img_name`, `activiteit`, `inschrijving`) 
-                VALUES (:user_id, :title, :subtitle, :inhoud, :beschrijving, :kernwoorden, :img_name, :activiteit, :inschrijving);
+                INSERT INTO `blog` (`user_id` ,`title`, `subtitle`, `inhoud`, `beschrijving`, `kernwoorden`, `img_name`, `activiteit`, `inschrijving`, `inschrijving_aantal`) 
+                VALUES (:user_id, :title, :subtitle, :inhoud, :beschrijving, :kernwoorden, :img_name, :activiteit, :inschrijving, :maxdeeln);
             ');
 
             $query->bindValue(":user_id", $userid);
@@ -90,6 +109,7 @@ class blog
             $query->bindValue(":img_name", $newfilename);
             $query->bindValue(":activiteit", $data['activiteit']);
             $query->bindValue(":inschrijving", $data['inschrijven']);
+            $query->bindValue(":maxdeeln", $data['inschrijving_aantal']);
 
             if ($query->execute()) {
                 return true;

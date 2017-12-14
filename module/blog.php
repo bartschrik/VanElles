@@ -76,7 +76,7 @@
 
                 print("<p class=\"card-text\">" . $subtitel . "</p>");
 
-                print"<a href='blog/$id' title='Details'>Details</a>";
+                print"<a href='blog/$id' title='Details'>Lees meer</a>";
 
                 print("</div></div></div>");
             }

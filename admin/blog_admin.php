@@ -6,6 +6,7 @@
     $blog = new blog();
 
     if(isset($_GET['verid'])) {
+        $verins = $blog->deleteIns($_GET['verid']);
         $verblog = $blog->deleteBlog($_GET['verid']);
         if ($verblog) {
             $msg = '<div class="feedback success"><p>Blog succesvol verwijderd</p></div>';

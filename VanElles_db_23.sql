@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Gegenereerd op: 14 dec 2017 om 10:40
+-- Gegenereerd op: 14 dec 2017 om 14:39
 -- Serverversie: 10.1.26-MariaDB
 -- PHP-versie: 7.1.8
 
@@ -152,7 +152,7 @@ CREATE TABLE `inschrijvingen` (
 CREATE TABLE `leveranciers` (
   `lev_id` int(11) NOT NULL,
   `naam` varchar(45) DEFAULT NULL,
-  `inhoud` varchar(45) DEFAULT NULL,
+  `inhoud` mediumtext,
   `korte_inhoud` varchar(250) NOT NULL,
   `logo` varchar(45) DEFAULT NULL,
   `description` varchar(2000) DEFAULT NULL,
@@ -166,6 +166,34 @@ CREATE TABLE `leveranciers` (
 INSERT INTO `leveranciers` (`lev_id`, `naam`, `inhoud`, `korte_inhoud`, `logo`, `description`, `kernwoorden`) VALUES
 (3, 'HKLIVING', '<p>is een Nederlands merk, opgericht in 2009.', '', 'd9867d3843917868b616329228a2aab015e8eafb.jpg', 'HKLIVING', 'HKLIVING'),
 (4, 'HOUSE DOCTOR', '<p>In 1999 begonnen de zusters Rikke Juhl Jen', '', '6f258f4a10d16d3e07c53a0e5ac30f5fa51b5101.jpg', 'In 1999 begonnen de zusters Rikke Juhl Jensen', 'House, Doctor, House doctor');
+
+-- --------------------------------------------------------
+
+--
+-- Tabelstructuur voor tabel `media`
+--
+
+CREATE TABLE `media` (
+  `id` int(11) NOT NULL,
+  `file_name` varchar(250) NOT NULL,
+  `file_type` varchar(20) NOT NULL,
+  `file_size` varchar(100) NOT NULL,
+  `file_dimensions` varchar(100) NOT NULL,
+  `file_url` varchar(1000) NOT NULL,
+  `title` varchar(250) DEFAULT NULL,
+  `alt_text` tinytext,
+  `upload_date` datetime DEFAULT CURRENT_TIMESTAMP,
+  `upload_by` int(20) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Gegevens worden geëxporteerd voor tabel `media`
+--
+
+INSERT INTO `media` (`id`, `file_name`, `file_type`, `file_size`, `file_dimensions`, `file_url`, `title`, `alt_text`, `upload_date`, `upload_by`) VALUES
+(1, '1004775_673373039355572_884445800_n1.jpg', 'image/jpeg', '24514', '470x206', '632d8a11f65840d31edddacd5ab9f1d6f58ba7fd.jpg', '1004775_673373039355572_884445800_n1', NULL, '2017-12-14 13:31:12', 1),
+(2, 'HKliving-BLUERGB1.jpg', 'image/jpeg', '34477', '800x800', '897c35ac15089c59bb79c40a05371e73147114ba.jpg', 'HKliving-BLUERGB1', NULL, '2017-12-14 13:31:12', 1),
+(3, 'vt01-BK-Sukha-1.png', 'image/png', '1298796', '1293x802', '29482c42209d331b31cfc49bf71f727c4e201279.png', 'vt01-BK-Sukha-1', NULL, '2017-12-14 13:42:37', 1);
 
 -- --------------------------------------------------------
 
@@ -199,7 +227,7 @@ INSERT INTO `page` (`id`, `pagetitle`, `title`, `subtitle`, `inhoud`, `descripti
 (2, 'Blog', 'First inserted page bewerkt', 'een subtitel', '<p>fdsa<strong>fdsaf a&nbsp;<s>&nbsp;fdsaf dsaf</s></strong></p>\r\n\r\n<p>&nbsp;</p>\r\n\r\n<h2 style=\"font-style:italic\">fdadfsaf</h2>\r\n', 'Dit is een korte beschrijving van de website voor het seo van google', 'kernwoord1, kernwoord2, panelles', 1, '2017-12-12 13:56:21', NULL, 4, 1, 'Blog', 3),
 (4, 'Contact', 'Contact', 'Stel al uw vragen', '<h1>&nbsp;</h1>\r\n\r\n<p>&nbsp;</p>\r\n', 'fdsafdasfdsa', 'dfasfsaf', 1, '2017-12-12 13:56:13', NULL, 3, 1, 'Contact', 100),
 (12, 'LEUK-ER', 'LEUK-ER', 'Conceptstore', '<p>Al voordat Van Elles in september 2015 haar winkel opende was er een enorme drang om een podium geven aan starters. Mensen die hun eigen mooie producten ontwerpen, maken en online verkopen. Hoe mooi zou het zijn om ook deze groep mensen de mogelijkheid te geven hun producten in een fysieke winkel te verkopen? En Elles weet als geen ander dat de kosten hoog zijn en de risico&rsquo;s groot. Hoe mooi zou het zijn om voor deze mensen wat te betekenen?</p>\r\n\r\n<p>Omdat het runnen van een eigen winkel al de nodige uren met zich meebrengt zocht Elles een samenwerking op en die vond ze.</p>\r\n\r\n<p>Samen met Rianne Wessels-Crans start ze daarom vanaf juni Leuk-ER bij Van Elles.</p>\r\n\r\n<p>Bij Van Elles en bij Leuk-ER valt er altijd wat te beleven. Een nieuwe winkel, een nieuwe ervaring. Het gaat in eerste instantie vooral om beleven, een plek waar mooie spullen en mooie mensen samen komen en er net zo van genieten als wij. Een plek waar je alle tijd hebt om je keuzes te maken, voor jezelf of voor een ander. Laat je verrassen en inspireren. En vooral GENIET!</p>\r\n\r\n<p>Wil jij je&nbsp;<a href=\"#\" target=\"_blank\">aanmelden</a>?</p>\r\n\r\n<p>Nieuwsgierig naar de deelnemers?</p>\r\n\r\n<p>&nbsp;</p>\r\n', 'LEUK-ER is een conceptstore', 'LEUK-ER, Conceptstore, vanelles, van, Elles', 1, '2017-12-12 13:56:25', NULL, 2, 1, 'LEUK-ER', 2),
-(13, 'Leverancier', 'Leverancier', '', '', 'Leverancier', 'Leverancier', 1, '2017-12-08 12:32:31', NULL, 5, 1, 'Leverancier', 99),
+(13, 'Leveranciers', 'Leveranciers', '', '', 'Leverancier', 'Leverancier', 1, '2017-12-14 14:38:42', NULL, 5, 1, 'Leveranciers', 99),
 (14, 'Producten', 'Producten', '', '', 'Producten', 'Producten', 1, '2017-12-08 12:36:10', NULL, 6, 1, 'Producten', 99);
 
 -- --------------------------------------------------------
@@ -367,6 +395,12 @@ ALTER TABLE `leveranciers`
   ADD PRIMARY KEY (`lev_id`);
 
 --
+-- Indexen voor tabel `media`
+--
+ALTER TABLE `media`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Indexen voor tabel `page`
 --
 ALTER TABLE `page`
@@ -436,6 +470,11 @@ ALTER TABLE `inschrijvingen`
 --
 ALTER TABLE `leveranciers`
   MODIFY `lev_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+--
+-- AUTO_INCREMENT voor een tabel `media`
+--
+ALTER TABLE `media`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 --
 -- AUTO_INCREMENT voor een tabel `page`
 --

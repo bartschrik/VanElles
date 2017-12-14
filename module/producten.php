@@ -1,4 +1,8 @@
 <?php include_once 'includes/header.php' ?>
+
+<?php if($pageId) { ?>
+    detail
+<?php } else { ?>
     <div class="container">
         <div class="row">
             <div class="martop marbot">
@@ -18,6 +22,7 @@
 
                 while ($row = $stmt->fetch())
                 {
+                    $id = $row["product_id"];
                     $productnaam = $row["naam"];
                     $inhoud = $row["korte_inhoud"];
                     $foto = $row["images"];
@@ -35,7 +40,7 @@
 
                     print(" <p class=\"card-text\">" . $inhoud . "</p>");
 
-                    print("  <div class=\"a-right\"><a href=\"$url\" target='_blank' class=\"btn btn-primary\">Lees meer</a></div>");
+                    print("  <div class=\"a-right\"><a href=\"Producten/$id\" target='_blank' class=\"btn btn-primary\">Lees meer</a></div>");
 
                     print("</div></div></div>");
 
@@ -44,5 +49,10 @@
             </div>
         </div>
     </div>
+
+<?php } ?>
+
+
+
 
 <?php include_once 'includes/footer.php' ?>

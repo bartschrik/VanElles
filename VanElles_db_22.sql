@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Gegenereerd op: 13 dec 2017 om 09:52
+-- Gegenereerd op: 14 dec 2017 om 10:40
 -- Serverversie: 10.1.26-MariaDB
 -- PHP-versie: 7.1.8
 
@@ -97,7 +97,7 @@ CREATE TABLE `blog` (
   `title` varchar(45) NOT NULL,
   `subtitle` varchar(45) NOT NULL,
   `inhoud` mediumtext NOT NULL,
-  `datum` timestamp(6) NOT NULL DEFAULT CURRENT_TIMESTAMP(6) ON UPDATE CURRENT_TIMESTAMP(6),
+  `datum` datetime DEFAULT NULL,
   `beschrijving` varchar(2000) NOT NULL,
   `kernwoorden` varchar(150) NOT NULL,
   `img_name` varchar(45) NOT NULL,
@@ -195,7 +195,7 @@ CREATE TABLE `page` (
 --
 
 INSERT INTO `page` (`id`, `pagetitle`, `title`, `subtitle`, `inhoud`, `description`, `kernwoorden`, `active`, `datum`, `image`, `Module_id`, `user_id`, `url`, `page_order`) VALUES
-(1, 'Home', 'Over de winkel', 'En leuk-ER conceptstore', '<p>Vind jij het ook leuk om naast je webshop een fysiek verkooppunt te hebben, maar is een pand huren voor jou te duur? Ontwerp, maak en cre&euml;er jij de allerleukste dingen, maar heb je net niet dat stukje ondernemerschap in je om het aan de man te brengen?</p>\r\n\r\n<p>Word jij ook vrolijk van dat wat je maakt en wil je eigenlijk wel graag dat het in de winkel ligt?<br />\r\nOf ben jij die leverancier die nog een gaaf verkooppunt zoekt in het Oosten van het land?<br />\r\nDan zijn wij op zoek naar jou! Voor informatie kun je ons een berichtje sturen op hallo@leuk-ER.nl, verzeker je van een plekje in de winkel op een mooie locatie in het centrum van Rijssen en binnenkort zijn jouw spullen te zien en te koop bij&nbsp;Leuk-ER bij Van Elles.</p>\r\n\r\n<p>Tot snel!</p>\r\n\r\n<p>Hartelijke groet,<br />\r\nElles Ligtenberg en Rianne Wessels-Crans</p>\r\n', 'balabl', 'bla, bla, dofs', 1, '2017-12-07 09:52:14', 'image', 1, 1, 'Home', 1),
+(1, 'Home', 'Over de winkel', 'En leuk-ER conceptstore', '<p>Vind jij het ook leuk om naast je webshop een fysiek verkooppunt te hebben, maar is een pand huren voor jou te duur? Ontwerp, maak en cre&euml;er jij de allerleukste dingen, maar heb je net niet dat stukje ondernemerschap in je om het aan de man te brengen?</p>\r\n\r\n<p>Word jij ook vrolijk van dat wat je maakt en wil je eigenlijk wel graag dat het in de winkel ligt?<br />\r\nOf ben jij die leverancier die nog een gaaf verkooppunt zoekt in het Oosten van het land?<br />\r\nDan zijn wij op zoek naar jou! Voor informatie kun je ons een berichtje sturen op hallo@leuk-ER.nl, verzeker je van een plekje in de winkel op een mooie locatie in het centrum van Rijssen en binnenkort zijn jouw spullen te zien en te koop bij&nbsp;Leuk-ER bij Van Elles.</p>\r\n\r\n<p>Tot snel!</p>\r\n\r\n<p>Hartelijke groet,<br />\r\nElles Ligtenberg en Rianne Wessels-Crans</p>\r\n', 'balabl', 'bla, bla, dofs', 1, '2017-12-13 19:16:49', 'image', 1, 1, 'Home', 1),
 (2, 'Blog', 'First inserted page bewerkt', 'een subtitel', '<p>fdsa<strong>fdsaf a&nbsp;<s>&nbsp;fdsaf dsaf</s></strong></p>\r\n\r\n<p>&nbsp;</p>\r\n\r\n<h2 style=\"font-style:italic\">fdadfsaf</h2>\r\n', 'Dit is een korte beschrijving van de website voor het seo van google', 'kernwoord1, kernwoord2, panelles', 1, '2017-12-12 13:56:21', NULL, 4, 1, 'Blog', 3),
 (4, 'Contact', 'Contact', 'Stel al uw vragen', '<h1>&nbsp;</h1>\r\n\r\n<p>&nbsp;</p>\r\n', 'fdsafdasfdsa', 'dfasfsaf', 1, '2017-12-12 13:56:13', NULL, 3, 1, 'Contact', 100),
 (12, 'LEUK-ER', 'LEUK-ER', 'Conceptstore', '<p>Al voordat Van Elles in september 2015 haar winkel opende was er een enorme drang om een podium geven aan starters. Mensen die hun eigen mooie producten ontwerpen, maken en online verkopen. Hoe mooi zou het zijn om ook deze groep mensen de mogelijkheid te geven hun producten in een fysieke winkel te verkopen? En Elles weet als geen ander dat de kosten hoog zijn en de risico&rsquo;s groot. Hoe mooi zou het zijn om voor deze mensen wat te betekenen?</p>\r\n\r\n<p>Omdat het runnen van een eigen winkel al de nodige uren met zich meebrengt zocht Elles een samenwerking op en die vond ze.</p>\r\n\r\n<p>Samen met Rianne Wessels-Crans start ze daarom vanaf juni Leuk-ER bij Van Elles.</p>\r\n\r\n<p>Bij Van Elles en bij Leuk-ER valt er altijd wat te beleven. Een nieuwe winkel, een nieuwe ervaring. Het gaat in eerste instantie vooral om beleven, een plek waar mooie spullen en mooie mensen samen komen en er net zo van genieten als wij. Een plek waar je alle tijd hebt om je keuzes te maken, voor jezelf of voor een ander. Laat je verrassen en inspireren. En vooral GENIET!</p>\r\n\r\n<p>Wil jij je&nbsp;<a href=\"#\" target=\"_blank\">aanmelden</a>?</p>\r\n\r\n<p>Nieuwsgierig naar de deelnemers?</p>\r\n\r\n<p>&nbsp;</p>\r\n', 'LEUK-ER is een conceptstore', 'LEUK-ER, Conceptstore, vanelles, van, Elles', 1, '2017-12-12 13:56:25', NULL, 2, 1, 'LEUK-ER', 2),
@@ -293,7 +293,7 @@ CREATE TABLE `user` (
 
 INSERT INTO `user` (`user_id`, `email`, `first_name`, `insertion`, `last_name`, `birthday`, `phonenumber`, `city`, `address`, `zipcode`, `role`, `newsletter`, `verwijderd`) VALUES
 (1, 'nick@twesq.com', 'Admin', '', '', '0000-00-00', 655194576, 'Rijssen', 'Entoshof 23', '7562 VV', 1, 0, 0),
-(4, 'test@email.nl', 'Ties', 'van', 'Poll', '1997-03-23', 699382393, 'Rijssen', 'Entoshof 23', '7462 VV', 1, 0, 0),
+(4, 'test@email.nl', 'Ties', '', 'Poll', '1997-03-23', 699382393, 'Rijssen', 'Entoshof 23', '7462 VV', 1, 0, 0),
 (5, 'nick.simons@live.nl', 'Nick', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 2, 0, 1),
 (7, 'nick@live.nl', 'Nick', NULL, NULL, NULL, 8473209, NULL, NULL, NULL, 2, 0, 0),
 (8, 'bart@live.nl', 'Bart', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 2, 0, 0),
@@ -310,7 +310,8 @@ INSERT INTO `user` (`user_id`, `email`, `first_name`, `insertion`, `last_name`, 
 (21, 'Baer.scgruk@gh.nl', 'test', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 2, 0, 1),
 (22, 'nick.simons@live.nls', 'Nick', '', 'Simons', '0000-00-00', 655194576, 'Rijssen', 'Entoshof 23', '7462 VV', 2, 0, 0),
 (23, 'nickjflJ@jklfds.nl', 'Nick', '', 'Simons', '1997-03-23', 2147483647, 'Rijssen', 'Entoshof 23', '7462 VV', 2, 0, 0),
-(24, 'nickjflJ@jklfds.nls', 'Nick', '', 'Simons', '1997-03-23', 2147483647, 'Rijssen', 'Entoshof 23', '7462 VV', 2, 0, 0);
+(24, 'nickjflJ@jklfds.nls', 'Nick', '', 'Simons', '1997-03-23', 2147483647, 'Rijssen', 'Entoshof 23', '7462 VV', 2, 0, 0),
+(25, 'test@live.nl', 'Test', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 2, 0, 0);
 
 --
 -- Indexen voor geëxporteerde tabellen
@@ -444,7 +445,7 @@ ALTER TABLE `page`
 -- AUTO_INCREMENT voor een tabel `product`
 --
 ALTER TABLE `product`
-  MODIFY `product_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `product_id` int(11) NOT NULL AUTO_INCREMENT;
 --
 -- AUTO_INCREMENT voor een tabel `review`
 --
@@ -454,7 +455,7 @@ ALTER TABLE `review`
 -- AUTO_INCREMENT voor een tabel `user`
 --
 ALTER TABLE `user`
-  MODIFY `user_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=25;
+  MODIFY `user_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=26;
 --
 -- Beperkingen voor geëxporteerde tabellen
 --

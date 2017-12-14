@@ -9,6 +9,7 @@
 
         $_POST['naam'] = $dblev['naam'];
         $_POST['inhoud'] = $dblev['inhoud'];
+        $_POST["korteinhoud"] = $dblev['korte_inhoud'];
         $_FILES['logo'] = $dblev['logo'];
         $_POST['seoinhoud'] = $dblev['description'];
         $_POST['seokernwoorden'] = $dblev['kernwoorden'];

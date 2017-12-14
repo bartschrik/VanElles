@@ -42,7 +42,7 @@
                             ['naam', $_POST['naam'], 'required'],
                             ['inhoud', $_POST['inhoud'], 'required'],
                             ['korteinhoud', $_POST['korteinhoud'], 'required'],
-                            ['foto', $_FILES['foto'], 'imgrequired|validphoto'],
+                            ['foto', $_FILES['foto'], 'validphoto'],
                             // ['leverancier', $_POST['Leverancier'], 'required'],
                             ['seokernwoorden', $_POST['seokernwoorden'], 'required'],
                             ['seoinhoud', $_POST['seoinhoud'], 'required|min:2'],
@@ -73,7 +73,7 @@
                                     <div class="col-md-8">
                                         <input type="text" name="naam" class="' . InputErrorClass('naam', $errors) . '" placeholder="Product naam" value="' . InputValue('naam') . '" /> 
                                         <textarea name="inhoud" class="' . InputErrorClass('inhoud', $errors) . '" placeholder="Inhoud">' . InputValue('inhoud') . '</textarea>
-                                        <textarea name="korteinhoud" class="' . InputErrorClass('korteinhoud', $errors) . '" style="height: 75px;"  placeholder="Korte inhoud" >' . InputValue('korteinhoud') . '</textarea>
+                                        <textarea name="korteinhoud" maxlength="250" class="' . InputErrorClass('korteinhoud', $errors) . '" style="height: 75px;"  placeholder="Korte inhoud" >' . InputValue('korteinhoud') . '</textarea>
                                         <input type="file" name="foto" class="' . InputErrorClass('foto', $errors) . '" placeholder="foto" value="' . InputValue('foto') . '" />
                                         <script>
                                             CKEDITOR.replace( "inhoud" );
@@ -141,7 +141,7 @@
                                     <div class="col-md-8">
                                         <input type="text" name="naam" placeholder="Product naam" value="' . InputValue('naam') . '" /> 
                                         <textarea name="inhoud" placeholder="Inhoud">' . InputValue('inhoud') . '</textarea>
-                                        <textarea name="korteinhoud" style="height: 75px;"  placeholder="Korte inhoud" >' . InputValue('korteinhoud') . '</textarea>
+                                        <textarea name="korteinhoud" maxlength="250" style="height: 75px;"  placeholder="Korte inhoud" >' . InputValue('korteinhoud') . '</textarea>
                                         <input type="file" name="foto" placeholder="foto" value="' . InputValue('foto') . '" />
                                         <script>
                                             CKEDITOR.replace( "inhoud" );

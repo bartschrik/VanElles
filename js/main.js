@@ -4,6 +4,7 @@ $(document).ready(function () {
     $menuToggle     = $('.menuBtn');
     $mobileMenu     = $('#main-menu');
     $subMenuItem    = $('#main-menu > li.has-sub');
+    $webtitle       = $('#webtitle').text();
 
     /*Vars*/
     var didScroll;
@@ -12,8 +13,9 @@ $(document).ready(function () {
     var navbarHeight = $('header#main-header').outerHeight();
 
     /*General*/
-
-
+    if ($webtitle) {
+        document.title = 'Van Elles | ' + $webtitle;
+    }
     /*Menu*/
     $menuToggle.click(function () {
         $(this).stop().toggleClass('active');

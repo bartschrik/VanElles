@@ -57,6 +57,54 @@ class Content
         }
     }
 
+    public function getLevProduct($levnummer)
+    {
+        try {
+            $query = $this->_db->prepare('
+                    SELECT * FROM product p JOIN leveranciers l ON p.lev_id=l.lev_id WHERE p.lev_id = :levnummer;
+                ');
+            $query->bindValue(":levnummer", $levnummer);
+
+            if ($query->execute()) {
+                if ($query->rowCount() > 0) {
+                    return $content = $query->fetchAll();
+                } else {
+                    return false;
+                }
+            } else {
+                echo $query->errorInfo();
+                return false;
+            }
+        } catch (PDOexception $e) {
+            echo $e->getMessage();
+            return false;
+        }
+    }
+
+    public function getUrlbyModule($mid)
+    {
+        try {
+            $query = $this->_db->prepare('
+                    SELECT url FROM page WHERE Module_id = :mid LIMIT 1;
+                ');
+            $query->bindValue(":mid", $mid);
+
+            if ($query->execute()) {
+                if ($query->rowCount() > 0) {
+                    return $content = $query->fetch()[0];
+                } else {
+                    return false;
+                }
+            } else {
+                echo $query->errorInfo();
+                return false;
+            }
+        } catch (PDOexception $e) {
+            echo $e->getMessage();
+            return false;
+        }
+    }
+
     public function getNieuwActiv()
     {
         try {

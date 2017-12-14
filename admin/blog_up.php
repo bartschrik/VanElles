@@ -60,20 +60,23 @@
                                         <script>
                                             CKEDITOR.replace( "inhoud" );
                                         </script> 
-                                          <span>Activiteit:</span>
+                                    </div>
+                                    <div class="col-md-4">
+                                    <span>Activiteit &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp Inschrijven &nbsp&nbsp&nbsp Max. deelnemers</span><br>
                                         <select name="activiteit" id="selectmodule">
                                             <option value="0">Nee</option>
                                             <option value="1">Ja</option>
                                         </select>
-                                        
-                                        <span>Inschrijven:</span>
                                         <select name="inschrijven" id="selectmodule">
                                             <option value="0">Nee</option>
                                             <option value="1">Ja</option>
                                         </select>
-                                        Max. deelnemers: <input id="nrsel" type="number" min="0" name="maxdeeln" value="0" value="' . InputValue('maxdeeln') . '" /> 
-                                    </div>
-                                    <div class="col-md-4">
+                                        <input id="nrsel" type="number" min="0" name="maxdeeln" value="0" value="' . InputValue('maxdeeln') . '" /><br>
+                                        </div>
+                                        <span>Activiteit Datum</span>
+                                        <div class="form-group">
+                                         <input id="datetime">
+                                        </div>
                                         <h4>SEO-Informatie</h4>
                                         <input type="text" name="seokernwoorden" class="' . InputErrorClass('seokernwoorden', $errors) . '" placeholder="Kernwoorden, bijv: vanelles, woonwinkel ect." value="' . InputValue('seokernwoorden') . '" />
                                         <textarea name="seobeschrijving" class="' . InputErrorClass('seobeschrijving', $errors) . '" placeholder="Blog beschrijving" style="max-width: 100%; height: 200px;">' . InputValue('seobeschrijving') . '</textarea>
@@ -96,7 +99,6 @@
                                         </div>
                                     </div>
                                 </form>';
-
                         /*ELSE*/
                     } else {
                         echo '<form action="#" method="post" class="classicform" enctype="multipart/form-data">
@@ -108,19 +110,22 @@
                                         <script>
                                             CKEDITOR.replace( "inhoud" );
                                         </script>
-                                        <span>Activiteit:</span>
+                                    </div>    
+                                    <div class="col-md-4">
+                                     <span>Activiteit &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp Inschrijven &nbsp&nbsp&nbsp Max. deelnemers</span><br>
                                         <select name="activiteit" id="selectmodule">
                                             <option value="0">Nee</option>
                                             <option value="1">Ja</option>
                                         </select>
-                                        <span>Inschrijven:</span>
                                         <select name="inschrijven" id="selectmodule">
                                             <option value="0">Nee</option>
                                             <option value="1">Ja</option>
-                                        </select>    
-                                        Max. deelnemers: <input id="nrsel" type="number" min="0" name="maxdeeln" value="0" value="' . InputValue('maxdeeln') . '" /> 
-                                    </div>    
-                                    <div class="col-md-4">
+                                        </select>
+                                        <input id="nrsel" type="number" min="0" name="maxdeeln" value="0" value="' . InputValue('maxdeeln') . '" /><br>
+                                         <span>Activiteit Datum</span>
+                                         <div class="form-group">
+                                         <input id="datetime">
+                                         </div>
                                         <h4>SEO-Informatie</h4>
                                         <input type="text" name="seokernwoorden" placeholder="Kernwoorden, bijv: vanelles, woonwinkel ect." value="' . InputValue('seokernwoorden') . '" />
                                         <textarea name="seobeschrijving"  placeholder="Blog beschrijving" style="max-width: 100%; height: 200px;">' . InputValue('seobeschrijving') . '</textarea>
@@ -151,4 +156,11 @@
     </div>
 </div>
 </body>
+<script src="../js/jquery-3.2.1.js" type="text/javascript"></script>
+<script src="../js/jquery.datetimepicker.full.js" type="text/javascript"></script>
+<script>
+    $("#datetime").datetimepicker({
+        step: 30
+    });
+</script>
 </html>

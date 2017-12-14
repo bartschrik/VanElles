@@ -93,7 +93,7 @@
                                                 echo '
                                                 <span>Activiteit Datum</span>
                                                 <div class="form-group" >
-                                                <input name = "actidatum" id = "datetime" >
+                                                <input name = "actidatum" id = "datetime"  value="' . InputValue('actidatum') . '">
                                                 </div >';
                                             }
                                         }
@@ -167,7 +167,7 @@
                                                 echo '
                                                 <span>Activiteit Datum</span>
                                                 <div class="form-group" >
-                                                <input name = "actidatum" id = "datetime" >
+                                                <input name = "actidatum" id = "datetime" value="' . InputValue('actidatum') . '">
                                                 </div >';
                                             }
                                         }

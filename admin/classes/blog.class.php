@@ -86,18 +86,19 @@ class blog
 
                 if (in_array(end($temp), $allow)) {
                     if (move_uploaded_file($img['tmp_name'], $todir . $newfilename)) {
-
                     }
                 } else {
                     echo "De extentie is niet toegestaan, toegestaan is: (.jpg/.jpeg/.png/.gif.)<br />";
                     header("refresh:2;url=blog_up.php");
                     exit;
                 }
+            } else {
+                echo"Selecteer een afbeelding a.u.b";
             }
 
             $query = $this->_db->prepare('
-                INSERT INTO `blog` (`user_id` ,`title`, `subtitle`, `inhoud`, `beschrijving`, `kernwoorden`, `img_name`, `activiteit`, `inschrijving`, `inschrijving_aantal`) 
-                VALUES (:user_id, :title, :subtitle, :inhoud, :beschrijving, :kernwoorden, :img_name, :activiteit, :inschrijving, :maxdeeln);
+                INSERT INTO `blog` (`user_id` ,`title`, `subtitle`, `inhoud`, `beschrijving`, `kernwoorden`, `img_name`, `activiteit`, `inschrijving`, `inschrijving_aantal`, `datum`) 
+                VALUES (:user_id, :title, :subtitle, :inhoud, :beschrijving, :kernwoorden, :img_name, :activiteit, :inschrijving, :maxdeeln, :datum);
             ');
 
             $query->bindValue(":user_id", $userid);
@@ -109,7 +110,8 @@ class blog
             $query->bindValue(":img_name", $newfilename);
             $query->bindValue(":activiteit", $data['activiteit']);
             $query->bindValue(":inschrijving", $data['inschrijven']);
-            $query->bindValue(":maxdeeln", $data['inschrijving_aantal']);
+            $query->bindValue(":maxdeeln", $data['maxdeeln']);
+            $query->bindValue(":datum", $data['actidatum']);
 
             if ($query->execute()) {
                 return true;
@@ -155,7 +157,7 @@ class blog
 
                 $query = $this->_db->prepare('
                 UPDATE `blog` 
-                SET `title` = :title, `subtitle` = :subtitle, `inhoud` = :inhoud, `beschrijving` = :beschrijving, `kernwoorden` = :kernwoorden, `img_name` = :img_name, `activiteit` = :activiteit, `inschrijving` = :inschrijving
+                SET `title` = :title, `subtitle` = :subtitle, `inhoud` = :inhoud, `beschrijving` = :beschrijving, `kernwoorden` = :kernwoorden, `img_name` = :img_name, `activiteit` = :activiteit, `inschrijving` = :inschrijving, `datum` = :datum
                 WHERE `blog_id` = :blog_id;
             ');
                 $query->bindValue(":blog_id", $blog_id);
@@ -167,6 +169,7 @@ class blog
                 $query->bindValue(":img_name", $newfilename);
                 $query->bindValue(":activiteit", $data['activiteit']);
                 $query->bindValue(":inschrijving", $data['inschrijven']);
+                $query->bindValue(":datum", $data['actidatum']);
                 if ($query->execute()) {
                     return true;
                 } else {
@@ -176,7 +179,7 @@ class blog
             } else {
                 $query = $this->_db->prepare('
                 UPDATE `blog` 
-                SET `title` = :title, `subtitle` = :subtitle, `inhoud` = :inhoud, `beschrijving` = :beschrijving, `kernwoorden` = :kernwoorden, `activiteit` = :activiteit, `inschrijving` = :inschrijving
+                SET `title` = :title, `subtitle` = :subtitle, `inhoud` = :inhoud, `beschrijving` = :beschrijving, `kernwoorden` = :kernwoorden, `activiteit` = :activiteit, `inschrijving` = :inschrijving, `datum` = :datum
                 WHERE `blog_id` = :blog_id;
             ');
                 $query->bindValue(":blog_id", $blog_id);
@@ -187,6 +190,7 @@ class blog
                 $query->bindValue(":beschrijving", $data['seobeschrijving']);
                 $query->bindValue(":activiteit", $data['activiteit']);
                 $query->bindValue(":inschrijving", $data['inschrijven']);
+                $query->bindValue(":datum", $data['actidatum']);
                 if ($query->execute()) {
                     return true;
                 } else {

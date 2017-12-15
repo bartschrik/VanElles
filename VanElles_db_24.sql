@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Gegenereerd op: 14 dec 2017 om 14:39
+-- Gegenereerd op: 15 dec 2017 om 11:17
 -- Serverversie: 10.1.26-MariaDB
 -- PHP-versie: 7.1.8
 
@@ -97,6 +97,7 @@ CREATE TABLE `blog` (
   `title` varchar(45) NOT NULL,
   `subtitle` varchar(45) NOT NULL,
   `inhoud` mediumtext NOT NULL,
+  `korte_inhoud` varchar(250) NOT NULL,
   `datum` datetime DEFAULT NULL,
   `beschrijving` varchar(2000) NOT NULL,
   `kernwoorden` varchar(150) NOT NULL,
@@ -106,6 +107,13 @@ CREATE TABLE `blog` (
   `inschrijving_aantal` int(3) DEFAULT NULL,
   `verwijderd` int(1) NOT NULL DEFAULT '0' COMMENT '0=nee,1=ja'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Gegevens worden geëxporteerd voor tabel `blog`
+--
+
+INSERT INTO `blog` (`blog_id`, `user_id`, `title`, `subtitle`, `inhoud`, `korte_inhoud`, `datum`, `beschrijving`, `kernwoorden`, `img_name`, `activiteit`, `inschrijving`, `inschrijving_aantal`, `verwijderd`) VALUES
+(1, 1, 'WORKSHOP ITALIAANSE KERST AMUSES MAKEN', 'MET TUTTI IL BENE', '<p>Heerlijke, bijzondere, Italiaanse kerst hapjes deze keer&hellip;.</p>\r\n\r\n<p>Na het grote succes van 25 nov organiseren we nog 1 workshop voor de kerst&nbsp;&ldquo;Italiaanse amuses en/of voorgerechten maken&rdquo;.&nbsp;Het begint om&nbsp;19.00 uur en het duurt ongeveer&nbsp;1,5 uur.&nbsp;En uiteraard neem je de hapjes lekker mee naar huis.&nbsp;Ook zin in een gezellige avond geef je dan snel op en stuur een mailtje aan:&nbsp;hallo@leuk-ER.nl&nbsp;Verzeker je van een plekje want VOL = VOL (Er kunnen 8 deelnemers per workshop meedoen).</p>\r\n\r\n<p>Wil je voor de volgende workshop een uitnodiging krijgen? Schrijf je dan in voor de&nbsp;<a href=\"https://www.vanelles-webshop.nl/newsletter/\" target=\"_blank\">nieuwsbrief</a>&nbsp;.</p>\r\n', '', NULL, 'Na het grote succes van 25 nov organiseren we nog 1 workshop voor de kerstÂ â€œItaliaanse amuses en/of voorgerechten makenâ€.Â Het begint omÂ 19.00 uur en het duurt ongeveerÂ 1,5 uur.', 'Italiaanse, hapjes', 'f3642a9437540e93ba5905cc3ed6e6564d4133cb.png', 1, 1, NULL, 0);
 
 -- --------------------------------------------------------
 
@@ -164,8 +172,9 @@ CREATE TABLE `leveranciers` (
 --
 
 INSERT INTO `leveranciers` (`lev_id`, `naam`, `inhoud`, `korte_inhoud`, `logo`, `description`, `kernwoorden`) VALUES
-(3, 'HKLIVING', '<p>is een Nederlands merk, opgericht in 2009.', '', 'd9867d3843917868b616329228a2aab015e8eafb.jpg', 'HKLIVING', 'HKLIVING'),
-(4, 'HOUSE DOCTOR', '<p>In 1999 begonnen de zusters Rikke Juhl Jen', '', '6f258f4a10d16d3e07c53a0e5ac30f5fa51b5101.jpg', 'In 1999 begonnen de zusters Rikke Juhl Jensen', 'House, Doctor, House doctor');
+(3, 'HKLIVING', '<p>is een Nederlands merk, opgericht in 2009. De Nederlandse kijk op ontwerpen vertaalt zich in de puurheid en originaliteit van de items die ze ontwikkelen.</p>\r\n\r\n<p>De belangrijkste focus dit jaar was het upgraden van de collectie in trendy kleuren en aan de collectie een eigentijdse draai te geven. Totaal vernieuwend in deze collectie zijn bijvoorbeeld de metalen meubelen met een nieuw verfrissend ontwerp en de nieuwe broodplank collectie.</p>\r\n', 'De Nederlandse kijk op ontwerpen vertaalt zich in de puurheid en originaliteit van de items die ze ontwikkelen. De belangrijkste focus dit jaar was het upgraden van de collectie in trendy kleuren en aan de ', '74336a4b268b7dee0b5d9d33ab5e48298e8ddcd7.jpg', 'HKLIVING is een Nederlands merk, opgericht in 2009. De belangrijkste focus dit jaar was het upgraden van de collectie in trendy kleuren en aan de collectie een eigentijdse draai te geven.', 'hkliving,living'),
+(4, 'HOUSE DOCTOR', '<p>In 1999 begonnen de zusters Rikke Juhl Jensen, Gitte Juhl Capel en hun broer Klaus Juhl Pedersen een succesvol handenarbeidbedrijf. Ze ontwikkelden al snel allerlei idee&euml;n voor nieuwe producten.</p>\r\n\r\n<p>Inmiddels verschijnt er per jaar twee keer een collectie: in january &lsquo;Everyday&rsquo; en in augustus &lsquo;Moments&rsquo;. Everyday bestaat uit nieuwe producten en toppers uit eerdere collecties. Moments bestaat ook uit nieuwe producten, maar dan aangevuld met seizoensartikelen.</p>\r\n\r\n<p>House Doctor levert onder meer meubelen, kleinmeubilair, woonaccessoires, juwelen, keuken- en eetgerei, kleding en textiel.</p>\r\n', 'House Doctor in 1999 begonnen de zusters Rikke Juhl Jensen, Gitte Juhl Capel en hun broer Klaus Juhl Pedersen een succesvol handenarbeidbedrijf. Ze ontwikkelden al snel allerlei ideeÃ«n voor nieuwe producten.', 'aa845cb8033eab9babfc9092b505ab614911ff15.jpg', 'House Doctor in 1999 begonnen de zusters Rikke Juhl Jensen, Gitte Juhl Capel en hun broer Klaus Juhl Pedersen een succesvol handenarbeidbedrijf. Ze ontwikkelden al snel allerlei ideeÃ«n voor nieuwe producten.', 'House, Doctor, House doctor'),
+(5, 'A LITTLE LOVELY COMPANY', '<p>In de winter van 2013 starten ontwerpsters en oprichters: Judith de Ruijter en Nikki Hateley hun nieuwe gezamenlijke Little Lovely avontuur: vanuit een gedeelde passie voor het transformeren van gewone huis-en feestdecoraties tot unieke en persoonlijke sfeerbrengers. Met oog voor mooi design, kleine details en passende kleuren maken decoraties en accessoires een kamer of feest niet alleen persoonlijk en uniek, maar ben je in staat om een bijzondere sfeer en: &ldquo;Lovelyness&rdquo; aan te brengen.</p>\r\n\r\n<p>Deze filosofie leidde tot een concept: een combinatie van unieke en sfeervolle woon- en feestdecoraties: a Little Lovely Company was geboren!</p>\r\n\r\n<p>De Little Lovely collectie omvat o.a: vrolijke slingers en unieke gevulde confetti-ballonnen, maar ook uniek ontworpen letterbanners, posters en diverse designdecoraties voor de seizoenen, kinder- en woonkamers en mooie hoogtepunten in een ieders leven&hellip;</p>\r\n\r\n<p>Alles onder het motto: lets start:<strong>&nbsp;Making Life Lovely!</strong></p>\r\n', 'A Little Lovely Company in de winter van 2013 starten ontwerpsters en oprichters: Judith de Ruijter en Nikki Hateley hun nieuwe gezamenlijke Little Lovely avontuur: vanuit een gedeelde passie voor het transformeren van gewone huis-en feestdecoraties ', '345115b4057a8a622970f0b57e1991e5e0ab5dd7.jpg', 'In de winter van 2013 starten ontwerpsters en oprichters: Judith de Ruijter en Nikki Hateley hun nieuwe gezamenlijke Little Lovely avontuur: vanuit een gedeelde passie voor het transformeren van gewone huis-en feestdecoraties tot unieke en persoonlijke sfeerbrengers.', 'Little lovely Company, Little, lovely, company');
 
 -- --------------------------------------------------------
 
@@ -248,6 +257,16 @@ CREATE TABLE `product` (
   `lev_id` int(11) NOT NULL,
   `uitgelicht` int(1) NOT NULL DEFAULT '0' COMMENT '0=nee, 1=ja'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Gegevens worden geëxporteerd voor tabel `product`
+--
+
+INSERT INTO `product` (`product_id`, `naam`, `inhoud`, `korte_inhoud`, `images`, `webshop_url`, `description`, `kernwoorden`, `lev_id`, `uitgelicht`) VALUES
+(1, 'A Little Lovely Company Spaarpot regenboog', '<p>Deze superlieve regenboog-spaarpot is een must voor elke kleine meisjeskamer.&nbsp;<br />\r\nHet co&ouml;rdineert prachtig met onze kleine mooie lichten en inspireert kleintjes om hun centen te sparen.&nbsp;<br />\r\n<br />\r\nDe spaarpot kan worden geopend via de draai- en klikklap eronder.</p>\r\n\r\n<ul>\r\n	<li>Materiaal: BPA en ftalaatvrij PVC</li>\r\n	<li>Maten: 16.0 x 6.4 x 8.0 cm</li>\r\n</ul>\r\n', 'Deze superlieve regenboog-spaarpot is een must voor elke kleine meisjeskamer.Â \r\nHet coÃ¶rdineert prachtig met onze kleine mooie lichten en inspireert kleintjes om hun centen te sparen.', 'ff77fb0e81f10c3aac5c5f620e6c3c16aa47d453.jpg', 'https://www.vanelles-webshop.nl/a-50518931/a-little-lovely-company/a-little-lovely-company-spaarpot-regenboog/', 'Deze superlieve regenboog-spaarpot is een must voor elke kleine meisjeskamer.Â \r\nHet coÃ¶rdineert prachtig met onze kleine mooie lichten en inspireert', 'Little, lovely, Company, regenboog, spaarpot', 5, 1),
+(2, 'A Little Lovely Company ledlamp spook', '<p>Dit spooklicht is een must voor elke jongenskamer en natuurlijk voor een coole meidenkamer!&nbsp;Geef de kamer van het kind een cool uiterlijk met deze kleine, mooie geest.&nbsp;Iedereen houdt van deze vriendelijke geest!&nbsp;<br />\r\n<br />\r\nDit milieuvriendelijke lampje is kindveilig en gemaakt van BPA- en loodvrij PVC;&nbsp;en geven een zachte gloed wanneer ingeschakeld.&nbsp;U kunt ervoor kiezen om het licht aan, uit of aan te zetten.&nbsp;Wanneer u de timer inschakelt, wordt het lampje na 15 minuten automatisch uitgeschakeld.&nbsp;Dit spaart batterijvermogen en is beter voor het milieu!&nbsp;<br />\r\nWe adviseren u om deze timer te gebruiken, omdat de meegeleverde batterijen ongeveer 20 uur meegaan.</p>\r\n\r\n<p>&nbsp;</p>\r\n\r\n<ul>\r\n	<li>Maten: 10,5 x 13 x 11 cm</li>\r\n	<li>Materiaal: BPA- en loodvrij PVC</li>\r\n	<li>Het lampje werkt met 3 LR44-batterijen (inclusief)</li>\r\n	<li>Timer optie</li>\r\n</ul>\r\n', 'Dit spooklicht is een must voor elke jongenskamer en natuurlijk voor een coole meidenkamer!Â Geef de kamer van het kind een cool uiterlijk met deze kleine, mooie geest.Â Iedereen houdt van deze vriendelijke geest!Â ', '91d1a685710682f341b3b911b02d46411a00d49b.jpg', 'https://www.vanelles-webshop.nl/a-50518802/a-little-lovely-company/a-little-lovely-company-ledlamp-spook/', 'Dit spooklicht is een must voor elke jongenskamer en natuurlijk voor een coole meidenkamer!Â Geef de kamer van het kind een cool uiterlijk met deze kl', 'spooklicht, jongenskamer, meidenkamer', 5, 1),
+(3, 'House Doctor Kandelaar drop goud', '<p>Deze gave goudkleurige koperen kandelaar van House Doctor zal extra shinen op uw feestelijk gedekte tafel of in uw interieur.</p>\r\n\r\n<p>Door zijn moderne en stylvolle uitstraling is de kandelaar goed te combineren in ieder interieur.</p>\r\n\r\n<p>Ook erg gaaf om deze kandelaar te combineren met andere kandelaars om zo een mooi sfeervol geheel te cre&euml;ren.</p>\r\n\r\n<p>&nbsp;</p>\r\n\r\n<p>Afmeting: 10,5 x 6,5 cm</p>\r\n', 'Deze gave goudkleurige koperen kandelaar van House Doctor zal extra shinen op uw feestelijk gedekte tafel of in uw interieur. Door zijn moderne en stylvolle uitstraling is de kandelaar goed te combineren in ieder interieur.', 'bfc5b8e212bdfef314090ee556ca87f3d9b5f534.jpg', 'https://www.vanelles-webshop.nl/a-50759641/house-doctor/house-doctor-kandelaar-drop-goud/', 'Deze gave goudkleurige koperen kandelaar van House Doctor zal extra shinen op uw feestelijk gedekte tafel of in uw interieur.', 'kandelaar,koperen,House,Doctor', 4, 1),
+(4, 'House Doctor Poef Jute', '<p>Deze poef is gemaakt van jute en door de combinatie met donker groen helemaal trendy.</p>\r\n\r\n<p>Een poef is multifunctioneel. Gebruik hem als voetenbankje, bijzettafeltje of als extra zitplek.</p>\r\n\r\n<p>Afmeting: H 35 x D 45 cm</p>\r\n', 'Deze poef is gemaakt van jute en door de combinatie met donker groen helemaal trendy. Een poef is multifunctioneel. Gebruik hem als voetenbankje, bijzettafeltje of als extra zitplek.', '0d2ab21e2f8262404bc3194a8d62558b5af71017.jpg', 'https://www.vanelles-webshop.nl/a-48909279/house-doctor/house-doctor-poef-jute/', 'Deze poef is gemaakt van jute en door de combinatie met donker groen helemaal trendy. Een poef is multifunctioneel. Gebruik hem als voetenbankje, bijz', 'voetenbankje,poef, trendy', 4, 1);
 
 -- --------------------------------------------------------
 
@@ -454,7 +473,7 @@ ALTER TABLE `activiteit`
 -- AUTO_INCREMENT voor een tabel `blog`
 --
 ALTER TABLE `blog`
-  MODIFY `blog_id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `blog_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 --
 -- AUTO_INCREMENT voor een tabel `contact`
 --
@@ -469,7 +488,7 @@ ALTER TABLE `inschrijvingen`
 -- AUTO_INCREMENT voor een tabel `leveranciers`
 --
 ALTER TABLE `leveranciers`
-  MODIFY `lev_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `lev_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 --
 -- AUTO_INCREMENT voor een tabel `media`
 --
@@ -484,7 +503,7 @@ ALTER TABLE `page`
 -- AUTO_INCREMENT voor een tabel `product`
 --
 ALTER TABLE `product`
-  MODIFY `product_id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `product_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 --
 -- AUTO_INCREMENT voor een tabel `review`
 --

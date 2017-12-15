@@ -1,5 +1,4 @@
-<?php include_once 'includes/header.php';
-require_once 'admin/classes/connection.class.php';
+<?php
 include_once 'admin/classes/leverancier.class.php';
 include_once 'admin/classes/content.class.php';
 

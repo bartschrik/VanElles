@@ -4,10 +4,14 @@ class SimpleImage {
 
     public $image;
     public $image_type;
+    private $_db;
+
     public function __construct($filename = null){
         if (!empty($filename)) {
             $this->load($filename);
         }
+        $this->_db = new Connection();
+        $this->_db = $this->_db->databaseConnection();
     }
     public function load($filename) {
         $image_info = getimagesize($filename);
@@ -23,6 +27,7 @@ class SimpleImage {
         }
     }
     public function save($filename, $image_type = IMAGETYPE_JPEG, $compression = 75, $permissions = null) {
+        $image_type = $this->image_type;
         if ($image_type == IMAGETYPE_JPEG) {
             imagejpeg($this->image,$filename,$compression);
         } elseif ($image_type == IMAGETYPE_GIF) {
@@ -34,9 +39,35 @@ class SimpleImage {
             chmod($filename,$permissions);
         }
     }
+    public function saveDB($fileName, $tmp, $url, $title, $userId) {
+        try {
+            $query = $this->_db->prepare("
+                INSERT INTO `media` (`file_name`, `file_type`, `file_size`, `file_dimensions`, `file_url`, `title`, `upload_by`) 
+                VALUES (:fileName, :fileType, :fileSize, :fileDimensions, :url, :title, :userid);
+            ");
+            $query->bindValue(":fileName", $fileName);
+            $query->bindValue(":fileType", image_type_to_mime_type($this->image_type));
+            $query->bindValue(":fileSize", filesize($tmp));
+            $query->bindValue(":fileDimensions", $this->getWidth() ."x". $this->getHeight());
+            $query->bindValue(":url", $url);
+            $query->bindValue(":title", $title);
+            $query->bindValue(":userid", $userId);
+
+            if($query->execute()) {
+                return true;
+            } else {
+                print_r($query->errorInfo());
+                return false;
+            }
+        } catch (PDOException $e) {
+            echo $e->getMessage();
+            return false;
+        }
+    }
     public function output($image_type=IMAGETYPE_JPEG, $quality = 80) {
         if ($image_type == IMAGETYPE_JPEG) {
             header("Content-type: image/jpeg");
+            echo $this->image;
             imagejpeg($this->image, null, $quality);
         } elseif ($image_type == IMAGETYPE_GIF) {
             header("Content-type: image/gif");

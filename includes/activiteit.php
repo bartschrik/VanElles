@@ -13,6 +13,8 @@ if ($nieuwa) {
     $title = $nieuwa['title'];
     $subtitel = $nieuwa["subtitle"];
     $inhoud = $nieuwa["inhoud"];
+    $page = $content->getUrlbyModule(4);
+    $url = constant("local_url").$page."/".$id;
 
     echo '
               <div class="ptitle">
@@ -23,15 +25,15 @@ if ($nieuwa) {
 
     print ("<div class=\"card marbot\">");
 
-    echo "<a href='#' style='background-image: url(" . constant("local_url") . "/admin/images/blog/" . $img_name . ");' class='card-img'></a>";
+    echo "<a href='$url' style='background-image: url(" . constant("local_url") . "/admin/images/blog/" . $img_name . ");' class='card-img'></a>";
 
     print ("<div class=\"card-body\">");
 
-    print("<a href=\"#\"><h4 class=\"card-title\">" . $subtitel . "</h4></a>");
+    print("<a href=\"$url\"><h4 class=\"card-title\">" . $subtitel . "</h4></a>");
 
     print("<p class=\"card-text\">" . $inhoud . "</p>");
 
-    print"<a href='blog/$id' title='Details'>Details</a>";
+    print"<a href='$url' title='Details'>Lees meer</a>";
 
     print("</div>");
 } else {
@@ -41,6 +43,9 @@ if ($nieuwa) {
         $title = $nieuwb['title'];
         $subtitel = $nieuwb["subtitle"];
         $inhoud = $nieuwb["inhoud"];
+        $page = $content->getUrlbyModule(4);
+        $url = constant("local_url").$page."/".$id;
+
 
         echo '
               <div class="ptitle">
@@ -51,15 +56,15 @@ if ($nieuwa) {
 
         print ("<div class=\"card marbot\">");
 
-        echo "<a href='#' style='background-image: url(" . constant("local_url") . "/admin/images/blog/" . $img_name . ");' class='card-img'></a>";
+        echo "<a href='$url' style='background-image: url(" . constant("local_url") . "/admin/images/blog/" . $img_name . ");' class='card-img'></a>";
 
         print ("<div class=\"card-body\">");
 
-        print("<a href=\"#\"><h4 class=\"card-title\">" . $subtitel . "</h4></a>");
+        print("<a href=\"$url\"><h4 class=\"card-title\">" . $subtitel . "</h4></a>");
 
         print("<p class=\"card-text\">" . $inhoud . "</p>");
 
-        print"<a href='blog/$id' title='Details'>Lees meer</a>";
+        print"<a href='$url' title='Details'>Lees meer</a>";
 
         print("</div>");
     }

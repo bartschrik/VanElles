@@ -200,21 +200,14 @@ if($pageId) { ?>
                     $query1 = $db->prepare('SELECT * FROM blog ORDER BY blog_id DESC');
                     $query1->execute();
 
-<<<<<<< HEAD
                     while ($row = $query1->fetch(PDO::FETCH_ASSOC)) {
                         $id = $row['blog_id'];
                         $img_name = $row['img_name'];
                         $title = $row['title'];
                         $subtitel = $row["subtitle"];
+                        $datum = $row['datum'];
                         $url = constant("local_url").$_GET['page']."/".$id;
-=======
-            while ($row = $query1->fetch(PDO::FETCH_ASSOC)) {
-                $id = $row['blog_id'];
-                $img_name = $row['img_name'];
-                $title = $row['title'];
-                $subtitel = $row["subtitle"];
-                $datum = $row["datum"];
->>>>>>> 6c5b8baad9127fe775468f68e82618d985a625fe
+
 
                         print("<div class='col-xs-12 col-sm-6 marbot'><div class='card'>");
 
@@ -226,13 +219,10 @@ if($pageId) { ?>
 
                         print("<p class=\"card-text\">" . $subtitel . "</p>");
 
-<<<<<<< HEAD
-                        print"<a href='$url' title='Details'>Details</a>";
-=======
-                print("<p class=\"card-text\">" . $datum . "</p>");
 
-                print"<a href='blog_det.php?pid=$id' title='Details'>Lees meer</a>";
->>>>>>> 6c5b8baad9127fe775468f68e82618d985a625fe
+                        print"<a href='$url' title='Details'>Details</a>";
+
+                print("<p class=\"card-text\">" . $datum . "</p>");
 
                         print("</div></div></div>");
                     }
@@ -244,6 +234,7 @@ if($pageId) { ?>
                             $id = $row['blog_id'];
                             $img_name = $row['img_name'];
                             $title = $row['title'];
+                            $datum = $row['datum'];
                             $subtitel = $row["subtitle"];
                             $url = constant("local_url").$_GET['page']."/".$id;
 
@@ -259,13 +250,11 @@ if($pageId) { ?>
 
                             print("<p class=\"card-text\">" . $subtitel . "</p>");
 
-<<<<<<< HEAD
+
                             print"<a href='$url' title='Details'>Lees meer</a>";
-=======
+
                 print("<p class=\"card-text\">" . $datum . "</p>");
 
-                print"<a href='blog_det.php?pid=$id' title='Details'>Lees meer</a>";
->>>>>>> 6c5b8baad9127fe775468f68e82618d985a625fe
 
                             print("</div></div></div>");
                         }

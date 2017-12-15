@@ -28,7 +28,6 @@ if(isset($_GET['page'])) {
 if(isset($_GET['pid'])) {
     $pageId = $_GET['pid'];
 }
-
 //Include header
 include_once('includes/header.php');
 

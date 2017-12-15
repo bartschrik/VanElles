@@ -30,12 +30,13 @@
                             ['subtitel', $_POST['subtitel'], 'required'],
                             ['inhoud', $_POST['inhoud'], 'required'],
                             ['maxdeeln', $_POST['maxdeeln'], 'required|min:1'],
+                            ['afbeelding', $_FILES['afbeelding'], 'imgrequired|validphoto'],
                             ['seokernwoorden', $_POST['seokernwoorden'], 'required'],
                             ['seobeschrijving', $_POST['seobeschrijving'], 'required|min:2']
                         ]);
 
                         if ($val->isPassed()) {
-                            $saveblog = $blog->saveblog($_POST, $_FILES['plaatje'], $user->getUser()['user_id']);
+                            $saveblog = $blog->saveblog($_POST, $_FILES['afbeelding'], $user->getUser()['user_id']);
                             if (!$saveblog) {
                                 echo '<div class="feedback error container"><div class="row"><div class="col-xs-12"><p>Er is een probleem met onze server, probeer het later opnieuw.</p></div></div></div>';
                             } else {
@@ -56,7 +57,7 @@
                                         <input type="text" name="titel" class="' . InputErrorClass('titel', $errors) . '" placeholder="Blog titel" value="' . InputValue('titel') . '" />
                                         <input type="text" name="subtitel" class="' . InputErrorClass('subtitel', $errors) . '" placeholder="Blog sub titel" value="' . InputValue('subtitel') . '" />  
                                         <textarea name="inhoud" placeholder="Inhoud">' . InputValue('inhoud') . '</textarea>
-                                        <input type="file" name="plaatje" placeholder="Plaatje" value="' . InputValue('plaatje') . '" />
+                                        <input type="file" name="afbeelding" placeholder="Afbeelding" value="' . InputValue('afbeelding') . '" />
                                         <script>
                                             CKEDITOR.replace( "inhoud" );
                                         </script> 
@@ -127,7 +128,7 @@
                                         <input type="text" name="titel" placeholder="Blog titel" value="' . InputValue('titel') . '" />
                                         <input type="text" name="subtitel" placeholder="Blog sub titel" value="' . InputValue('subtitel') . '" />  
                                         <textarea name="inhoud" placeholder="Inhoud">' . InputValue('inhoud') . '</textarea>
-                                        <input type="file" name="plaatje" placeholder="Plaatje" value="' . InputValue('plaatje') . '" />
+                                        <input type="file" name="afbeelding" placeholder="Afbeelding" value="' . InputValue('afbeelding') . '" />
                                         <script>
                                             CKEDITOR.replace( "inhoud" );
                                         </script>

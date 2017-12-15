@@ -5,9 +5,11 @@ $db = $db->databaseConnection();
 if($pageId) { ?>
     <div class="container">
         <div class="row">
-            <div class="martop marbot">
-                <div class="ptitle">
-                    <h1>Blog</h1>
+            <div class="martop">
+                <div class="col-xs-12">
+                    <div class="ptitle">
+                        <h1>Blog</h1>
+                    </div>
                 </div>
                 <?php
                 //Include de connection en de page class
@@ -53,25 +55,24 @@ if($pageId) { ?>
                 $title = $row['title'];
                 $subtitel = $row["subtitle"];
                 $inhoud = $row["inhoud"];
+                $datum = $row["datum"];
                 $beschrijving = $row["beschrijving"];
                 $kernwoorden = $row["kernwoorden"];
                 $inschrijven = $row["inschrijving"];
                 $maxinschrijf = $row["inschrijving_aantal"];
                 $deeln = $blog->getDeelnemers($id);
 
-                echo'<div class="col-xs-12 marbot"><div class="card">
-
-    <a href="#" style="background-image: url(' . constant("local_url") . "$dir/$img_name" . ');" class="card-img"></a>
-
-    <div class="card-body">
-
-    <a href="#"><h4 class="card-title">' . $title . '</h4></a>
-
-    <p class="card-text">' . $subtitel . '</p>
-
-    <p class="card-text">' . $inhoud . '</p>
-
-    </div></div></div>';
+    echo'<div class="col-md-8 col-sm-6 col-xs-12">
+                    <div class="ptitle">
+                        <h2 id="webtitle">'. $title .'</h2>
+                        <p>'. $datum .'</p>
+                        <h5 id="webtitle">'. $subtitel .'</h5>
+                        </div>
+                        <p>'. $inhoud .'</p>
+                    </div>
+                    <div class="col-md-4 col-sm-6 col-xs-12 marbot">
+                        <img src="'.constant("local_url").'admin/images/blog/'.$img_name.'" class="img-responsive">
+                    </div>';
                 ?>
             </div>
         </div>
@@ -92,7 +93,7 @@ if($pageId) { ?>
 
     if($inschrijven == 1) {
         if ($deeln >= $maxinschrijf) {
-            echo '<div class="header text-center">Helaas zijn er geen plekken meer vrij voor deze activiteit.</div>';
+            echo '<div class="header text-center marbot">Helaas zijn er geen plekken meer vrij voor deze activiteit.</div>';
         } else {
             echo "<div class='container'>
             <div class='header text-center'>
@@ -144,7 +145,7 @@ if($pageId) { ?>
             print("Alle velden moeten ingevuld zijn");
         } else {
             if ($deeln >= $maxinschrijf) {
-                echo '<div class="header text-center">Helaas zijn er geen plekken meer vrij voor deze activiteit.</div>';
+                echo '<div class="header text-center marbot">Helaas zijn er geen plekken meer vrij voor deze activiteit.</div>';
                 echo '<meta http-equiv="refresh" content="2;" />';
             } else {
                 $sql = "INSERT INTO user (first_name, insertion, last_name, email, birthday, phonenumber) VALUES ('$voornaam', '$tussenvoegsel', '$achternaam', '$email', '$geboortedatum', '$telefoonnr')";
@@ -171,11 +172,12 @@ if($pageId) { ?>
 
     <div class="container">
         <div class="row">
-            <div class="martop marbot">
-                <div class="ptitle">
+            <div class="martop">
+                <div class="ptitle" >
                     <h1>Blogs</h1>
                 </div>
-                <div><form action="#" method="post" class="classicform">
+                <div class="">
+                    <form action="#" method="post" class="classicform">
                         Sorteren: <select name="sorteer" onchange="this.form.submit();">
                             <option value="0" <?php if(isset($_POST["sorteer"])) {
                                 $sort = ($_POST["sorteer"]);
@@ -204,27 +206,27 @@ if($pageId) { ?>
                         $id = $row['blog_id'];
                         $img_name = $row['img_name'];
                         $title = $row['title'];
+                        $inhoudkort = $row['korte_inhoud'];
                         $subtitel = $row["subtitle"];
                         $datum = $row['datum'];
                         $url = constant("local_url").$_GET['page']."/".$id;
 
+                        echo"<div class='col-xs-12 col-sm-6 marbot'>
+                    
+                        <div class='card marbot'>
+                    
+                        <a href='$url' style='background-image: url(".constant("local_url")."/admin/images/blog/$img_name);' class='card-img'></a>
+                    
+                        <div class='card-body'>
+                    
+                        <a href=$url><h4 class='card-title'>$title</h4></a>
+                    
+                        <p class='card-text'>$inhoudkort</p>
+                    
+                        <a href='$url' title='Details'>Lees meer</a>
+                    
+                        </div></div></div></div>";
 
-                        print("<div class='col-xs-12 col-sm-6 marbot'><div class='card'>");
-
-                        echo "<a href='$url' style='background-image: url(" . constant("local_url") . "$dir/$img_name" . ");' class='card-img'></a>";
-
-                        print("<div class='card-body'>");
-
-                        print("<a href=\"$url\"><h4 class=\"card-title\">" . $title . "</h4></a>");
-
-                        print("<p class=\"card-text\">" . $subtitel . "</p>");
-
-
-                        print"<a href='$url' title='Details'>Details</a>";
-
-                print("<p class=\"card-text\">" . $datum . "</p>");
-
-                        print("</div></div></div>");
                     }
                 } else {
                     if ($_POST['sorteer'] == "1") {
@@ -234,29 +236,26 @@ if($pageId) { ?>
                             $id = $row['blog_id'];
                             $img_name = $row['img_name'];
                             $title = $row['title'];
+                            $inhoudkort = $row['korte_inhoud'];
                             $datum = $row['datum'];
                             $subtitel = $row["subtitle"];
                             $url = constant("local_url").$_GET['page']."/".$id;
 
-                            print("<div class='col-xs-12 col-sm-6 marbot'><div class='card'>");
-
-                            echo "<a href='$url' style='background-image: url(" . constant("local_url") . "$dir/$img_name" . ");' class='card-img'></a>";
-
-                            //print("<img class='card-img' src='./admin/images/product/" . "$foto" . "'>");
-
-                            print("<div class='card-body'>");
-
-                            print("<a href=\"$url\"><h4 class=\"card-title\">" . $title . "</h4></a>");
-
-                            print("<p class=\"card-text\">" . $subtitel . "</p>");
-
-
-                            print"<a href='$url' title='Details'>Lees meer</a>";
-
-                print("<p class=\"card-text\">" . $datum . "</p>");
-
-
-                            print("</div></div></div>");
+                        echo"<div class='col-xs-12 col-sm-6 marbot'>
+                    
+                        <div class='card marbot'>
+                    
+                        <a href='$url' style='background-image: url(".constant("local_url")."/admin/images/blog/$img_name);' class='card-img'></a>
+                    
+                        <div class='card-body'>
+                    
+                        <a href=$url><h4 class='card-title'>$title</h4></a>
+                    
+                        <p class='card-text'>$inhoudkort</p>
+                    
+                        <a href='$url' title='Details'>Lees meer</a>
+                    
+                        </div></div></div></div>";
                         }
                     }
                 }

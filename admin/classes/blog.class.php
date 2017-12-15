@@ -92,11 +92,9 @@ class blog
                     header("refresh:2;url=blog_up.php");
                     exit;
                 }
-            } else {
-                echo"Selecteer een afbeelding a.u.b";
             }
 
-            $query = $this->_db->prepare('
+                $query = $this->_db->prepare('
                 INSERT INTO `blog` (`user_id` ,`title`, `subtitle`, `inhoud`, `beschrijving`, `kernwoorden`, `img_name`, `activiteit`, `inschrijving`, `inschrijving_aantal`, `datum`) 
                 VALUES (:user_id, :title, :subtitle, :inhoud, :beschrijving, :kernwoorden, :img_name, :activiteit, :inschrijving, :maxdeeln, :datum);
             ');
@@ -110,10 +108,9 @@ class blog
             $query->bindValue(":img_name", $newfilename);
             $query->bindValue(":activiteit", $data['activiteit']);
             $query->bindValue(":inschrijving", $data['inschrijven']);
-            $query->bindValue(":maxdeeln", $data['maxdeeln']);
             $query->bindValue(":datum", $data['actidatum']);
 
-            if ($query->execute()) {
+            if($query->execute()) {
                 return true;
                 die(header('Location: blog_admin.php'));
             } else {
@@ -154,12 +151,11 @@ class blog
                     }
                 }
 
-
-                $query = $this->_db->prepare('
-                UPDATE `blog` 
-                SET `title` = :title, `subtitle` = :subtitle, `inhoud` = :inhoud, `beschrijving` = :beschrijving, `kernwoorden` = :kernwoorden, `img_name` = :img_name, `activiteit` = :activiteit, `inschrijving` = :inschrijving, `datum` = :datum
-                WHERE `blog_id` = :blog_id;
+                    $query = $this->_db->prepare('
+                INSERT INTO `blog` (`user_id` ,`title`, `subtitle`, `inhoud`, `beschrijving`, `kernwoorden`, `img_name`, `activiteit`, `inschrijving`, `inschrijving_aantal`, `datum`) 
+                VALUES (:user_id, :title, :subtitle, :inhoud, :beschrijving, :kernwoorden, :img_name, :activiteit, :inschrijving, :maxdeeln, :datum);
             ');
+
                 $query->bindValue(":blog_id", $blog_id);
                 $query->bindValue(":title", $data['titel']);
                 $query->bindValue(":subtitle", $data['subtitel']);

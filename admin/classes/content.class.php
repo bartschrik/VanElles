@@ -61,7 +61,7 @@ class Content
     {
         try {
             $query = $this->_db->prepare('
-                    SELECT * FROM product p JOIN leveranciers l ON p.lev_id=l.lev_id WHERE p.lev_id = :levnummer;
+                    SELECT * FROM product p JOIN leveranciers l ON p.lev_id=l.lev_id WHERE p.lev_id = :levnummer ORDER BY rand() LIMIT 6;
                 ');
             $query->bindValue(":levnummer", $levnummer);
 

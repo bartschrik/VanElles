@@ -10,7 +10,8 @@ if ($uitgelicht){
         <div class="row">
             <div class="col-xs-12" id="main-product">';
 
-                echo '<div class="a-center">
+                echo '
+                <div class="a-center">
                     <div class="ptitle">
                         <h2>Uitgelichte producten</h2>
                     </div>

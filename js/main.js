@@ -5,6 +5,8 @@ $(document).ready(function () {
     $mobileMenu     = $('#main-menu');
     $subMenuItem    = $('#main-menu > li.has-sub');
     $webtitle       = $('#webtitle').text();
+    $webdes       = $('#seo_des').text();
+    $webkern       = $('#seo_kern').text();
 
     /*Vars*/
     var didScroll;
@@ -16,6 +18,14 @@ $(document).ready(function () {
     if ($webtitle) {
         document.title = 'Van Elles | ' + $webtitle;
     }
+    if ($webdes) {
+        $('meta[name=description]').attr('content', $webdes);
+    }
+    if ($webkern) {
+        $('meta[name=keywords]').attr('content', $webkern);
+    }
+
+
     /*Menu*/
     $menuToggle.click(function () {
         $(this).stop().toggleClass('active');
@@ -61,9 +71,10 @@ $(document).ready(function () {
         slidesToShow: 3,
         slidesToScroll: 3,
         autoplay: true,
-        autoplaySpeed: 5000,
+        autoplaySpeed: 3000,
         arrows: false,
         dots: false,
+        pauseOnHover: false,
         responsive: [
             {
                 breakpoint: 1024,

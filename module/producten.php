@@ -60,8 +60,10 @@
                     </div></div>
 
                     <div class="col-md-4 col-sm-6 col-xs-12 marbot">
-                        <img src="'.constant("local_url").'admin/images/product/'.$img_name.'" class="img-responsive" style="width: 100%; height: 50%;">
-                    </div>';
+                        <a href="'.constant("local_url").'admin/images/product/'.$img_name.'" data-lightbox="image-1" data-title="'.$product.'"><img src="'.constant("local_url").'admin/images/product/'.$img_name.'" class="img-responsive" style="width: 100%; height: 50%;"></a>
+                    </div>
+                    <div id="seo_des" style="display: none;">'.$description.'</div>
+                    <div id="seo_kern" style="display: none;">'.$kernwoorden.'</div>';
                 ?>
             </div>
         </div>
@@ -73,8 +75,10 @@
     <div class="container">
         <div class="row">
             <div class="martop marbot">
-                <div class="ptitle">
-                    <h1>Producten</h1>
+                <div class="col-xs-12">
+                    <div class="ptitle">
+                        <h1>Producten</h1>
+                    </div>
                 </div>
 
                 <?php
@@ -94,7 +98,7 @@
                     $foto = $row["images"];
                     $url = $row["webshop_url"];
 
-                    print("<div class='col-xs-12 col-md-3 col-sm-6 marbot'><div class='card'>");
+                    print("<div class='col-xs-12 col-lg-3 col-md-4 col-sm-6 marbot'><div class='card pro-card'>");
 
                     $pmid = $content->getUrlbyModule(6);
                     $ppage = constant('local_url'). "/$pmid/$pid";

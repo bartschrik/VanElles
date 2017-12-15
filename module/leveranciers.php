@@ -47,7 +47,9 @@ $db = $db->databaseConnection();
     
                     <div class="col-md-4 col-sm-6 col-xs-12 marbot">
                         <img src="'.constant("local_url").'admin/images/leverancier/'.$img_name.'" class="img-responsive" style="width: 100%; height: 50%;">
-                    </div>';
+                    </div>
+                    <div id="seo_des" style="display: none;">'.$description.'</div>
+                    <div id="seo_kern" style="display: none;">'.$kernwoorden.'</div>';
                  ?>
 
              </div>
@@ -62,8 +64,10 @@ $db = $db->databaseConnection();
 <div class="container">
     <div class="row">
         <div class="martop marbot">
-            <div class="ptitle">
-                <h1>Leveranciers</h1>
+            <div class="col-xs-12">
+                <div class="ptitle">
+                    <h1>Leveranciers</h1>
+                </div>
             </div>
 
             <?php
@@ -85,7 +89,7 @@ $db = $db->databaseConnection();
                 $inhoud = $row["korte_inhoud"];
                 $logo = $row["logo"];
 
-                print("<div class='col-xs-12 col-md-4 col-sm-6 marbot'><div class='card'>");
+                print("<div class='col-xs-12 col-md-4 col-sm-6 marbot'><div class='card lev-card'>");
 
                 $lmid = $content->getUrlbyModule(5);
                 $lpage = constant('local_url'). "/$lmid/$lid";

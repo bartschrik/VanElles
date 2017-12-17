@@ -44,6 +44,7 @@ $pid = $_GET['pid'];
 
         $row = $query1->fetch(PDO::FETCH_ASSOC);
         $id = $row['blog_id'];
+        $datum = $row['datum'];
         $img_name = $row['img_name'];
         $title = $row['title'];
         $subtitel = $row["subtitle"];
@@ -54,19 +55,17 @@ $pid = $_GET['pid'];
         $maxinschrijf = $row["inschrijving_aantal"];
         $deeln = $blog->getDeelnemers($id);
 
-    print("<div class='col-xs-12 marbot'><div class='card'>");
-
-    echo "<a href='#' style='background-image: url(" . constant("local_url") . "$dir/$img_name" . ");' class='card-img'></a>";
-
-    print("<div class='card-body'>");
-
-    print("<a href=\"#\"><h4 class=\"card-title\">" . $title . "</h4></a>");
-
-    print("<p class=\"card-text\">" . $subtitel . "</p>");
-
-    print("<p class=\"card-text\">" . $inhoud . "</p>");
-
-    print("</div></div></div>");
+    echo'<div class="col-md-8 col-sm-6 col-xs-12">
+                    <div class="ptitle">
+                        <h2 id="webtitle">'. $title .'</h2>
+                        <p>'. $datum .'</p>
+                        <h5 id="webtitle">'. $subtitel .'</h5>
+                        </div>
+                        <p>'. $inhoud .'</p>
+                    </div>
+                    <div class="col-md-4 col-sm-6 col-xs-12 marbot">
+                        <img src="'.constant("local_url").'admin/images/blog/'.$img_name.'" class="img-responsive">
+                    </div>';
 ?>
         </div>
     </div>
@@ -86,7 +85,10 @@ $pid = $_GET['pid'];
     ob_start();
 
     if($inschrijven == 1) {
-        echo "<div class='container'>
+        if ($deeln >= $maxinschrijf) {
+            echo '<div class="header text-center">Helaas zijn er geen plekken meer vrij voor deze activiteit.</div>';
+        } else {
+            echo "<div class='container'>
             <div class='header text-center'>
                 <h1>Inschrijven</h1>
             </div class='header text-center'>
@@ -127,6 +129,7 @@ $pid = $_GET['pid'];
             <p><input type='submit' name='verstuur' value='Verstuur' class='btn btn-default'/></p>
         </form>
         </div>";
+        }
     }
     $id = $_GET['pid'];
 
@@ -135,13 +138,14 @@ $pid = $_GET['pid'];
                 print("Alle velden moeten ingevuld zijn");
             } else {
                 if ($deeln >= $maxinschrijf) {
-                    echo "<script>alert('Deze activiteit is al volbezet.');</script>";
-                    echo " <meta http-equiv=\"refresh\" content=\"0;\" />";
+                    echo '<div class="header text-center">Helaas zijn er geen plekken meer vrij voor deze activiteit.</div>';
+                    echo '<meta http-equiv="refresh" content="2;" />';
                 } else {
                     $sql = "INSERT INTO user (first_name, insertion, last_name, email, birthday, phonenumber) VALUES ('$voornaam', '$tussenvoegsel', '$achternaam', '$email', '$geboortedatum', '$telefoonnr')";
                     $stmt = $db->prepare($sql);
                     if ($stmt->execute()) {
-                        echo "Succesvol ingeschreven!";
+                        echo '<div id="blogfoutm">Succesvol ingeschreven!</div>';
+                        echo '<meta http-equiv="refresh" content="2;" />';
                     }
 
                     $last_id = $db->lastInsertId();

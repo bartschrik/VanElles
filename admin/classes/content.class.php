@@ -57,11 +57,82 @@ class Content
         }
     }
 
-    public function getNieuwactiv()
+    public function getLevProduct($levnummer)
     {
         try {
             $query = $this->_db->prepare('
-                   SELECT * FROM blog WHERE activiteit = 1 ORDER BY datum DESC
+                    SELECT * FROM product p JOIN leveranciers l ON p.lev_id=l.lev_id WHERE p.lev_id = :levnummer ORDER BY rand() LIMIT 6;
+                ');
+            $query->bindValue(":levnummer", $levnummer);
+
+            if ($query->execute()) {
+                if ($query->rowCount() > 0) {
+                    return $content = $query->fetchAll();
+                } else {
+                    return false;
+                }
+            } else {
+                echo $query->errorInfo();
+                return false;
+            }
+        } catch (PDOexception $e) {
+            echo $e->getMessage();
+            return false;
+        }
+    }
+
+    public function getUrlbyModule($mid)
+    {
+        try {
+            $query = $this->_db->prepare('
+                    SELECT url FROM page WHERE Module_id = :mid LIMIT 1;
+                ');
+            $query->bindValue(":mid", $mid);
+
+            if ($query->execute()) {
+                if ($query->rowCount() > 0) {
+                    return $content = $query->fetch()[0];
+                } else {
+                    return false;
+                }
+            } else {
+                echo $query->errorInfo();
+                return false;
+            }
+        } catch (PDOexception $e) {
+            echo $e->getMessage();
+            return false;
+        }
+    }
+
+    public function getNieuwActiv()
+    {
+        try {
+            $query = $this->_db->prepare('
+                   SELECT * FROM blog WHERE activiteit = 1 ORDER BY blog_id DESC
+                ');
+
+            if ($query->execute()) {
+                if ($query->rowCount() > 0) {
+                    return $content = $query->fetchAll()[0];
+                } else {
+                    return false;
+                }
+            } else {
+                echo $query->errorInfo();
+                return false;
+            }
+        } catch (PDOexception $e) {
+            echo $e->getMessage();
+            return false;
+        }
+    }
+
+    public function getNieuwBlog()
+    {
+        try {
+            $query = $this->_db->prepare('
+                   SELECT * FROM blog WHERE activiteit = 0 ORDER BY blog_id DESC
                 ');
 
             if ($query->execute()) {

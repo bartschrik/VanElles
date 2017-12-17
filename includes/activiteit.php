@@ -4,35 +4,67 @@ require_once 'admin/classes/content.class.php';
 
 
 $content = new Content();
-$nieuw = $content->getNieuwactiv();
-if ($nieuw){
-    $id = $nieuw["blog_id"];
-    $img_name = $nieuw["img_name"];
-    $title = $nieuw['title'];
-    $subtitel = $nieuw["subtitle"];
-    $inhoud = $nieuw["inhoud"];
+$nieuwa = $content->getNieuwActiv();
+$nieuwb = $content->getNieuwBlog();
 
-    echo '
-            <div class="" id="main-product">';
+if ($nieuwa) {
+    $id = $nieuwa["blog_id"];
+    $img_name = $nieuwa["img_name"];
+    $title = $nieuwa['title'];
+    $subtitel = $nieuwa["subtitle"];
+    $inhoudkort = $nieuwa["korte_inhoud"];
+    $page = $content->getUrlbyModule(4);
+    $url = constant("local_url").$page."/".$id;
 
-            echo '<div class="a-center">
-                    <div class="ptitle">
-                        <h2>'.$title.'</h2>
-                    </div>
-                 </div>';
+    echo"
+              <div class='ptitle'>
+                    <h1>Nieuwsbericht</h1>
+                </div>
+            <div class='' id='main-product'>
 
-                    print ("<div class=\"card marbot\">");
+    <div class='card marbot'>
 
-                    echo "<a href='#' style='background-image: url(".constant("local_url")."/admin/images/blog/".$img_name.");' class='card-img'></a>";
+    <a href='$url' style='background-image: url(".constant("local_url")."/admin/images/blog/$img_name);' class='card-img'></a>
 
-                    print ("<div class=\"card-body\">");
+    <div class='card-body'>
 
-                    print("<a href=\"#\"><h4 class=\"card-title\">" . $subtitel . "</h4></a>");
+    <a href=$url><h4 class='card-title'>$title</h4></a>
 
-                    print("<p class=\"card-text\">" . $inhoud . "</p>");
+    <p class='card-text'>$inhoudkort</p>
 
-                    print"<a href='blog/$id' title='Details'>Details</a>";
+    <a href='$url' title='Details'>Lees meer</a>
 
-                    print("</div>");
-                ?>
-<?php }?>
+    </div>";
+} else {
+    if ($nieuwb) {
+        $id = $nieuwb["blog_id"];
+        $img_name = $nieuwb["img_name"];
+        $title = $nieuwb['title'];
+        $subtitel = $nieuwb["subtitle"];
+        $inhoudkort = $nieuwa["korte_inhoud"];
+        $page = $content->getUrlbyModule(4);
+        $url = constant("local_url").$page."/".$id;
+
+
+        echo"
+              <div class='ptitle'>
+                    <h1>Nieuwsbericht</h1>
+                </div>
+            <div class='' id='main-product'>
+
+    <div class='card marbot'>
+
+    <a href='$url' style='background-image: url(".constant("local_url")."/admin/images/blog/$img_name);' class='card-img'></a>
+
+    <div class='card-body'>
+
+    <a href=$url><h4 class='card-title'>$title</h4></a>
+
+    <p class='card-text'>$inhoudkort</p>
+
+    <a href='$url' title='Details'>Lees meer</a>
+
+    </div>";
+    }
+}
+?>

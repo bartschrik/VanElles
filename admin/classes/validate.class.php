@@ -120,34 +120,71 @@ class Validate {
     }
 
     public function validPhoto($data) {
-        if($data['error'] !== UPLOAD_ERR_NO_FILE) {
-            $filename = strtolower($data['name']);
-            $filetype = strtolower($data['type']);
+        if(is_array($data["tmp_name"])) {
+            foreach ($data["tmp_name"] as $key=>$tmp_name) {
 
-            //check if contain php and kill it
-            $pos = strpos($filename,'php');
-            if(!($pos === false)) {
-                return false;
+                if($data['error'][$key] !== UPLOAD_ERR_NO_FILE) {
+                    $filename = strtolower($data['name'][$key]);
+                    $filetype = strtolower($data['type'][$key]);
+
+                    //check if contain php and kill it
+                    $pos = strpos($filename,'php');
+                    if(!($pos === false)) {
+                        return false;
+                    }
+
+                    //get the file ext
+                    $file_ext = strrchr($filename, '.');
+
+                    //check if its allowed or not
+                    $whitelist = array(".jpg",".jpeg",".gif",".png");
+                    if (!(in_array($file_ext, $whitelist))) {
+                        return false;
+                    }
+
+
+                    //check upload type
+                    $pos = strpos($filetype,'image');
+                    if($pos === false) {
+                        return false;
+                    }
+                    $imageinfo = getimagesize($data['tmp_name'][$key]);
+                    if($imageinfo['mime'] != 'image/gif' && $imageinfo['mime'] != 'image/jpeg'&& $imageinfo['mime']      != 'image/jpg'&& $imageinfo['mime'] != 'image/png') {
+                        return false;
+                    }
+                }
+
             }
+        } else {
+            if($data['error'] !== UPLOAD_ERR_NO_FILE) {
+                $filename = strtolower($data['name']);
+                $filetype = strtolower($data['type']);
 
-            //get the file ext
-            $file_ext = strrchr($filename, '.');
+                //check if contain php and kill it
+                $pos = strpos($filename,'php');
+                if(!($pos === false)) {
+                    return false;
+                }
 
-            //check if its allowed or not
-            $whitelist = array(".jpg",".jpeg",".gif",".png");
-            if (!(in_array($file_ext, $whitelist))) {
-                return false;
-            }
+                //get the file ext
+                $file_ext = strrchr($filename, '.');
+
+                //check if its allowed or not
+                $whitelist = array(".jpg",".jpeg",".gif",".png");
+                if (!(in_array($file_ext, $whitelist))) {
+                    return false;
+                }
 
 
-            //check upload type
-            $pos = strpos($filetype,'image');
-            if($pos === false) {
-                return false;
-            }
-            $imageinfo = getimagesize($data['tmp_name']);
-            if($imageinfo['mime'] != 'image/gif' && $imageinfo['mime'] != 'image/jpeg'&& $imageinfo['mime']      != 'image/jpg'&& $imageinfo['mime'] != 'image/png') {
-                return false;
+                //check upload type
+                $pos = strpos($filetype,'image');
+                if($pos === false) {
+                    return false;
+                }
+                $imageinfo = getimagesize($data['tmp_name']);
+                if($imageinfo['mime'] != 'image/gif' && $imageinfo['mime'] != 'image/jpeg'&& $imageinfo['mime']      != 'image/jpg'&& $imageinfo['mime'] != 'image/png') {
+                    return false;
+                }
             }
         }
         return true;

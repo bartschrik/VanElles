@@ -2,12 +2,12 @@
 <div id="content">
     <div id="main-slider">
         <div>
-            <div class="slide" style="background-image: url('images/hk-living-banner_2048x2048.jpg')">
+            <div class="slide" style="background-image: url('<?php echo constant("local_url"); ?>images/hk-living-banner_2048x2048.jpg')">
 
             </div>
         </div>
         <div>
-            <div class="slide" style="background-image: url('images/stbr.jpg')">
+            <div class="slide" style="background-image: url('<?php echo constant("local_url"); ?>images/stbr.jpg')">
 
             </div>
         </div>
@@ -22,10 +22,6 @@
                 <?php echo $pageContent['inhoud']; ?>
             </section>
             <aside class="col-md-4 col-sm-5 col-xs-12 marbot">
-                <div class="ptitle">
-                    <h1>Volgende activiteit</h1>
-                    <h2>Workshop</h2>
-                </div>
                 <?php require_once 'includes/activiteit.php'; ?>
             </aside>
         </div>

@@ -86,7 +86,7 @@
                                          <td>Inschrijven</td>
                                          <td>Max. deelnemers</td>
                                      </tr><tr>
-                                    <td><select name="activiteit" onchange="this.form.submit();">
+                                    <td><select name="activiteit" id="blogdatum">
                                     <option value="0" '; if(isset($_POST["activiteit"])) {
                             $kies = ($_POST["activiteit"]);
                             if ($kies == '0') {
@@ -108,9 +108,9 @@
                                         </td></tr></table>';
                         if(isset($_POST['activiteit'])) {
                             if ($_POST['activiteit'] == "1") {
-                                echo '
-                                      <span>Activiteit Datum</span>
+                                echo '<div class="form-group" id="blogdatuminput">
                                       <div class="form-group" >
+                                      <span>Activiteit Datum</span>
                                       <input name = "actidatum" id = "datetime"  value="' . InputValue('actidatum') . '">
                                       </div >';
                             }
@@ -159,7 +159,7 @@
                                          <td>Inschrijven</td>
                                          <td>Max. deelnemers</td>
                                      </tr><tr>
-                                    <td><select name="activiteit" onchange="this.form.submit();">
+                                    <td><select name="activiteit" id="blogdatum">
                                     <option value="0" '; if(isset($_POST["activiteit"])) {
                             $kies = ($_POST["activiteit"]);
                             if ($kies == '0') {
@@ -184,9 +184,8 @@
                                         </td></tr></table>';
                         if(isset($_POST['activiteit'])) {
                             if ($_POST['activiteit'] == "1") {
-                                echo '
+                                echo '<div class="form-group" id="blogdatuminput">
                                       <span>Activiteit Datum</span>
-                                      <div class="form-group" >
                                       <input name = "actidatum" id = "datetime" value="' . InputValue('actidatum') . '">
                                       </div >';
                             }

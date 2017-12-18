@@ -71,7 +71,7 @@
                                          <td>Inschrijven</td>
                                          <td>Max. deelnemers</td>
                                      </tr><tr>
-                                    <td><select name="activiteit" onchange="this.form.submit();">
+                                    <td><select name="activiteit" id="blogdatum">
                                     <option value="0" '; if(isset($_POST["activiteit"])) {
                                         $kies = ($_POST["activiteit"]);
                                         if ($kies == '0') {
@@ -90,17 +90,11 @@
                                             <option value="1">Ja</option>
                                         </select></td>
                                         <td><input id="nrsel" type="number" min="0" name="maxdeeln" value="0" value="' . InputValue('maxdeeln') . '" /><br>
-                                        </td></tr></table>';
-                                        if(isset($_POST['activiteit'])) {
-                                            if ($_POST['activiteit'] == "1") {
-                                                echo '
+                                        </td></tr></table>
+                                                <div class="form-group" id="blogdatuminput">
                                                 <span>Activiteit Datum</span>
-                                                <div class="form-group" >
                                                 <input name = "actidatum" id = "datetime"  value="' . InputValue('actidatum') . '">
-                                                </div >';
-                                            }
-                                        }
-                                        echo'
+                                                </div >
                                         <h4>SEO-Informatie</h4>
                                         <input type="text" name="seokernwoorden" class="' . InputErrorClass('seokernwoorden', $errors) . '" placeholder="Kernwoorden, bijv: vanelles, woonwinkel ect." value="' . InputValue('seokernwoorden') . '" />
                                         <textarea name="seobeschrijving" class="' . InputErrorClass('seobeschrijving', $errors) . '" placeholder="Blog beschrijving" style="max-width: 100%; height: 200px;">' . InputValue('seobeschrijving') . '</textarea>
@@ -125,6 +119,7 @@
                                 </form>';
                         /*ELSE*/
                     } else {
+
                         echo '<form action="#" method="post" class="classicform" enctype="multipart/form-data">
                                     <div class="col-md-8">
                                         <input type="text" name="titel" placeholder="Blog titel" value="' . InputValue('titel') . '" />
@@ -143,7 +138,7 @@
                                          <td>Inschrijven</td>
                                          <td>Max. deelnemers</td>
                                      </tr><tr>
-                                    <td><select name="activiteit" onchange="this.form.submit();">
+                                    <td><select name="activiteit" id="blogdatum">
                                     <option value="0" '; if(isset($_POST["activiteit"])) {
                                         $kies = ($_POST["activiteit"]);
                                         if ($kies == '0') {
@@ -165,17 +160,11 @@
                                         </td>
                                         <td>
                                         <input id="nrsel" type="number" min="0" name="maxdeeln" value="0" value="' . InputValue('maxdeeln') . '" />
-                                        </td></tr></table>';
-                                        if(isset($_POST['activiteit'])) {
-                                            if ($_POST['activiteit'] == "1") {
-                                                echo '
+                                        </td></tr></table>
+                                                <div class="form-group" id="blogdatuminput">
                                                 <span>Activiteit Datum</span>
-                                                <div class="form-group" >
                                                 <input name = "actidatum" id = "datetime" value="' . InputValue('actidatum') . '">
-                                                </div >';
-                                            }
-                                        }
-                                        echo'
+                                                </div >
                                         <h4>SEO-Informatie</h4>
                                         <input type="text" name="seokernwoorden" placeholder="Kernwoorden, bijv: vanelles, woonwinkel ect." value="' . InputValue('seokernwoorden') . '" />
                                         <textarea name="seobeschrijving"  placeholder="Blog beschrijving" style="max-width: 100%; height: 200px;">' . InputValue('seobeschrijving') . '</textarea>

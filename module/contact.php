@@ -9,14 +9,13 @@
             grecaptcha.render('RecaptchaField2', {'sitekey' : '6LevEzsUAAAAACTTY0PQXdlxvv1lXY4QkFLnU7-1'});
         };
     </script>
-    
+
 <?php
 
     if(isset($_POST['verstuurcontact'])) {
 
         $privatekey = "6LevEzsUAAAAAGvQJ1EDrE-eL5aNBKHteM83OywN";
         $url = 'https://www.google.com/recaptcha/api/siteverify';
-
 
         $response = file_get_contents($url . "?secret=" . $privatekey . "&response=" . $_POST['g-recaptcha-response'] . "&remoteip=" . $_SERVER['REMOTE_ADDR']);
         $data = json_decode($response);
@@ -73,14 +72,12 @@
 
 
                         if ($stmt->execute()) {
-                            echo "<script>alert('Bedankt dat u contact met ons opneemt.');</script>";
-                            // include_once 'includes/mailfunctions.php';
-                            // contactmail($emailincontact, $naamincontact, $berichtcontact, $telefooncontact);
+                            $ja=1;
+                            include_once 'mail/mail_contact.php';
 
 
 
-
-                        } else {
+                            } else {
                             echo "<script>alert('Sorry er is iets fout gegaan, probeer het later nog een keer.');</script>";
                         }
                     } catch (PDOException $e) {
@@ -88,7 +85,7 @@
                     }
                 }
             }
-            echo " <meta http-equiv=\"refresh\" content=\"0;\" />";
+        echo " <meta http-equiv=\"refresh\" content=\"0;\" />";
             return true;
 
 
@@ -96,7 +93,7 @@
         } else {
 
             echo "<script>alert('Vul Recaptcha in.');</script>";
-            echo " <meta http-equiv=\"refresh\" content=\"0;\" />";
+          echo " <meta http-equiv=\"refresh\" content=\"0;\" />";
 
 
             return false;
@@ -149,35 +146,36 @@
                 <?php echo $pageContent['inhoud']; ?>
             </div>
 
-
-            <div class="col-md-6 col-xs-12 marbot">
+            <div class="col-md-6">
                 <div class="ptitle">
                     <h2>Contact formulier</h2>
-                </div>
+
                 <form method="post" action="">
-                    <div class="form-group">
-                        <input class="form-control" type="text" name="naamcontact" placeholder="Voornaam" >
-                    </div>
-                    <div class="form-group">
-                        <input class="form-control" type="text" name="tussencontact" placeholder="tussenvoegsel" >
-                    </div>
-                    <div class="form-group">
-                        <input class="form-control" type="text" name="achtercontact" placeholder="Achternaam" >
-                    </div>
-                    <div class="form-group">
-                        <input class="form-control" type="tel" name="telefoonnummercontact" placeholder="Telefoonnummer" >
-                    </div>
-                    <div class="form-group">
-                        <input class="form-control" type="email" name="emailcontact" placeholder="naam@voorbeeld.com" >
-                    </div>
-                    <div class="form-group">
-                        <textarea class="form-control" id="textarea" placeholder="Bericht" name="berichtcontact"></textarea>
-                    </div>
 
-                    <div id="RecaptchaField1"></div>
-
-                    <div class="form-group">
-                        <input class="btn btn-default" type="submit" name="verstuurcontact" value="verstuur">
+                            <div class="row">
+                                <div class="col-md-6 col-sm-12 col-xs-12">
+                        <input class="form-control" type="text" name="naamcontact" placeholder="Voornaam" ><br>
+                    </div>
+                                <div class="col-md-6 col-sm-6 col-xs-5">
+                        <input class="form-control" type="text" name="tussencontact" placeholder="tussenvoegsel" ><br>
+                    </div>
+                                <div class="col-md-12 col-sm-12 col-xs-12">
+                        <input class="form-control" type="text" name="achtercontact" placeholder="Achternaam" ><br>
+                    </div>
+                                <div class="col-md-12 col-sm-12 col-xs-12">
+                        <input class="form-control" type="tel" name="telefoonnummercontact" placeholder="Telefoonnummer" ><br>
+                    </div>
+                                <div class="col-md-12 col-sm-12 col-xs-12">
+                        <input class="form-control" type="email" name="emailcontact" placeholder="naam@voorbeeld.com" ><br>
+                    </div>
+                                <div class="col-md-12 col-sm-12 col-xs-12">
+                        <textarea class="form-control" id="textarea" placeholder="Bericht" name="berichtcontact"></textarea><br>
+                    </div>
+                                <div class="col-md-12 col-sm-12 col-xs-12">
+                                <div id="RecaptchaField1"></div>
+                                </div>
+                                <div class="col-md-12 col-sm-12 col-xs-12">
+                        <input class="btn btn-default" type="submit" name="verstuurcontact" value="verstuur"><br>
                     </div>
                 </form>
 
@@ -233,6 +231,7 @@ if(isset($_POST['verstuur'])) {
         if (isset($_POST["verstuur"])) {
             if (empty($_POST["naam"]) || empty($_POST["emailadres"]) || empty($_POST["omschrijving"])) {
                 echo "<script>alert('vul a.u.b alle velden in.');</script>";
+
             } else {
                 try {
                     $naamin = $_POST["naam"];

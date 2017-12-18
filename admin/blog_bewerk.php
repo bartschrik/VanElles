@@ -10,6 +10,7 @@
         $_POST['titel'] = $dbblog['title'];
         $_POST['subtitel'] = $dbblog['subtitle'];
         $_POST['inhoud'] = $dbblog['inhoud'];
+        $_POST['korte_inhoud'] = $dbblog['korte_inhoud'];
         $_POST['seobeschrijving'] = $dbblog['beschrijving'];
         $_POST['seokernwoorden'] = $dbblog['kernwoorden'];
         $_POST['plaatje'] = $dbblog['img_name'];
@@ -42,6 +43,7 @@
                             ['titel', $_POST['titel'], 'required'],
                             ['subtitel', $_POST['subtitel'], 'required'],
                             ['inhoud', $_POST['inhoud'], 'required'],
+                            ['korte_inhoud', $_POST['korte_inhoud'], 'required'],
                             ['afbeelding', $_FILES['afbeelding'], 'imgrequired|validphoto'],
                             ['seokernwoorden', $_POST['seokernwoorden'], 'required'],
                             ['seobeschrijving', $_POST['seobeschrijving'], 'required|min:2']
@@ -71,6 +73,7 @@
                                         <input type="text" name="titel" class="' . InputErrorClass('titel', $errors) . '" placeholder="Blog titel" value="' . InputValue('titel') . '" />
                                         <input type="text" name="subtitel" class="' . InputErrorClass('subtitel', $errors) . '" placeholder="Blog sub titel" value="' . InputValue('subtitel') . '" />  
                                         <textarea name="inhoud" placeholder="Inhoud">' . InputValue('inhoud') . '</textarea>
+                                        <input type="text" name="korte_inhoud" class="' . InputErrorClass('korte_inhoud', $errors) . '" placeholder="Korte inhoud" value="' . InputValue('korte_inhoud') . '" />  
                                         <input type="file" name="afbeelding" class="' . InputErrorClass('afbeelding', $errors) . '" placeholder="Afbeelding" value="' . InputValue('afbeelding') . '" />
                                         <script>
                                             CKEDITOR.replace( "inhoud" );
@@ -131,7 +134,7 @@
                                     <div class="row">
                                         <div class="col-xs-12">
                                             <button type="submit" name="saveblog" class="save">Opslaan</button>
-                                            <a href="../blog" title="Annuleren" class="annuleer">Annuleren</a>
+                                             <a href="blog_admin.php" title="Annuleren" class="annuleer">Annuleren</a>
                                         </div>
                                     </div>
                                 </form>';
@@ -143,6 +146,7 @@
                                         <input type="text" name="titel" placeholder="Blog titel" value="' . InputValue('titel') . '" />
                                         <input type="text" name="subtitel" placeholder="Blog sub titel" value="' . InputValue('subtitel') . '" />  
                                         <textarea name="inhoud" placeholder="Inhoud">' . InputValue('inhoud') . '</textarea>
+                                        <input type="text" name="korte_inhoud" placeholder="Korte inhoud" value="' . InputValue('korte_inhoud') . '" />  
                                         <input type="file" name="afbeelding" placeholder="Afbeelding" value="' . InputValue('afbeelding') . '" />
                                         <script>
                                             CKEDITOR.replace( "inhoud" );

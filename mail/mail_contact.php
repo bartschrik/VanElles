@@ -10,6 +10,15 @@ if($ja==1){
 require 'Exception.php';
 require 'PHPMailer.php';
 require 'SMTP.php';
+
+    $naamincontact = $_POST["naamcontact"];
+    $tussencontact = $_POST["tussencontact"];
+    $achtercontact = $_POST["achtercontact"];
+    $emailincontact = $_POST["emailcontact"];
+    $telefooncontact = $_POST["telefoonnummercontact"];
+    $berichtcontact = $_POST["berichtcontact"];
+
+
     $mail=new PHPMailer(true);
     $mail->isSMTP();
     $mail->Host = 'smtp.gmail.com';
@@ -19,22 +28,15 @@ require 'SMTP.php';
     $mail->Username = 'bartschrikschool@gmail.com';                     // SMTP username
     $mail->Password = 'KBSopdracht';                                    // SMTP password
 
-    $mail->setFrom("bartschrik@hotmail.com");            // Laat zien wie hem heeft gestuurd
-    //$mail->addReplyTo($_POST["emailcontact"] . $_POST["achtercontact"]);         // Naar wie je replied
+    $mail->setFrom( $emailincontact);            // Laat zien wie hem heeft gestuurd
+    $mail->addReplyTo($emailincontact);         // Naar wie je replied
     $mail->addAddress('bart.schrik@hotmail.com');                        // De ontvanger van de emails
     $mail->isHTML(true);                                                // Verander het email layout naar html
 
 
-    $naamincontact = $_POST["naamcontact"];
-    $tussencontact = $_POST["tussencontact"];
-    $achtercontact = $_POST["achtercontact"];
-    $emailincontact = $_POST["emailcontact"];
-    $telefooncontact = $_POST["telefoonnummercontact"];
-    $berichtcontact = $_POST["berichtcontact"];
-
     $bodyContent = "contact formulier van " . $emailincontact . "<br>";           // wat in de email komt te staan
-    $bodyContent .= "Naam: " .$naamincontact . $achtercontact ."<br> ";
-    $bodyContent .= "E-mailadres: " . $emailincontact. "<br>";
+    $bodyContent .= "Naam: " .$naamincontact . " " . $achtercontact ."<br> ";
+    $bodyContent .= "Emailadres: " . $emailincontact. "<br>";
     $bodyContent .= "Telefoonnummer: " . $telefooncontact . "<br>";
     $bodyContent .= "Bericht: " . $berichtcontact .    "<br>";
     $mail->Subject = 'contactformulier van ' . $emailincontact;                   // Het onderwerp van het email zelf

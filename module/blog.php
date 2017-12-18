@@ -169,34 +169,50 @@ if($pageId) { ?>
     }?>
 
 <?php } else { ?>
-
     <div class="container">
         <div class="row">
             <div class="martop">
-                <div class="ptitle" >
-                    <h1>Blogs</h1>
-                </div>
-                <div class="">
-                    <form action="#" method="post" class="classicform">
-                        Sorteren: <select name="sorteer" onchange="this.form.submit();">
-                            <option value="0" <?php if(isset($_POST["sorteer"])) {
-                                $sort = ($_POST["sorteer"]);
-                                if ($sort == '0') {
-                                    echo "selected";
-                                }
-                            }?>>Alles</option>
-
-                            <option value="1" <?php if(isset($_POST["sorteer"])) {
-                                $sort = ($_POST["sorteer"]);
-                                if ($sort == '1') {
-                                    echo "selected";
-                                }
-                            }?>>Activiteiten</option>
-                        </select>
-                    </form></div><br>
                 <?php
-
                 $dir = 'admin/images/blog/';
+
+                echo"<div class='col-xs-12 ptitle'>
+                	<h1>Blogs</h1>
+                </div></div>
+                
+ 		        <div class='col-xs-12 marbot'>
+ 		        <div class=\"btn-group\">
+  <button type=\"button\" class=\"btn btn-danger dropdown-toggle\" data-toggle=\"dropdown\" aria-haspopup=\"true\" aria-expanded=\"false\">
+    Action
+  </button>
+  <div class=\"dropdown-menu\">
+    <a class=\"dropdown-item\" href=\"#\">Action</a>
+    <a class=\"dropdown-item\" href=\"#\">Another action</a>
+    <a class=\"dropdown-item\" href=\"#\">Something else here</a>
+    <div class=\"dropdown-divider\"></div>
+    <a class=\"dropdown-item\" href=\"#\">Separated link</a>
+  </div>
+</div>
+                     <form action='#' method='post' class='classicform'>
+                Sorteren: <select name='sorteer' onchange='this.form.submit();'>
+                            <option value='0' ";
+                            if(isset($_POST['sorteer'])) {
+                                $sort = ($_POST['sorteer']);
+                                if ($sort == '0') {
+                                    echo 'selected';
+                                }
+                            }
+                            echo">Alles</option>
+
+                            <option value='1' ";
+                        if(isset($_POST['sorteer'])) {
+                            $sort = ($_POST['sorteer']);
+                            if ($sort == '1') {
+                                echo 'selected';
+                            }
+                        }
+                            echo">Activiteiten</option>
+                        </select>
+                    </form></div>";
 
                 if (!isset($_POST['sorteer']) || ($_POST['sorteer'] == "0")) {
                     $query1 = $db->prepare('SELECT * FROM blog ORDER BY blog_id DESC');
@@ -212,20 +228,21 @@ if($pageId) { ?>
                         $url = constant("local_url").$_GET['page']."/".$id;
 
                         echo"<div class='col-xs-12 col-sm-6 marbot'>
-                    
-                        <div class='card marbot'>
+
+                        <div class='card card-inverse'>
                     
                         <a href='$url' style='background-image: url(".constant("local_url")."/admin/images/blog/$img_name);' class='card-img'></a>
                     
                         <div class='card-body'>
                     
-                        <a href=$url><h4 class='card-title'>$title</h4></a>
+                        <div class='card-img-overlay'>
+                        <a href=$url><h4 class='card-title'>$title</h4></a></div>
                     
                         <p class='card-text'>$inhoudkort</p>
                     
-                        <a href='$url' title='Details'>Lees meer</a>
+                        <div class='a-right'><a href='$url' title='Details' class='btn btn-primary'>Lees meer</a></div>
                     
-                        </div></div></div></div>";
+                        </div></div></div>";
 
                     }
                 } else {
@@ -241,21 +258,22 @@ if($pageId) { ?>
                             $subtitel = $row["subtitle"];
                             $url = constant("local_url").$_GET['page']."/".$id;
 
-                        echo"<div class='col-xs-12 col-sm-6 marbot'>
-                    
-                        <div class='card marbot'>
+                        echo" <div class='col-xs-12 col-sm-6 marbot'>
+ 
+                        <div class='card card-inverse'>
                     
                         <a href='$url' style='background-image: url(".constant("local_url")."/admin/images/blog/$img_name);' class='card-img'></a>
-                    
+                        
                         <div class='card-body'>
                     
-                        <a href=$url><h4 class='card-title'>$title</h4></a>
+                        <div class='card-img-overlay'>
+                        <a href=$url><h4 class='card-title'>$title</h4></a></div>
                     
                         <p class='card-text'>$inhoudkort</p>
                     
-                        <a href='$url' title='Details'>Lees meer</a>
+                        <div class='a-right'><a href='$url' title='Details' class='btn btn-primary'>Lees meer</a></div>
                     
-                        </div></div></div></div>";
+                        </div></div></div>";
                         }
                     }
                 }

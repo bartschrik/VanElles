@@ -16,6 +16,7 @@
         $_POST['plaatje'] = $dbblog['img_name'];
         $_POST['activiteit'] = $dbblog['activiteit'];
         $_POST['inschrijven'] = $dbblog['inschrijving'];
+        $_POST['actidatum'] = $dbblog['datum'];
     }
 
     $msg = '';
@@ -43,8 +44,7 @@
                             ['titel', $_POST['titel'], 'required'],
                             ['subtitel', $_POST['subtitel'], 'required'],
                             ['inhoud', $_POST['inhoud'], 'required'],
-                            ['korte_inhoud', $_POST['korte_inhoud'], 'required'],
-                            ['afbeelding', $_FILES['afbeelding'], 'imgrequired|validphoto'],
+                            ['korteinhoud', $_POST['korteinhoud'], 'required'],
                             ['seokernwoorden', $_POST['seokernwoorden'], 'required'],
                             ['seobeschrijving', $_POST['seobeschrijving'], 'required|min:2']
                         ]);
@@ -73,7 +73,7 @@
                                         <input type="text" name="titel" class="' . InputErrorClass('titel', $errors) . '" placeholder="Blog titel" value="' . InputValue('titel') . '" />
                                         <input type="text" name="subtitel" class="' . InputErrorClass('subtitel', $errors) . '" placeholder="Blog sub titel" value="' . InputValue('subtitel') . '" />  
                                         <textarea name="inhoud" placeholder="Inhoud">' . InputValue('inhoud') . '</textarea>
-                                        <input type="text" name="korte_inhoud" class="' . InputErrorClass('korte_inhoud', $errors) . '" placeholder="Korte inhoud" value="' . InputValue('korte_inhoud') . '" />  
+                                        <textarea name="korteinhoud" maxlength="250" style="height: 75px;" class="' . InputErrorClass('korte_inhoud', $errors) . '" placeholder="Korte inhoud" >' . InputValue('korte_inhoud') . '</textarea>  
                                         <input type="file" name="afbeelding" class="' . InputErrorClass('afbeelding', $errors) . '" placeholder="Afbeelding" value="' . InputValue('afbeelding') . '" />
                                         <script>
                                             CKEDITOR.replace( "inhoud" );
@@ -99,10 +99,22 @@
                                 echo "selected";
                             }
                         }echo'>Ja</option>
-                                        </select></td>
-                                        <td><select name="inschrijven" id="selectmodule">
-                                            <option value="0">Nee</option>
-                                            <option value="1">Ja</option>
+                                        </select></td><td>
+                                        <select name="inschrijven" id="selectmodule">
+                                        <option value="0" ';
+                                    if(isset($_POST["inschrijven"])) {
+                                    $kies = ($_POST["inschrijven"]);
+                                    if ($kies == '0') {
+                                        echo "selected";
+                                    }
+                                        }echo'>Nee</option>
+                                    <option value="1" ';
+                                        if(isset($_POST["inschrijven"])) {
+                                        $kies = ($_POST["inschrijven"]);
+                                        if ($kies == '1') {
+                                        echo "selected";
+                                     }
+                                      }echo'>Ja</option>
                                         </select></td>
                                         <td><input id="nrsel" type="number" min="0" name="maxdeeln" value="0" value="' . InputValue('maxdeeln') . '" /><br>
                                         </td></tr></table>';
@@ -146,7 +158,7 @@
                                         <input type="text" name="titel" placeholder="Blog titel" value="' . InputValue('titel') . '" />
                                         <input type="text" name="subtitel" placeholder="Blog sub titel" value="' . InputValue('subtitel') . '" />  
                                         <textarea name="inhoud" placeholder="Inhoud">' . InputValue('inhoud') . '</textarea>
-                                        <input type="text" name="korte_inhoud" placeholder="Korte inhoud" value="' . InputValue('korte_inhoud') . '" />  
+                                       <textarea name="korteinhoud" maxlength="250" style="height: 75px;" placeholder="Korte inhoud" >' . InputValue('korte_inhoud') . '</textarea> 
                                         <input type="file" name="afbeelding" placeholder="Afbeelding" value="' . InputValue('afbeelding') . '" />
                                         <script>
                                             CKEDITOR.replace( "inhoud" );
@@ -160,13 +172,15 @@
                                          <td>Max. deelnemers</td>
                                      </tr><tr>
                                     <td><select name="activiteit" id="blogdatum">
-                                    <option value="0" '; if(isset($_POST["activiteit"])) {
-                            $kies = ($_POST["activiteit"]);
-                            if ($kies == '0') {
-                                echo "selected";
-                            }
+                                    <option value="0" ';
+                        if(isset($_POST["activiteit"])) {
+                                    $kies = ($_POST["activiteit"]);
+                                    if ($kies == '0') {
+                                        echo "selected";
+                                    }
                         }echo'>Nee</option>
-                                    <option value="1" '; if(isset($_POST["activiteit"])) {
+                                    <option value="1" ';
+                        if(isset($_POST["activiteit"])) {
                             $kies = ($_POST["activiteit"]);
                             if ($kies == '1') {
                                 echo "selected";
@@ -175,8 +189,20 @@
                                         </select></td>
                                         <td>
                                         <select name="inschrijven" id="selectmodule">
-                                            <option value="0">Nee</option>
-                                            <option value="1">Ja</option>
+                                        <option value="0" ';
+                                    if(isset($_POST["inschrijven"])) {
+                                    $kies = ($_POST["inschrijven"]);
+                                    if ($kies == '0') {
+                                        echo "selected";
+                                    }
+                                        }echo'>Nee</option>
+                                    <option value="1" ';
+                                        if(isset($_POST["inschrijven"])) {
+                                        $kies = ($_POST["inschrijven"]);
+                                        if ($kies == '1') {
+                                        echo "selected";
+                                     }
+                                      }echo'>Ja</option>
                                         </select>
                                         </td>
                                         <td>

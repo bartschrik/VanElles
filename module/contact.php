@@ -136,6 +136,15 @@
                     <tr><td>Kvk: </td><td>0613653118</td></tr>
                     <tr><td>BTW: </td><td>208147895B01</td></tr>
                 </table>
+                <table style="width: 100%;">
+                    <tr><td>Maandag: </td><td>9:30 t/m 17:30</td></tr>
+                    <tr><td>Dinsdag: </td><td>9:30 t/m 17:30</td></tr>
+                    <tr><td>Woensdag: </td><td>9:30 t/m 17:30</td></tr>
+                    <tr><td>Donderdag: </td><td>9:30 t/m 21:00</td></tr>
+                    <tr><td>Vrijdag: </td><td>9:30 t/m 17:30</td></tr>
+                    <tr><td>Zaterdag: </td><td>9:30 t/m 17:00</td></tr>
+                    <tr><td>Zondag: </td><td>Gesloten</td></tr>
+                </table>
 
                 <?php echo $pageContent['inhoud']; ?>
             </div>

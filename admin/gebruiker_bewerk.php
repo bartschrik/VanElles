@@ -13,7 +13,7 @@
         $_POST['tussen']        = $userVal['insertion'];
         $_POST['achternaam']    = $userVal['last_name'];
         $_POST['email']         = $userVal['email'];
-        $_POST['geboorte']      = $userVal['birthday'];
+        $_POST['geboorte']      = date("d-m-Y", strtotime($userVal['birthday']));
         $_POST['tel']           = $userVal['phonenumber'];
         $_POST['adres']         = $userVal['address'];
         $_POST['stad']          = $userVal['city'];
@@ -65,7 +65,7 @@
                 $_POST['adres'],
                 $_POST['postcode'],
                 $_POST['role'],
-                $_POST['geboorte'],
+                date("Y/m/d", strtotime($_POST['geboorte'])),
                 $_GET['bewerkid'],
                 $_POST['gebruikersnaam'],
                 $_POST['wachtwoord']
@@ -148,7 +148,7 @@
                                     <input type="text" name="email" placeholder="E-mailadres" value="' . InputValue('email') . '" class="' . InputErrorClass('email', $errors) . '" />
                                 </div>
                                 <div class="col-md-6 col-sm-6 col-xs-12">
-                                    <input type="date" name="geboorte" placeholder="Geboorte datum: yyyy-mm-dd" value="' . InputValue('geboorte') . '" class="' . InputErrorClass('geboorte', $errors) . '" />
+                                    <input type="date" id="date" name="geboorte" placeholder="Geboorte datum:" value="' . InputValue('geboorte') . '" class="' . InputErrorClass('geboorte', $errors) . '" />
                                 </div>
                                 <div class="col-md-6 col-sm-6 col-xs-12">
                                     <input type="text" name="tel" placeholder="Telefoonnummer" value="' . InputValue('tel') . '" class="' . InputErrorClass('tel', $errors) . '" />
@@ -188,5 +188,16 @@
         </div>
     </div>
 </div>
+<script src="../js/jquery.datetimepicker.full.js" type="text/javascript"></script>
+<script>
+    $('#date').datetimepicker({
+        timepicker:false,
+        format:'d-m-Y',
+        formatDate:'Y/m/d',
+        minDate: false,
+        maxDate:'-1970/01/02',
+        defaultDate: new Date('1990/01/01')
+    });
+</script>
 </body>
 </html>

@@ -91,8 +91,8 @@ $db = $db->databaseConnection();
 
                 print("<div class='col-xs-12 col-md-4 col-sm-6 marbot'><div class='card lev-card'>");
 
-                $lmid = $content->getUrlbyModule(5);
-                $lpage = constant('local_url'). "/$lmid/$lid";
+                $lmid = $_GET['page'];
+                $lpage = constant('local_url'). "$lmid/$lid";
 
                 echo "<a href='$lpage' style='background-image: url(".constant("local_url")."/admin/images/leverancier/".$logo.");' class='card-img'></a>";
 

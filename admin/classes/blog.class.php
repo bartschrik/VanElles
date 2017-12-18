@@ -72,54 +72,100 @@ class blog
     public function saveBlog($data, $img, $userid)
     {
         try {
+            if ($_POST['activiteit'] == "0") {
+                $allow = array("jpg", "jpeg", "gif", "png", "JPG", "JPEG", "GIF", "PNG");
 
-            $allow = array("jpg", "jpeg", "gif", "png", "JPG", "JPEG", "GIF", "PNG");
+                $todir = 'images/blog/';
 
-            $todir = 'images/blog/';
+                if (!!$img['tmp_name']) {
+                    $temp = explode(".", $img["name"]);
+                    $date = new DateTime();
+                    $date = $date->format('Y-m-d H:i:s');
+                    $hash1 = sha1($date);
+                    $newfilename = $hash1 . '.' . end($temp);
 
-            if (!!$img['tmp_name']) {
-                $temp = explode(".", $img["name"]);
-                $date = new DateTime();
-                $date = $date->format('Y-m-d H:i:s');
-                $hash1 = sha1($date);
-                $newfilename = $hash1 . '.' . end($temp);
-
-                if (in_array(end($temp), $allow)) {
-                    if (move_uploaded_file($img['tmp_name'], $todir . $newfilename)) {
+                    if (in_array(end($temp), $allow)) {
+                        if (move_uploaded_file($img['tmp_name'], $todir . $newfilename)) {
+                        }
+                    } else {
+                        echo "De extentie is niet toegestaan, toegestaan is: (.jpg/.jpeg/.png/.gif.)<br />";
+                        header("refresh:2;url=blog_up.php");
+                        exit;
                     }
-                } else {
-                    echo "De extentie is niet toegestaan, toegestaan is: (.jpg/.jpeg/.png/.gif.)<br />";
-                    header("refresh:2;url=blog_up.php");
-                    exit;
                 }
-            } else {
-                echo"Selecteer een afbeelding a.u.b";
-            }
 
-            $query = $this->_db->prepare('
-                INSERT INTO `blog` (`user_id` ,`title`, `subtitle`, `inhoud`, `beschrijving`, `kernwoorden`, `img_name`, `activiteit`, `inschrijving`, `inschrijving_aantal`, `datum`) 
-                VALUES (:user_id, :title, :subtitle, :inhoud, :beschrijving, :kernwoorden, :img_name, :activiteit, :inschrijving, :maxdeeln, :datum);
+                $query = $this->_db->prepare('
+                INSERT INTO `blog` (`user_id` ,`title`, `subtitle`, `inhoud` ,`korte_inhoud`, `beschrijving`, `kernwoorden`, `img_name`, `activiteit`) 
+                VALUES (:user_id, :title, :subtitle, :inhoud, :korte_inhoud, :beschrijving, :kernwoorden, :img_name, :activiteit);
             ');
 
-            $query->bindValue(":user_id", $userid);
-            $query->bindValue(":title", $data['titel']);
-            $query->bindValue(":subtitle", $data['subtitel']);
-            $query->bindValue(":inhoud", $data['inhoud']);
-            $query->bindValue(":beschrijving", $data['seobeschrijving']);
-            $query->bindValue(":kernwoorden", $data['seokernwoorden']);
-            $query->bindValue(":img_name", $newfilename);
-            $query->bindValue(":activiteit", $data['activiteit']);
-            $query->bindValue(":inschrijving", $data['inschrijven']);
-            $query->bindValue(":maxdeeln", $data['maxdeeln']);
-            $query->bindValue(":datum", $data['actidatum']);
+                $query->bindValue(":user_id", $userid);
+                $query->bindValue(":title", $data['titel']);
+                $query->bindValue(":subtitle", $data['subtitel']);
+                $query->bindValue(":inhoud", $data['inhoud']);
+                $query->bindValue(":korte_inhoud", $data['korte_inhoud']);
+                $query->bindValue(":beschrijving", $data['seobeschrijving']);
+                $query->bindValue(":kernwoorden", $data['seokernwoorden']);
+                $query->bindValue(":img_name", $newfilename);
+                $query->bindValue(":activiteit", $data['activiteit']);
 
-            if ($query->execute()) {
-                return true;
-                die(header('Location: blog_admin.php'));
+                if ($query->execute()) {
+                    return true;
+                    die(header('Location: blog_admin.php'));
+                } else {
+                    var_dump($query->errorInfo());
+                    var_dump($data);
+                    return false;
+                }
+
             } else {
-                var_dump($query->errorInfo());
-                var_dump($data);
-                return false;
+                $allow = array("jpg", "jpeg", "gif", "png", "JPG", "JPEG", "GIF", "PNG");
+
+                $todir = 'images/blog/';
+
+                if (!!$img['tmp_name']) {
+                    $temp = explode(".", $img["name"]);
+                    $date = new DateTime();
+                    $date = $date->format('Y-m-d H:i:s');
+                    $hash1 = sha1($date);
+                    $newfilename = $hash1 . '.' . end($temp);
+
+                    if (in_array(end($temp), $allow)) {
+                        if (move_uploaded_file($img['tmp_name'], $todir . $newfilename)) {
+                        }
+                    } else {
+                        echo "De extentie is niet toegestaan, toegestaan is: (.jpg/.jpeg/.png/.gif.)<br />";
+                        header("refresh:2;url=blog_up.php");
+                        exit;
+                    }
+                }
+
+                $query = $this->_db->prepare('
+                            INSERT INTO `blog` (`user_id` ,`title`, `subtitle`, `inhoud`, `korte_inhoud`, `beschrijving`, `kernwoorden`, `img_name`, `activiteit`, `inschrijving`, `inschrijving_aantal`, `datum`)
+                            VALUES (:user_id, :title, :subtitle, :inhoud, :korte_inhoud, :beschrijving, :kernwoorden, :img_name, :activiteit, :inschrijving, :maxdeeln, :datum);
+                        ');
+
+                $query->bindValue(":user_id", $userid);
+                $query->bindValue(":title", $data['titel']);
+                $query->bindValue(":subtitle", $data['subtitel']);
+                $query->bindValue(":inhoud", $data['inhoud']);
+                $query->bindValue(":korte_inhoud", $data['korte_inhoud']);
+                $query->bindValue(":beschrijving", $data['seobeschrijving']);
+                $query->bindValue(":kernwoorden", $data['seokernwoorden']);
+                $query->bindValue(":img_name", $newfilename);
+                $query->bindValue(":activiteit", $data['activiteit']);
+                $query->bindValue(":inschrijving", $data['inschrijven']);
+                $query->bindValue(":maxdeeln", $data['maxdeeln']);
+                $query->bindValue(":datum", $data['actidatum']);
+
+                if ($query->execute()) {
+                    return true;
+                    die(header('Location: blog_admin.php'));
+                } else {
+                    var_dump($query->errorInfo());
+                    var_dump($data);
+                    return false;
+                }
             }
         } catch (PDOException $e) {
             //echo $e->getMessage();
@@ -131,7 +177,7 @@ class blog
     public function updateBlog($data, $img, $blog_id)
     {
         try {
-            if ($img['error'] == 0) {
+            if ($_POST['activiteit'] == "1") {
                 $allow = array("jpg", "jpeg", "gif", "png", "JPG", "JPEG", "GIF", "PNG");
 
                 $todir = 'images/blog/';
@@ -153,22 +199,22 @@ class blog
                         exit;
                     }
                 }
-
-
                 $query = $this->_db->prepare('
                 UPDATE `blog` 
-                SET `title` = :title, `subtitle` = :subtitle, `inhoud` = :inhoud, `beschrijving` = :beschrijving, `kernwoorden` = :kernwoorden, `img_name` = :img_name, `activiteit` = :activiteit, `inschrijving` = :inschrijving, `datum` = :datum
+                SET `title` = :title, `subtitle` = :subtitle, `inhoud` = :inhoud, `korte_inhoud`= :korte_inhoud, `beschrijving` = :beschrijving, `kernwoorden` = :kernwoorden, `img_name`=:img_name, `activiteit` = :activiteit, `inschrijving` = :inschrijving, `datum` = :datum
                 WHERE `blog_id` = :blog_id;
             ');
                 $query->bindValue(":blog_id", $blog_id);
                 $query->bindValue(":title", $data['titel']);
                 $query->bindValue(":subtitle", $data['subtitel']);
                 $query->bindValue(":inhoud", $data['inhoud']);
+                $query->bindValue(":korte_inhoud", $data['korte_inhoud']);
                 $query->bindValue(":kernwoorden", $data['seokernwoorden']);
                 $query->bindValue(":beschrijving", $data['seobeschrijving']);
                 $query->bindValue(":img_name", $newfilename);
                 $query->bindValue(":activiteit", $data['activiteit']);
                 $query->bindValue(":inschrijving", $data['inschrijven']);
+                $query->bindValue(":maxdeeln", $data['maxdeeln']);
                 $query->bindValue(":datum", $data['actidatum']);
                 if ($query->execute()) {
                     return true;
@@ -177,20 +223,42 @@ class blog
                     return false;
                 }
             } else {
+                $allow = array("jpg", "jpeg", "gif", "png", "JPG", "JPEG", "GIF", "PNG");
+
+                $todir = 'images/blog/';
+
+                if (!!$img['tmp_name']) {
+                    $temp = explode(".", $img["name"]);
+                    $date = new DateTime();
+                    $date = $date->format('Y-m-d H:i:s');
+                    $hash1 = sha1($date);
+                    $newfilename = $hash1 . '.' . end($temp);
+
+                    if (in_array(end($temp), $allow)) {
+                        if (move_uploaded_file($img['tmp_name'], $todir . $newfilename)) {
+
+                        }
+                    } else {
+                        echo "De extentie is niet toegestaan, toegestaan is: (.jpg/.jpeg/.png/.gif.)<br />";
+                        header("refresh:2;url=blog_up.php");
+                        exit;
+                    }
+                }
                 $query = $this->_db->prepare('
                 UPDATE `blog` 
-                SET `title` = :title, `subtitle` = :subtitle, `inhoud` = :inhoud, `beschrijving` = :beschrijving, `kernwoorden` = :kernwoorden, `activiteit` = :activiteit, `inschrijving` = :inschrijving, `datum` = :datum
+                SET `title` = :title, `subtitle` = :subtitle, `inhoud` = :inhoud, `korte_inhoud`= :korte_inhoud, `beschrijving` = :beschrijving, `kernwoorden` = :kernwoorden, `img_name`=:img_name, `activiteit` = :activiteit
                 WHERE `blog_id` = :blog_id;
             ');
                 $query->bindValue(":blog_id", $blog_id);
                 $query->bindValue(":title", $data['titel']);
                 $query->bindValue(":subtitle", $data['subtitel']);
                 $query->bindValue(":inhoud", $data['inhoud']);
+                $query->bindValue(":korte_inhoud", $data['korte_inhoud']);
                 $query->bindValue(":kernwoorden", $data['seokernwoorden']);
                 $query->bindValue(":beschrijving", $data['seobeschrijving']);
+                $query->bindValue(":img_name", $newfilename);
                 $query->bindValue(":activiteit", $data['activiteit']);
-                $query->bindValue(":inschrijving", $data['inschrijven']);
-                $query->bindValue(":datum", $data['actidatum']);
+
                 if ($query->execute()) {
                     return true;
                 } else {

@@ -100,8 +100,8 @@
 
                     print("<div class='col-xs-12 col-lg-3 col-md-4 col-sm-6 marbot'><div class='card pro-card'>");
 
-                    $pmid = $content->getUrlbyModule(6);
-                    $ppage = constant('local_url'). "/$pmid/$pid";
+                    $pmid = $_GET['page'];
+                    $ppage = constant('local_url'). "$pmid/$pid";
 
                     echo "<a href='$ppage' style='background-image: url(".constant("local_url")."/admin/images/product/".$foto.");' class='card-img'></a>";
 

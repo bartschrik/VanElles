@@ -274,6 +274,11 @@ input[type = "checkbox"] {width: auto;}
     .navbar-nav {display: block!important;}
 }
 /*Edited by Michael*/
+
+#blogdatuminput{
+    display: none;
+}
+
 #blogfoutm {
     text-align: center;
 }

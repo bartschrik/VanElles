@@ -34,7 +34,7 @@ require_once 'admin/classes/content.class.php';
                     print ("<div class=\"card marbot\">");
 
                     $pmid = $content->getUrlbyModule(6);
-                    $ppage = constant('local_url'). "/$pmid/$pid";
+                    $ppage = constant('local_url'). "$pmid/$pid";
 
                     echo "<a href='$ppage' style='background-image: url(".constant("local_url")."/admin/images/product/".$image.");' class='card-img'></a>";
 
@@ -43,7 +43,7 @@ require_once 'admin/classes/content.class.php';
                     print ("<a href=\"$ppage\"><h4 class=\"card-title\">" . $naam ."</h4></a>");
 
                     $lmid = $content->getUrlbyModule(5);
-                    $lpage = constant('local_url'). "/$lmid/$lid";
+                    $lpage = constant('local_url'). "$lmid/$lid";
 
                     print ("<a href=\"$lpage\"><h4 class=\"card-subtitle\">" . "van ". $leverancier ."</h4></a>");
 

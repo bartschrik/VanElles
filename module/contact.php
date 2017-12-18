@@ -225,25 +225,9 @@
 
     </div>
 
-    <!--ingevulde gegevens behouden-->
-    <?php
-    function test_input($data)
-    {
-        $data = trim($data);
-        $data = stripslashes($data);
-        $data = htmlspecialchars($data);
-        return $data;
-    }
-    $naam = $email = $omschrijving = "";
-//ingevulde data behouden in formulier
-    if ($_SERVER["REQUEST_METHOD"] == "POST") {
-        $naam = test_input($_POST["naam"]);
-        $email = test_input($_POST["emailadres"]);
-        $omschrijving = test_input($_POST["omschrijving"]);
-    }
 
 
-    ?> <!--database connection -->
+     <!--database connection -->
     <?php
     require_once 'admin/classes/connection.class.php';
     $db = new Connection();
@@ -302,7 +286,6 @@
 
                         if ($stmtin->execute()) {
                             echo "<script>alert('Bedankt voor uw beoordeling.');</script>";
-                            $naam = $email = $omschrijving = "";
                         } else {
                             echo "<script>alert('Sorry er is iets fout gegaan, probeer het later nog een keer.');</script>";
                         }

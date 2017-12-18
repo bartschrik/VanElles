@@ -122,7 +122,7 @@
             <div class="row">
                 <div class="col-md-6 col-xs-12 marbot">
                     <div class="ptitle">
-                        <h2>Algemene informatie shitttttt</h2>
+                        <h2>Algemene informatie</h2>
                     </div>
                     <ul style="list-style: none; padding: 0; margin: 0 0 10px 0;">
                         <li>Van Elles WoonKado&Zo</li>
@@ -191,6 +191,7 @@
                             <div class="col-md-6 col-sm-12 col-xs-12">
                                 <input class="form-control" type="text" name="naamcontact" placeholder="Voornaam" ><br>
                         </div>
+
                             <div class="col-md-6 col-sm-6 col-xs-6">
                                 <input class="form-control" type="text" name="tussencontact" placeholder="tussenvoegsel" ><br>
                         </div>
@@ -198,13 +199,15 @@
                         <div class="col-md-12 col-sm-12 col-xs-12">
                             <input class="form-control" type="tel" name="telefoonnummercontact" placeholder="Telefoonnummer" ><br>
                         </div>
-                        <div class="form-group">
+
                             <div class="col-md-12 col-sm-12 col-xs-12">
                                 <input class="form-control" type="email" name="emailcontact" placeholder="naam@voorbeeld.com" ><br>
                         </div>
+
                             <div class="col-md-12 col-sm-12 col-xs-12">
                                 <textarea class="form-control" id="textarea" placeholder="Bericht" name="berichtcontact"></textarea><br>
                         </div>
+
                             <div class="col-md-12 col-sm-12 col-xs-12">
                                 <div id="RecaptchaField1"></div>
                             </div>
@@ -212,10 +215,11 @@
                                 <input class="btn btn-default" type="submit" name="verstuurcontact" value="verstuur"><br>
                         </div>
                     </form>
-
                 </div>
             </div>
         </div>
+    </div>
+
 
 
         <iframe width="100%" height="450" frameborder="0" style="border:0"
@@ -223,7 +227,6 @@
                 allowfullscreen>
         </iframe>
 
-    </div>
 
 
 

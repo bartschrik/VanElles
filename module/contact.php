@@ -122,7 +122,7 @@
             <div class="row">
                 <div class="col-md-6 col-xs-12 marbot">
                     <div class="ptitle">
-                        <h2>Algemene informatie</h2>
+                        <h2>Algemene informatie shitttttt</h2>
                     </div>
                     <ul style="list-style: none; padding: 0; margin: 0 0 10px 0;">
                         <li>Van Elles WoonKado&Zo</li>

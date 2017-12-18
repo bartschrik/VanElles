@@ -24,7 +24,8 @@ error_reporting(-1);
     <!-- Latest compiled and minified JavaScript -->
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
     <link rel="stylesheet" type="text/css" href="css/main.css" />
-    <script src="//cdn.ckeditor.com/4.5.6/standard/ckeditor.js"></script>
+<!--    <script src="//cdn.ckeditor.com/4.5.6/standard/ckeditor.js"></script>-->
+    <script src="//cdn.ckeditor.com/4.8.0/full/ckeditor.js"></script>
     <script src="javascript/main.js"></script>
     <!--Datetime picker-->
     <link rel="stylesheet" type="text/css" href="css/jquery.datetimepicker.min.css" />

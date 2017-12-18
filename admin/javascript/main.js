@@ -4,10 +4,9 @@ $(document).ready(function() {
         $('.navbar-nav').slideToggle();
     });
 
-    var test = function () {
+    var rol = function () {
         if ($('#selectrole').val() != 2) {
             $('#accountInfo').slideDown();
-            console.log($('#oldww').val());
             if($('#oldww').val() == "ja") {
                 $('#gbn').prop('readonly', true);
             }
@@ -17,8 +16,19 @@ $(document).ready(function() {
         }
     };
 
-    test();
-    $('#selectrole').change(test);
+    var datum = function () {
+        if ($('#blogdatum').val() == 1) {
+            $('#blogdatuminput').slideDown();
+        } else {
+            $('#blogdatuminput').slideUp();
+            $('#blogdatuminput').val('');
+        }
+    };
+
+    rol();
+    datum();
+    $('#selectrole').change(rol);
+    $('#blogdatum').change(datum);
 
 
 });

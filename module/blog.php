@@ -2,16 +2,14 @@
 $db = new Connection();
 $db = $db->databaseConnection();
 
-if($pageId) { ?>
+if($pageId) { echo'
     <div class="container">
         <div class="row">
             <div class="martop">
                 <div class="col-xs-12">
-                    <div class="ptitle">
-                        <h1>Blog</h1>
-                    </div>
-                </div>
-                <?php
+                  
+                </div>';
+
                 //Include de connection en de page class
                 include_once('admin/classes/connection.class.php');
                 include_once('admin/classes/blog.class.php');
@@ -64,11 +62,12 @@ if($pageId) { ?>
 
     echo'<div class="col-md-8 col-sm-6 col-xs-12">
                     <div class="ptitle">
-                        <h2 id="webtitle">'. $title .'</h2>
+                        <h1>'.$title.'</h1>
+                    </div>
                         <p>'. $datum .'</p>
                         <h5 id="webtitle">'. $subtitel .'</h5>
+                         <p>'. $inhoud .'</p>
                         </div>
-                        <p>'. $inhoud .'</p>
                     </div>
                     <div class="col-md-4 col-sm-6 col-xs-12 marbot">
                         <img src="'.constant("local_url").'admin/images/blog/'.$img_name.'" class="img-responsive">
@@ -177,23 +176,10 @@ if($pageId) { ?>
 
                 echo"<div class='col-xs-12 ptitle'>
                 	<h1>Blogs</h1>
-                </div></div>
-                
- 		        <div class='col-xs-12 marbot'>
- 		        <div class=\"btn-group\">
-  <button type=\"button\" class=\"btn btn-danger dropdown-toggle\" data-toggle=\"dropdown\" aria-haspopup=\"true\" aria-expanded=\"false\">
-    Action
-  </button>
-  <div class=\"dropdown-menu\">
-    <a class=\"dropdown-item\" href=\"#\">Action</a>
-    <a class=\"dropdown-item\" href=\"#\">Another action</a>
-    <a class=\"dropdown-item\" href=\"#\">Something else here</a>
-    <div class=\"dropdown-divider\"></div>
-    <a class=\"dropdown-item\" href=\"#\">Separated link</a>
-  </div>
-</div>
+                </div>
+                <div class='col-xs-12 sorteer marbot'>
                      <form action='#' method='post' class='classicform'>
-                Sorteren: <select name='sorteer' onchange='this.form.submit();'>
+                <select name='sorteer' onchange='this.form.submit();'>
                             <option value='0' ";
                             if(isset($_POST['sorteer'])) {
                                 $sort = ($_POST['sorteer']);
@@ -227,7 +213,7 @@ if($pageId) { ?>
                         $datum = $row['datum'];
                         $url = constant("local_url").$_GET['page']."/".$id;
 
-                        echo"<div class='col-xs-12 col-sm-6 marbot'>
+                        echo"<div class='col-xs-8 col-sm-4 marbot'>
 
                         <div class='card card-inverse'>
                     
@@ -258,7 +244,7 @@ if($pageId) { ?>
                             $subtitel = $row["subtitle"];
                             $url = constant("local_url").$_GET['page']."/".$id;
 
-                        echo" <div class='col-xs-12 col-sm-6 marbot'>
+                        echo" <div class='col-xs-8 col-sm-4 marbot'>
  
                         <div class='card card-inverse'>
                     

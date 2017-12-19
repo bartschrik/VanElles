@@ -18,9 +18,8 @@ if ($nieuwa) {
 
     echo"
               <div class='ptitle'>
-                    <h1>Nieuwsbericht</h1>
+                    <h1>Activiteit</h1>
                 </div>
-            <div class='' id='main-product'>
 
     <div class='card marbot'>
 
@@ -32,7 +31,7 @@ if ($nieuwa) {
 
     <p class='card-text'>$inhoudkort</p>
 
-    <a href='$url' title='Details'>Lees meer</a>
+    <div class='a-right'><a href='$url' title='Details' class='btn btn-primary'>Lees meer</a></div>
 
     </div>";
 } else {
@@ -41,7 +40,7 @@ if ($nieuwa) {
         $img_name = $nieuwb["img_name"];
         $title = $nieuwb['title'];
         $subtitel = $nieuwb["subtitle"];
-        $inhoudkort = $nieuwa["korte_inhoud"];
+        $inhoudkort = $nieuwb["korte_inhoud"];
         $page = $content->getUrlbyModule(4);
         $url = constant("local_url").$page."/".$id;
 
@@ -50,7 +49,7 @@ if ($nieuwa) {
               <div class='ptitle'>
                     <h1>Nieuwsbericht</h1>
                 </div>
-            <div class='' id='main-product'>
+            
 
     <div class='card marbot'>
 
@@ -62,7 +61,7 @@ if ($nieuwa) {
 
     <p class='card-text'>$inhoudkort</p>
 
-    <a href='$url' title='Details'>Lees meer</a>
+    <div class='a-right'><a href='$url' title='Details' class='btn btn-primary'>Lees meer</a></div>
 
     </div>";
     }

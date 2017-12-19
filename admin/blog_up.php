@@ -29,7 +29,7 @@
                             ['titel', $_POST['titel'], 'required'],
                             ['subtitel', $_POST['subtitel'], 'required'],
                             ['inhoud', $_POST['inhoud'], 'required'],
-                            ['korte_inhoud', $_POST['korte_inhoud'], 'required'],
+                            ['korteinhoud', $_POST['korteinhoud'], 'required'],
                             ['maxdeeln', $_POST['maxdeeln'], 'required|min:1'],
                             ['afbeelding', $_FILES['afbeelding'], 'imgrequired|validphoto'],
                             ['seokernwoorden', $_POST['seokernwoorden'], 'required'],
@@ -58,7 +58,7 @@
                                         <input type="text" name="titel" class="' . InputErrorClass('titel', $errors) . '" placeholder="Blog titel" value="' . InputValue('titel') . '" />
                                         <input type="text" name="subtitel" class="' . InputErrorClass('subtitel', $errors) . '" placeholder="Blog sub titel" value="' . InputValue('subtitel') . '" />  
                                         <textarea name="inhoud" placeholder="Inhoud">' . InputValue('inhoud') . '</textarea>
-                                        <input type="text" name="korte_inhoud" class="' . InputErrorClass('korte_inhoud', $errors) . '" placeholder="Korte inhoud" value="' . InputValue('korte_inhoud') . '" />  
+                                        <textarea name="korteinhoud" maxlength="250" style="height: 75px;" class="' . InputErrorClass('korte_inhoud', $errors) . '" placeholder="Korte inhoud" >' . InputValue('korte_inhoud') . '</textarea>
                                         <input type="file" name="afbeelding" placeholder="Afbeelding" value="' . InputValue('afbeelding') . '" />
                                         <script>
                                             CKEDITOR.replace( "inhoud" );
@@ -125,7 +125,7 @@
                                         <input type="text" name="titel" placeholder="Blog titel" value="' . InputValue('titel') . '" />
                                         <input type="text" name="subtitel" placeholder="Blog sub titel" value="' . InputValue('subtitel') . '" />  
                                         <textarea name="inhoud" placeholder="Inhoud">' . InputValue('inhoud') . '</textarea>
-                                        <input type="text" name="korte_inhoud" placeholder="Korte inhoud" value="' . InputValue('korte_inhoud') . '" />  
+                                        <textarea name="korteinhoud" maxlength="250" style="height: 75px;" placeholder="Korte inhoud" >' . InputValue('korte_inhoud') . '</textarea>
                                         <input type="file" name="afbeelding" placeholder="Afbeelding" value="' . InputValue('afbeelding') . '" />
                                         <script>
                                             CKEDITOR.replace( "inhoud" );

@@ -67,7 +67,7 @@ if ($pageId) {
                     <h2>Laat uw mening achter!</h2>
                 </div>
             <?php
-                if($recensieonvullen==1){
+                if($recensieinvullen==1){
                 echo '<ul >' . $errorList . '</ul>';
                 };
 
@@ -84,11 +84,19 @@ if ($pageId) {
                 };
                 ?>
                 <div class="form-group">
-                    <input class="form-control" type="text" name="naam" placeholder="Voornaam">
+                    <input class="form-control" type="text" name="naam" placeholder="Voornaam"
+                           value="<?php if($recensieinvullen==1 || $recensierecaptcha==1 || $recensiefout==1) {
+                               echo isset($_POST['naam']) ? $_POST['naam'] : '';
+                           }
+                           ?>" />
                 </div>
 
                 <div class="form-group">
-                    <input class="form-control" type="email" name="emailadres" placeholder="naam@voorbeeld.com">
+                    <input class="form-control" type="email" name="emailadres" placeholder="naam@voorbeeld.com"
+                           value="<?php if($recensieinvullen==1 || $recensierecaptcha==1 || $recensiefout==1) {
+                               echo isset($_POST['emailadres']) ? $_POST['emailadres'] : '';
+                           }
+                           ?>" />
                 </div>
 
                 <div class="form-group">

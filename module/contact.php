@@ -15,12 +15,18 @@ $invullen=0;
 $recaptcha=0;
 $geenmail=0;
 $verstuurd=0;
-$recensieonvullen=0;
+$recensieinvullen=0;
 $recensierecaptcha=0;
 $recensiefout=0;
 $recensieverstuurd=0;
 
     if(isset($_POST['verstuurcontact'])) {
+        $naamincontact = $_POST["naamcontact"];
+        $tussencontact = $_POST["tussencontact"];
+        $achtercontact = $_POST["achtercontact"];
+        $emailincontact = $_POST["emailcontact"];
+        $telefooncontact = $_POST["telefoonnummercontact"];
+        $berichtcontact = $_POST["berichtcontact"];
 
         $privatekey = "6LevEzsUAAAAAGvQJ1EDrE-eL5aNBKHteM83OywN";
         $url = 'https://www.google.com/recaptcha/api/siteverify';
@@ -39,11 +45,11 @@ $recensieverstuurd=0;
             if (isset($_POST["verstuurcontact"])) {
 
                 $val = new Validate([
-                    ['naamcontact', $_POST['naamcontact'],'required'],
-                    ['achtercontact', $_POST['achtercontact'],'required'],
-                    ['emailcontact', $_POST['emailcontact'],'required|email'],
-                    ['telefooncontact', $_POST['telefoonnummercontact'],'required'],
-                    ['berichtcontact', $_POST['berichtcontact'],'required']
+                    ['voornaam', $_POST['naamcontact'],'required'],
+                    ['achternaam', $_POST['achtercontact'],'required'],
+                    ['telefoonnummer', $_POST['telefoonnummercontact'],'required'],
+                    ['email', $_POST['emailcontact'],'required|email'],
+                    ['bericht', $_POST['berichtcontact'],'required']
                 ]);
 
                 if (!$val->isPassed()) {
@@ -209,29 +215,53 @@ $recensieverstuurd=0;
                         };
                         ?>
 
+
                     </div>
                     <form method="post" action="">
                         <div class="row">
                         <div class="form-group" >
 
                             <div class="col-md-4 col-sm-4 col-xs-12">
-                                <input class="form-control" type="text" name="naamcontact" placeholder="Voornaam" ><br>
+                                <input class="form-control" type="text" name="naamcontact" placeholder="Voornaam"
+
+                                value="<?php if($invullen==1 || $recaptcha==1 || $geenmail==1) {
+                                    echo isset($_POST['naamcontact']) ? $_POST['naamcontact'] : '';
+                                }
+                                ?>" />
+
+
                         </div>
 
                             <div class="col-md-4 col-sm-4 col-xs-12">
-                                <input class="form-control" type="text" name="tussencontact" placeholder="tussenvoegsel" ><br>
+                                <input class="form-control" type="text" name="tussencontact" placeholder="tussenvoegsel"
+                                       value="<?php if($invullen==1 || $recaptcha==1 || $geenmail==1) {
+                                    echo isset($_POST['tussencontact']) ? $_POST['tussencontact'] : '';
+                                }
+                                ?>" />
                         </div>
                             <div class="col-md-4 col-sm-4 col-xs-12">
-                                <input class="form-control" type="text" name="achtercontact" placeholder="Achternaam"  ><br>
+                                <input class="form-control" type="text" name="achtercontact" placeholder="Achternaam"
+                                       value="<?php if($invullen==1 || $recaptcha==1 || $geenmail==1) {
+                                           echo isset($_POST['achtercontact']) ? $_POST['achtercontact'] : '';
+                                       }
+                                       ?>" /><br>
                             </div>
                         </div>
 
                         <div class="col-md-12 col-sm-12 col-xs-12">
-                            <input class="form-control" type="tel" name="telefoonnummercontact" placeholder="Telefoonnummer" value=""><br>
+                            <input class="form-control" type="tel" name="telefoonnummercontact" placeholder="Telefoonnummer"
+                                   value="<?php if($invullen==1 || $recaptcha==1 || $geenmail==1) {
+                                       echo isset($_POST['telefoonnummercontact']) ? $_POST['telefoonnummercontact'] : '';
+                                   }
+                                   ?>" /><br>
                         </div>
 
                             <div class="col-md-12 col-sm-12 col-xs-12">
-                                <input class="form-control" type="email" name="emailcontact" placeholder="naam@voorbeeld.com" value="" ><br>
+                                <input class="form-control" type="email" name="emailcontact" placeholder="naam@voorbeeld.com"
+                                       value="<?php if($invullen==1 || $recaptcha==1 || $geenmail==1) {
+                                           echo isset($_POST['emailcontact']) ? $_POST['emailcontact'] : '';
+                                       }
+                                       ?>" /><br>
                         </div>
 
                             <div class="col-md-12 col-sm-12 col-xs-12">
@@ -302,7 +332,7 @@ $recensieverstuurd=0;
                             $errorList .= "<li>$error</li>";
                         }
                     }
-                    $recensieonvullen=1;
+                    $recensieinvullen=1;
 
                 } else {
                     try {
@@ -346,7 +376,6 @@ $recensieverstuurd=0;
                     }
                 }
             }
-
 
         } else {
             $recensierecaptcha=1;

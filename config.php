@@ -7,3 +7,6 @@ define("linkedin_elles",        "https://www.linkedin.com/in/vanelles-elles-ligt
 define("instagram_vanelles",    "https://www.instagram.com/vanelles_/");
 
 define("local_url",             "http://localhost/vanelles/");
+
+// set the default timezone to use. Available since PHP 5.1
+date_default_timezone_set('UTC');

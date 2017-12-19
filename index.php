@@ -3,6 +3,7 @@
 include_once('admin/classes/connection.class.php');
 include_once('admin/classes/page.class.php');
 include_once('admin/classes/validate.class.php');
+require_once 'config.php';
 
 $page = new Page();
 $pageId = "";
@@ -12,10 +13,10 @@ if(isset($_GET['page'])) {
     if(!$pageContent) {
         //404 error page
         $pageContent = [
-            "pagetitle"     => "Oepss 404",
-            "title"         => "Oepss, 404",
+            "pagetitle"     => "Oeps, 404",
+            "title"         => "Oeps, 404",
             "subtitle"      => "Deze pagina bestaat helaas niet.",
-            "inhoud"        => "",
+            "inhoud"        => "<a href='".constant('local_url')."'>Ga terug naar de home pagina</a>",
             "description"   => "",
             "kernwoorden"   => "",
             "path"          => "404.php"

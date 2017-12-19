@@ -27,10 +27,6 @@ if($pageId) { echo'
                     "path"          => ""
                 ];
 
-                include_once('includes/header.php');
-
-                $db = new Connection();
-                $db = $db->databaseConnection();
 
                 if(!isset($_GET['pid'])){
                     die(header("Location: ".constant("local_url")."404"));
@@ -59,6 +55,9 @@ if($pageId) { echo'
                 $inschrijven = $row["inschrijving"];
                 $maxinschrijf = $row["inschrijving_aantal"];
                 $deeln = $blog->getDeelnemers($id);
+                $pageContent['pagetitle'] = $title;
+                $pageContent['description'] = $row["beschrijving"];
+                $pageContent['kernwoorden'] = $row["kernwoorden"];
 
                 if(!$id == $pid){
                     die(header("Location: ".constant("local_url")."404"));

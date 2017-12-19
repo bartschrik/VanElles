@@ -33,6 +33,9 @@ $db = $db->databaseConnection();
                  $img_name = $row['logo'];
                  $description = $row["description"];
                  $kernwoorden = $row["kernwoorden"];
+                 $pageContent['pagetitle'] = $leverancier;
+                 $pageContent['description'] = $row["description"];
+                 $pageContent['kernwoorden'] = $row["kernwoorden"];
 
                  echo '
                     
@@ -46,7 +49,7 @@ $db = $db->databaseConnection();
                     </div>
     
                     <div class="col-md-4 col-sm-6 col-xs-12 marbot">
-                        <img src="'.constant("local_url").'admin/images/leverancier/'.$img_name.'" class="img-responsive" style="width: 100%; height: 50%;">
+                        <img src="'.constant("local_url").'admin/images/leverancier/'.$img_name.'" class="img-responsive" style="">
                     </div>
                     <div id="seo_des" style="display: none;">'.$description.'</div>
                     <div id="seo_kern" style="display: none;">'.$kernwoorden.'</div>';
@@ -114,5 +117,3 @@ $db = $db->databaseConnection();
     </div>
 </div>
 <?php } ?>
-
-<?php include_once 'includes/footer.php' ?>

@@ -29,11 +29,20 @@ if(isset($_GET['page'])) {
 if(isset($_GET['pid'])) {
     $pageId = $_GET['pid'];
 }
+
+ob_start();
 //Include header
 include_once('includes/header.php');
+$buffer=ob_get_contents();
+ob_end_clean();
 
 //Include module
 include_once('module/'.$pageContent['path']);
+
+$buffer = preg_replace('/(<title>)(.*?)(<\/title>)/i', '$1Van Elles | ' . $pageContent['pagetitle'] . '$3', $buffer);
+$buffer = preg_replace('/(<meta name="keywords" content=")(.*?)(">)/i', '$1' . $pageContent['kernwoorden'] . '$3', $buffer);
+$buffer = preg_replace('/(<meta name="description" content=")(.*?)(">)/i', '$1' . $pageContent['description'] . '$3', $buffer);
+echo $buffer;
 
 //Include footer
 include_once('includes/footer.php');

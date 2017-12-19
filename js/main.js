@@ -15,15 +15,15 @@ $(document).ready(function () {
     var navbarHeight = $('header#main-header').outerHeight();
 
     /*General*/
-    if ($webtitle) {
-        document.title = 'Van Elles | ' + $webtitle;
-    }
-    if ($webdes) {
-        $('meta[name=description]').attr('content', $webdes);
-    }
-    if ($webkern) {
-        $('meta[name=keywords]').attr('content', $webkern);
-    }
+    // if ($webtitle) {
+    //     document.title = 'Van Elles | ' + $webtitle;
+    // }
+    // if ($webdes) {
+    //     $('meta[name=description]').attr('content', $webdes);
+    // }
+    // if ($webkern) {
+    //     $('meta[name=keywords]').attr('content', $webkern);
+    // }
 
 
     /*Menu*/

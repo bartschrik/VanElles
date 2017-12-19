@@ -1,5 +1,4 @@
 <?php
-    include_once 'includes/header.php';
     require_once 'admin/classes/connection.class.php';
     include_once 'admin/classes/product.class.php';
     include_once 'admin/classes/content.class.php';
@@ -40,6 +39,9 @@
                 $description = $row["description"];
                 $kernwoorden = $row["kernwoorden"];
                 $leverancier = $row[11];
+                $pageContent['pagetitle'] = $product;
+                $pageContent['description'] = $row["description"];
+                $pageContent['kernwoorden'] = $row["kernwoorden"];
 
                 echo '
                     
@@ -60,7 +62,7 @@
                     </div></div>
 
                     <div class="col-md-4 col-sm-6 col-xs-12 marbot">
-                        <a href="'.constant("local_url").'admin/images/product/'.$img_name.'" data-lightbox="image-1" data-title="'.$product.'"><img src="'.constant("local_url").'admin/images/product/'.$img_name.'" class="img-responsive" style="width: 100%; height: 50%;"></a>
+                        <a href="'.constant("local_url").'admin/images/product/'.$img_name.'" data-lightbox="image-1" data-title="'.$product.'"><img src="'.constant("local_url").'admin/images/product/'.$img_name.'" class="img-responsive" style=""></a>
                     </div>
                     <div id="seo_des" style="display: none;">'.$description.'</div>
                     <div id="seo_kern" style="display: none;">'.$kernwoorden.'</div>';
@@ -124,5 +126,3 @@
     </div>
 
 <?php }
-
-include_once 'includes/footer.php' ?>

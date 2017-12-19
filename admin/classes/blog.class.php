@@ -202,7 +202,7 @@ class blog
                     }
                     $query = $this->_db->prepare('
                 UPDATE `blog` 
-                SET `title` = :title, `subtitle` = :subtitle, `inhoud` = :inhoud, `korte_inhoud`= :korteinhoud, `beschrijving` = :beschrijving, `kernwoorden` = :kernwoorden, `img_name`=:img_name, `activiteit` = :activiteit, `inschrijving` = :inschrijving, `datum` = :datum
+                SET `title` = :title, `subtitle` = :subtitle, `inhoud` = :inhoud, `korte_inhoud`= :korteinhoud, `beschrijving` = :beschrijving, `kernwoorden` = :kernwoorden, `img_name`=:img_name, `activiteit` = :activiteit, `inschrijving` = :inschrijving,  `inschrijving_aantal` = :maxdeeln, `datum` = :datum
                 WHERE `blog_id` = :blog_id;
             ');
                     $query->bindValue(":blog_id", $blog_id);

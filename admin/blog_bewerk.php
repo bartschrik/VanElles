@@ -16,6 +16,7 @@
         $_POST['plaatje'] = $dbblog['img_name'];
         $_POST['activiteit'] = $dbblog['activiteit'];
         $_POST['inschrijven'] = $dbblog['inschrijving'];
+        $_POST['maxdeeln'] = $dbblog['inschrijving_aantal'];
         $_POST['actidatum'] = $dbblog['datum'];
     }
 
@@ -116,7 +117,7 @@
                                      }
                                       }echo'>Ja</option>
                                         </select></td>
-                                        <td><input id="nrsel" type="number" min="0" name="maxdeeln" value="0" value="' . InputValue('maxdeeln') . '" /><br>
+                                        <td><input id="nrsel" type="number" min="0" name="maxdeeln" value="' . InputValue('maxdeeln') . '" /><br>
                                         </td></tr></table>';
                         if(isset($_POST['activiteit'])) {
                             if ($_POST['activiteit'] == "1") {
@@ -206,7 +207,7 @@
                                         </select>
                                         </td>
                                         <td>
-                                        <input id="nrsel" type="number" min="0" name="maxdeeln" value="0" value="' . InputValue('maxdeeln') . '" />
+                                        <input id="nrsel" type="number" min="0" name="maxdeeln" value="' . InputValue('maxdeeln') . '" />
                                         </td></tr></table>';
                         if(isset($_POST['activiteit'])) {
                             if ($_POST['activiteit'] == "1") {

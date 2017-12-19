@@ -6,6 +6,7 @@
                     <h1><?php echo $pageContent['title']; ?></h1>
                     <h2><?php echo $pageContent['subtitle']; ?></h2>
                 </div>
+                <p style="text-align: center"><?php echo $pageContent['inhoud']; ?></p>
             </div>
         </div>
     </div>

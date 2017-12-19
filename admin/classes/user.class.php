@@ -7,14 +7,15 @@ class User {
     private $_user;
     private $_loggedin = false;
 
+    private $_super_admin = 1;
+
     public function __construct()
     {
         $this->_db = new Connection();
         $this->_db = $this->_db->databaseConnection();
         //Check session/ cookie
         if(isset($_SESSION['user'])) {
-            $this->_user = $_SESSION['user'];
-            $this->_loggedin = true;
+            $this->login(null, null, $_SESSION['user']['hash']);
         } elseif (isset($_COOKIE['remember']) && $_COOKIE['remember'] != null) {
             $this->login(null, null, $_COOKIE['remember']);
         }
@@ -24,7 +25,7 @@ class User {
     {
         if($email && $pass) {
             try {
-                $query = $this->_db->prepare('SELECT * FROM user u JOIN admin a ON u.user_id = a.user_id WHERE email=:email;');
+                $query = $this->_db->prepare('SELECT * FROM user u JOIN admin a ON u.user_id = a.user_id WHERE email=:email AND verwijderd=0;');
                 $query->bindValue(":email", $email, PDO::PARAM_STR);
                 $query->execute();
                 if($query->rowCount() > 0) {
@@ -48,7 +49,7 @@ class User {
             }
         } elseif ($gebruikersnaam && $pass) {
             try {
-                $query = $this->_db->prepare('SELECT * FROM user u JOIN admin a ON u.user_id = a.user_id WHERE gebruikersnaam=:gebruikersnaam;');
+                $query = $this->_db->prepare('SELECT * FROM user u JOIN admin a ON u.user_id = a.user_id WHERE gebruikersnaam=:gebruikersnaam AND verwijderd=0;');
                 $query->bindValue(":gebruikersnaam", $gebruikersnaam, PDO::PARAM_STR);
                 $query->execute();
                 if($query->rowCount() > 0) {
@@ -72,7 +73,7 @@ class User {
             }
         } elseif ($hash) {
             try {
-                $query = $this->_db->prepare('SELECT * FROM user u JOIN admin a ON u.user_id = a.user_id WHERE hash = :hash');
+                $query = $this->_db->prepare('SELECT * FROM user u JOIN admin a ON u.user_id = a.user_id WHERE hash = :hash AND verwijderd=0;');
                 $query->bindValue(":hash", $hash, PDO::PARAM_STR);
                 $query->execute();
 
@@ -236,9 +237,10 @@ class User {
     private function delAdmin($user_id) {
         try {
             $delAdmin = $this->_db->prepare('
-                DELETE FROM admin WHERE user_id = :id
+                DELETE FROM admin WHERE user_id = :id AND user_id !=:sa
             ');
             $delAdmin->bindValue(":id", $user_id, PDO::PARAM_STR);
+            $query->bindValue(":sa", $this->_super_admin, PDO::PARAM_STR);
             if($delAdmin->execute()) {
                 return true;
             }
@@ -349,6 +351,7 @@ class User {
                     LEFT JOIN admin a ON u.user_id = a.user_id
                     JOIN role r ON u.role = r.role
                     WHERE verwijderd = 0
+                    AND u.user_id != :sa
                     ORDER BY u.role ASC, u.user_id ASC
                     LIMIT :lim
                     OFFSET :off;
@@ -356,6 +359,7 @@ class User {
                 ');
             $query->bindValue(":lim", (int) $rowspPage, PDO::PARAM_INT);
             $query->bindValue(":off", (int) $offset, PDO::PARAM_INT);
+            $query->bindValue(":sa", $this->_super_admin, PDO::PARAM_INT);
             $query2 = $this->_db->prepare('
                 SELECT COUNT(*) FROM user WHERE verwijderd = 0;
             ');
@@ -390,9 +394,10 @@ class User {
                     return "<div class='feedback error'><p>Je kan geen admin verwijderen.</p></div>";
                 } else {
                     $query = $this->_db->prepare('
-                        UPDATE user SET verwijderd = 1 WHERE user_id = :id;
+                        UPDATE user SET verwijderd = 1 WHERE user_id = :id AND user_id != :sa;
                     ');
                     $query->bindValue(":id", $userid);
+                    $query->bindValue(":sa", $this->_super_admin);
                     if($query->execute()) {
                         return "<div class='feedback success'><p>De gebruiker is succesvol verwijderd.</p></div>";
                     } else {

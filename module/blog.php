@@ -33,7 +33,7 @@ if($pageId) { echo'
                 $db = $db->databaseConnection();
 
                 if(!isset($_GET['pid'])){
-                    header("Location: blog");
+                    die(header("Location: ".constant("local_url")."404"));
                 }
 
                 $msg = "";
@@ -59,6 +59,10 @@ if($pageId) { echo'
                 $inschrijven = $row["inschrijving"];
                 $maxinschrijf = $row["inschrijving_aantal"];
                 $deeln = $blog->getDeelnemers($id);
+
+                if(!$id == $pid){
+                    die(header("Location: ".constant("local_url")."404"));
+                }
 
     echo'<div class="col-md-8 col-sm-6 col-xs-12">
                     <div class="ptitle">

@@ -111,7 +111,7 @@ if($pageId) { echo'
         
             <div class='form-group'>
                 <label for='tussenvoegsel'>Tussenvoegsel</label>
-                <input class='form-control' type='text' name='tussenvoegsel' placeholder='Van' required value='$tussenvoegsel'/>
+                <input class='form-control' type='text' name='tussenvoegsel' placeholder='Van'/>
             </div>
         
             <div class='form-group'>
@@ -150,10 +150,14 @@ if($pageId) { echo'
                 echo '<div class="header text-center marbot">Helaas zijn er geen plekken meer vrij voor deze activiteit.</div>';
                 echo '<meta http-equiv="refresh" content="2;" />';
             } else {
-                $sql = "INSERT INTO user (first_name, insertion, last_name, email, birthday, phonenumber) VALUES ('$voornaam', '$tussenvoegsel', '$achternaam', '$email', '$geboortedatum', '$telefoonnr')";
+                if(isset($_POST["tussenvoegsel"])== "") {
+                    $sql = "INSERT INTO user (first_name, last_name, email, birthday, phonenumber) VALUES ('$voornaam', '$achternaam', '$email', '$geboortedatum', '$telefoonnr')";
+                } else {
+                    $sql = "INSERT INTO user (first_name, insertion, last_name, email, birthday, phonenumber) VALUES ('$voornaam', '$tussenvoegsel', '$achternaam', '$email', '$geboortedatum', '$telefoonnr')";
+                }
                 $stmt = $db->prepare($sql);
                 if ($stmt->execute()) {
-                    echo '<div id="blogfoutm">Succesvol ingeschreven!</div>';
+                    echo '<div class="header text-center marbot">Succesvol ingeschreven!</div>';
                     echo '<meta http-equiv="refresh" content="2;" />';
                 }
 

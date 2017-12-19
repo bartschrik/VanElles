@@ -62,10 +62,27 @@ if ($pageId) {
     <!--RECENSIE PLAATSEN-->
     <div class="container" id="terug">
         <div class="marbot martop col-xs-12 col-md-6">
-            <form method="post" action="" id="resform">
+            <form method="post" action='#recensie' id="recensie" id="resform">
                 <div class="ptitle">
                     <h2>Laat uw mening achter!</h2>
                 </div>
+            <?php
+                if($recensieonvullen==1){
+                echo '<ul >' . $errorList . '</ul>';
+                };
+
+                if($recensierecaptcha==1){
+                echo 'Vul a.u.b de recaptcha in.';
+                };
+
+                if($recensiefout==1){
+                echo 'Sorry er is iets fout gaan probeer het later opnieuw.';
+                };
+
+                if($recensieverstuurd==1){
+                echo 'Bedankt voor het achterlaten van een recensie.';
+                };
+                ?>
                 <div class="form-group">
                     <input class="form-control" type="text" name="naam" placeholder="Voornaam">
                 </div>

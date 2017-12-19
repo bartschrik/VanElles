@@ -15,6 +15,10 @@ $invullen=0;
 $recaptcha=0;
 $geenmail=0;
 $verstuurd=0;
+$recensieonvullen=0;
+$recensierecaptcha=0;
+$recensiefout=0;
+$recensieverstuurd=0;
 
     if(isset($_POST['verstuurcontact'])) {
 
@@ -283,8 +287,23 @@ $verstuurd=0;
             $db = new Connection();
             $db = $db->databaseConnection();
             if (isset($_POST["verstuur"])) {
-                if (empty($_POST["naam"]) || empty($_POST["emailadres"]) || empty($_POST["omschrijving"])) {
-                    echo "<script>alert('vul a.u.b alle velden in.');</script>";
+
+                $val = new Validate([
+                    ['naam', $_POST['naam'],'required'],
+                    ['emailadres', $_POST['emailadres'],'required'],
+                    ['omschijving', $_POST['omschrijving'],'required']
+                ]);
+
+                if (!$val->isPassed()) {
+                    $errors = $val->getErrors();
+                    $errorList = '';
+                    foreach ($errors as $errorcat) {
+                        foreach ($errorcat as $error) {
+                            $errorList .= "<li>$error</li>";
+                        }
+                    }
+                    $recensieonvullen=1;
+
                 } else {
                     try {
                         $naamin = $_POST["naam"];
@@ -318,25 +337,19 @@ $verstuurd=0;
 
 
                         if ($stmtin->execute()) {
-                            echo "<script>alert('Bedankt voor uw beoordeling.');</script>";
+                            $recensieverstuurd=1;
                         } else {
-                            echo "<script>alert('Sorry er is iets fout gegaan, probeer het later nog een keer.');</script>";
+                            $recensiefout=1;
                         }
                     } catch (PDOException $e) {
                         echo $e->getMessage();
                     }
                 }
             }
-            echo " <meta http-equiv=\"refresh\" content=\"0;\" />";
-            return true;
 
 
         } else {
-
-            echo "<script>alert('Vul Recaptcha in.');</script>";
-            echo " <meta http-equiv=\"refresh\" content=\"0;\" />";
-
-
+            $recensierecaptcha=1;
 
         }
     }

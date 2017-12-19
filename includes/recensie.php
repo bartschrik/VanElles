@@ -62,7 +62,7 @@ if ($pageId) {
     <!--RECENSIE PLAATSEN-->
     <div class="container" id="terug">
         <div class="marbot martop col-xs-12 col-md-6">
-            <form method="post" action='#recensie' id="recensie" id="resform">
+            <form method="post" action="" id="resform">
                 <div class="ptitle">
                     <h2>Laat uw mening achter!</h2>
                 </div>

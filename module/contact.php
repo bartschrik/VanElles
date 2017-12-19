@@ -11,6 +11,10 @@
     </script>
 
 <?php
+$invullen=0;
+$recaptcha=0;
+$geenmail=0;
+$verstuurd=0;
 
     if(isset($_POST['verstuurcontact'])) {
 
@@ -29,9 +33,24 @@
 
 
             if (isset($_POST["verstuurcontact"])) {
-                if (empty($_POST["naamcontact"]) || empty($_POST["achtercontact"]) || empty($_POST["telefoonnummercontact"]) || empty($_POST["emailcontact"]) || empty($_POST["berichtcontact"])) {
-                    echo "<script>alert('vul a.u.b alle velden in.');</script>";
 
+                $val = new Validate([
+                    ['naamcontact', $_POST['naamcontact'],'required'],
+                    ['achtercontact', $_POST['achtercontact'],'required'],
+                    ['emailcontact', $_POST['emailcontact'],'required|email'],
+                    ['telefooncontact', $_POST['telefoonnummercontact'],'required'],
+                    ['berichtcontact', $_POST['berichtcontact'],'required']
+                ]);
+
+                if (!$val->isPassed()) {
+                    $errors = $val->getErrors();
+                    $errorList = '';
+                    foreach ($errors as $errorcat) {
+                        foreach ($errorcat as $error) {
+                            $errorList .= "<li>$error</li>";
+                        }
+                    }
+                    $invullen=1;
                 } else {
                     try {
                         $naamincontact = $_POST["naamcontact"];
@@ -75,29 +94,17 @@
                         if ($stmt->execute()) {
                             include_once 'mail/mail_contact.php';
 
-
-
-
                         } else {
-                            echo "<script>alert('Sorry er is iets fout gegaan, probeer het later nog een keer.');</script>";
+                            $invullen=1;
                         }
                     } catch (PDOException $e) {
                         echo $e->getMessage();
                     }
                 }
             }
-            echo " <meta http-equiv=\"refresh\" content=\"0;\" />";
-            return true;
-
-
 
         } else {
-
-            echo "<script>alert('Vul Recaptcha in.');</script>";
-            echo " <meta http-equiv=\"refresh\" content=\"0;\" />";
-
-
-            return false;
+            $recaptcha=1;
 
         }
     }
@@ -180,39 +187,62 @@
 
                     <?php echo $pageContent['inhoud']; ?>
                 </div>
-
-
                     <div class="col-md-6">
                     <div class="ptitle">
                         <h2>Contact formulier</h2>
+                        <?php
+                        if($invullen==1){
+                            echo '<ul >' . $errorList . '</ul>';
+                        };
+                        if( $recaptcha==1){
+                            echo "Vul a.u.b de recaptcha in.";
+                        };
+                        if( $geenmail==1){
+                        echo "Sorry er iets fout gegaan probeer het later opnieuw.";
+                        };
+                        if( $verstuurd==1){
+                            echo "Bedankt dat u ontact met ons opneemt.";
+                        };
+                        ?>
+
                     </div>
                     <form method="post" action="">
                         <div class="row">
-                            <div class="col-md-6 col-sm-12 col-xs-12">
+                        <div class="form-group" >
+
+                            <div class="col-md-4 col-sm-4 col-xs-12">
                                 <input class="form-control" type="text" name="naamcontact" placeholder="Voornaam" ><br>
                         </div>
 
-                            <div class="col-md-6 col-sm-6 col-xs-6">
+                            <div class="col-md-4 col-sm-4 col-xs-12">
                                 <input class="form-control" type="text" name="tussencontact" placeholder="tussenvoegsel" ><br>
+                        </div>
+                            <div class="col-md-4 col-sm-4 col-xs-12">
+                                <input class="form-control" type="text" name="achtercontact" placeholder="Achternaam"  ><br>
+                            </div>
                         </div>
 
                         <div class="col-md-12 col-sm-12 col-xs-12">
-                            <input class="form-control" type="tel" name="telefoonnummercontact" placeholder="Telefoonnummer" ><br>
+                            <input class="form-control" type="tel" name="telefoonnummercontact" placeholder="Telefoonnummer" value=""><br>
                         </div>
 
                             <div class="col-md-12 col-sm-12 col-xs-12">
-                                <input class="form-control" type="email" name="emailcontact" placeholder="naam@voorbeeld.com" ><br>
+                                <input class="form-control" type="email" name="emailcontact" placeholder="naam@voorbeeld.com" value="" ><br>
                         </div>
 
                             <div class="col-md-12 col-sm-12 col-xs-12">
-                                <textarea class="form-control" id="textarea" placeholder="Bericht" name="berichtcontact"></textarea><br>
+                                <textarea class="form-control" id="textarea" placeholder="Bericht" name="berichtcontact" ></textarea><br>
                         </div>
 
                             <div class="col-md-12 col-sm-12 col-xs-12">
                                 <div id="RecaptchaField1"></div>
+                                <br>
                             </div>
                             <div class="col-md-12 col-sm-12 col-xs-12">
                                 <input class="btn btn-default" type="submit" name="verstuurcontact" value="verstuur"><br>
+
+                                <br>
+                                <br>
                         </div>
                     </form>
                 </div>
@@ -307,7 +337,6 @@
             echo " <meta http-equiv=\"refresh\" content=\"0;\" />";
 
 
-            return false;
 
         }
     }

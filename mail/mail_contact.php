@@ -5,7 +5,6 @@
 use PHPMailer\PHPMailer\PHPMailer;
 use PHPMailer\PHPMailer\Exception;
 
-if($ja==1){
 
 require 'Exception.php';
 require 'PHPMailer.php';
@@ -51,14 +50,10 @@ require 'SMTP.php';
 
 
    if (!$mail->send()) {
-       echo "<script>alert('Mail word niet verzend.');</script>";
-        echo "<script>alert('Mail Error: . $mail->ErrorInfo ');</script>";
+       $geenmail=1;
     } else {
-        echo "<script>alert('Bedankt dat u contact met ons opneemt.');</script>";
-    }
-}else{
-print "error";
-}
+       $verstuurd=1;
+   }
 
 
 

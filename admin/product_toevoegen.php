@@ -36,7 +36,6 @@
                             ['seoinhoud', $_POST['seoinhoud'], 'required|min:2'],
                         ]);
 
-                        var_dump($_FILES['foto']);
                         if ($val->isPassed()) {
                             $saveproduct = $producten->saveProduct($_POST, $_FILES['foto']);
                             if (!$saveproduct) {

@@ -89,7 +89,12 @@ p {
     border-color: #ff00ff
 }
 
-
+.form-group {
+    margin-bottom: 0;
+}
+.form-control {
+    margin-bottom: 15px;
+}
 
 
 

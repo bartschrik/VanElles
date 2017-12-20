@@ -13,6 +13,10 @@ $db = $db->databaseConnection();
              <div class="martop marbot">
                  <?php
 
+                 if(!isset($_GET['pid'])){
+                     die(header("Location: ".constant("local_url")."404"));
+                 }
+
                  $msg = "";
                  $leverancier = new leverancier();
 
@@ -36,6 +40,10 @@ $db = $db->databaseConnection();
                  $pageContent['pagetitle'] = $leverancier;
                  $pageContent['description'] = $row["description"];
                  $pageContent['kernwoorden'] = $row["kernwoorden"];
+
+                 if(!$id == $pid){
+                     die(header("Location: ".constant("local_url")."404"));
+                 }
 
                  echo '
                     

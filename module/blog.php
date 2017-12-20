@@ -48,7 +48,8 @@ if($pageId) { echo'
                 $title = $row['title'];
                 $subtitel = $row["subtitle"];
                 $inhoud = $row["inhoud"];
-                $datum = $row["datum"];
+                $date = date("j F Y", strtotime($row["datum"]));
+                $time = date("H:i", strtotime($row["datum"]));
                 $beschrijving = $row["beschrijving"];
                 $kernwoorden = $row["kernwoorden"];
                 $inschrijven = $row["inschrijving"];
@@ -66,7 +67,7 @@ if($pageId) { echo'
                     <div class="ptitle">
                         <h1>'.$title.'</h1>
                     </div>
-                        <p>'. $datum .'</p>
+                        <p>'. $date .' '. $time .'</p>
                         <h5 id="webtitle">'. $subtitel .'</h5>
                          <p>'. $inhoud .'</p>
                         </div>

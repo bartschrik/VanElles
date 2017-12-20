@@ -42,14 +42,14 @@
             echo $msg;
             if($bloglist != false) {
                 echo '
-                        <table class="maintable" style="margin-bottom: 20px;">
+                        <table class="maintable" style="...">
                             <thead>
                                 <tr>
                                     <th>Id</th>
                                     <th>Blog titel</th>
                                     <th>Activiteit</th>
                                     <th>Deelnemers</th>
-                                    <th style="width: 100px;">Optie\'s</th>
+                                    <th style="width: 100px;">Opties</th>
                                 </tr>
                             </thead>
                             <tbody>';
@@ -73,7 +73,7 @@
                                     echo"Geen";
                                     }
                     echo '</td>
-                                <td><a href="blog_bewerk.php?bewerkid='.$value['blog_id'].'" title="Bewerken" data-id="'.$value['blog_id'].'"><i class="fa fa-pencil"></i></a><a class="confirm" href="blog_admin.php?verid='.$value['blog_id'].'" title="Verwijderen" data-id="'.$value['blog_id'].'"><i class="fa fa-trash"></i></a></td>
+                                <td style="width: 150px;"><a href="blog_bewerk.php?bewerkid='.$value['blog_id'].'" title="Bewerken" data-id="'.$value['blog_id'].'"><i class="fa fa-pencil"></i></a><a href="blog_deeln.php?overzichtid='.$value['blog_id'].'" title="Deelnemers" data-id="'.$value['blog_id'].'"><i class="fa fa-address-book"></i></a><a class="confirm" href="blog_admin.php?verid='.$value['blog_id'].'" title="Verwijderen" data-id="'.$value['blog_id'].'"><i class="fa fa-trash"></i></a></td>
                             </tr>';
                 }
                 echo '

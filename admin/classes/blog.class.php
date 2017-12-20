@@ -69,6 +69,25 @@ class blog
         }
     }
 
+    public function deleteInsch($inschijving_id)
+    {
+        try {
+            $query = $this->_db->prepare('
+                DELETE FROM inschrijvingen
+                WHERE inschijf_id = :id;
+            ');
+            $query->bindValue(":id", $inschijving_id);
+            if ($query->execute()) {
+                return true;
+            } else {
+                return false;
+            }
+        } catch (PDOException $e) {
+            //echo $e->getMessage();
+            return false;
+        }
+    }
+
     public function saveBlog($data, $img, $userid)
     {
         try {
@@ -395,6 +414,29 @@ class blog
 
             if ($query->execute()) {
                 return $content = $query->fetch()[0];
+            } else {
+                //echo $query->errorInfo();
+                return false;
+            }
+        } catch (PDOexception $e) {
+            //echo $e->getMessage();
+            return false;
+        }
+    }
+
+    public function getDeelnOver($blog_id)
+    {
+        try {
+            $query = $this->_db->prepare('
+                    SELECT U.user_id, U.email, U.first_name, U.insertion, U.last_name, I.inschijving_id
+                    FROM user U
+                    JOIN Inschrijvingen I ON U.user_id = I.user_id
+                    WHERE I.blog_id = :id
+                ');
+            $query->bindValue(":id", $blog_id);
+
+            if ($query->execute()) {
+                return ["values" => $query->fetchAll()];
             } else {
                 //echo $query->errorInfo();
                 return false;

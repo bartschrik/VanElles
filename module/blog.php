@@ -211,7 +211,7 @@ if($pageId) { echo'
                 <div class='form-group'>
                     <div class='col-lg-4 col-md-4 col-sm-6 col-xs-12'>
                         <label for='geboortedatum'>Geboortedatum</label>
-                        <input class='form-control' type='date' name='geboortedatum' id='date' required value='$geboortedatum'/>
+                        <input class='form-control' type='text' name='geboortedatum' id='date' required value='$geboortedatum'/>
                     </div>
                     <div class='col-lg-4 col-md-4 col-sm-6 col-xs-12'>
                         <label for='telefoonnummer'>Telefoonnummer</label>

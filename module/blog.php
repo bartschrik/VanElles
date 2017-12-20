@@ -11,7 +11,6 @@ if($pageId) { echo'
                 </div>';
 
                 //Include de connection en de page class
-                include_once('admin/classes/connection.class.php');
                 include_once('admin/classes/blog.class.php');
                 include_once('admin/classes/page.class.php');
 

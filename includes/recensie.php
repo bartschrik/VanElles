@@ -98,7 +98,7 @@ if ($pageId) {
                 <div class="form-group">
                     <textarea class="form-control" id="textarea" name="omschrijving"
                               placeholder="Omschrijving(max 200 woorden)" maxlength="200"><?php
-                        if($invullen==1 || $recaptcha==1 || $geenmail==1){
+                        if($recensieinvullen==1 || $recensierecaptcha==1 || $recensiefout==1){
                             echo isset($_POST['omschrijving']) ? $_POST['omschrijving'] : '';
                         }
                         ?></textarea>

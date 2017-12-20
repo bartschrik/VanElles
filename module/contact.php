@@ -243,7 +243,7 @@ $recensieverstuurd=0;
                                        value="<?php if($invullen==1 || $recaptcha==1 || $geenmail==1) {
                                            echo isset($_POST['achtercontact']) ? $_POST['achtercontact'] : '';
                                        }
-                                       ?>" /><br>
+                                       ?>" />
                             </div>
                         </div>
 
@@ -252,7 +252,7 @@ $recensieverstuurd=0;
                                    value="<?php if($invullen==1 || $recaptcha==1 || $geenmail==1) {
                                        echo isset($_POST['telefoonnummercontact']) ? $_POST['telefoonnummercontact'] : '';
                                    }
-                                   ?>" /><br>
+                                   ?>" />
                         </div>
 
                             <div class="col-md-12 col-sm-12 col-xs-12">
@@ -260,22 +260,24 @@ $recensieverstuurd=0;
                                        value="<?php if($invullen==1 || $recaptcha==1 || $geenmail==1) {
                                            echo isset($_POST['emailcontact']) ? $_POST['emailcontact'] : '';
                                        }
-                                       ?>" /><br>
+                                       ?>" />
                         </div>
 
                             <div class="col-md-12 col-sm-12 col-xs-12">
-                                <textarea class="form-control" id="textarea" placeholder="Bericht" name="berichtcontact" ></textarea><br>
+                                <textarea class="form-control" id="textarea" placeholder="Bericht" name="berichtcontact" ><?php
+                                    if($invullen==1 || $recaptcha==1 || $geenmail==1){
+                                        echo isset($_POST['berichtcontact']) ? $_POST['berichtcontact'] : '';
+                                    }
+                                    ?></textarea>
                         </div>
 
-                            <div class="col-md-12 col-sm-12 col-xs-12">
-                                <div id="RecaptchaField1"></div>
-                                <br>
+                            <div  class="col-md-12 col-sm-12 col-xs-12">
+                                <div  id="RecaptchaField1"></div>
+
                             </div>
                             <div class="col-md-12 col-sm-12 col-xs-12">
-                                <input class="btn btn-default" type="submit" name="verstuurcontact" value="verstuur"><br>
+                                <input class="btn btn-default" type="submit" name="verstuurcontact" value="verstuur">
 
-                                <br>
-                                <br>
                         </div>
                     </form>
                 </div>

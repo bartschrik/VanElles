@@ -178,35 +178,6 @@ if($pageId) { echo'
             $msg = '<div class="feedback error"><div class="col-xs-12"><ul style="padding: 0;">' . $errorList . '</ul></div></div>';
         }
 
-//        if (empty($_POST["voornaam"]) || empty($_POST["achternaam"]) || empty($_POST["geboortedatum"]) || empty($_POST["telefoonnummer"]) || empty($_POST["emailadres"])) {
-//            print("Alle velden moeten ingevuld zijn");
-//        } else {
-//            if ($deeln >= $maxinschrijf) {
-//                echo '<div class="header text-center martop marbot" style="color: #ff00ff;">Helaas, er zijn geen plekken meer vrij voor deze activiteit.</div>';
-//                echo '<meta http-equiv="refresh" content="2;" />';
-//            } else {
-//                if(isset($_POST["tussenvoegsel"])== "") {
-//                    $sql = "INSERT INTO user (first_name, last_name, email, birthday, phonenumber) VALUES ('$voornaam', '$achternaam', '$email', '$geboortedatum', '$telefoonnr')";
-//                } else {
-//                    $sql = "INSERT INTO user (first_name, insertion, last_name, email, birthday, phonenumber) VALUES ('$voornaam', '$tussenvoegsel', '$achternaam', '$email', '$geboortedatum', '$telefoonnr')";
-//                }
-//                $stmt = $db->prepare($sql);
-//                if ($stmt->execute()) {
-//                    echo '<div class="header text-center marbot martop" style="color: green;">Succesvol ingeschreven!</div>';
-//                    echo '<meta http-equiv="refresh" content="2;" />';
-//                }
-//
-//                $last_id = $db->lastInsertId();
-//
-//                $sql2 = "INSERT INTO inschrijvingen (blog_id, user_id) VALUES ('$id', '$last_id')";
-//                $smt2 = $db->prepare($sql2);
-//                if ($smt2->execute()) {
-//
-//                } else {
-//                    echo '<div class="header text-center marbot martop" style="color: red;">Het huidige e-mail adres is reeds geregistreerd.</div>';
-//                }
-//            }
-//        }
     }
 
     if($inschrijven == 1) {
@@ -295,7 +266,13 @@ if($pageId) { echo'
                     </form></div>";
 
                 if (!isset($_POST['sorteer']) || ($_POST['sorteer'] == "0")) {
-                    $query1 = $db->prepare('SELECT * FROM blog ORDER BY blog_id DESC');
+                    $query1 = $db->prepare('
+                        SELECT b.blog_id, b.user_id, b.title, b.subtitle, b.inhoud, b.korte_inhoud, b.datum, b.beschrijving, b.kernwoorden, b.img_name, b.activiteit, b.inschrijving, b.inschrijving_aantal, b.verwijderd, COUNT(i.inschijving_id) inschrijvingen
+                        FROM blog b
+                        LEFT JOIN inschrijvingen i ON b.blog_id = i.blog_id
+                        GROUP BY i.blog_id
+                        ORDER BY b.blog_id DESC;
+                    ');
                     $query1->execute();
 
                     while ($row = $query1->fetch(PDO::FETCH_ASSOC)) {
@@ -303,57 +280,101 @@ if($pageId) { echo'
                         $img_name = $row['img_name'];
                         $title = $row['title'];
                         $inhoudkort = $row['korte_inhoud'];
+                        $date = date("j F Y", strtotime($row["datum"]));
+                        $time = date("H:i", strtotime($row["datum"]));
                         $subtitel = $row["subtitle"];
-                        $datum = $row['datum'];
                         $url = constant("local_url").$_GET['page']."/".$id;
+                        $aantalPlek = $row['inschrijving_aantal'] - $row['inschrijvingen'];
+                        if($aantalPlek == 1) {
+                            $plekken = "1 plaats vrij";
+                        } else {
+                            $plekken = "$aantalPlek plaatsen vrij";
+                        }
 
-                        echo"<div class='col-xs-8 col-sm-4 marbot'>
-
-                        <div class='card card-inverse'>
-                    
-                        <a href='$url' style='background-image: url(".constant("local_url")."/admin/images/blog/$img_name);' class='card-img'></a>
-                    
-                        <div class='card-body'>
-                    
-                        <div class='card-img-overlay'>
-                        <a href=$url><h4 class='card-title'>$title</h4></a></div>
-                    
-                        <p class='card-text'>$inhoudkort</p>
-                    
-                        <div class='a-right'><a href='$url' title='Details' class='btn btn-primary'>Lees meer</a></div>
-                    
-                        </div></div></div>";
+                        if($row['activiteit'] == 0) {
+                            echo"
+                            <div class='col-xs-8 col-sm-4 marbot'>
+                                <div class='card marbot'>
+                                    <a href='$url' style='background-image: url(".constant("local_url")."/admin/images/blog/$img_name);' class='card-img'></a>
+                                    <div class='card-body'>
+                                        <a href=$url><h4 class='card-title'>$title</h4></a>
+                                        <p class='card-text'>$inhoudkort</p>
+                                        <div class='a-right'><a href='$url' title='Details' class='btn btn-primary'>Lees meer</a></div>
+                                    </div>
+                                </div>
+                            </div>";
+                        } else {
+                            if($row['inschrijving'] == 0) {
+                                echo"
+                                <div class='col-xs-8 col-sm-4 marbot'>
+                                    <div class='card marbot'>
+                                        <a href='$url' style='background-image: url(".constant("local_url")."/admin/images/blog/$img_name);' class='card-img'></a>
+                                        <span class='date'>$date<br><span>$time</span></span>
+                                        <div class='card-body'>
+                                            <a href=$url><h4 class='card-title'>$title</h4></a>
+                                            <p class='card-text'>$inhoudkort</p>
+                                            <div class='a-right'><a href='$url' title='Details' class='btn btn-primary'>Lees meer</a></div>
+                                        </div>
+                                    </div>
+                                </div>";
+                            } else {
+                                echo"
+                                <div class='col-xs-8 col-sm-4 marbot'>
+                                    <div class='card marbot'>
+                                        <a href='$url' style='background-image: url(".constant("local_url")."/admin/images/blog/$img_name);' class='card-img'></a>
+                                        <span class='date'>$date<br><span>$time</span></span>
+                                        <span class='plaatsen'>$plekken</span>
+                                        <div class='card-body'>
+                                            <a href=$url><h4 class='card-title'>$title</h4></a>
+                                            <p class='card-text'>$inhoudkort</p>
+                                            <div class='a-right'><a href='$url' title='Details' class='btn btn-primary'>Lees meer</a></div>
+                                        </div>
+                                    </div>
+                                </div>";
+                            }
+                        }
 
                     }
                 } else {
                     if ($_POST['sorteer'] == "1") {
-                        $query2 = $db->prepare('SELECT * FROM blog WHERE activiteit = "1" ORDER BY blog_id DESC');
+                        $query2 = $db->prepare('
+                            SELECT b.blog_id, b.user_id, b.title, b.subtitle, b.inhoud, b.korte_inhoud, b.datum, b.beschrijving, b.kernwoorden, b.img_name, b.activiteit, b.inschrijving, b.inschrijving_aantal, b.verwijderd, COUNT(i.inschijving_id) inschrijvingen
+                            FROM blog b
+                            LEFT JOIN inschrijvingen i ON b.blog_id = i.blog_id
+                            WHERE b.activiteit = 1
+                            GROUP BY i.blog_id
+                            ORDER BY b.blog_id DESC;
+                        ');
                         $query2->execute();
                         while ($row = $query2->fetch(PDO::FETCH_ASSOC)) {
                             $id = $row['blog_id'];
                             $img_name = $row['img_name'];
                             $title = $row['title'];
                             $inhoudkort = $row['korte_inhoud'];
-                            $datum = $row['datum'];
+                            $date = date("j F Y", strtotime($row["datum"]));
+                            $time = date("H:i", strtotime($row["datum"]));
                             $subtitel = $row["subtitle"];
                             $url = constant("local_url").$_GET['page']."/".$id;
+                            $aantalPlek = $row['inschrijving_aantal'] - $row['inschrijvingen'];
+                            if($aantalPlek == 1) {
+                                $plekken = "1 plaats vrij";
+                            } else {
+                                $plekken = "$aantalPlek plaatsen vrij";
+                            }
 
-                        echo" <div class='col-xs-8 col-sm-4 marbot'>
- 
-                        <div class='card card-inverse'>
-                    
-                        <a href='$url' style='background-image: url(".constant("local_url")."/admin/images/blog/$img_name);' class='card-img'></a>
-                        
-                        <div class='card-body'>
-                    
-                        <div class='card-img-overlay'>
-                        <a href=$url><h4 class='card-title'>$title</h4></a></div>
-                    
-                        <p class='card-text'>$inhoudkort</p>
-                    
-                        <div class='a-right'><a href='$url' title='Details' class='btn btn-primary'>Lees meer</a></div>
-                    
-                        </div></div></div>";
+                        echo"
+                        <div class='col-xs-8 col-sm-4 marbot'>
+                            <div class='card marbot'>
+                                <a href='$url' style='background-image: url(".constant("local_url")."/admin/images/blog/$img_name);' class='card-img'></a>
+                                <span class='date'>$date<br><span>$time</span></span>
+                                <span class='plaatsen'>$plekken</span>
+                                <div class='card-body'>
+                                    <a href=$url><h4 class='card-title'>$title</h4></a>
+                                    <p class='card-text'>$inhoudkort</p>
+                                    <div class='a-right'><a href='$url' title='Details' class='btn btn-primary'>Lees meer</a></div>
+                                </div>
+                            </div>
+                        </div>";
                         }
                     }
                 }

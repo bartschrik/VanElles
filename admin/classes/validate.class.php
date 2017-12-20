@@ -12,32 +12,36 @@ class Validate {
         //Rule[0] = De rule
         //Rule[1] = De parameter van de rule, kan leeg zijn
         foreach ($items as $item) {
-            $item[1] = trim($item[1]);
             $rules = explode('|', $item[2]);
             foreach ($rules as $rule) {
                 $rule = explode(':', $rule);
                 switch ($rule[0]) {
                     case 'required':
+                        $item[1] = trim($item[1]);
                         if(!$this->required($item[1])) {
                             $this->addError($item[0], ucfirst($item[0]) . " is een verplicht veld.");
                         }
                         break;
                     case 'min':
+                        $item[1] = trim($item[1]);
                         if($this->min_length($item[1], $rule[1])) {
                             $this->addError($item[0], "Het $item[0] moet bestaan uit minimaal $rule[1] characters.");
                         }
                         break;
                     case 'max':
+                        $item[1] = trim($item[1]);
                         if($this->max_length($item[1], $rule[1])) {
                             $this->addError($item[0], "Het $item[0] mag maximaal $rule[1] characters bevatten.");
                         }
                         break;
                     case 'email':
+                        $item[1] = trim($item[1]);
                         if($this->email($item[1])) {
                             $this->addError($item[0], "Dit is geen geldig e-mail adres.");
                         }
                         break;
                     case 'num':
+                        $item[1] = trim($item[1]);
                         if($this->numeric($item[1])) {
                             $this->addError($item[0], ucfirst($item[0] . " is niet numeric."));
                         }

@@ -30,9 +30,11 @@ if(isset($_GET['pid'])) {
     $pageId = $_GET['pid'];
 }
 
-ob_start();
+
 //Include header
 include_once('includes/header.php');
+ob_start();
+include_once('includes/header2.php');
 $buffer=ob_get_contents();
 ob_end_clean();
 

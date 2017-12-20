@@ -100,7 +100,7 @@ if($pageId) { echo'
             print("Alle velden moeten ingevuld zijn");
         } else {
             if ($deeln >= $maxinschrijf) {
-                echo '<div class="header text-center martop marbot" style="color: #ff00ff;">Helaas zijn er geen plekken meer vrij voor deze activiteit.</div>';
+                echo '<div class="header text-center martop marbot" style="color: #ff00ff;">Helaas, er zijn geen plekken meer vrij voor deze activiteit.</div>';
                 echo '<meta http-equiv="refresh" content="2;" />';
             } else {
                 if(isset($_POST["tussenvoegsel"])== "") {
@@ -129,7 +129,7 @@ if($pageId) { echo'
 
     if($inschrijven == 1) {
         if ($deeln >= $maxinschrijf) {
-            echo '<div class="header text-center martop marbot" style="color: #ff00ff;">Helaas zijn er geen plekken meer vrij voor deze activiteit.</div>';
+            echo '<div class="header text-center martop marbot" style="color: #ff00ff;">Helaas, er zijn geen plekken meer vrij voor deze activiteit.</div>';
         } else {
             echo "<div class='container'>
             <div class='header text-center'>

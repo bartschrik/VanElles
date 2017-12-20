@@ -33,7 +33,7 @@
                             ['maxdeeln', $_POST['maxdeeln'], 'required|min:1'],
                             ['afbeelding', $_FILES['afbeelding'], 'imgrequired|validphoto'],
                             ['seokernwoorden', $_POST['seokernwoorden'], 'required'],
-                            ['seobeschrijving', $_POST['seobeschrijving'], 'required|min:2']
+                            ['seobeschrijving', $_POST['seobeschrijving'], 'required']
                         ]);
 
                         if ($val->isPassed()) {
@@ -58,7 +58,7 @@
                                         <input type="text" name="titel" class="' . InputErrorClass('titel', $errors) . '" placeholder="Blog titel" value="' . InputValue('titel') . '" />
                                         <input type="text" name="subtitel" class="' . InputErrorClass('subtitel', $errors) . '" placeholder="Blog sub titel" value="' . InputValue('subtitel') . '" />  
                                         <textarea name="inhoud" placeholder="Inhoud">' . InputValue('inhoud') . '</textarea>
-                                        <textarea name="korteinhoud" maxlength="250" style="height: 75px;" class="' . InputErrorClass('korte_inhoud', $errors) . '" placeholder="Korte inhoud" >' . InputValue('korte_inhoud') . '</textarea>
+                                        <textarea name="korteinhoud" maxlength="250" style="height: 75px;" class="' . InputErrorClass('korteinhoud', $errors) . '" placeholder="Korte inhoud" >' . InputValue('korteinhoud') . '</textarea>
                                         <input type="file" name="afbeelding" placeholder="Afbeelding" value="' . InputValue('afbeelding') . '" />
                                         <script>
                                             CKEDITOR.replace( "inhoud" );
@@ -113,7 +113,7 @@
                                     <div class="row">
                                         <div class="col-xs-12">
                                             <button type="submit" name="saveblog" class="save">Opslaan</button>
-                                            <a href="../blog" title="Annuleren" class="annuleer">Annuleren</a>
+                                            <a href="blog_admin.php" title="Annuleren" class="annuleer">Annuleren</a>
                                         </div>
                                     </div>
                                 </form>';
@@ -125,7 +125,7 @@
                                         <input type="text" name="titel" placeholder="Blog titel" value="' . InputValue('titel') . '" />
                                         <input type="text" name="subtitel" placeholder="Blog sub titel" value="' . InputValue('subtitel') . '" />  
                                         <textarea name="inhoud" placeholder="Inhoud">' . InputValue('inhoud') . '</textarea>
-                                        <textarea name="korteinhoud" maxlength="250" style="height: 75px;" placeholder="Korte inhoud" >' . InputValue('korte_inhoud') . '</textarea>
+                                        <textarea name="korteinhoud" maxlength="250" style="height: 75px;" placeholder="Korte inhoud" >' . InputValue('korteinhoud') . '</textarea>
                                         <input type="file" name="afbeelding" placeholder="Afbeelding" value="' . InputValue('afbeelding') . '" />
                                         <script>
                                             CKEDITOR.replace( "inhoud" );

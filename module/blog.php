@@ -93,9 +93,43 @@ if($pageId) { echo'
     }
     ob_start();
 
+    $id = $pageId;
+
+    if (isset($_POST["verstuur"])) {
+        if (empty($_POST["voornaam"]) || empty($_POST["achternaam"]) || empty($_POST["geboortedatum"]) || empty($_POST["telefoonnummer"]) || empty($_POST["emailadres"])) {
+            print("Alle velden moeten ingevuld zijn");
+        } else {
+            if ($deeln >= $maxinschrijf) {
+                echo '<div class="header text-center martop marbot" style="color: #ff00ff;">Helaas zijn er geen plekken meer vrij voor deze activiteit.</div>';
+                echo '<meta http-equiv="refresh" content="2;" />';
+            } else {
+                if(isset($_POST["tussenvoegsel"])== "") {
+                    $sql = "INSERT INTO user (first_name, last_name, email, birthday, phonenumber) VALUES ('$voornaam', '$achternaam', '$email', '$geboortedatum', '$telefoonnr')";
+                } else {
+                    $sql = "INSERT INTO user (first_name, insertion, last_name, email, birthday, phonenumber) VALUES ('$voornaam', '$tussenvoegsel', '$achternaam', '$email', '$geboortedatum', '$telefoonnr')";
+                }
+                $stmt = $db->prepare($sql);
+                if ($stmt->execute()) {
+                    echo '<div class="header text-center marbot martop" style="color: green;">Succesvol ingeschreven!</div>';
+                    echo '<meta http-equiv="refresh" content="2;" />';
+                }
+
+                $last_id = $db->lastInsertId();
+
+                $sql2 = "INSERT INTO inschrijvingen (blog_id, user_id) VALUES ('$id', '$last_id')";
+                $smt2 = $db->prepare($sql2);
+                if ($smt2->execute()) {
+
+                } else {
+                    echo '<div class="header text-center marbot martop" style="color: red;">Het huidige e-mail adres is reeds geregistreerd.</div>';
+                }
+            }
+        }
+    }
+
     if($inschrijven == 1) {
         if ($deeln >= $maxinschrijf) {
-            echo '<div class="header text-center marbot">Helaas zijn er geen plekken meer vrij voor deze activiteit.</div>';
+            echo '<div class="header text-center martop marbot" style="color: #ff00ff;">Helaas zijn er geen plekken meer vrij voor deze activiteit.</div>';
         } else {
             echo "<div class='container'>
             <div class='header text-center'>
@@ -140,39 +174,7 @@ if($pageId) { echo'
         </div>";
         }
     }
-    $id = $pageId;
-
-    if (isset($_POST["verstuur"])) {
-        if (empty($_POST["voornaam"]) || empty($_POST["achternaam"]) || empty($_POST["geboortedatum"]) || empty($_POST["telefoonnummer"]) || empty($_POST["emailadres"])) {
-            print("Alle velden moeten ingevuld zijn");
-        } else {
-            if ($deeln >= $maxinschrijf) {
-                echo '<div class="header text-center marbot">Helaas zijn er geen plekken meer vrij voor deze activiteit.</div>';
-                echo '<meta http-equiv="refresh" content="2;" />';
-            } else {
-                if(isset($_POST["tussenvoegsel"])== "") {
-                    $sql = "INSERT INTO user (first_name, last_name, email, birthday, phonenumber) VALUES ('$voornaam', '$achternaam', '$email', '$geboortedatum', '$telefoonnr')";
-                } else {
-                    $sql = "INSERT INTO user (first_name, insertion, last_name, email, birthday, phonenumber) VALUES ('$voornaam', '$tussenvoegsel', '$achternaam', '$email', '$geboortedatum', '$telefoonnr')";
-                }
-                $stmt = $db->prepare($sql);
-                if ($stmt->execute()) {
-                    echo '<div class="header text-center marbot">Succesvol ingeschreven!</div>';
-                    echo '<meta http-equiv="refresh" content="2;" />';
-                }
-
-                $last_id = $db->lastInsertId();
-
-                $sql2 = "INSERT INTO inschrijvingen (blog_id, user_id) VALUES ('$id', '$last_id')";
-                $smt2 = $db->prepare($sql2);
-                if ($smt2->execute()) {
-
-                } else {
-                    echo "Het e-mail adres is al in gebruik.";
-                }
-            }
-        }
-    }?>
+  ?>
 
 <?php } else { ?>
     <div class="container">

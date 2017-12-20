@@ -3,6 +3,7 @@
 include_once('admin/classes/connection.class.php');
 include_once('admin/classes/page.class.php');
 include_once('admin/classes/validate.class.php');
+include_once('admin/functions.php');
 require_once 'config.php';
 
 $page = new Page();

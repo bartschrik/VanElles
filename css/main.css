@@ -96,7 +96,9 @@ p {
     margin-bottom: 15px;
 }
 
-
+.errorinput {border: 1px solid red !important;}
+.success {color: #26A65B;}
+.error {color: #D91E18;}
 
 /*lists*/
 .icon-list {

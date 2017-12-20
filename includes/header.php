@@ -18,4 +18,5 @@
     <link href="<?php echo constant("local_url"); ?>css/main.css" rel="stylesheet" type="text/css"/>
     <link href="<?php echo constant("local_url"); ?>css/overig.css" rel="stylesheet" type="text/css"/>
     <link href="<?php echo constant("local_url"); ?>css/StarRating.css" rel="stylesheet" type="text/css"/>
+    <link href="<?php echo constant("local_url"); ?>js/jquery.datetimepicker.min.css" rel="stylesheet" type="text/css"/>
     <link rel="stylesheet" href="http://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css"/>

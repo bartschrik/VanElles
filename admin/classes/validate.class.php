@@ -12,6 +12,7 @@ class Validate {
         //Rule[0] = De rule
         //Rule[1] = De parameter van de rule, kan leeg zijn
         foreach ($items as $item) {
+            $item[1] = trim($item[1]);
             $rules = explode('|', $item[2]);
             foreach ($rules as $rule) {
                 $rule = explode(':', $rule);

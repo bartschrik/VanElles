@@ -25,6 +25,15 @@ $(document).ready(function () {
     //     $('meta[name=keywords]').attr('content', $webkern);
     // }
 
+    $('#date').datetimepicker({
+        timepicker:false,
+        format:'d-m-Y',
+        formatDate:'Y/m/d',
+        minDate: false,
+        maxDate:'-1970/01/02',
+        defaultDate: new Date('1990/01/01')
+    });
+
 
     /*Menu*/
     $menuToggle.click(function () {

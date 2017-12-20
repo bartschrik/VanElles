@@ -78,6 +78,7 @@
 </footer>
 <!--JS Includes-->
 <script src="<?php echo constant("local_url"); ?>js/jquery-3.2.1.js" type="text/javascript"></script>
+<script src="<?php echo constant("local_url"); ?>js/jquery.datetimepicker.full.js" type="text/javascript"></script>
 <script src="<?php echo constant("local_url"); ?>js/moment.js" type="text/javascript"></script>
 <script src="<?php echo constant("local_url"); ?>js/lightbox.js" type="text/javascript"></script>
 <script src="<?php echo constant("local_url"); ?>js/slick.min.js" type="text/javascript"></script>

@@ -95,35 +95,118 @@ if($pageId) { echo'
     $id = $pageId;
 
     if (isset($_POST["verstuur"])) {
-        if (empty($_POST["voornaam"]) || empty($_POST["achternaam"]) || empty($_POST["geboortedatum"]) || empty($_POST["telefoonnummer"]) || empty($_POST["emailadres"])) {
-            print("Alle velden moeten ingevuld zijn");
+        include_once('admin/classes/page.class.php');
+
+        $val = new Validate([
+            ['voornaam', $_POST['voornaam'],'required'],
+            ['achternaam', $_POST['achternaam'],'required'],
+            ['geboortedatum', $_POST['geboortedatum'],'required'],
+            ['telefoonnummer', $_POST['telefoonnummer'],'required'],
+            ['emailadres', $_POST['emailadres'],'required|email']
+        ]);
+
+        if ($val->isPassed()) {
+            try {
+                $voornaam       = filter($_POST['voornaam']);
+                $tussenvoegsel  = filter($_POST['tussenvoegsel']);
+                $achternaam     = filter($_POST['achternaam']);
+                $geboortedatum  = filter(date("Y/m/d", strtotime($_POST['geboortedatum'])));
+                $telefoonnr     = filter($_POST['telefoonnummer']);
+                $email          = filter($_POST['emailadres']);
+
+                //query: check of email in user bestaat en selecteer id
+                $query = $db->prepare("SELECT user_id FROM user WHERE email = :email");
+                $query->bindValue(":email", $email);
+                $query->execute();
+                $last_id = $query->fetch()['user_id'];
+
+                if ($last_id) {
+                    //Zoja: update user info van bestaade user
+                    $query = $db->prepare("UPDATE user SET first_name = :voornaam, insertion = :tussen, last_name = :achternaam, birthday = :geboorte, phonenumber = :tel WHERE user_id = :userid");
+                    $query->bindValue(":voornaam", $voornaam);
+                    $query->bindValue(":tussen", $tussenvoegsel);
+                    $query->bindValue(":achternaam", $achternaam);
+                    $query->bindValue(":geboorte", $geboortedatum);
+                    $query->bindValue(":tel", $telefoonnr);
+                    $query->bindValue(":userid", $last_id);
+                    $query->execute();
+                } else {
+                    //insert nieuw user en inser revies
+                    $query = $db->prepare("INSERT INTO user (email, first_name, insertion, last_name, birthday, phonenumber) VALUES (:email, :voornaam, :tussen, :achternaam, :geboorte, :tel)");
+                    $query->bindValue(":voornaam", $voornaam);
+                    $query->bindValue(":tussen", $tussenvoegsel);
+                    $query->bindValue(":achternaam", $achternaam);
+                    $query->bindValue(":geboorte", $geboortedatum);
+                    $query->bindValue(":tel", $telefoonnr);
+                    $query->bindValue(":email", $email);
+                    $query->execute();
+                    $last_id = $db->lastInsertId();
+                }
+                if ($deeln >= $maxinschrijf) {
+                    $msg = '<div class="feedback error row"><div class="col-xs-12">Helaas, er zijn geen plekken meer vrij voor deze activiteit</div></div>';
+                } else {
+                    $query = $db->prepare("SELECT user_id FROM inschrijvingen WHERE blog_id = :blogid AND user_id = :user;");
+                    $query->bindValue(":blogid", $id);
+                    $query->bindValue(":user", $last_id);
+                    $query->execute();
+                    if($query->rowCount() > 0) {
+                        $msg = '<div class="feedback error row"><div class="col-xs-12">U heeft zich al ingeschreven voor deze activiteit</div></div>';
+                    } else {
+                        $stmtin = $db->prepare("INSERT INTO inschrijvingen (blog_id, user_id) VALUES (:blogid, :user)");
+                        $stmtin->bindValue(":blogid", $id);
+                        $stmtin->bindValue(":user", $last_id);
+                        if ($stmtin->execute()) {
+                            $msg = '<div class="feedback success row"><div class="col-xs-12">Uw reservering is succesvol geplaatst</div></div>';
+                        } else {
+                            $msg = '<div class="feedback error row"><div class="col-xs-12">Er is iets fout gegaan tijdens het reserveren, probeer het later opnieuw</div></div>';
+                        }
+                    }
+                }
+            } catch (PDOException $e) {
+                $msg = '<div class="feedback error row"><div class="col-xs-12">Er is iets fout gegaan tijdens het reserveren, probeer het later opnieuw</div></div>';
+                echo $e->getMessage();
+            }
         } else {
-            if ($deeln >= $maxinschrijf) {
-                echo '<div class="header text-center martop marbot" style="color: #ff00ff;">Helaas, er zijn geen plekken meer vrij voor deze activiteit.</div>';
-                echo '<meta http-equiv="refresh" content="2;" />';
-            } else {
-                if(isset($_POST["tussenvoegsel"])== "") {
-                    $sql = "INSERT INTO user (first_name, last_name, email, birthday, phonenumber) VALUES ('$voornaam', '$achternaam', '$email', '$geboortedatum', '$telefoonnr')";
-                } else {
-                    $sql = "INSERT INTO user (first_name, insertion, last_name, email, birthday, phonenumber) VALUES ('$voornaam', '$tussenvoegsel', '$achternaam', '$email', '$geboortedatum', '$telefoonnr')";
-                }
-                $stmt = $db->prepare($sql);
-                if ($stmt->execute()) {
-                    echo '<div class="header text-center marbot martop" style="color: green;">Succesvol ingeschreven!</div>';
-                    echo '<meta http-equiv="refresh" content="2;" />';
-                }
-
-                $last_id = $db->lastInsertId();
-
-                $sql2 = "INSERT INTO inschrijvingen (blog_id, user_id) VALUES ('$id', '$last_id')";
-                $smt2 = $db->prepare($sql2);
-                if ($smt2->execute()) {
-
-                } else {
-                    echo '<div class="header text-center marbot martop" style="color: red;">Het huidige e-mail adres is reeds geregistreerd.</div>';
+            $errors = $val->getErrors();
+            $errorList = '';
+            foreach ($errors as $errorcat) {
+                foreach ($errorcat as $error) {
+                    $errorList .= "<li>$error</li>";
                 }
             }
+            //date("Y/m/d", strtotime($_POST['geboorte'])),
+            $msg = '<div class="feedback error"><div class="col-xs-12"><ul style="padding: 0;">' . $errorList . '</ul></div></div>';
         }
+
+//        if (empty($_POST["voornaam"]) || empty($_POST["achternaam"]) || empty($_POST["geboortedatum"]) || empty($_POST["telefoonnummer"]) || empty($_POST["emailadres"])) {
+//            print("Alle velden moeten ingevuld zijn");
+//        } else {
+//            if ($deeln >= $maxinschrijf) {
+//                echo '<div class="header text-center martop marbot" style="color: #ff00ff;">Helaas, er zijn geen plekken meer vrij voor deze activiteit.</div>';
+//                echo '<meta http-equiv="refresh" content="2;" />';
+//            } else {
+//                if(isset($_POST["tussenvoegsel"])== "") {
+//                    $sql = "INSERT INTO user (first_name, last_name, email, birthday, phonenumber) VALUES ('$voornaam', '$achternaam', '$email', '$geboortedatum', '$telefoonnr')";
+//                } else {
+//                    $sql = "INSERT INTO user (first_name, insertion, last_name, email, birthday, phonenumber) VALUES ('$voornaam', '$tussenvoegsel', '$achternaam', '$email', '$geboortedatum', '$telefoonnr')";
+//                }
+//                $stmt = $db->prepare($sql);
+//                if ($stmt->execute()) {
+//                    echo '<div class="header text-center marbot martop" style="color: green;">Succesvol ingeschreven!</div>';
+//                    echo '<meta http-equiv="refresh" content="2;" />';
+//                }
+//
+//                $last_id = $db->lastInsertId();
+//
+//                $sql2 = "INSERT INTO inschrijvingen (blog_id, user_id) VALUES ('$id', '$last_id')";
+//                $smt2 = $db->prepare($sql2);
+//                if ($smt2->execute()) {
+//
+//                } else {
+//                    echo '<div class="header text-center marbot martop" style="color: red;">Het huidige e-mail adres is reeds geregistreerd.</div>';
+//                }
+//            }
+//        }
     }
 
     if($inschrijven == 1) {
@@ -134,41 +217,44 @@ if($pageId) { echo'
             <div class='header text-center'>
                 <h1>Inschrijven</h1>
             </div class='header text-center'>
+        $msg
+        <form method='post' action='$id' class='marbot'>
         
-        <form method='post' action='$id'>
-        
-            <div class='form-group'>
-                <label for='voornaam'>Voornaam</label>
-                <input class='form-control' type='text' name='voornaam' placeholder='Robin' required value='$voornaam'/>
+            <div class='row'>
+                <div class='form-group'>
+                    <div class='col-lg-4 col-md-4 col-sm-4 col-xs-12'>
+                        <label for='voornaam'>Voornaam</label>
+                        <input class='form-control' type='text' name='voornaam' placeholder='Robin' required value='$voornaam'/>
+                    </div>
+                    <div class='col-lg-4 col-md-4 col-sm-4 col-xs-12'>
+                        <label for='tussenvoegsel'>Tussenvoegsel</label>
+                    <input class='form-control' type='text' name='tussenvoegsel' placeholder='Van'/>
+                    </div>
+                    <div class='col-lg-4 col-md-4 col-sm-4 col-xs-12'>
+                        <label for='achternaam'>Achternaam</label>
+                        <input class='form-control' type='text' name='achternaam' placeholder='Dekker' required value='$achternaam'/>
+                    </div>
+                </div>
             </div>
-        
-            <div class='form-group'>
-                <label for='tussenvoegsel'>Tussenvoegsel</label>
-                <input class='form-control' type='text' name='tussenvoegsel' placeholder='Van'/>
+            <div class='row'>
+                <div class='form-group'>
+                    <div class='col-lg-4 col-md-4 col-sm-6 col-xs-12'>
+                        <label for='geboortedatum'>Geboortedatum</label>
+                        <input class='form-control' type='date' name='geboortedatum' id='date' required value='$geboortedatum'/>
+                    </div>
+                    <div class='col-lg-4 col-md-4 col-sm-6 col-xs-12'>
+                        <label for='telefoonnummer'>Telefoonnummer</label>
+                        <input class='form-control' type='tel' name='telefoonnummer' placeholder='0612345678' required value='$telefoonnr'/>
+                    </div>
+                    <div class='col-lg-4 col-md-4 col-sm-12 col-xs-12'>
+                        <label for='email'>Emailadres</label>
+                        <input class='form-control' type='email' name='emailadres' placeholder='naam@voorbeeld.com' required value='$email'/>
+                    </div>
+                </div>
             </div>
-        
-            <div class='form-group'>
-                <label for='achternaam'>Achternaam</label>
-                <input class='form-control' type='text' name='achternaam' placeholder='Dekker' required value='$achternaam'/>
+            <div class='a-right'>
+                <input type='submit' name='verstuur' value='Verstuur' class='btn btn-default'/>
             </div>
-        
-            <div class='form-group'>
-                <label for='geboortedatum'>Geboortedatum</label>
-                <input class='form-control' type='date' name='geboortedatum' required value='$geboortedatum'/>
-            </div>
-        
-            <div class='form-group'>
-                <label for='telefoonnummer'>Telefoonnummer</label>
-                <input class='form-control' type='tel' name='telefoonnummer' placeholder='0612345678' required value='$telefoonnr'/>
-            </div>
-        
-            <div class='form-group'>
-                <label for='email'>Emailadres</label>
-                <input class='form-control' type='email' name='emailadres' placeholder='naam@voorbeeld.com' required value='$email'/>
-            </div>
-        
-            <br>
-            <p><input type='submit' name='verstuur' value='Verstuur' class='btn btn-default'/></p>
         </form>
         </div>";
         }

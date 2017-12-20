@@ -4,6 +4,10 @@ if(isset($_POST['formData'])) {
     echo 'dd';
 }
 
+function filter($value) {
+    return htmlentities(trim($value));
+}
+
 function encrypt($saltcontent, $content) {
     $salt1 = 'jwklahfdhsa';
     $salt2 = '5645613215615';

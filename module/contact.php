@@ -124,7 +124,6 @@ $recensieverstuurd=0;
 
 </head>
 
-<?php require_once 'includes/header.php';?>
 <?php if (!$pageId) { ?>
     <div class="martop">
         <div class="container">
@@ -296,7 +295,6 @@ $recensieverstuurd=0;
 
      <!--database connection -->
     <?php
-    require_once 'admin/classes/connection.class.php';
     $db = new Connection();
     $db = $db->databaseConnection();
     /*Recensie insert */
@@ -313,9 +311,6 @@ $recensieverstuurd=0;
 
         if (isset($data->success) AND $data->success == true) {
 
-            require_once 'admin/classes/connection.class.php';
-            $db = new Connection();
-            $db = $db->databaseConnection();
             if (isset($_POST["verstuur"])) {
 
                 $val = new Validate([
@@ -388,6 +383,3 @@ include_once 'includes/recensie.php';
         ?>
 
     </div>
-
-
-<?php require_once 'includes/footer.php';?>

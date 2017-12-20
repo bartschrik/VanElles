@@ -1,8 +1,4 @@
-<?php require_once 'includes/header.php' ?>
-
-
-
-    <!--ALLE RECENSIES OP DETAIL-->
+<!--ALLE RECENSIES OP DETAIL-->
 <?php
 if ($pageId) {
     $contact = constant('local_url') . "contact#terug";
@@ -166,5 +162,4 @@ if ($pageId) {
 
     <?php
 }
-require_once 'includes/footer.php' ?>
 

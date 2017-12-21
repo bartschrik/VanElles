@@ -222,11 +222,18 @@ $recensieverstuurd=0;
 
                             <div class="col-md-4 col-sm-4 col-xs-12">
                                 <input class="form-control" type="text" name="naamcontact" placeholder="Voornaam"
-
-                                value="<?php if($invullen==1 || $recaptcha==1 || $geenmail==1) {
+                            <?php if($invullen==1 || $recaptcha==1 || $geenmail==1) { ?>
+                                value="<?php
                                     echo isset($_POST['naamcontact']) ? $_POST['naamcontact'] : '';
+                                    ?>"
+                                    <?php
+                                if(empty($_POST['naamcontact'])){
+                                    ?>
+                                    style="border-color: red"
+                                    <?php
                                 }
-                                ?>" />
+                                    }
+                                ?> />
 
 
                         </div>
@@ -240,31 +247,65 @@ $recensieverstuurd=0;
                         </div>
                             <div class="col-md-4 col-sm-4 col-xs-12">
                                 <input class="form-control" type="text" name="achtercontact" placeholder="Achternaam"
-                                       value="<?php if($invullen==1 || $recaptcha==1 || $geenmail==1) {
-                                           echo isset($_POST['achtercontact']) ? $_POST['achtercontact'] : '';
-                                       }
-                                       ?>" />
+                                    <?php if($invullen==1 || $recaptcha==1 || $geenmail==1) { ?>
+                                        value="<?php
+                                        echo isset($_POST['achtercontact']) ? $_POST['achtercontact'] : '';
+                                        ?>"
+                                        <?php
+                                        if(empty($_POST['achtercontact'])){
+                                            ?>
+                                            style="border-color: red"
+                                            <?php
+                                        }
+                                    }
+                                    ?> />
                             </div>
                         </div>
 
                         <div class="col-md-12 col-sm-12 col-xs-12">
                             <input class="form-control" type="tel" name="telefoonnummercontact" placeholder="Telefoonnummer"
-                                   value="<?php if($invullen==1 || $recaptcha==1 || $geenmail==1) {
-                                       echo isset($_POST['telefoonnummercontact']) ? $_POST['telefoonnummercontact'] : '';
-                                   }
-                                   ?>" />
+                                <?php if($invullen==1 || $recaptcha==1 || $geenmail==1) { ?>
+                                    value="<?php
+                                    echo isset($_POST['telefoonnummercontact']) ? $_POST['telefoonnummercontact'] : '';
+                                    ?>"
+                                    <?php
+                                    if(empty($_POST['telefoonnummercontact'])){
+                                        ?>
+                                        style="border-color: red"
+                                        <?php
+                                    }
+                                }
+                                ?> />
                         </div>
 
                             <div class="col-md-12 col-sm-12 col-xs-12">
                                 <input class="form-control" type="email" name="emailcontact" placeholder="naam@voorbeeld.com"
-                                       value="<?php if($invullen==1 || $recaptcha==1 || $geenmail==1) {
-                                           echo isset($_POST['emailcontact']) ? $_POST['emailcontact'] : '';
-                                       }
-                                       ?>" />
+                                    <?php if($invullen==1 || $recaptcha==1 || $geenmail==1) { ?>
+                                        value="<?php
+                                        echo isset($_POST['emailcontact']) ? $_POST['emailcontact'] : '';
+                                        ?>"
+                                        <?php
+                                        if(empty($_POST['emailcontact'])){
+                                            ?>
+                                            style="border-color: red"
+                                            <?php
+                                        }
+                                    }
+                                    ?> />
                         </div>
 
                             <div class="col-md-12 col-sm-12 col-xs-12">
-                                <textarea class="form-control" id="textarea" placeholder="Bericht" name="berichtcontact" ><?php
+                                <textarea class="form-control" id="textarea" placeholder="Bericht" name="berichtcontact"
+                                <?php if($invullen==1 || $recaptcha==1 || $geenmail==1) {
+                                    if (empty($_POST['emailcontact'])) {
+                                        ?>
+                                        style="border-color: red"
+                                        <?php
+                                    }
+                                }
+                                        ?>
+                                >
+                                <?php
                                     if($invullen==1 || $recaptcha==1 || $geenmail==1){
                                         echo isset($_POST['berichtcontact']) ? $_POST['berichtcontact'] : '';
                                     }

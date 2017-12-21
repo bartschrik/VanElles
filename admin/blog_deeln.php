@@ -7,7 +7,11 @@
 
     if(isset($_GET['verid'])) {
         $verid = $blog->deleteInsch($_GET['verid']);
-        $msg = $verid;
+        if($verid) {
+            $msg = '<div class="feedback success"><div class="row"><div class="col-xs-12"><p>De inschrijving is succesvol verwijderd.</p></div></div></div>';
+        } else {
+            $msg = '<div class="feedback error"><div class="row"><div class="col-xs-12"><p>Er is iets mis gegaan met onze database, probeer het later opnieuw.</p></div></div></div>';
+        }
     }
 
     $blog_id = ($_GET['overzichtid']);
@@ -53,7 +57,7 @@
                                 <td>#'.$value['user_id'].'</td>
                                 <td><div>'.$value['first_name']." ". $value['insertion'] . " " . $value['last_name'].'</div></td>
                                 <td>'.$value['email'].'</td>
-                                <td><a class="confirm" href="blog_deeln.php?verid='.$value['inschijving_id'].'" title="Verwijderen" data-id="'.$value['inschijving_id'].'"><i class="fa fa-trash"></i></a></td>
+                                <td><a class="confirm" href="blog_deeln.php?overzichtid='.$blog_id.'&verid='.$value['inschijving_id'].'" title="Verwijderen" data-id="'.$value['inschijving_id'].'"><i class="fa fa-trash"></i></a></td>
                             </tr>';
                     }
                     echo '

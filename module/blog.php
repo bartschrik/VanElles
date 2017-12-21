@@ -295,7 +295,7 @@ if($pageId) { echo'
                         if($row['activiteit'] == 0) {
                             echo"
                             <div class='col-xs-8 col-sm-4 marbot'>
-                                <div class='card marbot'>
+                                <div class='card blog-card marbot'>
                                     <a href='$url' style='background-image: url(".constant("local_url")."/admin/images/blog/$img_name);' class='card-img'></a>
                                     <div class='card-body'>
                                         <a href=$url><h4 class='card-title'>$title</h4></a>
@@ -308,7 +308,7 @@ if($pageId) { echo'
                             if($row['inschrijving'] == 0) {
                                 echo"
                                 <div class='col-xs-8 col-sm-4 marbot'>
-                                    <div class='card marbot'>
+                                    <div class='card blog-card marbot'>
                                         <a href='$url' style='background-image: url(".constant("local_url")."/admin/images/blog/$img_name);' class='card-img'></a>
                                         <span class='date'>$date<br><span>$time</span></span>
                                         <div class='card-body'>
@@ -321,7 +321,7 @@ if($pageId) { echo'
                             } else {
                                 echo"
                                 <div class='col-xs-8 col-sm-4 marbot'>
-                                    <div class='card marbot'>
+                                    <div class='card blog-card marbot'>
                                         <a href='$url' style='background-image: url(".constant("local_url")."/admin/images/blog/$img_name);' class='card-img'></a>
                                         <span class='date'>$date<br><span>$time</span></span>
                                         <span class='plaatsen'>$plekken</span>

@@ -210,7 +210,7 @@ $recensieverstuurd=0;
                         echo "Sorry er iets fout gegaan probeer het later opnieuw.";
                         };
                         if( $verstuurd==1){
-                            echo "Bedankt dat u ontact met ons opneemt.";
+                            echo "Bedankt dat u contact met ons opneemt.";
                         };
                         ?>
 

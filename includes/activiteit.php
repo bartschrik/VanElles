@@ -27,7 +27,7 @@ if ($nieuwa) {
     <div class='ptitle'>
         <h1>Activiteit</h1>
     </div>
-    <div class='card marbot'>
+    <div class='card blog-card marbot'>
         <a href='$url' style='background-image: url(".constant("local_url")."/admin/images/blog/$img_name);' class='card-img'></a>
         <span class='date'>$date<br><span>$time</span></span>
         <span class='plaatsen'>$plekken</span>
@@ -53,7 +53,7 @@ if ($nieuwa) {
     <div class='ptitle'>
         <h1>Nieuwsbericht</h1>
     </div>           
-    <div class='card marbot'>
+    <div class='card blog-card marbot'>
         <a href='$url' style='background-image: url(".constant("local_url")."/admin/images/blog/$img_name);' class='card-img'></a>
         <div class='card-body'>
             <a href=$url><h4 class='card-title'>$title</h4></a>

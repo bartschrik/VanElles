@@ -38,7 +38,23 @@ require 'SMTP.php';
     $bodyContent .= "Emailadres: " . $emailincontact. "<br>";
     $bodyContent .= "Telefoonnummer: " . $telefooncontact . "<br>";
     $bodyContent .= "Bericht: " . $berichtcontact .    "<br>";
-    $mail->Subject = 'contactformulier van ' . $emailincontact;                   // Het onderwerp van het email zelf
+    $bodyContent = "
+        <table width=\"100%\" border=\"0\">
+            <tr>
+                <td><b>Name:</b></td> <td>" .$naamincontact . " " . $tussencontact . " " . $achtercontact ."</td>
+            </tr>
+            <tr>
+                <td><b>Email:</b></td> <td>". $emailincontact ."</td>
+            </tr>
+            <tr>
+                <td><b>Telefoonnummer:</b></td> <td>". $telefooncontact ."</td>
+            </tr>
+            <tr>
+                <td><b>Bericht:</b></td> <td>". $berichtcontact ."</td>
+            </tr>
+        </table>
+    ";
+    $mail->Subject = 'Contact formulier van ' . $emailincontact;                   // Het onderwerp van het email zelf
     $mail->Body = $bodyContent;
     $mail->SMTPOptions = array(
     'ssl' => array(

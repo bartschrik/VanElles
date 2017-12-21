@@ -376,6 +376,7 @@ p {
 #product-slide .card {
     margin-top: 5px;
 }
+.blog-card .card-title,
 #product-slide .card-title {
     display: -webkit-box;
     -webkit-line-clamp: 2;

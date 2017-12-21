@@ -74,12 +74,13 @@ class blog
         try {
             $query = $this->_db->prepare('
                 DELETE FROM inschrijvingen
-                WHERE inschijf_id = :id;
+                WHERE inschijving_id = :id;
             ');
             $query->bindValue(":id", $inschijving_id);
             if ($query->execute()) {
                 return true;
             } else {
+                //var_dump($query->errorInfo());
                 return false;
             }
         } catch (PDOException $e) {

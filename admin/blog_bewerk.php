@@ -10,7 +10,7 @@
         $_POST['titel'] = $dbblog['title'];
         $_POST['subtitel'] = $dbblog['subtitle'];
         $_POST['inhoud'] = $dbblog['inhoud'];
-        $_POST['korte_inhoud'] = $dbblog['korte_inhoud'];
+        $_POST['korteinhoud'] = $dbblog['korte_inhoud'];
         $_POST['seobeschrijving'] = $dbblog['beschrijving'];
         $_POST['seokernwoorden'] = $dbblog['kernwoorden'];
         $_POST['plaatje'] = $dbblog['img_name'];

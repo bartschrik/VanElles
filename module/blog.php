@@ -66,9 +66,9 @@ if($pageId) { echo'
     echo'<div class="col-md-8 col-sm-6 col-xs-12">
                     <div class="ptitle">
                         <h1>'.$title.'</h1>
+                        <h2>'.$subtitel.'</h2>
                     </div>
-                        <p>'. $date .' '. $time .'</p>
-                        <h5 id="webtitle">'. $subtitel .'</h5>
+                        <p>'. $date .' <br>'. $time .'</p>
                          <p>'. $inhoud .'</p>
                         </div>
                     </div>
@@ -271,8 +271,8 @@ if($pageId) { echo'
                         SELECT b.blog_id, b.user_id, b.title, b.subtitle, b.inhoud, b.korte_inhoud, b.datum, b.beschrijving, b.kernwoorden, b.img_name, b.activiteit, b.inschrijving, b.inschrijving_aantal, b.verwijderd, COUNT(i.inschijving_id) inschrijvingen
                         FROM blog b
                         LEFT JOIN inschrijvingen i ON b.blog_id = i.blog_id
-                        GROUP BY i.blog_id
-                        ORDER BY b.blog_id DESC;
+                        GROUP BY b.blog_id
+                        ORDER BY b.datum DESC, b.blog_id DESC;
                     ');
                     $query1->execute();
 

@@ -27,6 +27,7 @@ $(document).ready(function() {
 
     rol();
     datum();
+
     $('#selectrole').change(rol);
     $('#blogdatum').change(datum);
 

@@ -119,15 +119,11 @@
                                         </select></td>
                                         <td><input id="nrsel" type="number" min="0" name="maxdeeln" value="' . InputValue('maxdeeln') . '" /><br>
                                         </td></tr></table>';
-                        if(isset($_POST['activiteit'])) {
-                            if ($_POST['activiteit'] == "1") {
                                 echo '<div class="form-group" id="blogdatuminput">
                                       <div class="form-group" >
                                       <span>Activiteit Datum</span>
                                       <input name = "actidatum" id = "datetime"  value="' . InputValue('actidatum') . '">
                                       </div >';
-                            }
-                        }
                         echo'
                                         <h4>SEO-Informatie</h4>
                                         <input type="text" name="seokernwoorden" class="' . InputErrorClass('seokernwoorden', $errors) . '" placeholder="Kernwoorden, bijv: vanelles, woonwinkel ect." value="' . InputValue('seokernwoorden') . '" />
@@ -209,14 +205,10 @@
                                         <td>
                                         <input id="nrsel" type="number" min="0" name="maxdeeln" value="' . InputValue('maxdeeln') . '" />
                                         </td></tr></table>';
-                        if(isset($_POST['activiteit'])) {
-                            if ($_POST['activiteit'] == "1") {
                                 echo '<div class="form-group" id="blogdatuminput">
                                       <span>Activiteit Datum</span>
                                       <input name = "actidatum" id = "datetime" value="' . InputValue('actidatum') . '">
                                       </div >';
-                            }
-                        }
                         echo'
                                         <h4>SEO-Informatie</h4>
                                         <input type="text" name="seokernwoorden" placeholder="Kernwoorden, bijv: vanelles, woonwinkel ect." value="' . InputValue('seokernwoorden') . '" />

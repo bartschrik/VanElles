@@ -61,6 +61,11 @@ class Validate {
                             $this->addError($item[0], ucfirst($item[0] . " is geen geldige invoer."));
                         }
                         break;
+                    case 'requiredsel':
+                        if(!$this->requiredsel($item[1])) {
+                            $this->addError($item[0], ucfirst($item[0] . " is een verplicht veld."));
+                        }
+                        break;
                 }
             }
         }
@@ -87,6 +92,14 @@ class Validate {
     public function required($value)
     {
         return (strlen($value) !== 0);
+    }
+
+    public function requiredsel($value)
+    {
+        if($value == 0) {
+            return false;
+        }
+        return true;
     }
 
     public function numeric($value)

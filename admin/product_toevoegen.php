@@ -5,6 +5,10 @@
     $producten = new product();
     $leverancierContent = $producten->getLev();
 
+    if(!isset($_POST['Leverancier'])) {
+        $_POST['Leverancier'] = '0';
+    }
+
     $msg = '';
     ?>
     <div class="pagetitel marbot">
@@ -31,7 +35,7 @@
                             ['inhoud', $_POST['inhoud'], 'required'],
                             ['korteinhoud', $_POST['korteinhoud'], 'required'],
                             ['foto', $_FILES['foto'], 'imgrequired|validphoto'],
-                           // ['leverancier', $_POST['Leverancier'], 'required'],
+                            ['Leverancier', $_POST['Leverancier'], 'requiredsel'],
                             ['seokernwoorden', $_POST['seokernwoorden'], 'required'],
                             ['seoinhoud', $_POST['seoinhoud'], 'required|min:2'],
                         ]);
@@ -79,7 +83,7 @@
                                         echo '<option value="0" selected="true" disabled="disabled">Kies leverancier</option> ';
                                         foreach($leverancierContent as $value) {
 
-                                            if($value['lev_id'] == InputValue('leverancier')) {
+                                            if($value['lev_id'] == InputValue('Leverancier')) {
                                                 $id = $value['lev_id'];
                                                 $naam = $value['naam'];
 

@@ -110,11 +110,12 @@ class Content
         try {
             $query = $this->_db->prepare('
                    SELECT b.blog_id, b.user_id, b.title, b.subtitle, b.inhoud, b.korte_inhoud, b.datum, b.beschrijving, b.kernwoorden, b.img_name, b.activiteit, b.inschrijving, b.inschrijving_aantal, b.verwijderd, COUNT(i.inschijving_id) inschrijvingen
-FROM blog b
-LEFT JOIN inschrijvingen i ON b.blog_id = i.blog_id
-WHERE b.activiteit = 1
-GROUP BY i.blog_id
-ORDER BY b.blog_id DESC;
+                    FROM blog b
+                    LEFT JOIN inschrijvingen i ON b.blog_id = i.blog_id
+                    WHERE b.activiteit = 1
+                    GROUP BY b.blog_id
+                    ORDER BY b.datum DESC, b.blog_id DESC
+                    LIMIT 1;
                 ');
 
             if ($query->execute()) {

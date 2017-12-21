@@ -240,7 +240,7 @@ class User {
                 DELETE FROM admin WHERE user_id = :id AND user_id !=:sa
             ');
             $delAdmin->bindValue(":id", $user_id, PDO::PARAM_STR);
-            $query->bindValue(":sa", $this->_super_admin, PDO::PARAM_STR);
+            $delAdmin->bindValue(":sa", $this->_super_admin, PDO::PARAM_STR);
             if($delAdmin->execute()) {
                 return true;
             }

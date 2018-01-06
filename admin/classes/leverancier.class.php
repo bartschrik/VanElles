@@ -1,5 +1,8 @@
 <?php
 
+/**
+ * Class leverancier - Alle functionaliteit wat betrekking heeft op de leverancier.
+ */
 class leverancier {
 
     private $_db;

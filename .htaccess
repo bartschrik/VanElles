@@ -1,13 +1,15 @@
 RewriteEngine On
 
-
+#path voor admin panel
 RewriteRule ^admin/$ admin/index.php
 RewriteRule ^admin$ admin/index.php
 
+#Path voor website met page parameter en pid parameter
 RewriteRule ^([a-zA-Z0-9\-]+)/([a-zA-Z0-9\-]+)/[a-zA-Z0-9\-]+/$ index.php?page=$1&pid=$2 [L]
 RewriteRule ^([a-zA-Z0-9\-]+)/([a-zA-Z0-9\-]+)/[a-zA-Z0-9\-]+$ index.php?page=$1&pid=$2 [L]
 RewriteRule ^([a-zA-Z0-9\-]+)/([a-zA-Z0-9\-]+)/$ index.php?page=$1&pid=$2 [L]
 RewriteRule ^([a-zA-Z0-9\-]+)/([a-zA-Z0-9\-]+)$ index.php?page=$1&pid=$2 [L]
 
+#Path voor website met page parameter
 RewriteRule ^([a-zA-Z0-9\-]+)/$ index.php?page=$1 [L]
 RewriteRule ^([a-zA-Z0-9\-]+)$ index.php?page=$1 [L]

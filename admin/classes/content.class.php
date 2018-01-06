@@ -1,5 +1,8 @@
 <?php
 
+/**
+ * Class Content - is een verzameling van verschillende functies is een database connectie nodig hebben.
+ */
 class Content
 {
 

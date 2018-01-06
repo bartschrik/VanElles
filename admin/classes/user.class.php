@@ -2,13 +2,20 @@
 
 class User {
 
-    private $_db;
+    private $_db; //Database connection
 
-    private $_user;
-    private $_loggedin = false;
+    private $_user; //bevat user content.
+    private $_loggedin = false; //Is de user ingelogd, ja of nee.
 
-    private $_super_admin = 1;
+    private $_super_admin = 1; //Id van de super admin, deze kan niet verwijderd worden of wordt niet in het overzicht laten zien.
 
+    /**
+     * User constructor.
+     * Starten van een database connectie.
+     * Checken of er een user sessie is, zo ja user content vast stellen.
+     * Geen sessie dan kijken of er een cookie is van de user
+     * Inloggen met cookie of niet inloggen.
+     */
     public function __construct()
     {
         $this->_db = new Connection();
@@ -21,8 +28,33 @@ class User {
         }
     }
 
+    /**
+     * Gebruiker inloggen, dit is mogelijk via 3 manieren.
+     * 1. Via het email adres en wachtwoord.
+     * 2. Via de gebruikersnaam en wachtwoord.
+     * 3. Via de cookie die gevonden is.
+     * Voordat de inlog functie wordt uitgevoerd wordt er gekeken of de gebruiker al te vaak het wachtwoord fout typt.
+     * Er wordt in de database inlog pogingen bijgehouden zodat er niet te vaak gegokt kan worden op het wachtwoord.
+     */
     public function login($email = null, $pass = null, $hash = null, $remember = null, $gebruikersnaam = null)
     {
+        try {
+            $query = $this->_db->prepare('SELECT id FROM `login_attempt` WHERE (date > now() - INTERVAL 5 MINUTE) AND address = :address;');
+            if (!empty($_SERVER['HTTP_CLIENT_IP'])) {
+                $ip = $_SERVER['HTTP_CLIENT_IP'];
+            } elseif (!empty($_SERVER['HTTP_X_FORWARDED_FOR'])) {
+                $ip = $_SERVER['HTTP_X_FORWARDED_FOR'];
+            } else {
+                $ip = $_SERVER['REMOTE_ADDR'];
+            }
+            $query->bindValue(":address", $ip, PDO::PARAM_STR);
+            $query->execute();
+            if($query->rowCount() > 2) {
+                return 4;
+            }
+        } catch (PDOException $e) {
+            return 2;
+        }
         if($email && $pass) {
             try {
                 $query = $this->_db->prepare('SELECT * FROM user u JOIN admin a ON u.user_id = a.user_id WHERE email=:email AND verwijderd=0;');
@@ -43,6 +75,16 @@ class User {
                         die(header('Location: dashboard.php'));
                     }
                 }
+                if (!empty($_SERVER['HTTP_CLIENT_IP'])) {
+                    $ip = $_SERVER['HTTP_CLIENT_IP'];
+                } elseif (!empty($_SERVER['HTTP_X_FORWARDED_FOR'])) {
+                    $ip = $_SERVER['HTTP_X_FORWARDED_FOR'];
+                } else {
+                    $ip = $_SERVER['REMOTE_ADDR'];
+                }
+                $query = $this->_db->prepare('INSERT INTO `login_attempt` (`address`) VALUES (:address)');
+                $query->bindValue(":address", $ip, PDO::PARAM_STR);
+                $query->execute();
                 return 3;
             } catch (PDOException $e) {
                 return 2;
@@ -67,6 +109,16 @@ class User {
                         die(header('Location: dashboard.php'));
                     }
                 }
+                if (!empty($_SERVER['HTTP_CLIENT_IP'])) {
+                    $ip = $_SERVER['HTTP_CLIENT_IP'];
+                } elseif (!empty($_SERVER['HTTP_X_FORWARDED_FOR'])) {
+                    $ip = $_SERVER['HTTP_X_FORWARDED_FOR'];
+                } else {
+                    $ip = $_SERVER['REMOTE_ADDR'];
+                }
+                $query = $this->_db->prepare('INSERT INTO `login_attempt` (`address`) VALUES (:address)');
+                $query->bindValue(":address", $ip, PDO::PARAM_STR);
+                $query->execute();
                 return 3;
             } catch (PDOException $e) {
                 return 2;
@@ -92,6 +144,22 @@ class User {
         return 1;
     }
 
+    /**
+     * Registeren van een gebruiker.
+     * @param $email
+     * @param $voornaam
+     * @param $tussenvoegsel
+     * @param $achternaam
+     * @param $telefoon
+     * @param $city
+     * @param $address
+     * @param $zipcode
+     * @param int $role
+     * @param $geboorte
+     * @param $gebruikersnaam
+     * @param $wachtwoord
+     * @return bool
+     */
     public function regiser($email, $voornaam, $tussenvoegsel, $achternaam, $telefoon, $city, $address, $zipcode, $role = 2, $geboorte, $gebruikersnaam, $wachtwoord) {
         try {
             if($gebruikersnaam == null || $gebruikersnaam == '') {
@@ -162,6 +230,28 @@ class User {
         }
     }
 
+    /**
+     * Updaten van een gebruiker, dit werkt via verschillende functies.
+     * Als de role van de gebruiker 2 is worden de gegevens verwijderd uit de admin tabel als deze bestaan.
+     * En de gegevens van de gebruiker worden geupdate via de updateUser functie.
+     * Is de role geen 2 dan wordt de gebruiker geupdate via de updateUser functie en wordt er gekeken of de admin al bestaad.
+     * Zo niet dan wordt er een rij toegevoegd in de admin tabel via insertAdmin functie.
+     * Als er wel een admin is dan wordt de rij geupdate via de updateAdmin functie.
+     * @param $email
+     * @param $voornaam
+     * @param $tussenvoegsel
+     * @param $achternaam
+     * @param $telefoon
+     * @param $city
+     * @param $address
+     * @param $zipcode
+     * @param int $role
+     * @param $geboorte
+     * @param $user_id
+     * @param $gebruikersnaam
+     * @param $wachtwoord
+     * @return bool
+     */
     public function update($email, $voornaam, $tussenvoegsel, $achternaam, $telefoon, $city, $address, $zipcode, $role = 2, $geboorte, $user_id, $gebruikersnaam, $wachtwoord) {
         try {
             if($role == 2) {
@@ -186,6 +276,11 @@ class User {
         }
     }
 
+    /**
+     * Checkt of de admin al bestaat met het id
+     * @param $user_id
+     * @return bool
+     */
     private function checkAdmin($user_id) {
         try {
             $checkAdmin = $this->_db->prepare('
@@ -204,6 +299,21 @@ class User {
         }
     }
 
+    /**
+     * Update alle user gegevens in de tabel bij het user id.
+     * @param $email
+     * @param $voornaam
+     * @param $tussenvoegsel
+     * @param $achternaam
+     * @param $telefoon
+     * @param $city
+     * @param $address
+     * @param $zipcode
+     * @param int $role
+     * @param $geboorte
+     * @param $user_id
+     * @return bool
+     */
     private function updateUser($email, $voornaam, $tussenvoegsel, $achternaam, $telefoon, $city, $address, $zipcode, $role = 2, $geboorte, $user_id) {
         //Update User
         try {
@@ -234,6 +344,11 @@ class User {
         }
     }
 
+    /**
+     * Verwijderd de rij in de admin tabel bij het user id.
+     * @param $user_id
+     * @return bool
+     */
     private function delAdmin($user_id) {
         try {
             $delAdmin = $this->_db->prepare('
@@ -252,6 +367,13 @@ class User {
         }
     }
 
+    /**
+     * Update de gegevens dan de admin bij user id.
+     * @param $user_id
+     * @param $wachtwoord
+     * @param $gebruikersnaam
+     * @return bool
+     */
     private function updateAdmin($user_id, $wachtwoord, $gebruikersnaam) {
         try {
             $updateAdmin = $this->_db->prepare('
@@ -290,6 +412,13 @@ class User {
         }
     }
 
+    /**
+     * Voegt een rij toe in de admin tabel.
+     * @param $user_id
+     * @param $gebruikersnaam
+     * @param $wachtwoord
+     * @return bool
+     */
     private function insertAdmin($user_id, $gebruikersnaam, $wachtwoord) {
         try {
             $updateAdmin = $this->_db->prepare('
@@ -328,19 +457,38 @@ class User {
         }
     }
 
+    /**
+     * Getter > returnt alle user gegevens.
+     * @return array
+     */
     public function getUser()
     {
         return $this->_user;
     }
 
+    /**
+     * Geeft volledige gebruikers naam terug.
+     * @return string
+     */
     public function getUserName() {
         return $this->_user['first_name'].' '.$this->_user['insertion'].' '.$this->_user['last_name'];
     }
 
+    /**
+     * Deze functie kun je gebruiker om te checken of de gebruiker is ingelogd.
+     * @return bool
+     */
     public function isLoggedIn() {
         return $this->_loggedin;
     }
 
+    /**
+     * Krijg alle users met minimale informatie voor een overzicht,
+     * een pagina functie is hierin verwerkt.
+     * @param int $page
+     * @param int $rowspPage
+     * @return array|bool
+     */
     public function getAllUsersMin($page = 1, $rowspPage = 10) {
         try {
             $offset = ($page - 1) * $rowspPage;
@@ -383,6 +531,11 @@ class User {
         }
     }
 
+    /**
+     * Verwijderen van een gebruiker met user id.
+     * @param $userid
+     * @return string
+     */
     public function deleteUser($userid) {
         try {
             $query = $this->_db->prepare('
@@ -413,6 +566,9 @@ class User {
         }
     }
 
+    /**
+     * Selecteer alle roles binnen de website.
+     */
     public function getRoles() {
         try {
             $query = $this->_db->prepare('SELECT * FROM role ORDER BY role DESC');
@@ -427,6 +583,9 @@ class User {
         }
     }
 
+    /**
+     * Selecteer user gegevens bij het user id.
+     */
     public function getUserById($data) {
         try {
             $query = $this->_db->prepare('

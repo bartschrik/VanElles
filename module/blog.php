@@ -152,12 +152,24 @@ if($pageId) { echo'
                     $query->execute();
                     if($query->rowCount() > 0) {
                         $msg = '<div class="feedback error row"><div class="col-xs-12">U heeft zich al ingeschreven voor deze activiteit</div></div>';
+                        $_POST['voornaam'] = "";
+                        $_POST['tussenvoegsel'] = "";
+                        $_POST['achternaam'] = "";
+                        $_POST['geboortedatum'] = "";
+                        $_POST['telefoonnummer'] = "";
+                        $_POST['emailadres'] = "";
                     } else {
                         $stmtin = $db->prepare("INSERT INTO inschrijvingen (blog_id, user_id) VALUES (:blogid, :user)");
                         $stmtin->bindValue(":blogid", $id);
                         $stmtin->bindValue(":user", $last_id);
                         if ($stmtin->execute()) {
                             $msg = '<div class="feedback success row"><div class="col-xs-12">Uw reservering is succesvol geplaatst</div></div>';
+                            $_POST['voornaam'] = "";
+                            $_POST['tussenvoegsel'] = "";
+                            $_POST['achternaam'] = "";
+                            $_POST['geboortedatum'] = "";
+                            $_POST['telefoonnummer'] = "";
+                            $_POST['emailadres'] = "";
                         } else {
                             $msg = '<div class="feedback error row"><div class="col-xs-12">Er is iets fout gegaan tijdens het reserveren, probeer het later opnieuw</div></div>';
                         }
@@ -196,15 +208,15 @@ if($pageId) { echo'
                 <div class='form-group'>
                     <div class='col-lg-4 col-md-4 col-sm-4 col-xs-12'>
                         <label for='voornaam'>Voornaam</label>
-                        <input class='form-control' type='text' name='voornaam' placeholder='Robin' required value='$voornaam'/>
+                        <input class='form-control' type='text' name='voornaam' placeholder='Robin' required value='".InputValue("voornaam")."'/>
                     </div>
                     <div class='col-lg-4 col-md-4 col-sm-4 col-xs-12'>
                         <label for='tussenvoegsel'>Tussenvoegsel</label>
-                    <input class='form-control' type='text' name='tussenvoegsel' placeholder='Van'/>
+                    <input class='form-control' type='text' name='tussenvoegsel' placeholder='Van' value='".InputValue("tussenvoegsel")."'/>
                     </div>
                     <div class='col-lg-4 col-md-4 col-sm-4 col-xs-12'>
                         <label for='achternaam'>Achternaam</label>
-                        <input class='form-control' type='text' name='achternaam' placeholder='Dekker' required value='$achternaam'/>
+                        <input class='form-control' type='text' name='achternaam' placeholder='Dekker' required value='".InputValue("achternaam")."'/>
                     </div>
                 </div>
             </div>
@@ -212,15 +224,15 @@ if($pageId) { echo'
                 <div class='form-group'>
                     <div class='col-lg-4 col-md-4 col-sm-6 col-xs-12'>
                         <label for='geboortedatum'>Geboortedatum</label>
-                        <input class='form-control' type='text' name='geboortedatum' id='date' required value='$geboortedatum'/>
+                        <input class='form-control' type='text' name='geboortedatum' id='date' required value='".InputValue("geboortedatum")."'/>
                     </div>
                     <div class='col-lg-4 col-md-4 col-sm-6 col-xs-12'>
                         <label for='telefoonnummer'>Telefoonnummer</label>
-                        <input class='form-control' type='tel' name='telefoonnummer' placeholder='0612345678' required value='$telefoonnr'/>
+                        <input class='form-control' type='tel' name='telefoonnummer' placeholder='0612345678' required value='".InputValue("telefoonnummer")."'/>
                     </div>
                     <div class='col-lg-4 col-md-4 col-sm-12 col-xs-12'>
                         <label for='email'>Emailadres</label>
-                        <input class='form-control' type='email' name='emailadres' placeholder='naam@voorbeeld.com' required value='$email'/>
+                        <input class='form-control' type='email' name='emailadres' placeholder='naam@voorbeeld.com' required value='".InputValue("emailadres")."'/>
                     </div>
                 </div>
             </div>
@@ -365,7 +377,7 @@ if($pageId) { echo'
 
                         echo"
                         <div class='col-xs-8 col-sm-4 marbot'>
-                            <div class='card marbot'>
+                            <div class='card blog-card marbot'>
                                 <a href='$url' style='background-image: url(".constant("local_url")."/admin/images/blog/$img_name);' class='card-img'></a>
                                 <span class='date'>$date<br><span>$time</span></span>
                                 <span class='plaatsen'>$plekken</span>

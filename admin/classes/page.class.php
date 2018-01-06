@@ -1,5 +1,9 @@
 <?php
 
+/**
+ * Class Page - Alle functionaliteit wat betrekking heeft op de page.
+ * Hier wordt bijvoorbeeld de pagina opgehaalt die in de url staat, maar ook het bewerken en toevoegen van de pagina.
+ */
 class Page {
 
     private $_db;

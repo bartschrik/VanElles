@@ -29,7 +29,7 @@ require 'SMTP.php';
 
     $mail->setFrom( $emailincontact);            // Laat zien wie hem heeft gestuurd
     $mail->addReplyTo($emailincontact);         // Naar wie je replied
-    $mail->addAddress('bart.schrik@hotmail.com');                        // De ontvanger van de emails
+    $mail->addAddress('nicksimonss97@gmail.com');                        // De ontvanger van de emails
     $mail->isHTML(true);                                                // Verander het email layout naar html
 
 

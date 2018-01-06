@@ -53,6 +53,9 @@ if( isset($_POST['submitLogin']) ) {
                 case 3:
                     $msg = "Geen geldige inlog gegevens.";
                     break;
+                case 4:
+                    $msg = "U heeft te vaak geprobeerd in te loggen, probeer het later nogmaals.";
+                    break;
             }
 
             echo '

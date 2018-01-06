@@ -4,6 +4,21 @@ class Validate {
 
     private $_errors = [];
 
+    /**
+     * Validate constructor.
+     * Dit is de validatie class, deze kan handig zijn bij het valideren van input velden.
+     * De parameter is een array dat er bijvoorbeeld zo uit ziet:
+     * $val = new Validate([
+        ['email', $_POST['email'],'required|email|uni:user:email'],
+        ['gebruikersnaam', $_POST['gebruikersnaam'],'required|uni:admin:gebruikersnaam'],
+        ['wachtwoord', $_POST['wachtwoord'],'required|password']
+        ]);
+     * Daarna kun je de 'passed' functie aanroepen om te kijken of alles correct is.
+     * Deze functie ziet er zo uit:
+     * $val->isPassed()
+     * Als hij niet gepassed is dan kun je alle errors laten zien doormiddel van te loopen door de terug gekregen array:
+     * $val->getErrors()
+     */
     public function __construct($items)
     {
         //Item[0] = De naam van het veld of value

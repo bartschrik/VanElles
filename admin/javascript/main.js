@@ -32,4 +32,36 @@ $(document).ready(function() {
     $('#blogdatum').change(datum);
 
 
+    $( ".sortable" ).sortable({
+        placeholder: "ui-state-highlight",
+        items: "tr",
+        cursor: 'move',
+        opacity: 0.6,
+        update: function() {
+            sendOrderToServer();
+        }
+    });
+    
+    function sendOrderToServer () {
+        var order = $(".sortable").sortable("serialize");
+
+        $.ajax({
+            type: "POST", dataType: "json", url: "sortPage.php",
+            data: order,
+            success: function(response) {
+                if (response.status == "success") {
+                    console.log("Sort success");
+                } else {
+                    alert('Some error occurred');
+                }
+            },
+            error: function (response) {
+                console.log(response.responseText);
+            }
+        });
+    }
+
+    //$( ".sortable" ).disableSelection();
+
+
 });

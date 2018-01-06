@@ -54,11 +54,11 @@
                                     <th style="width: 100px;">Optie\'s</th>
                                 </tr>
                             </thead>
-                            <tbody>';
+                            <tbody class="sortable">';
                     foreach($pageListActive as $value) {
 
                         echo '
-                            <tr>
+                            <tr class="sectionsid" id="sectionsid_'.$value['id'].'">
                                 <td>#'.$value['id'].'</td>
                                 <td>'.$value['pagetitle'].'</td>
                                 <td><div>'.$value['first_name']." ". $value['insertion'] . " " . $value['last_name'].'</div></td>
@@ -78,7 +78,7 @@
                     echo '
                         <table class="maintable">
                             <thead>
-                                <tr>
+                                <tr class="sectionsid" id="sectionsid_'.$value['id'].'">
                                     <th>Id</th>
                                     <th>Titel</th>
                                     <th>Aangemaakt door</th>
@@ -87,7 +87,7 @@
                                     <th style="width: 100px;">Optie\'s</th>
                                 </tr>
                             </thead>
-                            <tbody>';
+                            <tbody class="sortable">';
                     foreach($pageLIstInActive as $value) {
 
                         echo '

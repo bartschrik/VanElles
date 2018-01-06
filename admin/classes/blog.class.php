@@ -5,12 +5,20 @@ class blog
 
     private $_db;
 
+    /**
+     * blog constructor.
+     * Maak een database connectie via de connection class
+     */
     public function __construct()
     {
         $this->_db = new Connection();
         $this->_db = $this->_db->databaseConnection();
     }
 
+    /**
+     * Selecteer alle blog post in de database
+     * Return is false of de content uit de database
+     */
     public function getAllblog()
     {
         try {
@@ -31,6 +39,12 @@ class blog
         }
     }
 
+    /**
+     * Verwijderen van een specifieke blog,
+     * Parameter is het blog id, deze wordt dus ook verwijderd.
+     * @param $blog_id
+     * @return bool
+     */
     public function deleteBlog($blog_id)
     {
         try {
@@ -50,6 +64,12 @@ class blog
         }
     }
 
+    /**
+     * Verwijderen van een specifieke inschrijving van een activiteit.
+     * Parameter is het inschrijving id, deze wordt dus ook verwijderd.
+     * @param $blog_id
+     * @return bool
+     */
     public function deleteIns($blog_id)
     {
         try {
@@ -69,6 +89,12 @@ class blog
         }
     }
 
+    /**
+     * Verwijderen van een specifieke inschrijving van een activiteit.
+     * Parameter is het inschrijving id, deze wordt dus ook verwijderd.
+     * @param $inschijving_id
+     * @return bool
+     */
     public function deleteInsch($inschijving_id)
     {
         try {
@@ -89,6 +115,13 @@ class blog
         }
     }
 
+    /**
+     * Opslaan van een blog post inclusief het verwerken van de afbeelding
+     * @param $data
+     * @param $img
+     * @param $userid
+     * @return bool
+     */
     public function saveBlog($data, $img, $userid)
     {
         try {
@@ -194,6 +227,13 @@ class blog
 
     }
 
+    /**
+     * Updaten van een blog post, inclusief het verwerken van de afbeelding
+     * @param $data
+     * @param $img
+     * @param $blog_id
+     * @return bool
+     */
     public function updateBlog($data, $img, $blog_id)
     {
         try {
@@ -382,6 +422,10 @@ class blog
         }
     }
 
+    /**
+     * Selecteren van een specifieke blog post,
+     * selecteren gebeurt via het blog id
+     */
     public function getBlogById($blog_id)
     {
         try {
@@ -403,6 +447,11 @@ class blog
         }
     }
 
+    /**
+     * Selecteer alle deelnemers van een specifieke blog post
+     * @param $blog_id
+     * @return bool | array
+     */
     public function getDeelnemers($blog_id)
     {
         try {

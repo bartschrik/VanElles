@@ -30,7 +30,6 @@
                             ['subtitel', $_POST['subtitel'], 'required'],
                             ['inhoud', $_POST['inhoud'], 'required'],
                             ['korteinhoud', $_POST['korteinhoud'], 'required'],
-                            ['maxdeeln', $_POST['maxdeeln'], 'required|min:1'],
                             ['afbeelding', $_FILES['afbeelding'], 'imgrequired|validphoto'],
                             ['seokernwoorden', $_POST['seokernwoorden'], 'required'],
                             ['seobeschrijving', $_POST['seobeschrijving'], 'required']
@@ -59,7 +58,7 @@
                                         <input type="text" name="subtitel" class="' . InputErrorClass('subtitel', $errors) . '" placeholder="Blog sub titel" value="' . InputValue('subtitel') . '" />  
                                         <textarea name="inhoud" placeholder="Inhoud">' . InputValue('inhoud') . '</textarea>
                                         <textarea name="korteinhoud" maxlength="250" style="height: 75px;" class="' . InputErrorClass('korteinhoud', $errors) . '" placeholder="Korte inhoud" >' . InputValue('korteinhoud') . '</textarea>
-                                        <input type="file" name="afbeelding" placeholder="Afbeelding" value="' . InputValue('afbeelding') . '" />
+                                        <input type="file" name="afbeelding" class="' . InputErrorClass('afbeelding', $errors) . '" placeholder="Afbeelding" value="' . InputValue('afbeelding') . '" />
                                         <script>
                                             CKEDITOR.replace( "inhoud" );
                                         </script> 
@@ -84,17 +83,29 @@
                                             echo "selected";
                                         }
                                     }echo'>Ja</option>
+                                        </select></td><td>
+                                        <select name="inschrijven" id="selectmodule">
+                                        <option value="0" ';
+                                    if(isset($_POST["inschrijven"])) {
+                                    $kies = ($_POST["inschrijven"]);
+                                    if ($kies == '0') {
+                                        echo "selected";
+                                    }
+                                        }echo'>Nee</option>
+                                    <option value="1" ';
+                                        if(isset($_POST["inschrijven"])) {
+                                        $kies = ($_POST["inschrijven"]);
+                                        if ($kies == '1') {
+                                        echo "selected";
+                                     }
+                                      }echo'>Ja</option>
                                         </select></td>
-                                        <td><select name="inschrijven" id="selectmodule">
-                                            <option value="0">Nee</option>
-                                            <option value="1">Ja</option>
-                                        </select></td>
-                                        <td><input id="nrsel" type="number" min="0" name="maxdeeln" value="0" value="' . InputValue('maxdeeln') . '" /><br>
+                                        <td><input id="nrsel" type="number" min="1" name="maxdeeln" value="' . InputValue('maxdeeln') . '" /><br>
                                         </td></tr></table>
-                                                <div class="form-group" id="blogdatuminput">
-                                                <span>Activiteit Datum</span>
-                                                <input name = "actidatum" id = "datetime"  value="' . InputValue('actidatum') . '">
-                                                </div >
+                                        <div class="form-group" id="blogdatuminput">
+                                        <span>Activiteit Datum</span>
+                                        <input name = "actidatum" id = "datetime"  value="' . InputValue('actidatum') . '">
+                                        </div >
                                         <h4>SEO-Informatie</h4>
                                         <input type="text" name="seokernwoorden" class="' . InputErrorClass('seokernwoorden', $errors) . '" placeholder="Kernwoorden, bijv: vanelles, woonwinkel ect." value="' . InputValue('seokernwoorden') . '" />
                                         <textarea name="seobeschrijving" class="' . InputErrorClass('seobeschrijving', $errors) . '" placeholder="Blog beschrijving" style="max-width: 100%; height: 200px;">' . InputValue('seobeschrijving') . '</textarea>
@@ -151,15 +162,14 @@
                                             echo "selected";
                                         }
                                     }echo'>Ja</option>
-                                        </select></td>
-                                        <td>
+                                        </select></td><td>
                                         <select name="inschrijven" id="selectmodule">
                                             <option value="0">Nee</option>
                                             <option value="1">Ja</option>
                                         </select>
                                         </td>
                                         <td>
-                                        <input id="nrsel" type="number" min="0" name="maxdeeln" value="0" value="' . InputValue('maxdeeln') . '" />
+                                        <input id="nrsel" type="number" min="1" name="maxdeeln" value="1" value="' . InputValue('maxdeeln') . '" />
                                         </td></tr></table>
                                                 <div class="form-group" id="blogdatuminput">
                                                 <span>Activiteit Datum</span>

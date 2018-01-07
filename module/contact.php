@@ -302,13 +302,8 @@ $recensieverstuurd=0;
                                         style="border-color: red"
                                         <?php
                                     }
-                                }
-                                        ?>
-                                >
-                                <?php
-                                    if($invullen==1 || $recaptcha==1 || $geenmail==1){
-                                        echo isset($_POST['berichtcontact']) ? $_POST['berichtcontact'] : '';
-                                    }
+                                } ?>
+                                ><?php if($invullen==1 || $recaptcha==1 || $geenmail==1){ echo isset($_POST['berichtcontact']) ? $_POST['berichtcontact'] : '';}
                                     ?></textarea>
                         </div>
 

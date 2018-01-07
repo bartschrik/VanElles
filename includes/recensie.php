@@ -81,23 +81,49 @@ if ($pageId) {
                 ?>
                 <div class="form-group">
                     <input class="form-control" type="text" name="naam" placeholder="Voornaam"
-                           value="<?php if($recensieinvullen==1 || $recensierecaptcha==1 || $recensiefout==1) {
-                               echo isset($_POST['naam']) ? $_POST['naam'] : '';
-                           }
-                           ?>" />
+                    <?php if($recensieinvullen==1 || $recensierecaptcha==1 || $recensiefout==1) { ?>
+                                        value="<?php
+                    echo isset($_POST['naam']) ? $_POST['naam'] : '';
+                    ?>"
+                    <?php
+                    if(empty($_POST['naam'])){
+                        ?>
+                        style="border-color: red"
+                        <?php
+                    }
+                    }
+                    ?> />
                 </div>
 
                 <div class="form-group">
                     <input class="form-control" type="email" name="emailadres" placeholder="naam@voorbeeld.com"
-                           value="<?php if($recensieinvullen==1 || $recensierecaptcha==1 || $recensiefout==1) {
-                               echo isset($_POST['emailadres']) ? $_POST['emailadres'] : '';
-                           }
-                           ?>" />
+                        <?php if($recensieinvullen==1 || $recensierecaptcha==1 || $recensiefout==1) { ?>
+                            value="<?php
+                            echo isset($_POST['emailcontact']) ? $_POST['emailcontact'] : '';
+                            ?>"
+                            <?php
+                            if(empty($_POST['naam'])){
+                                ?>
+                                style="border-color: red"
+                                <?php
+                            }
+                        }
+                        ?> />
+
                 </div>
 
                 <div class="form-group">
                     <textarea class="form-control" id="textarea" name="omschrijving"
-                              placeholder="Omschrijving(max 200 woorden)" maxlength="200"><?php
+                              placeholder="Omschrijving(max 200 woorden)" maxlength="200"
+                        <?php if($invullen==1 || $recaptcha==1 || $geenmail==1) {
+                            if (empty($_POST['emailcontact'])) {
+                                ?>
+                                style="border-color: red"
+                                <?php
+                            }
+                        }
+                        ?>
+                    ><?php
                         if($recensieinvullen==1 || $recensierecaptcha==1 || $recensiefout==1){
                             echo isset($_POST['omschrijving']) ? $_POST['omschrijving'] : '';
                         }

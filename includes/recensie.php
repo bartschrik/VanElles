@@ -99,10 +99,10 @@ if ($pageId) {
                     <input class="form-control" type="email" name="emailadres" placeholder="naam@voorbeeld.com"
                         <?php if($recensieinvullen==1 || $recensierecaptcha==1 || $recensiefout==1) { ?>
                             value="<?php
-                            echo isset($_POST['emailcontact']) ? $_POST['emailcontact'] : '';
+                            echo isset($_POST['emailadres']) ? $_POST['emailadres'] : '';
                             ?>"
                             <?php
-                            if(empty($_POST['naam'])){
+                            if(empty($_POST['emailadres'])){
                                 ?>
                                 style="border-color: red"
                                 <?php
@@ -116,7 +116,7 @@ if ($pageId) {
                     <textarea class="form-control" id="textarea" name="omschrijving"
                               placeholder="Omschrijving(max 200 woorden)" maxlength="200"
                         <?php if($invullen==1 || $recaptcha==1 || $geenmail==1) {
-                            if (empty($_POST['emailcontact'])) {
+                            if (empty($_POST['omschrijving'])) {
                                 ?>
                                 style="border-color: red"
                                 <?php

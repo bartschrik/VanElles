@@ -297,7 +297,7 @@ $recensieverstuurd=0;
                             <div class="col-md-12 col-sm-12 col-xs-12">
                                 <textarea class="form-control" id="textarea" placeholder="Bericht" name="berichtcontact"
                                 <?php if($invullen==1 || $recaptcha==1 || $geenmail==1) {
-                                    if (empty($_POST['emailcontact'])) {
+                                    if (empty($_POST['berichtcontact'])) {
                                         ?>
                                         style="border-color: red"
                                         <?php
